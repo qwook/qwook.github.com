@@ -1,4 +1,4 @@
-var MAXSAMPLES, Point, baseObject, calcAvgTick, canvas, delta, enemy, explosion, lasttime, missile, mouseX, mouseY, nextspawn, objectlist, origin, point, samples, spawnthink, think, tickindex, ticklist, ticksum, time, toremove,
+var MAXSAMPLES, Point, baseObject, calcAvgTick, canvas, delta, difficulty, enemy, explosion, lasttime, missile, missileFired, mouseX, mouseY, nextspawn, objectlist, origin, point, samples, spawnthink, think, tickindex, ticklist, ticksum, time, toremove,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -36,13 +36,15 @@ mouseY = 0;
 
 time = (new Date()).getTime();
 
-lasttime = 0;
+lasttime = time;
 
 delta = 0;
 
 objectlist = [];
 
 toremove = [];
+
+difficulty = 0;
 
 Point = (function() {
 
@@ -101,6 +103,16 @@ Math.rand = function(a, b) {
     b = a;
   }
   return b + Math.round(Math.random() * (c - b));
+};
+
+Math.randD = function(a, b) {
+  var c;
+  c = a;
+  if (b > a) {
+    c = b;
+    b = a;
+  }
+  return b + Math.random() * (c - b);
 };
 
 baseObject = (function() {
@@ -165,6 +177,12 @@ enemy = (function(_super) {
     return enemy.__super__.constructor.apply(this, arguments);
   }
 
+  enemy.speed = 0.05;
+
+  enemy.prototype.initialize = function() {
+    return this.speed = 0.05 + difficulty / 100;
+  };
+
   enemy.prototype.isEnemy = true;
 
   enemy.prototype.setOrigin = function(origin) {
@@ -178,9 +196,9 @@ enemy = (function(_super) {
 
   enemy.prototype.think = function() {
     var pos, z;
-    pos = this.getPos().add((this.target.sub(this.getPos())).norm().mul(delta * 0.05));
+    pos = this.getPos().add((this.target.sub(this.getPos())).norm().mul(delta * this.speed));
     this.setPos(pos);
-    if (delta * 0.15 > this.getPos().distance(this.target)) {
+    if (delta * this.speed > this.getPos().distance(this.target)) {
       z = new explosion;
       z.setPos(this.getPos());
       return this.remove();
@@ -203,6 +221,8 @@ enemy = (function(_super) {
 
 })(baseObject);
 
+missileFired = false;
+
 missile = (function(_super) {
 
   __extends(missile, _super);
@@ -211,17 +231,25 @@ missile = (function(_super) {
     return missile.__super__.constructor.apply(this, arguments);
   }
 
+  missile.speed = 0.15;
+
+  missile.prototype.initialize = function() {
+    return this.speed = 0.15 + difficulty / 75;
+  };
+
   missile.prototype.setTarget = function(target) {
     return this.target = target;
   };
 
   missile.prototype.think = function() {
     var pos, z;
-    pos = this.getPos().add((this.target.sub(this.getPos())).norm().mul(delta * 0.15));
+    pos = this.getPos().add((this.target.sub(this.getPos())).norm().mul(delta * this.speed));
     this.setPos(pos);
-    if (delta * 0.15 > this.getPos().distance(this.target)) {
+    if (delta * this.speed > this.getPos().distance(this.target)) {
       z = new explosion;
+      z.radius = 500;
       z.setPos(this.getPos());
+      missileFired = false;
       return this.remove();
     }
   };
@@ -238,6 +266,8 @@ explosion = (function(_super) {
     return explosion.__super__.constructor.apply(this, arguments);
   }
 
+  explosion.prototype.radius = 250;
+
   explosion.prototype.initialize = function() {};
 
   explosion.prototype.think = function() {
@@ -252,14 +282,14 @@ explosion = (function(_super) {
         }
       }
     }
-    if ((time - this.timestamp) > 250) {
+    if ((time - this.timestamp) > this.radius) {
       return this.remove();
     }
   };
 
   explosion.prototype.render = function() {
     var a;
-    a = Math.round(255 * (time - this.timestamp) / 250);
+    a = Math.round(255 * (time - this.timestamp) / this.radius);
     return canvas.drawArc({
       strokeStyle: "rgb(255 , " + a + ", " + a + ")",
       strokeWidth: 2,
@@ -278,6 +308,7 @@ think = function() {
   time = (new Date()).getTime();
   delta = time - lasttime;
   lasttime = time;
+  difficulty += delta / 10000;
   for (_i = 0, _len = objectlist.length; _i < _len; _i++) {
     object = objectlist[_i];
     object.think();
@@ -294,10 +325,19 @@ think = function() {
   canvas.drawText({
     fillStyle: "#9cf",
     strokeStyle: "#25a",
-    strokeWidth: 2,
-    x: 250,
+    strokeWidth: 0,
+    x: 300,
     y: 10,
-    font: "15px Arial, sans-serif",
+    font: "12px Arial, sans-serif",
+    text: difficulty
+  });
+  canvas.drawText({
+    fillStyle: "#9cf",
+    strokeStyle: "#25a",
+    strokeWidth: 0,
+    x: 200,
+    y: 10,
+    font: "12px Arial, sans-serif",
     text: calcAvgTick(delta * 2)
   }).drawRect({
     fillStyle: "#000",
@@ -314,9 +354,11 @@ think = function() {
 nextspawn = 0;
 
 spawnthink = function() {
-  var e;
+  var e, _ref;
   if (time > nextspawn) {
-    nextspawn = time + 1000;
+    nextspawn = time + 2000 - ((_ref = difficulty > 7.5) != null ? _ref : {
+      1500: difficulty * 200
+    });
     e = new enemy();
     e.setTarget(point(Math.rand(0, 400), 350));
     return e.setOrigin(point(Math.rand(0, 400), -10));
@@ -330,7 +372,10 @@ canvas.mousemove(function(e) {
   return mouseY = e.offsetY;
 }).click(function(e) {
   var z;
-  z = new missile();
-  z.setTarget(point(e.offsetX, e.offsetY));
-  return z.setPos(point(200, 350));
+  if (!missileFired) {
+    z = new missile();
+    z.setTarget(point(e.offsetX, e.offsetY));
+    z.setPos(point(200, 350));
+    return missileFired = true;
+  }
 });
