@@ -555,7 +555,8 @@
     };
     difficulty = 0;
     score = 0;
-    return lives = 3;
+    lives = 3;
+    return missileFired = false;
   };
 
   initialize();
