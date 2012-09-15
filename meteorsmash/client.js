@@ -1,4 +1,4 @@
-var MAXSAMPLES, Point, baseObject, calcAvgTick, canvas, delta, difficulty, enemy, explosion, lasttime, missile, missileFired, mouseX, mouseY, nextspawn, objectlist, origin, point, samples, spawnthink, think, tickindex, ticklist, ticksum, time, toremove,
+var MAXSAMPLES, Point, STAGE_LOBBY, STAGE_PLAYING, baseObject, button, calcAvgTick, canvas, delta, difficulty, enemy, explosion, initialize, lastScore, lasttime, lives, missile, missileFired, mouseDown, mouseX, mouseY, nextspawn, objectlist, origin, point, samples, score, spawnthink, stage, startButton, think, tickindex, ticklist, ticksum, time, toremove,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -34,6 +34,8 @@ mouseX = 0;
 
 mouseY = 0;
 
+mouseDown = false;
+
 time = (new Date()).getTime();
 
 lasttime = time;
@@ -45,6 +47,18 @@ objectlist = [];
 toremove = [];
 
 difficulty = 0;
+
+score = 0;
+
+lives = 3;
+
+lastScore = null;
+
+STAGE_LOBBY = 0;
+
+STAGE_PLAYING = 1;
+
+stage = STAGE_LOBBY;
 
 Point = (function() {
 
@@ -177,7 +191,7 @@ enemy = (function(_super) {
     return enemy.__super__.constructor.apply(this, arguments);
   }
 
-  enemy.speed = 0.05;
+  enemy.prototype.speed = 0.05;
 
   enemy.prototype.initialize = function() {
     return this.speed = 0.05 + difficulty / 100;
@@ -201,7 +215,12 @@ enemy = (function(_super) {
     if (delta * this.speed > this.getPos().distance(this.target)) {
       z = new explosion;
       z.setPos(this.getPos());
-      return this.remove();
+      this.remove();
+      lives--;
+      if (lives < 1) {
+        lastScore = score;
+        return initialize();
+      }
     }
   };
 
@@ -231,7 +250,7 @@ missile = (function(_super) {
     return missile.__super__.constructor.apply(this, arguments);
   }
 
-  missile.speed = 0.15;
+  missile.prototype.speed = 0.15;
 
   missile.prototype.initialize = function() {
     return this.speed = 0.15 + difficulty / 75;
@@ -279,6 +298,7 @@ explosion = (function(_super) {
           z = new explosion;
           z.setPos(e.getPos());
           e.remove();
+          score++;
         }
       }
     }
@@ -303,15 +323,101 @@ explosion = (function(_super) {
 
 })(baseObject);
 
+button = (function(_super) {
+
+  __extends(button, _super);
+
+  function button() {
+    return button.__super__.constructor.apply(this, arguments);
+  }
+
+  button.prototype.speed = 0.05;
+
+  button.prototype.hovered = false;
+
+  button.prototype.width = 100;
+
+  button.prototype.height = 100;
+
+  button.prototype.lastMouseDown = false;
+
+  button.prototype.clicking = false;
+
+  button.prototype.text = 'Nothing';
+
+  button.prototype.initialize = function() {};
+
+  button.prototype.setText = function(text) {
+    return this.text = text;
+  };
+
+  button.prototype.remove = function() {
+    return button.__super__.remove.apply(this, arguments);
+  };
+
+  button.prototype.think = function() {
+    this.hovered = !(mouseX < this.x || mouseY < this.y || mouseX > this.x + this.width || mouseY > this.y + this.height);
+    if (this.hovered) {
+      canvas.css('cursor', 'pointer');
+    } else {
+      canvas.css('cursor', 'auto');
+    }
+    if (this.hovered && mouseDown && !this.lastMouseDown) {
+      this.clicking = true;
+    }
+    if (!mouseDown) {
+      if (this.clicking && this.hovered) {
+        this.onclick();
+      }
+      this.clicking = false;
+    }
+    return this.lastMouseDown = mouseDown;
+  };
+
+  button.prototype.onclick = function() {
+    return canvas.css('cursor', 'auto');
+  };
+
+  button.prototype.render = function() {
+    var fill;
+    fill = "#555555";
+    if (this.hovered) {
+      fill = "#888888";
+      if (mouseDown) {
+        fill = "#333333";
+      }
+    }
+    return canvas.drawRect({
+      fillStyle: fill,
+      x: this.x,
+      y: this.y,
+      width: this.width,
+      height: this.height,
+      fromCenter: false
+    }).drawText({
+      fillStyle: "#FFF",
+      x: this.x + this.width / 2,
+      y: this.y + this.height / 2,
+      font: "14px sans-serif",
+      text: this.text,
+      fromCenter: true
+    });
+  };
+
+  return button;
+
+})(baseObject);
+
 think = function() {
-  var object, _i, _j, _k, _len, _len1, _len2;
+  var object, text, _i, _j, _k, _len, _len1, _len2;
   time = (new Date()).getTime();
   delta = time - lasttime;
   lasttime = time;
-  difficulty += delta / 10000;
   for (_i = 0, _len = objectlist.length; _i < _len; _i++) {
     object = objectlist[_i];
-    object.think();
+    if (object != null) {
+      object.think();
+    }
   }
   canvas.clearCanvas();
   for (_j = 0, _len1 = objectlist.length; _j < _len1; _j++) {
@@ -322,32 +428,76 @@ think = function() {
     object = toremove[_k];
     object._remove();
   }
-  canvas.drawText({
-    fillStyle: "#9cf",
-    strokeStyle: "#25a",
-    strokeWidth: 0,
-    x: 300,
-    y: 10,
-    font: "12px Arial, sans-serif",
-    text: difficulty
-  });
-  canvas.drawText({
-    fillStyle: "#9cf",
-    strokeStyle: "#25a",
-    strokeWidth: 0,
-    x: 200,
-    y: 10,
-    font: "12px Arial, sans-serif",
-    text: calcAvgTick(delta * 2)
-  }).drawRect({
-    fillStyle: "#000",
-    x: 0,
-    y: 350,
-    width: 400,
-    height: 50,
-    fromCenter: false
-  });
-  spawnthink();
+  if (stage === STAGE_PLAYING) {
+    canvas.drawText({
+      fillStyle: "#000",
+      x: 200,
+      y: 10,
+      font: "12px Arial, sans-serif",
+      text: "Lives: " + lives
+    }).drawText({
+      fillStyle: "#000",
+      x: 100,
+      y: 10,
+      font: "12px Arial, sans-serif",
+      text: "Score: " + score
+    }).drawRect({
+      fillStyle: "#000",
+      x: 0,
+      y: 350,
+      width: 400,
+      height: 50,
+      fromCenter: false
+    });
+    difficulty += delta / 10000;
+    spawnthink();
+  } else {
+    canvas.drawText({
+      fillStyle: "#000",
+      x: 200,
+      y: 10,
+      font: "16px Arial, sans-serif",
+      text: "Defend the Earth from asteroids!"
+    }).drawText({
+      fillStyle: "#000",
+      x: 200,
+      y: 26,
+      font: "12px Arial, sans-serif",
+      text: "Use the left mouse button and shoot down the asteroids"
+    }).drawText({
+      fillStyle: "#000",
+      x: 200,
+      y: 39,
+      font: "12px Arial, sans-serif",
+      text: "before they fall!"
+    });
+    if (lastScore !== null) {
+      text = "Uh, you scored " + lastScore + " points...";
+      if (lastScore > 5) {
+        text = "Cool, you scored " + lastScore + " points...";
+      }
+      if (lastScore > 10) {
+        text = "Whoa! You scored " + lastScore + " points!";
+      }
+      if (lastScore > 25) {
+        text = "Awesome! You scored " + lastScore + " points!";
+      }
+      if (lastScore > 50) {
+        text = "HOLY SHIT! You scored " + lastScore + " points!";
+      }
+      if (lastScore > 100) {
+        text = "you gotta be cheating now; " + lastScore + " points?";
+      }
+      canvas.drawText({
+        fillStyle: "#000",
+        weight: "bold",
+        x: 200,
+        y: 100,
+        font: "18px Arial, sans-serif",
+        text: text
+      });
+    }
+  }
   return toremove = [];
 };
 
@@ -372,10 +522,44 @@ canvas.mousemove(function(e) {
   return mouseY = e.offsetY;
 }).click(function(e) {
   var z;
-  if (!missileFired) {
-    z = new missile();
-    z.setTarget(point(e.offsetX, e.offsetY));
-    z.setPos(point(200, 350));
-    return missileFired = true;
+  if (stage === STAGE_PLAYING) {
+    if (!missileFired) {
+      z = new missile();
+      z.setTarget(point(e.offsetX, e.offsetY));
+      z.setPos(point(200, 350));
+      return missileFired = true;
+    }
   }
+}).mousedown(function(e) {
+  console.log(e.offsetX);
+  mouseX = e.offsetX;
+  mouseDown = true;
+  return think();
+}).mouseup(function(e) {
+  mouseY = e.offsetY;
+  mouseDown = false;
+  return think();
 });
+
+startButton = null;
+
+initialize = function() {
+  nextspawn = 0;
+  objectlist = [];
+  toremove = [];
+  stage = STAGE_LOBBY;
+  startButton = new button();
+  startButton.setText("Play");
+  startButton.setPos(point(150, 150));
+  startButton.onclick = function() {
+    stage = STAGE_PLAYING;
+    startButton.remove();
+    return canvas.css('cursor', 'auto');
+  };
+  difficulty = 0;
+  score = 0;
+  lives = 3;
+  return missileFired = false;
+};
+
+initialize();

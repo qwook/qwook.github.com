@@ -533,9 +533,14 @@
       }
     }
   }).mousedown(function(e) {
-    return mouseDown = true;
+    console.log(e.offsetX);
+    mouseX = e.offsetX;
+    mouseDown = true;
+    return think();
   }).mouseup(function(e) {
-    return mouseDown = false;
+    mouseY = e.offsetY;
+    mouseDown = false;
+    return think();
   });
 
   startButton = null;
