@@ -1,3 +1,251 @@
-Hi, nothing here yet I suppose :(
-
-<a href="./getfont/">My font-listing bookmark button is here.</a>
+<html><head><title>qwook</title><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><style type="text/css">@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(./nunito.woff) format('woff');
+}
+@-webkit-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-ms-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+body {
+  color: #464646;
+  background: white;
+  padding: 0px;
+  margin: 0px;
+}
+#logo {
+  position: relative;
+  display: block;
+  background: url(./qlogo.png);
+  background-size: cover;
+  width: 128px;
+  height: 142px;
+  text-indent: 130px;
+  font-size: 0px;
+  color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+#logo small {
+  position: absolute;
+  display: block;
+  color: black;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0px;
+  top: auto;
+  bottom: 0px;
+}
+.spin {
+  overflow: visible;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  z-index: -1;
+  display: inline-block;
+  height: 0px;
+  width: 0px;
+}
+.spin img {
+  height: 12px;
+  width: auto;
+  margin-top: -12px;
+  margin-left: 5px;
+  animation: spinner 0.5s infinite linear;
+  -ms-animation: spinner 0.5s infinite linear;
+  -moz-animation: spinner 0.5s infinite linear;
+  -webkit-animation: spinner 0.5s infinite linear;
+  -o-animation: spinner 0.5s infinite linear;
+}
+#side {
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 240px;
+  height: 100%;
+  padding: 0px;
+}
+#side #nav {
+  padding: 0px;
+  margin: 0px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 50px;
+  list-style-type: none;
+}
+#side #nav li {
+  display: block;
+}
+#side #nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-family: 'Nunito', sans-serif;
+  color: #464646;
+}
+#side #nav a:hover {
+  text-decoration: underline;
+  color: #fa0000;
+}
+#content {
+  transition: opacity, 0.25s;
+  -ms-transition: opacity, 0.25s;
+  -moz-transition: opacity, 0.25s;
+  -webkit-transition: opacity, 0.25s;
+  -o-transition: opacity, 0.25s;
+  font-family: 'Lucida', 'Lucida Sans Unicode', sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0px;
+  padding: 10px;
+  margin-left: 240px;
+  margin-right: 20px;
+  min-width: 340px;
+}
+#content b {
+  color: #2d2d2d;
+  font-family: 'Nunito', sans-serif;
+}
+#content h1 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 28px;
+  line-height: 30px;
+  color: #2d2d2d;
+}
+#content h1 b {
+  font-family: 'Nunito', sans-serif;
+  color: #fa0000;
+}
+#content a {
+  text-decoration: underline;
+  color: red;
+}
+#content .article {
+  display: block;
+  margin-bottom: 50px;
+  border-bottom: solid #e6e6e6 1;
+}
+#content .article:last-child {
+  border-bottom: 0;
+}
+@media (max-width: 480px) {
+  .spin img {
+    height: auto;
+    width: auto;
+    margin-top: -16px;
+  }
+  #side {
+    text-align: center;
+    overflow-y: hidden;
+    position: relative;
+    top: 0;
+    height: auto;
+    width: auto;
+    min-width: 0;
+    padding: 20px;
+    padding-bottom: 10px;
+  }
+  #side #nav {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 20px;
+  }
+  #side #nav li {
+    line-height: 30px;
+  }
+  #side #nav a {
+    font-size: 20px;
+  }
+  #logo {
+    margin: auto;
+  }
+  #content {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+</style></head><body><div id="side"><a href="./" class="link"><h1 id="logo">Qwook<small> </small></h1></a><ul id="nav"><li><a href="./" class="link">about</a></li><li><a href="./projects.html" class="link">projects</a></li><li><a href="./art.html" class="link">design/art </a></li><li><a href="./contact.html" class="link">contact</a></li></ul><script type="text/javascript" src="./index.js"></script></div><div id="content"><!--START-CONTENT--><div class="article"><h1>Hi, I'm Henry aka <b>Qwook</b></h1><p>I'm 18.</p><p>I'm a <b>Computer Engineer</b>,</br>and I do some web design on the side.</p><p>I'm the co-founder of <a href="http://visidyn.com/" target="_blank">Visidyn</a>.</p><p>I value function over form.</p><p>I like going to concerts, programming, doodling, and taking long walks to the fridge.</p><p>Here's my <a href="https://twitter.com/qw00k" target="_blank">twitter</a>.</p></div><div class="article"><h1>I want to build the present</h1><p>The future is now, the only time that matters is now.</p><p>My goal is to transform everything around me, from local businesses to global technologies.</p><p>I want to build things that people once thought could only exist in science fiction. My main goal is to bring <b>augmented reality</b> to a higher level.</p><p>I want to build my community and update outdated designs and practices. The people around me are who I value the most, so they shouldn't have to be stuck with cheap logos and cheap software that's over ten years old.</p></div><p>Copyright &copy; 2013 Henry Tran. All rights reserved.</p><!--END-CONTENT--></div></body></html>
