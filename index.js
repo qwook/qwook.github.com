@@ -1,9 +1,9 @@
 (function() {
-  var ele, fakejax, loading, spin, xmlhttp, _i, _len, _ref;
+  var ele, fakejax, xmlhttp, _i, _len, _ref;
 
-  loading = false;
+  window.loading = false;
 
-  spin = null;
+  window.spin = null;
 
   fakejax = /<!--START-CONTENT-->.*|\n*<!--END-CONTENT-->/g;
 
@@ -28,16 +28,16 @@
           document.getElementById("content").innerHTML = "<h1><b>404</b> page not found.</h1>";
         }
         document.getElementById("content").style.opacity = "1";
-        loading = false;
-        return spin.remove();
+        window.loading = false;
+        return window.spin.remove();
       }, 150);
     }
   };
 
   xmlhttp.ontimeout = function() {
     document.getElementById("content").innerHTML = "<p>Request timed out, I'm sorry :(</p>";
-    loading = false;
-    return spin.remove();
+    window.loading = false;
+    return window.spin.remove();
   };
 
   window.onpopstate = function(obj) {
@@ -54,14 +54,14 @@
     ele = _ref[_i];
     ele.onclick = function() {
       var img;
-      if (!loading) {
-        spin = document.createElement('div');
-        spin.setAttribute('class', 'spin');
+      if (!window.loading) {
+        window.spin = document.createElement('div');
+        window.spin.setAttribute('class', 'spin');
         img = document.createElement('img');
         img.setAttribute('src', './load.png');
-        spin.appendChild(img);
+        window.spin.appendChild(img);
         this.appendChild(spin);
-        loading = true;
+        window.loading = true;
         document.getElementById("content").style.opacity = "0.25";
         xmlhttp.open("GET", this.getAttribute("href"), true);
         xmlhttp.send();
