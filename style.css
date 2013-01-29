@@ -90,6 +90,14 @@ body {
   padding: 0px;
   margin: 0px;
 }
+canvas {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 #logo {
   position: relative;
   display: block;
@@ -117,7 +125,7 @@ body {
   bottom: 0px;
 }
 .spin {
-  position: relative;
+  display: inline-block;
   overflow: visible;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -126,17 +134,12 @@ body {
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
-  z-index: -1;
-  display: inline-block;
-  height: 0px;
   width: 0px;
 }
 .spin img {
-  position: absolute;
+  margin-left: 5px;
   height: 12px;
   width: auto;
-  margin-top: -12px;
-  margin-left: 5px;
   animation: spinner 0.5s infinite linear;
   -ms-animation: spinner 0.5s infinite linear;
   -moz-animation: spinner 0.5s infinite linear;
@@ -300,6 +303,11 @@ body {
   width: 100%;
   height: 100%;
 }
+.cpp {
+  overflow-x: scroll;
+  padding: 20px;
+  background: #1e231e;
+}
 @media (max-width: 480px) {
   .spin img {
     height: auto;
@@ -355,6 +363,9 @@ body {
     margin-top: 5px;
     margin-left: 0px;
     line-height: 13px;
+  }
+  .cpp {
+    font-size: 10px;
   }
 }
 @media (min-width: 1024px) {

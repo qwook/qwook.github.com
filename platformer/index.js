@@ -364,6 +364,138 @@ process.binding = function (name) {
 })();
 });
 
+require.define("/game.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
+  var CGame, CPlayer, STAGE_LOBBY, STAGE_PLAYING, baseObject, button, canvas, enemy, explosion, g, game, input, map, missile, point, text;
+
+  point = require("./point");
+
+  g = require("./globals");
+
+  input = require("./input");
+
+  canvas = $("#canvas");
+
+  require("./math");
+
+  STAGE_LOBBY = 0;
+
+  STAGE_PLAYING = 1;
+
+  CGame = (function() {
+
+    function CGame() {}
+
+    CGame.prototype.startButton = null;
+
+    CGame.prototype.stage = STAGE_LOBBY;
+
+    CGame.prototype.missileFired = false;
+
+    CGame.prototype.player = null;
+
+    CGame.prototype.click = function() {
+      var z;
+      if (this.stage === STAGE_PLAYING) {
+        if (!this.missileFired) {
+          z = new missile();
+          z.setTarget(point(input.mouseX, input.mouseY));
+          z.setPos(point(200, 350));
+          return this.missileFired = true;
+        }
+      }
+    };
+
+    CGame.prototype.think = function() {};
+
+    CGame.prototype.render = function(delta) {
+      var object, _i, _len, _ref;
+      canvas.clearCanvas();
+      _ref = g.objectlist;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        object = _ref[_i];
+        object.render(delta);
+      }
+      if (this.stage === STAGE_PLAYING) {
+        canvas.drawText({
+          fillStyle: "#000",
+          x: 200,
+          y: 10,
+          font: "12px Arial, sans-serif",
+          text: "Lives: " + g.lives
+        }).drawText({
+          fillStyle: "#000",
+          x: 100,
+          y: 10,
+          font: "12px Arial, sans-serif",
+          text: "Score: " + g.score
+        }).drawRect({
+          fillStyle: "#000",
+          x: 0,
+          y: 350,
+          width: 400,
+          height: 50,
+          fromCenter: false
+        });
+        g.difficulty += g.delta / 10000;
+        return this.spawnthink();
+      }
+    };
+
+    CGame.prototype.nextspawn = 0;
+
+    CGame.prototype.spawnthink = function() {
+      var e, _ref;
+      if (g.time > this.nextspawn) {
+        this.nextspawn = g.time + 2000 - ((_ref = g.difficulty > 7.5) != null ? _ref : {
+          1500: g.difficulty * 200
+        });
+        e = new enemy();
+        e.setTarget(point(Math.rand(0, 400), 350));
+        return e.setOrigin(point(Math.rand(0, 400), -10));
+      }
+    };
+
+    CGame.prototype.initialize = function() {
+      var nextspawn;
+      nextspawn = 0;
+      g.objectlist.length = 0;
+      g.toremove.length = 0;
+      g.difficulty = 0;
+      g.score = 0;
+      g.lives = 3;
+      this.missileFired = false;
+      this.stage = STAGE_LOBBY;
+      this.map = new map();
+      return this.player = new CPlayer();
+    };
+
+    return CGame;
+
+  })();
+
+  game = new CGame;
+
+  module.exports = game;
+
+  map = require("./objects/map");
+
+  baseObject = require("./objects/baseObject");
+
+  enemy = require("./objects/enemy");
+
+  explosion = require("./objects/explosion");
+
+  missile = require("./objects/missile");
+
+  CPlayer = require("./objects/player");
+
+  button = require("./objects/button");
+
+  text = require("./objects/text");
+
+}).call(this);
+});
+
 require.define("/point.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
   var Point, origin, point;
 
@@ -520,6 +652,223 @@ require.define("/input.coffee",function(require,module,exports,__dirname,__filen
   }, false);
 
   module.exports = input;
+
+}).call(this);
+});
+
+require.define("/math.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
+  var point;
+
+  point = require("./point");
+
+  Math.rand = function(a, b) {
+    var c;
+    c = a;
+    if (b > a) {
+      c = b;
+      b = a;
+    }
+    return b + Math.round(Math.random() * (c - b));
+  };
+
+  Math.randD = function(a, b) {
+    var c;
+    c = a;
+    if (b > a) {
+      c = b;
+      b = a;
+    }
+    return b + Math.random() * (c - b);
+  };
+
+  Math.rayToRayIntersection = function(p1, p2, p3, p4) {
+    var d, r, s;
+    if ((p2.y - p1.y) / (p2.x - p1.y) !== (p4.y - p3.y) / (p4.x - p3.x)) {
+      d = ((p2.x - p1.x) * (p4.y - p3.y)) - (p2.y - p1.y) * (p4.x - p3.x);
+      if (d !== 0) {
+        r = (((p1.y - p3.y) * (p4.x - p3.x)) - (p1.x - p3.x) * (p4.y - p3.y)) / d;
+        s = (((p1.y - p3.y) * (p2.x - p1.x)) - (p1.x - p3.x) * (p2.y - p1.y)) / d;
+        if (r >= 0 && r <= 1) {
+          if (s >= 0 && s <= 1) {
+            return point(p1.x + r * (p2.x - p1.x), p1.y + r * (p2.y - p1.y));
+          }
+        }
+      }
+    }
+  };
+
+  Math.lineToRayIntersection = function(p1, p2, p3, p4) {
+    var d, r, s;
+    if ((p2.y - p1.y) / (p2.x - p1.y) !== (p4.y - p3.y) / (p4.x - p3.x)) {
+      d = ((p2.x - p1.x) * (p4.y - p3.y)) - (p2.y - p1.y) * (p4.x - p3.x);
+      if (d !== 0) {
+        r = (((p1.y - p3.y) * (p4.x - p3.x)) - (p1.x - p3.x) * (p4.y - p3.y)) / d;
+        s = (((p1.y - p3.y) * (p2.x - p1.x)) - (p1.x - p3.x) * (p2.y - p1.y)) / d;
+        if (s >= 0 && s <= 1) {
+          return point(p1.x + r * (p2.x - p1.x), p1.y + r * (p2.y - p1.y));
+        }
+      }
+    }
+  };
+
+}).call(this);
+});
+
+require.define("/objects/map.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
+  var baseObject, canvas, g, game, input, loadedMap, map, point,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  input = require("../input");
+
+  baseObject = require("./baseObject");
+
+  g = require("../globals");
+
+  game = require("../game");
+
+  point = require("../point");
+
+  canvas = $("#canvas");
+
+  loadedMap = [[0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 1, 0], [0, 0, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1]];
+
+  map = (function(_super) {
+
+    __extends(map, _super);
+
+    function map() {
+      return map.__super__.constructor.apply(this, arguments);
+    }
+
+    map.prototype.className = "map";
+
+    map.prototype.initialize = function() {};
+
+    map.prototype.trace = function(pA, pB) {
+      var bA, bB, bottomLeft, bottomRight, count, deltaX, deltaY, downSide, endPoint, iPoint, initPoint, leftSide, mA, mB, maxX, maxY, ox, oy, rightSide, stepX, stepY, tempPoint, topLeft, topRight, upSide, vx, vy, x, x1, x2, y, y1, y2;
+      x1 = pA.x;
+      y1 = pA.y;
+      x2 = pB.x;
+      y2 = pB.y;
+      vx = x2 - x1;
+      vy = y2 - y1;
+      x = Math.floor(x1 / g.tileSize);
+      y = Math.floor(y1 / g.tileSize);
+      ox = Math.floor(x2 / g.tileSize);
+      oy = Math.floor(y2 / g.tileSize);
+      stepX = vx > 0 ? 1 : (vx === 0 ? 0 : -1);
+      stepY = vy > 0 ? 1 : (vy === 0 ? 0 : -1);
+      deltaX = 0;
+      deltaY = 0;
+      maxX = 1;
+      maxY = 1;
+      if (vx !== 0) {
+        maxX = ((x + (vx > 0 && 1 || 0)) * g.tileSize - x1) / vx;
+        deltaX = Math.abs(g.tileSize / vx);
+      }
+      if (vy !== 0) {
+        maxY = ((y + (vy > 0 && 1 || 0)) * g.tileSize - y1) / vy;
+        deltaY = Math.abs(g.tileSize / vy);
+      }
+      count = 0;
+      while ((x !== ox || y !== oy) && count < 50 || count === 0) {
+        if (count !== 0) {
+          if (maxX < maxY) {
+            maxX = maxX + deltaX;
+            x += stepX;
+          } else {
+            maxY = maxY + deltaY;
+            y += stepY;
+          }
+        }
+        if ((loadedMap[y] != null) && loadedMap[y][x] === 1) {
+          initPoint = point(x1, y1);
+          endPoint = point(x2, y2);
+          mA = vy / vx;
+          mB = vx / vy;
+          bA = y1 - (mA * x1);
+          bB = y2 - (mA * x2);
+          leftSide = x * g.tileSize;
+          rightSide = leftSide + g.tileSize;
+          upSide = y * g.tileSize;
+          downSide = upSide + g.tileSize;
+          topLeft = point(leftSide, upSide);
+          bottomLeft = point(leftSide, downSide);
+          topRight = point(rightSide, upSide);
+          bottomRight = point(rightSide, downSide);
+          if (x1 <= x2) {
+            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, topLeft, bottomLeft);
+            if (tempPoint != null) {
+              iPoint = tempPoint;
+            }
+          } else {
+            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, topRight, bottomRight);
+            if ((tempPoint != null) && (!(iPoint != null) || tempPoint.distance(initPoint) < iPoint.distance(initPoint))) {
+              iPoint = tempPoint;
+            }
+          }
+          if (y1 <= y2) {
+            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, topLeft, topRight);
+            if ((tempPoint != null) && (!(iPoint != null) || tempPoint.distance(initPoint) < iPoint.distance(initPoint))) {
+              iPoint = tempPoint;
+            }
+          } else {
+            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, bottomLeft, bottomRight);
+            if ((tempPoint != null) && (!(iPoint != null) || tempPoint.distance(initPoint) < iPoint.distance(initPoint))) {
+              iPoint = tempPoint;
+            }
+          }
+          if (iPoint != null) {
+            return iPoint;
+          }
+        }
+        count++;
+      }
+    };
+
+    map.prototype.render = function() {
+      var tile, v, x, y, _i, _j, _len, _len1;
+      for (y = _i = 0, _len = loadedMap.length; _i < _len; y = ++_i) {
+        v = loadedMap[y];
+        for (x = _j = 0, _len1 = v.length; _j < _len1; x = ++_j) {
+          tile = v[x];
+          if (tile === 1) {
+            canvas.drawRect({
+              fillStyle: "#000",
+              x: this.x + x * g.tileSize,
+              y: this.y + y * g.tileSize,
+              width: g.tileSize,
+              height: g.tileSize,
+              fromCenter: false
+            });
+          }
+        }
+      }
+      return canvas.drawArc({
+        fillStyle: "#FF0",
+        x: input.mouseX,
+        y: input.mouseY,
+        radius: 4
+      });
+      /*iPoint = @trace( point( game.player.x, game.player.y ), point( input.mouseX, input.mouseY ) )
+      
+      if iPoint?
+          console.log(iPoint.y)
+          canvas.drawArc
+              fillStyle: "#0F0"
+              x: iPoint.x
+              y: iPoint.y
+              radius: 4
+      */
+
+    };
+
+    return map;
+
+  })(baseObject);
+
+  module.exports = map;
 
 }).call(this);
 });
@@ -797,6 +1146,108 @@ require.define("/objects/missile.coffee",function(require,module,exports,__dirna
 }).call(this);
 });
 
+require.define("/objects/player.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
+  var KEY_A, KEY_D, KEY_S, KEY_W, baseObject, canvas, g, game, input, player, point,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  baseObject = require("./baseObject");
+
+  input = require("../input");
+
+  g = require("../globals");
+
+  game = require("../game");
+
+  point = require("../point");
+
+  canvas = $("#canvas");
+
+  KEY_W = 87;
+
+  KEY_S = 83;
+
+  KEY_A = 65;
+
+  KEY_D = 68;
+
+  player = (function(_super) {
+
+    __extends(player, _super);
+
+    function player() {
+      return player.__super__.constructor.apply(this, arguments);
+    }
+
+    player.prototype.className = "player";
+
+    player.prototype.tileSize = 10;
+
+    player.prototype.velY = 0;
+
+    player.prototype.initialize = function() {};
+
+    player.prototype.trace = function() {};
+
+    player.prototype.think = function() {};
+
+    player.prototype.render = function(delta) {
+      var goal, goalX, goalY, gravity, normal, res;
+      goalX = this.x;
+      goalY = this.y;
+      if (input.isKeyDown(KEY_W)) {
+        goalY -= delta / 10;
+        res = game.map.trace(point(this.x + 5, this.y + 10), point(this.x + 5, this.y + 13));
+        if (res != null) {
+          this.velY = 3;
+        }
+      }
+      if (input.isKeyDown(KEY_S)) {
+        goalY += delta / 10;
+      }
+      if (input.isKeyDown(KEY_A)) {
+        goalX -= delta / 10;
+      }
+      if (input.isKeyDown(KEY_D)) {
+        goalX += delta / 10;
+      }
+      gravity = 0;
+      this.velY -= delta / 80;
+      goal = this.y + gravity - this.velY / 20 * delta;
+      normal = point(0, goal - this.y).norm();
+      res = game.map.trace(point(this.x + 5, this.y + 5 + normal.y * 5), point(this.x + 5, goal + 5 + normal.y * 5));
+      if (res != null) {
+        this.y = res.y - normal.y * 0.01 - 5 - normal.y * 5;
+        this.velY = 0;
+      } else {
+        this.y = goal;
+      }
+      normal = point(goalX - this.x, 0).norm();
+      res = game.map.trace(point(this.x + 5 + normal.x * 5, this.y + 5), point(goalX + 5 + normal.x * 5, this.y + 5));
+      if (res != null) {
+        this.x = res.x - normal.x * 0.01 - 5 - normal.x * 5;
+      } else {
+        this.x = goalX;
+      }
+      return canvas.drawRect({
+        fillStyle: "#0F0",
+        x: Math.round(this.x),
+        y: Math.round(this.y),
+        width: this.tileSize,
+        height: this.tileSize,
+        fromCenter: false
+      });
+    };
+
+    return player;
+
+  })(baseObject);
+
+  module.exports = player;
+
+}).call(this);
+});
+
 require.define("/objects/button.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
   var baseObject, button, canvas, explosion, g, input, point,
     __hasProp = {}.hasOwnProperty,
@@ -944,457 +1395,6 @@ require.define("/objects/text.coffee",function(require,module,exports,__dirname,
   })(baseObject);
 
   module.exports = text;
-
-}).call(this);
-});
-
-require.define("/game.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
-  var CGame, CPlayer, STAGE_LOBBY, STAGE_PLAYING, baseObject, button, canvas, enemy, explosion, g, game, input, map, missile, point, text;
-
-  point = require("./point");
-
-  g = require("./globals");
-
-  input = require("./input");
-
-  canvas = $("#canvas");
-
-  require("./math");
-
-  STAGE_LOBBY = 0;
-
-  STAGE_PLAYING = 1;
-
-  CGame = (function() {
-
-    function CGame() {}
-
-    CGame.prototype.startButton = null;
-
-    CGame.prototype.stage = STAGE_LOBBY;
-
-    CGame.prototype.missileFired = false;
-
-    CGame.prototype.player = null;
-
-    CGame.prototype.click = function() {
-      var z;
-      if (this.stage === STAGE_PLAYING) {
-        if (!this.missileFired) {
-          z = new missile();
-          z.setTarget(point(input.mouseX, input.mouseY));
-          z.setPos(point(200, 350));
-          return this.missileFired = true;
-        }
-      }
-    };
-
-    CGame.prototype.think = function() {};
-
-    CGame.prototype.render = function(delta) {
-      var object, _i, _len, _ref;
-      canvas.clearCanvas();
-      _ref = g.objectlist;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        object = _ref[_i];
-        object.render(delta);
-      }
-      if (this.stage === STAGE_PLAYING) {
-        canvas.drawText({
-          fillStyle: "#000",
-          x: 200,
-          y: 10,
-          font: "12px Arial, sans-serif",
-          text: "Lives: " + g.lives
-        }).drawText({
-          fillStyle: "#000",
-          x: 100,
-          y: 10,
-          font: "12px Arial, sans-serif",
-          text: "Score: " + g.score
-        }).drawRect({
-          fillStyle: "#000",
-          x: 0,
-          y: 350,
-          width: 400,
-          height: 50,
-          fromCenter: false
-        });
-        g.difficulty += g.delta / 10000;
-        return this.spawnthink();
-      }
-    };
-
-    CGame.prototype.nextspawn = 0;
-
-    CGame.prototype.spawnthink = function() {
-      var e, _ref;
-      if (g.time > this.nextspawn) {
-        this.nextspawn = g.time + 2000 - ((_ref = g.difficulty > 7.5) != null ? _ref : {
-          1500: g.difficulty * 200
-        });
-        e = new enemy();
-        e.setTarget(point(Math.rand(0, 400), 350));
-        return e.setOrigin(point(Math.rand(0, 400), -10));
-      }
-    };
-
-    CGame.prototype.initialize = function() {
-      var nextspawn;
-      nextspawn = 0;
-      g.objectlist.length = 0;
-      g.toremove.length = 0;
-      g.difficulty = 0;
-      g.score = 0;
-      g.lives = 3;
-      this.missileFired = false;
-      this.stage = STAGE_LOBBY;
-      this.map = new map();
-      return this.player = new CPlayer();
-    };
-
-    return CGame;
-
-  })();
-
-  game = new CGame;
-
-  module.exports = game;
-
-  map = require("./objects/map");
-
-  baseObject = require("./objects/baseObject");
-
-  enemy = require("./objects/enemy");
-
-  explosion = require("./objects/explosion");
-
-  missile = require("./objects/missile");
-
-  CPlayer = require("./objects/player");
-
-  button = require("./objects/button");
-
-  text = require("./objects/text");
-
-}).call(this);
-});
-
-require.define("/math.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
-  var point;
-
-  point = require("./point");
-
-  Math.rand = function(a, b) {
-    var c;
-    c = a;
-    if (b > a) {
-      c = b;
-      b = a;
-    }
-    return b + Math.round(Math.random() * (c - b));
-  };
-
-  Math.randD = function(a, b) {
-    var c;
-    c = a;
-    if (b > a) {
-      c = b;
-      b = a;
-    }
-    return b + Math.random() * (c - b);
-  };
-
-  Math.rayToRayIntersection = function(p1, p2, p3, p4) {
-    var d, r, s;
-    if ((p2.y - p1.y) / (p2.x - p1.y) !== (p4.y - p3.y) / (p4.x - p3.x)) {
-      d = ((p2.x - p1.x) * (p4.y - p3.y)) - (p2.y - p1.y) * (p4.x - p3.x);
-      if (d !== 0) {
-        r = (((p1.y - p3.y) * (p4.x - p3.x)) - (p1.x - p3.x) * (p4.y - p3.y)) / d;
-        s = (((p1.y - p3.y) * (p2.x - p1.x)) - (p1.x - p3.x) * (p2.y - p1.y)) / d;
-        if (r >= 0 && r <= 1) {
-          if (s >= 0 && s <= 1) {
-            return point(p1.x + r * (p2.x - p1.x), p1.y + r * (p2.y - p1.y));
-          }
-        }
-      }
-    }
-  };
-
-  Math.lineToRayIntersection = function(p1, p2, p3, p4) {
-    var d, r, s;
-    if ((p2.y - p1.y) / (p2.x - p1.y) !== (p4.y - p3.y) / (p4.x - p3.x)) {
-      d = ((p2.x - p1.x) * (p4.y - p3.y)) - (p2.y - p1.y) * (p4.x - p3.x);
-      if (d !== 0) {
-        r = (((p1.y - p3.y) * (p4.x - p3.x)) - (p1.x - p3.x) * (p4.y - p3.y)) / d;
-        s = (((p1.y - p3.y) * (p2.x - p1.x)) - (p1.x - p3.x) * (p2.y - p1.y)) / d;
-        if (s >= 0 && s <= 1) {
-          return point(p1.x + r * (p2.x - p1.x), p1.y + r * (p2.y - p1.y));
-        }
-      }
-    }
-  };
-
-}).call(this);
-});
-
-require.define("/objects/player.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
-  var KEY_A, KEY_D, KEY_S, KEY_W, baseObject, canvas, g, game, input, player, point,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  baseObject = require("./baseObject");
-
-  input = require("../input");
-
-  g = require("../globals");
-
-  game = require("../game");
-
-  point = require("../point");
-
-  canvas = $("#canvas");
-
-  KEY_W = 87;
-
-  KEY_S = 83;
-
-  KEY_A = 65;
-
-  KEY_D = 68;
-
-  player = (function(_super) {
-
-    __extends(player, _super);
-
-    function player() {
-      return player.__super__.constructor.apply(this, arguments);
-    }
-
-    player.prototype.className = "player";
-
-    player.prototype.tileSize = 10;
-
-    player.prototype.velY = 0;
-
-    player.prototype.initialize = function() {};
-
-    player.prototype.trace = function() {};
-
-    player.prototype.think = function() {};
-
-    player.prototype.render = function(delta) {
-      var goal, goalX, goalY, gravity, normal, res;
-      goalX = this.x;
-      goalY = this.y;
-      if (input.isKeyDown(KEY_W)) {
-        goalY -= delta / 10;
-        res = game.map.trace(point(this.x + 5, this.y + 10), point(this.x + 5, this.y + 13));
-        if (res != null) {
-          this.velY = 3;
-        }
-      }
-      if (input.isKeyDown(KEY_S)) {
-        goalY += delta / 10;
-      }
-      if (input.isKeyDown(KEY_A)) {
-        goalX -= delta / 10;
-      }
-      if (input.isKeyDown(KEY_D)) {
-        goalX += delta / 10;
-      }
-      gravity = 0;
-      this.velY -= delta / 80;
-      goal = this.y + gravity - this.velY / 20 * delta;
-      normal = point(0, goal - this.y).norm();
-      res = game.map.trace(point(this.x + 5, this.y + 5 + normal.y * 5), point(this.x + 5, goal + 5 + normal.y * 5));
-      if (res != null) {
-        this.y = res.y - normal.y * 0.01 - 5 - normal.y * 5;
-        this.velY = 0;
-      } else {
-        this.y = goal;
-      }
-      normal = point(goalX - this.x, 0).norm();
-      res = game.map.trace(point(this.x + 5 + normal.x * 5, this.y + 5), point(goalX + 5 + normal.x * 5, this.y + 5));
-      if (res != null) {
-        this.x = res.x - normal.x * 0.01 - 5 - normal.x * 5;
-      } else {
-        this.x = goalX;
-      }
-      return canvas.drawRect({
-        fillStyle: "#0F0",
-        x: Math.round(this.x),
-        y: Math.round(this.y),
-        width: this.tileSize,
-        height: this.tileSize,
-        fromCenter: false
-      });
-    };
-
-    return player;
-
-  })(baseObject);
-
-  module.exports = player;
-
-}).call(this);
-});
-
-require.define("/objects/map.coffee",function(require,module,exports,__dirname,__filename,process){(function() {
-  var baseObject, canvas, g, game, input, loadedMap, map, point,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  input = require("../input");
-
-  baseObject = require("./baseObject");
-
-  g = require("../globals");
-
-  game = require("../game");
-
-  point = require("../point");
-
-  canvas = $("#canvas");
-
-  loadedMap = [[0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 1, 0], [0, 0, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1]];
-
-  map = (function(_super) {
-
-    __extends(map, _super);
-
-    function map() {
-      return map.__super__.constructor.apply(this, arguments);
-    }
-
-    map.prototype.className = "map";
-
-    map.prototype.initialize = function() {};
-
-    map.prototype.trace = function(pA, pB) {
-      var bA, bB, bottomLeft, bottomRight, count, deltaX, deltaY, downSide, endPoint, iPoint, initPoint, leftSide, mA, mB, maxX, maxY, ox, oy, rightSide, stepX, stepY, tempPoint, topLeft, topRight, upSide, vx, vy, x, x1, x2, y, y1, y2;
-      x1 = pA.x;
-      y1 = pA.y;
-      x2 = pB.x;
-      y2 = pB.y;
-      vx = x2 - x1;
-      vy = y2 - y1;
-      x = Math.floor(x1 / g.tileSize);
-      y = Math.floor(y1 / g.tileSize);
-      ox = Math.floor(x2 / g.tileSize);
-      oy = Math.floor(y2 / g.tileSize);
-      stepX = vx > 0 ? 1 : (vx === 0 ? 0 : -1);
-      stepY = vy > 0 ? 1 : (vy === 0 ? 0 : -1);
-      deltaX = 0;
-      deltaY = 0;
-      maxX = 1;
-      maxY = 1;
-      if (vx !== 0) {
-        maxX = ((x + (vx > 0 && 1 || 0)) * g.tileSize - x1) / vx;
-        deltaX = Math.abs(g.tileSize / vx);
-      }
-      if (vy !== 0) {
-        maxY = ((y + (vy > 0 && 1 || 0)) * g.tileSize - y1) / vy;
-        deltaY = Math.abs(g.tileSize / vy);
-      }
-      count = 0;
-      while ((x !== ox || y !== oy) && count < 50 || count === 0) {
-        if (count !== 0) {
-          if (maxX < maxY) {
-            maxX = maxX + deltaX;
-            x += stepX;
-          } else {
-            maxY = maxY + deltaY;
-            y += stepY;
-          }
-        }
-        if ((loadedMap[y] != null) && loadedMap[y][x] === 1) {
-          initPoint = point(x1, y1);
-          endPoint = point(x2, y2);
-          mA = vy / vx;
-          mB = vx / vy;
-          bA = y1 - (mA * x1);
-          bB = y2 - (mA * x2);
-          leftSide = x * g.tileSize;
-          rightSide = leftSide + g.tileSize;
-          upSide = y * g.tileSize;
-          downSide = upSide + g.tileSize;
-          topLeft = point(leftSide, upSide);
-          bottomLeft = point(leftSide, downSide);
-          topRight = point(rightSide, upSide);
-          bottomRight = point(rightSide, downSide);
-          if (x1 <= x2) {
-            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, topLeft, bottomLeft);
-            if (tempPoint != null) {
-              iPoint = tempPoint;
-            }
-          } else {
-            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, topRight, bottomRight);
-            if ((tempPoint != null) && (!(iPoint != null) || tempPoint.distance(initPoint) < iPoint.distance(initPoint))) {
-              iPoint = tempPoint;
-            }
-          }
-          if (y1 <= y2) {
-            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, topLeft, topRight);
-            if ((tempPoint != null) && (!(iPoint != null) || tempPoint.distance(initPoint) < iPoint.distance(initPoint))) {
-              iPoint = tempPoint;
-            }
-          } else {
-            tempPoint = Math.lineToRayIntersection(initPoint, endPoint, bottomLeft, bottomRight);
-            if ((tempPoint != null) && (!(iPoint != null) || tempPoint.distance(initPoint) < iPoint.distance(initPoint))) {
-              iPoint = tempPoint;
-            }
-          }
-          if (iPoint != null) {
-            return iPoint;
-          }
-        }
-        count++;
-      }
-    };
-
-    map.prototype.render = function() {
-      var tile, v, x, y, _i, _j, _len, _len1;
-      for (y = _i = 0, _len = loadedMap.length; _i < _len; y = ++_i) {
-        v = loadedMap[y];
-        for (x = _j = 0, _len1 = v.length; _j < _len1; x = ++_j) {
-          tile = v[x];
-          if (tile === 1) {
-            canvas.drawRect({
-              fillStyle: "#000",
-              x: this.x + x * g.tileSize,
-              y: this.y + y * g.tileSize,
-              width: g.tileSize,
-              height: g.tileSize,
-              fromCenter: false
-            });
-          }
-        }
-      }
-      return canvas.drawArc({
-        fillStyle: "#FF0",
-        x: input.mouseX,
-        y: input.mouseY,
-        radius: 4
-      });
-      /*iPoint = @trace( point( game.player.x, game.player.y ), point( input.mouseX, input.mouseY ) )
-      
-      if iPoint?
-          console.log(iPoint.y)
-          canvas.drawArc
-              fillStyle: "#0F0"
-              x: iPoint.x
-              y: iPoint.y
-              radius: 4
-      */
-
-    };
-
-    return map;
-
-  })(baseObject);
-
-  module.exports = map;
 
 }).call(this);
 });
