@@ -1,0 +1,76 @@
+---
+---
+
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Quicksand:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
+
+body {
+    font-family: "Open Sans";
+    font-size: 16pt;
+    width: 600px;
+    margin: auto;
+    padding: 1em;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 400;
+}
+
+blockquote {
+    color: rgb(50, 100, 200);
+    margin-left: 0.5em;
+    padding-left: 0.5em;
+    border-left: 0.25em solid rgb(50, 100, 200);
+    font-weight: 300;
+}
+
+a {
+    color: rgb(50, 100, 200);
+    &:active{ color: lighten(rgb(50, 100, 200), 40%); }
+    &:hover{ color: red; }
+}
+
+#header {
+    a {
+        text-decoration: none;
+    }
+    h1 {
+        color: rgb(50, 100, 200);
+        font-weight: 800;
+        font-size: 1.5em;
+        small {
+            color: #666;
+            font-weight: 300;
+            font-size: 0.75em;
+        }
+    }
+}
+
+#author, #related {
+    h3 {
+        font-weight: 700;
+        font-size: 1em;
+    }
+    p {
+        font-weight: 300;
+        font-size: 1em;
+    }
+}
+
+#post {
+    img {
+        border: 1px solid #ddd;
+        padding: 5px;
+        max-width: 600px - 5px*2;
+    }
+}
+
+hr {
+    border: 1px solid #ddd;
+}
