@@ -1,0 +1,133 @@
+<html>
+<style>
+body {
+    background: #222;
+    color: #ddd;
+    font-family: monospace;
+    padding: 30px;
+    font-size: 20px;
+}
+.error {
+    color: #ff0000;
+}
+.monolith {
+    background: black;
+    overflow: hidden;
+    text-align: center;
+    padding-top: 30%;
+    margin: 0;
+}
+</style>
+<body>
+<div id="now"><span id="caret">|</span></div>
+</body>
+<script type="text/javascript">
+
+    var now = document.getElementById("now")
+    var caret = document.getElementById("caret");
+    var monolith;
+
+    var paragraph = "daisy, daisy give me y"
+    var paragraph2 = "ERROR"
+    var paragraph3 = "i am sorry"
+    var paragraph4 = "compatible not found . . . </3"
+    var paragraph5 = "life is but an empty abyss full of sorrows and regrets we will all die eventually"
+
+    var tick;
+    var count = 0;
+    var charc = 0;
+    var interval = 200;
+    tick = function () {
+        count++;
+
+        if ( count > 1 && count <= paragraph.length + 1  ) {
+            var txt = document.createElement("span");
+            txt.innerText = paragraph.substr(charc, 1);
+            now.insertBefore(txt, caret);
+            charc++;
+        } else if ( count > paragraph.length + 2 && count < paragraph.length + 6 ) {
+            if ( caret.style.display == "none" ) {
+                caret.style.display = "inline";
+            } else {
+                caret.style.display = "none";
+            }
+        } else if ( count == paragraph.length + 14 ) {
+            var br = document.createElement("br");
+            now.insertBefore(br, caret);
+            var txt = document.createElement("span");
+            txt.className = "error"
+            txt.innerText = paragraph2;
+            now.insertBefore(txt, caret);
+            var br = document.createElement("br");
+            now.insertBefore(br, caret);
+            charc = 0;
+            interval = 100;
+        } else if ( count > paragraph.length + 20 && count <= paragraph.length + paragraph3.length +  21 ) {
+            caret.style.display = "inline";
+            var txt = document.createElement("span");
+            txt.innerText = paragraph3.substr(charc, 1);
+            now.insertBefore(txt, caret);
+            charc++;
+        } else if ( count == paragraph.length + paragraph3.length + 24 ) {
+            var br = document.createElement("br");
+            now.insertBefore(br, caret);
+            charc = 0;
+        } else if ( count > paragraph.length + paragraph3.length + 24 && count < paragraph.length + paragraph3.length + paragraph4.length + 25 ) {
+            caret.style.display = "inline";
+            var txt = document.createElement("span");
+            txt.innerText = paragraph4.substr(charc, 1);
+            now.insertBefore(txt, caret);
+            charc++;
+        } else if ( count > paragraph.length + paragraph3.length + paragraph4.length + 35 && count < paragraph.length + paragraph3.length + paragraph4.length + 1000 ) {
+            var multiplier = (count - (paragraph.length + paragraph3.length + paragraph4.length + 35)) / 10;
+
+            for (var i = 0; i < now.children.length; i++) {
+                var child = now.children[i];
+                child.style.fontSize = 20 + Math.sin( (i*3 + count)/20 )*multiplier + "px";
+            }
+
+            interval = 10;
+        } else if ( count > paragraph.length + paragraph3.length + paragraph4.length + 1000 && count < paragraph.length + paragraph3.length + paragraph4.length + 1150 ) {
+
+            for (var i = 0; i < now.children.length; i++) {
+                var child = now.children[i];
+                child.style.fontSize = 200 - Math.random()*100 + "px";
+            }
+
+        } else if ( count == paragraph.length + paragraph3.length + paragraph4.length + 1150 ) {
+            document.body.style.bgColor = "blue";
+            document.body.style.backgroundColor = "blue";
+            document.body.style.paddingLeft = "0px";
+            document.body.style.paddingTop = "0px";
+            document.body.style.paddingBottom = "0px";
+            document.body.style.paddingRight = "0px";
+            document.body.style.marginLeft = "0px";
+            document.body.style.marginTop = "0px";
+            document.body.style.marginBottom = "0px";
+            document.body.style.marginRight = "0px";
+            monolith = document.createElement("div");
+            monolith.className = "monolith";
+            monolith.width = "0px";
+            monolith.height = "0px";
+            monolith.style.width = "0px";
+            monolith.style.height = "0px";
+            monolith.display = "block";
+            monolith.style.marginLeft = "auto";
+            monolith.style.marginRight = "auto";
+            monolith.innerText = paragraph5;
+            document.body.appendChild(monolith);
+            now.remove();
+        } else if ( count > paragraph.length + paragraph3.length + paragraph4.length + 1300 ) {
+            var i = (count - (paragraph.length + paragraph3.length + paragraph4.length + 1300));
+            i = Math.floor(i);
+            monolith.width = i + "px";
+            monolith.height = i + "px";
+            monolith.style.width = i + "px";
+            monolith.style.height = i + "px";
+        }
+
+        setTimeout( tick, interval );
+    }
+    tick();
+</script>
+</html>
