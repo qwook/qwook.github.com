@@ -90,6 +90,20 @@
 		text-shadow: -1px 2px #29DEA8;
 	}
 
+	.left.art {
+		position: fixed;
+		right: 70%;
+	}
+
+	.right.art {
+		position: relative;
+		left: auto;
+		top: auto;
+		bottom: auto;
+		right: auto;
+		margin-left: 30%;
+	}
+
 	.nav {
 		display: block;
 		margin: 0;
@@ -118,6 +132,10 @@
 		-webkit-transition: background 0.1s;
 	}
 
+	.nav a.special {
+		background: #BE4BC3;
+	}
+
 	.nav a:hover {
 		background: #6AFDD7;
 	}
@@ -135,12 +153,21 @@
 		line-height: 0;
 	}
 
+	.media {
+		text-align: center;
+	}
+
+	.media img {
+		max-width: 100%;
+		margin: auto;
+	}
+
 	@media screen and (max-width: 480px) {
 		body {
 			background: #00FFB2;
 		}
 
-		.left {
+		.left, .left.art {
 			display: block;
 			position: relative;
 			left: auto;
@@ -154,7 +181,8 @@
 			margin-top: 0;
 		}
 
-		.right {
+		.right, .right.art {
+			margin: auto;
 			display: block;
 			position: relative;
 			left: auto;
