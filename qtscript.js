@@ -1,9 +1,9 @@
 
 var images = [
-	"./cute/IMG_0240.jpg",
-	"./cute/IMG_0460.jpg",
-	"./cute/IMG_0916.jpg",
-	"./cute/IMG_1045.jpg"
+	"./cute/IMG_0240.JPG",
+	"./cute/IMG_0460.JPG",
+	"./cute/IMG_0916.JPG",
+	"./cute/IMG_1045.JPG"
 ];
 
 function cute() {
