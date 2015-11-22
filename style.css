@@ -79,7 +79,7 @@
 		top: 0;
 		bottom: 0;
 		right: 0;
-		background: #00FFB2;
+		background: #0CF5AF;
 		float: right;
 		overflow: hidden;
 		box-sizing: border-box;
@@ -102,6 +102,7 @@
 		bottom: auto;
 		right: auto;
 		margin-left: 30%;
+		width: 70%;
 	}
 
 	.nav {
@@ -162,9 +163,22 @@
 		margin: auto;
 	}
 
+	.content p {
+		color: #29424C;
+		text-shadow: none;
+		font-size: 1rem;
+		font-weight: 300;
+	}
+
+	.right.art a {
+		color: white;
+		text-decoration: none;
+		border-bottom: 1px dashed;
+	}
+
 	@media screen and (max-width: 480px) {
 		body {
-			background: #00FFB2;
+			background: #0CF5AF;
 		}
 
 		.left, .left.art {
@@ -189,6 +203,8 @@
 			top: auto;
 			bottom: auto;
 			right: auto;
+			margin-left: auto;
+			width: auto;
 		}
 
 		.nav li {
