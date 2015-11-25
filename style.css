@@ -56,12 +56,13 @@
 
 	.left {
 		display: block;
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		right: 50%;
-		overflow-y: scroll;
+		/*position: absolute;*/
+		/*left: 0;*/
+		/*top: 0;*/
+		/*bottom: 0;*/
+		/*right: 50%;*/
+		/*overflow-y: scroll;*/
+		width: 50%;
 		box-sizing: border-box;
 		padding: 10px;
 
@@ -74,7 +75,7 @@
 
 	.right {
 		display: block;
-		position: absolute;
+		position: fixed;
 		left: 50%;
 		top: 0;
 		bottom: 0;
@@ -86,8 +87,8 @@
 		padding: 30px;
 		color: white;
 		font-family: 'Muli', sans-serif;
-
-		text-shadow: -1px 2px #29DEA8;
+		
+		text-shadow: -1px 2px #24D09D;
 	}
 
 	.left.art {
@@ -174,6 +175,10 @@
 		color: white;
 		text-decoration: none;
 		border-bottom: 1px dashed;
+	}
+
+	.media .description {
+		font-size: 1.5rem;
 	}
 
 	@media screen and (max-width: 480px) {
