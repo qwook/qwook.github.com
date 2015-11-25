@@ -194,6 +194,7 @@
 			bottom: auto;
 			right: auto;
 			background: url(./background.jpg);
+			width: 100%;
 		}
 
 		.logo {
