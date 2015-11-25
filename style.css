@@ -95,6 +95,7 @@
 	.left.art {
 		position: fixed;
 		right: 70%;
+		width: auto;
 	}
 
 	.right.art {
