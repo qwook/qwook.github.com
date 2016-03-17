@@ -15,35 +15,50 @@
 		</ul>
 	</div>
 	<div class="right art">
-		<h1>The Circle - Post-Mortem</h1>
+		<h1>The Circle App</h1>
 		<p>The Circle was an interactive theatrical production of the Dave Egger's book of the same name. The production took place at San Jose State University on November 18th–21st, 2015.</p>
 		<div class="content">
 			<div class="media"><img src="./image1.jpg"></div>
-			<p><a href="http://www.amazon.com/The-Circle-Dave-Eggers/dp/0345807294">The Circle</a> is a book about a girl named Mae joining a Facebook-esque company called <em>The Circle</em>. While working at The Circle, Mae discovers that the truth about The Circle's reach over the world seems about as close to a dystopian future. The book emphasizes on how social media and impending technological advances might have an adverse effect on our lives in the near future.</p>
-			<p>To enhance the message of the book, <em>The Circle at SJSU</em> made an effort to combine technology and theater by pushing useage of live-streaming, iBeacon technology, and smartphones. The production also made a big effort to turn the experience into a real-world Role Playing Game.</p>
-			<p>My friend <a href="http://wsimons.com/">Will Simons</a> and I worked on developing the iOS and Android app for The Circle, which proved to be a lot of work.</p>
-			<h2>From the Top</h2>
-			<p>In August 2015, Will and I were contacted by <a href="https://rubaiyat.wordpress.com">James Morgan</a>, advisor for the Game Dev Club at SJSU, about working on an <em>exciting interactive theatrical project</em> called <em>The Circle</em>. By Jame's reference, we were able to meet up with Josh, the director for The Circle, to talk about what the play was and how we would go about working on the play.</p>
-			<p>Josh told us that he wanted the play to have a companion smartphone app, and emphasized largely on the app's useage of iBeacons and how it would track the user's location to enhance the experience of the play. We thought the idea was amazing and agreed to develop the app.</p>
-			<p>To give us advice and knowledge, we were joined by <a href="http://dustinfreeman.org/">Dustin Freeman</a>. Dustin had previously worked on an art display project utilizing iBeacons.</p>
-			<p>We were also joined by other people from the Game Development club who would work on gamifying the experience. They determined how users would score points (or if they were to score points at all), how events would work and how users would interact with the actors.</p>
-			<div class="media"><img src="./screen2.png"><div class="description">Gamifying the App</div></div>
-			<p>Before this app, Will and I have had close to no experience with mobile app development. We've done web development before, which is only a little bit similar to app development. In fact, Will had never created anything that was going to be on as large of a scale as The Circle. In my prior experience, I've been able to deploy games on my iPhone but only through third party languages that have wrappers for iOS (Unity and LÖVE 2D). I've never actually created a full-blown app before.</p>
-			<h2>Choosing the Tech</h2>
-			<p>So, given that both of us were Web Developers, with almost no experience in iOS or Android development, we decided to choose a framework that we were already familiar with.</p>
-			<p>Initially, we built a </p>
-			<h2>Ideas, Ideas, Ideas!</h2>
-			<p>We had so many ideas for what the app could be and what we could do for the app!</p>
-			<p>We wanted a <em>dumb</em> event scripting language that the stage manager or director or anybody could edit in a drag and drop interface that allowed them to play around with the events that could occur.</p>
-			<h2>3 Midterms Later...</h2>
-			<p></p>
-			<h2>Then There Was Light</h2>
-			<h2>In the Shark Tank</h2>
-			<h2>Aftermath</h2>
-			<p>There were high hopes for this project, and a lot of things that we wanted to do had to be thrown out in order to ship the app on time.</p>
-			<p>The play itself had some faults and at times were confusing. People got lost and didn't know where to go.</p>
-			<p>Regardless of the faults, it was pretty much the first of it's kind, and it was pretty damn entertaining when it all came together. I thoroughly enjoyed developing for this project and I hope to be involved in my projects like this in the future.</p>
-			<p>I think the use of iBeacon technology will some day find it's place in theatre, and interactive entertainment like The Circle will be more prevalent. This is merely just the first step for the world of technologically-enhanced interactive theater, and it stumbled a little but it will learn how to walk eventually.</p>
+
+			<p><a href="http://wsimons.com/">Will Simons</a> and I worked on developing the iOS and Android app for the SJSU Production of <a href="http://www.amazon.com/The-Circle-Dave-Eggers/dp/0345807294">The Circle</a>.</p>
+			<p>The SJSU Production of The Circle allowed the audience to roam around a building and interact with actors of the play. The audience could choose their own adventure and to see different sides to the story.</p>
+
+			<p>Due to the scale of the play, actors would not be able to keep track of all the players and send messages or give points manually to them.</p>
+
+			<p>The purpose of The Circle App was to monitor the position of the user as they traversed through the building. Automatic push notifications were sent to users if they were in a certain room during an event, giving the user the illusion that they were being messaged and given points by the actors.</p>
+
+			<div class="media"><img src="./screen3.png"></div>
+
+			<p>As the user interacted with the actors and perform tasks, they scored points. A leaderboard was added so that users could see how well they are performing compared to other audience members. The leaderboard ranks started at high numbers to give the impression that the user was part of a large company.</p>
+
+			<div class="media"><img src="./screen2.png"></div>
+
+			<h2>Technology</h2>
+			<h3>Meteor</h3>
+			<p>We decided on using <a href="https://www.meteor.com/">Meteor</a> to develop our app. Meteor is a full-stack web development framework. This means it handles the database, the front-end, the back-end, and almost everything in between. Meteor is also built on top of Cordova, so it has the ability to be deployed onto mobile devices.</p>
+			<p>We chose Meteor because Will and I both were more acquainted in web development than in app development. Using Meteor, we were able to jump into development immediately.</p>
+
+			<div class="media"><img src="./meteor.png"></div>
+
+			<p>When the user first logs in, they download a pre-defined list of events that occur at different times.</p>
+			<p>Rather than keeping track of the user on a server, we programmed all the logic to happen <em>on the client.</em> Push notifications are all local and fired from within the app.</p>
+			<p>As the user traverses through the building, the app keeps track of the users location and fires off events when it thinks the user has triggered one.</p>
+			<div class="media"><img src="./screen5.png"></div>
+			<h3>iBeacons</h3>
+			<p>To keep track of user locations, we used iBeacons. iBeacons are tiny physical objects that emit a bluetooth signal that can be detected by most smartphones. Using a modified <a href="https://github.com/petermetz/cordova-plugin-ibeacon">iBeacon Cordova plugin</a>, we are able to detect the proximity between a person's smart phone and an iBeacon.</p>
+			<p>iBeacons were placed all over the building and on actors.</p>
+			<p>Based on which iBeacons the user is closest to, we can deduce which room the user is in. We are also able to deduce if the user is right next to an actor.</p>
+			<div class="media"><img src="./ibeacons.jpg"></div>
+
+			<h2>Problems...</h2>
+			<h3>iBeacon Gotchas</h3>
+			<p>iBeacons are fine when the app is open, as they give fairly decent range values in the form of a <em>float</em>. However, if the app is in the background, then the iBeacons can only give discrete values of proximity such as <em>Near, Far,</em> and <em>Unknown.</em> These discrete values are very finicky and because of that, users were accidentally sent messages that weren't meant for them. We figured that there wasn't much we can do but to just roll with it.</p>
+			<h3>"Am I going to have to pay for that bandwidth?"</h3>
+			<p>We initially designed the app so that all information, including positional data, were sent to the server in an interval. This proved to be an extremely substantial load when we did a test run with 50 concurrent users. The server would hit maximum capacity within the first minute.</p><p>By this time, the app was nearing completion and we had a week left to develop. We made the decision to move as much server logic to the client as possible, and to not send location data to the server. This transition was made easier by the fact that Meteor shares a common API on the server and the client. We were able to finish the app on time.</p>
+			<p>Due to eventual technological malfunctions, actors were told to blame a fictional character named "Trevor" whenever there was a bug. Will and I later registered our names as Trevor when we attended the official runs of the play.</p>
+			<div class="media"><img src="./image6.jpeg"></div>
+			<h1>Conclusion</h1>
+			<p>This was definitely one of the biggest projects Will and I have ever taken on. I am glad I was able to play around with a lot of cool technologies, as well as meet a lot of cool people in theater. If I could, I would totally do this again. Even with all the problems, I had a great learning experience.</p><p>The most satisfying part of this experience was hearing an audience say, "How did it know where I was?"</p>
 		</div>
 	</div>
 

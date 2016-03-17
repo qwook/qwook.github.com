@@ -5,7 +5,7 @@
 		margin: 0;
 		padding: 0;
 		min-width: 100%;
-		min-height: 100%;
+		height: 100%;
 	}
 
 	body {
@@ -55,15 +55,21 @@
 		font-family: 'Fredoka One', sans-serif;
 	}
 
+	h3 {
+		font-family: 'Muli';
+		font-size: 1.1em;
+		color: #444;
+	}
+
 	.left {
-		display: block;
+		display: inline-block;
 		/*position: absolute;*/
 		/*left: 0;*/
 		/*top: 0;*/
 		/*bottom: 0;*/
 		/*right: 50%;*/
 		/*overflow-y: scroll;*/
-		width: 50%;
+		width: 49.9%;
 		box-sizing: border-box;
 		padding: 10px;
 
@@ -75,21 +81,30 @@
 	}
 
 	.right {
-		display: block;
-		position: fixed;
-		left: 50%;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		background: #0CF5AF;
+		display: inline-block;
+		/*position: fixed;*/
+		/*left: 50%;*/
+		/*top: 0;*/
+		/*bottom: 0;*/
+		/*right: 0;*/
+		width: 49.9%;
+		background: white;
 		float: right;
 		overflow: hidden;
 		box-sizing: border-box;
 		padding: 30px;
-		color: white;
+		color: black;
 		font-family: 'Muli', sans-serif;
+		min-height: 100%;
 		
-		text-shadow: -1px 2px #24D09D;
+		/*text-shadow: -1px 2px #3D7974;*/
+	}
+
+	.right a {
+		text-decoration: none;
+		color: black;
+		font-weight: 800;
+		border-bottom: 1px dotted;
 	}
 
 	.left.art {
@@ -106,6 +121,7 @@
 		right: auto;
 		margin-left: 30%;
 		width: 70%;
+		max-width: 640px;
 	}
 
 	.nav {
@@ -140,6 +156,10 @@
 		background: #BE4BC3;
 	}
 
+	.nav a.special2 {
+		background: red;
+	}
+
 	.nav a:hover {
 		background: #6AFDD7;
 	}
@@ -166,6 +186,10 @@
 		margin: auto;
 	}
 
+	.avatar img {
+		max-width: 100px;
+	}
+
 	.content p {
 		color: #29424C;
 		text-shadow: none;
@@ -174,20 +198,16 @@
 	}
 
 	.right.art a {
-		color: white;
-		text-decoration: none;
-		border-bottom: 1px dashed;
+		/*color: black;*/
+		/*text-decoration: none;*/
+		/*border-bottom: 1px dashed;*/
 	}
 
 	.media .description {
 		font-size: 1.5rem;
 	}
 
-	@media screen and (max-width: 480px) {
-		body {
-			background: #0CF5AF;
-		}
-
+	@media screen and (max-width: 600px) {
 		.left, .left.art {
 			display: block;
 			position: relative;
