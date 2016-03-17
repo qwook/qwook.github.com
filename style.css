@@ -160,6 +160,10 @@
 		background: red;
 	}
 
+	.nav a.special3 {
+		background: #334486;
+	}
+
 	.nav a:hover {
 		background: #6AFDD7;
 	}
@@ -184,6 +188,12 @@
 	.media img {
 		max-width: 100%;
 		margin: auto;
+	}
+
+	.media .caption {
+		font-size: 0.8em;
+		font-weight: 600;
+		padding: 1em;
 	}
 
 	.avatar img {
