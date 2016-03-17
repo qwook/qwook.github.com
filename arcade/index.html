@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Qwook - Arcade Machine</title>
+	<title>Qwook - Arcade Cabinet</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="../style.css">
@@ -23,22 +23,27 @@
 
 			<p>The <a href="http://sjsugamedev.com/">Game Dev Club at San Jose State University</a> created a couple arcade cabinets. The arcade cabinets are pretty much wooden shells that contain computers and monitors inside them (like most arcade cabinets). Joysticks are connected to the computer through USB. The computer then launches the video games.</p><p>The coolest thing about this arcade cabinet is that all the games on it are <em>student-made</em>.</p>
 
-			<div class="media"><img src="./dscf7194.jpg"><div class="caption">Arcade Machine at Rockage 4.0 (<a href="https://rubaiyat.wordpress.com">Rubaiyat Shatner</a>)</div></div>
+			<div class="media"><img src="./dscf7194.jpg"><div class="caption">Arcade Cabinet at Rockage 4.0 (<a href="https://rubaiyat.wordpress.com">Rubaiyat Shatner</a>)</div></div>
 			<p>Even a <a href="http://globalgamejam.org/2014/games/bako-ikimashou-lets-go-box">game worked on by yours truly</a> is on the arcade cabinets.</p>
 			<h2>The Launcher</h2>
 			<p>The launcher is what glues all the video games on the arcade cabinet together. It is the screen you see when you scroll through the games. It is the what you use to start a game up.</p>
-			<h3>Monitoring Games</h3>
-			<p>The launcher monitors if a game executable has successfuly launched or if it has just closed. When it detects that a game has launched then it minimizes itself to allow the game to properly render. When the game has closed, the launcher opens back up.</p>
-			<p>Games that aren't designed for the arcade cabinets or are using legacy controls have Joy2Key bindings that remap the joystick keys. The launcher will activate those Joy2Key bindings based on what game has just launched.</p>
-			<p>The launcher has two methods of monitoring processes.</p>
-			<p>The first method of monitoring involves <em>polling</em>. It makes a request to the operating system for a list of all running executables, and matches it with the game executable name. It is slow but is the most stable way of monitoring a game.</p>
-			<p>The second method doesn't actually monitor the game at all. It launches the game as a subprocess. This is the fastest way of detecting when the process has started and when it has ended since it gets a message direct from the operating system. However, it doesn't work for certain games. Games using Game Maker create a helper executable that unzips its assets and launches a new process which has the actual game in it. The monitor can only monitor the helper executable, which only opens for a second.</p>
 
 			<h3>Collecting Data</h3>
 			<p>The launcher collects play-count and play-time data and outputs it into a JSON file. You are then able to visualize the data on a pi chart.</p>
 			<p><a href="http://ruby-yacht.github.io/rockagesj2015/index.html">Check out the data</a> that Rubaiyat Shatner collected at Rockage 4.0!</p>
 
 			<div class="media"><img src="./screenshot.png"><div class="caption">Collected Arcade Cabinet Data (<a href="https://rubaiyat.wordpress.com">Rubaiyat Shatner</a>)</div></div>
+
+			<h3>Switching Genres</h3>
+			<p>There are many different arcade cabinets that have been built with different themes. To reflect those themes, the games are grouped into matching genres. The launcher allows the operator of the arcade cabinets to select and define the genres they want for a specific cabinet.</p>
+
+			<h3>Monitoring Games</h3>
+			<p>The launcher monitors if a game executable has successfuly launched or if it has just closed. When it detects that a game has launched then it minimizes itself to allow the game to properly render. When the game has closed, the launcher opens back up.</p>
+			<p>Games that aren't designed for the arcade cabinets or are using legacy controls have <a href="http://joytokey.net/en/">Joy2Key</a> bindings that remap the joystick keys. The launcher will activate those Joy2Key bindings based on what game has just launched.</p>
+			<p>The launcher has two methods of monitoring processes.</p>
+			<p>The <strong>first method</strong> of monitoring involves <em>polling</em>. It makes a request to the operating system for a list of all running executables, and matches it with the game executable name. It is slow but is the most stable way of monitoring a game.</p>
+			<p>The <strong>second method</strong> doesn't actually monitor the game at all. It launches the game as a subprocess. This is the fastest way of detecting when the process has started and when it has ended since it gets a message direct from the operating system.</p>
+			<p>However, the second method doesn't work for certain games. Games using Game Maker create a helper executable that unzips its assets and launches a new process which has the actual game in it. The monitor can only monitor the helper executable, which only opens for a second.</p>
 
 			<h3>The Technology</h3>
 			<p>The CSS and animations are done using <a href="http://lesscss.org/">LESS</a></p>
@@ -47,9 +52,9 @@
 
 			<h2>A couple more pictures of the cabinet.</h2>
 
-			<div class="media"><img src="./afklounge.jpg"><div class="caption">Arcade Machine at AFK Lounge (<a href="https://rubaiyat.wordpress.com">Rubaiyat Shatner</a>)</div></div>
+			<div class="media"><img src="./afklounge.jpg"><div class="caption">Arcade Cabinet at AFK Lounge (<a href="https://rubaiyat.wordpress.com">Rubaiyat Shatner</a>)</div></div>
 
-			<div class="media"><img src="./dscf7742.jpg"><div class="caption">Arcade Machine at Silicon Valley Pride (<a href="https://rubaiyat.wordpress.com">Rubaiyat Shatner</a>)</div></div>
+			<div class="media"><img src="./dscf7742.jpg"><div class="caption">Arcade Cabinet at Silicon Valley Pride (<a href="https://rubaiyat.wordpress.com">Rubaiyat Shatner</a>)</div></div>
 
 		</div>
 	</div>
