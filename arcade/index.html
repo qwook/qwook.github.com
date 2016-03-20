@@ -53,7 +53,7 @@
 			<h3>Monitoring Games</h3>
 			<p>The launcher monitors if a game executable has successfuly launched or if it has just closed. When it detects that a game has launched then it minimizes itself to allow the game to properly render. When the game has closed, the launcher opens back up.</p>
 			<p>The launcher has two methods of monitoring processes.</p>
-			<p>The <strong>first method</strong> of monitoring involves <em>polling</em>. It makes a request to the operating system for a list of all running executables, and matches it with the game executable name. It is slow but is the most stable way of monitoring a game.</p>
+			<p>The <strong>first method</strong> of monitoring involves <em>polling</em>. It makes a request to the operating system for a list of all running executables, and matches it with the game executable name. It does this check every second. It is slow but is the most stable way of monitoring a game.</p>
 			
 			<p>The <strong>second method</strong> doesn't actually monitor the game at all. It launches the game as a subprocess. This is the fastest way of detecting when the process has started and when it has ended since it gets a message direct from the operating system.</p>
 			<p>However, the second method doesn't work for certain games. Games using Game Maker create a helper executable that unzips its assets and launches a new process which has the actual game in it. The second method can only monitor the helper executable, which closes right after the actual game starts. This same problem creates a minor inconvenience for the first method, as the operator needs to specify that they want to monitor the actual game executable and not the helper executable.</p>
