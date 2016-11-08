@@ -164,6 +164,53 @@
 		background: #334486;
 	}
 
+	@-webkit-keyframes rainbow {
+		0%   { background: #ff48c4; }
+		20%   { background: #2bd1fc; }
+		40%   { background: #f3ea5f; }
+		60%   { background: #c04df9; }
+		80%   { background: #ff3f3f; }
+		100% { background: #ff48c4; }
+	}
+	@-moz-keyframes rainbow {
+		0%   { background: #ff48c4; }
+		20%   { background: #2bd1fc; }
+		40%   { background: #f3ea5f; }
+		60%   { background: #c04df9; }
+		80%   { background: #ff3f3f; }
+		100% { background: #ff48c4; }
+	}
+	@-o-keyframes rainbow {
+		0%   { background: #ff48c4; }
+		20%   { background: #2bd1fc; }
+		40%   { background: #f3ea5f; }
+		60%   { background: #c04df9; }
+		80%   { background: #ff3f3f; }
+		100% { opacity: #ff48c4; }
+	}
+	@keyframes rainbow {
+		0%   { background: #ff48c4; }
+		20%   { background: #2bd1fc; }
+		40%   { background: #f3ea5f; }
+		60%   { background: #c04df9; }
+		80%   { background: #ff3f3f; }
+		100% { background: #ff48c4; }
+	}
+
+	.nav a.special4 {
+		-webkit-animation: rainbow 5s infinite; /* Safari 4+ */
+		-moz-animation:    rainbow 5s infinite; /* Fx 5+ */
+		-o-animation:      rainbow 5s infinite; /* Opera 12+ */
+		animation:         rainbow 5s infinite; /* IE 10+, Fx 29+ */
+	}
+
+	.nav a.special4:hover {
+		-webkit-animation: none; /* Safari 4+ */
+		-moz-animation:    none; /* Fx 5+ */
+		-o-animation:      none; /* Opera 12+ */
+		animation:         none; /* IE 10+, Fx 29+ */
+	}
+
 	.nav a.based {
 		z-index: 1;
 		position: relative;
