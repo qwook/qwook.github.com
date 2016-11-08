@@ -51,7 +51,7 @@
 
 	var context;
 	// var cdn = "http://ec2-54-71-44-200.us-west-2.compute.amazonaws.com/";
-	var cdn = "/";
+	var cdn = "./";
 
 	var soundCache = {};
 
