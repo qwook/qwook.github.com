@@ -211,9 +211,13 @@ var Keyboard = function (_React$Component4) {
         }
       });
       this.hammer.on('swipedown', function (e) {
-        _this8.props.onUndo();
+        var old = _this8.props.onUndo();
         setTimeout(function () {
-          _this8.setState({ text: "" });
+          if (old && old.type == "text") {
+            _this8.setState({ text: old.content });
+          } else {
+            _this8.setState({ text: "" });
+          }
         }, 10);
       });
     }
@@ -420,9 +424,11 @@ var ChatLog = function (_React$Component5) {
   }, {
     key: 'removeMessage',
     value: function removeMessage() {
+      var old = this.state.log[this.state.log.length - 1];
       this.setState({
         log: this.state.log.slice(0, this.state.log.length - 1)
       });
+      return old;
     }
   }, {
     key: 'render',
@@ -488,7 +494,7 @@ var App = function (_React$Component6) {
   }, {
     key: 'removeLog',
     value: function removeLog() {
-      this.refs.chatLog.removeMessage();
+      return this.refs.chatLog.removeMessage();
     }
   }, {
     key: 'closeKeyboard',
