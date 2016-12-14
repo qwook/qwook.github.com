@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YOU'D FIT PERFECTLY TO ME</title>
+<link href="https://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+<div id="bg"></div>
+<div id="bg2"></div>
+<div id="warning">WARNING: <p>This website may cause seizures..</p> <p>Continue at your own risk.</p> <a id="continue" href="#">Continue</a></div>
+<div id="lyrics" style="display: none;">
+  <p>You'd fit perfectly to me,</p>
+  <p>We'd end our loneliness,</p>
+  <p>Melt this curse away</p>
+  <p>Though I'll never know your name</p>
+  <p>I'll cry for you the same</p>
+</div>
+<script type="text/javascript">
+  var bg = document.getElementById("bg");
+  var bg2 = document.getElementById("bg2");
+  bg.style.backgroundImage = "url(./images/1.gif)";
+  bg2.style.backgroundImage = "url(./images/2.gif)";
+
+  document.getElementById("continue").addEventListener("click", function() {
+    document.getElementById("warning").style.display = "none";
+    document.getElementById("lyrics").style.display = "block";
+    seizure();
+  });
+
+  function seizure() {
+    function rand(n) {
+      return Math.floor(Math.random()*(n+1))
+    }
+
+    var i = 0;
+    var flicker = true;
+    setInterval(function() {
+      if (flicker) {
+        bg.style.display = "block";
+        bg2.style.display = "none";
+        bg2.style.backgroundImage = "url(./images/" + (i+1) + ".gif)";
+        // bg2.style.webkitFilter = "saturate(8), hue-rotate(100deg)";
+        bg2.style.webkitFilter = "sepia(" + (rand(10)+10) + ") saturate("+ rand(40) +") hue-rotate(" + rand(360) + "deg)";
+      } else {
+        bg2.style.display = "block";
+        bg.style.display = "none";
+        bg.style.backgroundImage = "url(./images/" + (i+1) + ".gif)";
+        // bg.style.webkitFilter = "saturate(8), hue-rotate(100deg)";
+        bg.style.webkitFilter = "sepia(" + (rand(10)+10) + "%) saturate("+ rand(40) +") hue-rotate(" + rand(360) + "deg)";
+      }
+      flicker = !flicker;
+      i = (i+1) % 18;
+    }, 1000);
+
+    // setInterval(function() {
+    //     bg2.style.webkitFilter = "sepia(" + (rand(10)+10) + ") saturate("+ rand(40) +") hue-rotate(" + rand(360) + "deg)";
+    //     bg.style.webkitFilter = "sepia(" + (rand(10)+10) + "%) saturate("+ rand(40) +") hue-rotate(" + rand(360) + "deg)";
+    // }, 500);
+  }
+</script>
+</body>
+</html>
