@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    #words {
+      min-width: 800px;
+    }
+
+    .card {
+      font-size: 20px;
+      font-family: "arial";
+      font-weight: bold;
+      padding: 2%;
+      background: rgb(234, 200, 115);
+      color: black;
+      display: inline-block;
+      width: 14%;
+      margin: 1%;
+      border-radius: 6px;
+
+      user-select: none;
+      cursor: pointer;
+    }
+
+    @keyframes pop {
+      from {transform: scale(1.5);}
+      to {transform: scale(1);}
+    }
+
+    .show {
+      animation-name: pop;
+      animation-duration: 0.5s;
+    }
+
+    .card.red.show {
+      color: white;
+      background: #af0000;
+    }
+
+    .card.blue.show {
+      color: white;
+      background: #0e3298;
+    }
+
+    .card.neutral.show {
+      background: #ddd;
+    }
+
+    .card.death.show {
+      color: white;
+      background: black;
+    }
+
+    #gameid {
+      display: block;
+      max-width: 500px;
+      width: 100%;
+      padding: 5px;
+      font-size: 24px;
+    }
+
+    #enter {
+      color: white;
+      background: black;
+      font-family: arial;
+      margin: 10px 0px;
+      padding: 10px;
+      width: 200px;
+      display: inline-block;
+    }
+
+    #enter2 {
+      border: 1px solid black;
+      background: white;
+      font-family: arial;
+      margin: 10px 0px;
+      padding: 10px;
+      width: 200px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/seedrandom.min.js">
+</script>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+<script src="./dictionary.js"></script>
+
+<div id="words"></div>
+<div id="start">
+  <input id="gameid" placeholder="Type in Game ID"></input>
+  <div id="enter">&gt; Enter as Code Master</div>
+  <div id="enter2">&gt; Enter as Normie</div>
+</div>
+
+
+<script type="text/javascript">
+  console.log(dictionary);
+  var words = [];
+  var seed = 0;
+
+  Math.seedrandom('hello.');
+
+  function random() {
+    return Math.random();
+  }
+
+  function generate() {
+    // generate words
+    for (var i = 0; i < 25; i++) {
+      var newWord = dictionary[Math.floor( random() * dictionary.length )];
+      while (words.indexOf(newWord) > 0) {
+        newWord = dictionary[Math.floor( random() * dictionary.length )];
+      }
+      words.push(newWord);
+    }
+
+    // generate codemaster board
+    var leader = Math.floor(random() * 2);
+    var bucket;
+    if (leader == 0) {
+      // blue
+      bucket = [1,1,1,1,1,1,1,1,1,-1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0];
+    } else if (leader == 1) {
+      // red
+      bucket = [1,1,1,1,1,1,1,1,-1,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0];
+    }
+
+    var codemasterBoard = [];
+    for (var i = 0; i < 25; i++) {
+      codemasterBoard.push( bucket.splice( Math.floor(Math.random() * bucket.length), 1 )[0] );
+    }
+
+    var j = 0;
+    var classMap = {
+      '-1': "death",
+      '0': "neutral",
+      '1': "blue",
+      '2': "red"
+    }
+    for (var word of words) {
+      var ele = $(`<div class='card ${classMap[codemasterBoard[j].toString()]}'>${word}</div>`);
+
+      ele.click((e) => {
+        $(e.target).addClass("show");
+      })
+
+      $("#words").append(ele);
+      j++;
+    }
+  }
+
+  $("#enter").click(() => {
+    var val = $("#gameid").val()
+    Math.seedrandom(val);
+
+    $("#start").remove();
+    generate();
+    $(".card").addClass("show");
+  });
+
+  $("#enter2").click(() => {
+    var val = $("#gameid").val()
+    Math.seedrandom(val);
+
+    $("#start").remove();
+    generate();
+  });
+
+</script>
+</body>
+</html>
