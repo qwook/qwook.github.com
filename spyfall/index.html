@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    
+    body {
+      font-family: arial;
+    }
+
+    .reveal, .next {
+      text-align: center;
+      width: 250px;
+      color: white;
+      background: black;
+      font-size: 24pt;
+      padding: 10px;
+    }
+
+    .role {
+      padding: 10px;
+      width: 250px;
+      font-size: 24pt;
+      text-align: center;
+    }
+
+    #map {
+      width: 100%;
+    }
+
+    .location {
+      display: inline-block;
+      padding: 60px 10px;
+      width: 20%;
+      font-size: 24pt;
+    }
+
+    .location .upside {
+      transform: rotate(180deg);
+      text-align: right;
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="begin">
+</div>
+
+<div id="chooser">
+<div class="role">
+</div>
+<div class="reveal">Reveal</div>
+<div class="next">Next</div>
+</div>
+<div id="map">
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/seedrandom.min.js">
+</script>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var locations = [
+    "Library",
+    "Church",
+    "Airplane",
+    "Bank",
+    "Submarine",
+    "Pirate Ship",
+    "Corporate Party",
+    "Movie Studio",
+    "Day Spa",
+    "University",
+    "Embassy",
+    "Space Station",
+    "Casino",
+    "Passenger Train",
+    "Restaurant",
+    "Theater",
+    "Cruise Ship",
+    "Police Station",
+    "Circus Tent",
+    "Research Lab",
+    "Zoo",
+    "Museum",
+    "Pier",
+    "Cafeteria",
+    "Park",
+    "Classroom",
+    "Concert",
+    "Rave",
+    "Smoke Shop",
+    "Walmart",
+    "Mall",
+    "Coachella",
+    "Ray's Place",
+    "Forest",
+    "Desert",
+    "Mountain",
+    "Beach",
+    "Ocean",
+    "Farm",
+    "Disneyland",
+    "Amusement Park"
+  ]
+
+  function random() {
+    Math.random();
+  }
+
+  var members = 6;
+  var round = 0;
+
+  var reveal;
+  var i;
+
+  var locationsUsed = [];
+
+  for (var j = 0; j < 12; j++) {
+    var loc = locations[Math.floor(Math.random() * locations.length)];
+    while (locationsUsed.indexOf(loc) > -1) {
+      loc = locations[Math.floor(Math.random() * locations.length)];
+    }
+    locationsUsed.push(loc);
+
+    $("#map").append($(`<div class='location'>${loc} <div class='upside'>${loc}</div></div>`))
+  }
+
+  function generate() {
+    var spy = Math.floor( Math.random() * members );
+    if (Math.random()*100 < 50) {
+      spy = 0;
+    }
+    var loc = locationsUsed[Math.floor( Math.random() * locationsUsed.length )];
+    reveal = false;
+    i = 0;
+
+    $("#chooser")
+      .css({"display": "block"})
+
+    $(".role")
+      .css({"display": "none"})
+      .text("")
+
+    $(".reveal")
+      .css({"display": "block"})
+      .click(() => {
+
+        $(".role")
+          .css({"display": "block"})
+          .text(i == spy ? "SPY" : loc)
+
+        $(".next")
+          .css({"display": "block"})
+
+        $(".reveal")
+          .css({"display": "none"})
+
+      });
+
+    $(".next")
+      .css({"display": "none"})
+      .click(() => {
+
+        i++;
+
+        if (i < members) {
+
+          $(".role")
+            .css({"display": "none"})
+            .text("")
+
+          $(".next")
+            .css({"display": "none"})
+
+          $(".reveal")
+            .css({"display": "block"})
+
+        } else {
+
+          $("#chooser")
+            .css({"display": "none"})
+
+        }
+
+      });
+
+  }
+
+  generate();
+</script>
+</body>
+</html>

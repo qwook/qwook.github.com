@@ -29,6 +29,7 @@
     }
 
     .show {
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
       animation-name: pop;
       animation-duration: 0.5s;
     }
@@ -79,6 +80,57 @@
       width: 200px;
       display: inline-block;
     }
+
+    #first {
+      display: none;
+      font-size: 24pt;
+      font-family: arial;
+      margin: 1%;
+      padding-top: 20px;
+    }
+
+    #lives-blue {
+      display: inline-block;
+      width: 20%;
+    }
+
+    #lives-red {
+      display: inline-block;
+      float: right;
+      width: 20%;
+      text-align: right;
+    }
+
+    #lives {
+      display: none;
+      width: 100%;
+      min-width: 800px;
+    }
+
+    .blue, .red {
+      font-weight: bold;
+    }
+
+    .blue.label {
+      color: #0e3298;
+    }
+
+    .red.label {
+      color: #af0000;
+    }
+
+    .blue.life, .red.life {
+      display: inline-block;
+      border-radius: 6px;
+      width: 20%;
+      height: 20px;
+      background: #0e3298;
+      margin: 3%;
+    }
+
+    .red.life {
+      background: #af0000;
+    }
   </style>
 </head>
 <body>
@@ -91,10 +143,17 @@
 <script src="./dictionary.js"></script>
 <h2>http://qwook.io/codenames</h1>
 <div id="words"></div>
+<div id="first"></div>
 <div id="start">
   <input id="gameid" placeholder="Type in Game ID"></input>
   <div id="enter">&gt; Enter as Code Master</div>
   <div id="enter2">&gt; Enter as Normie</div>
+</div>
+<div id="lives">
+  <div id="lives-blue">
+  </div>
+  <div id="lives-red">
+  </div>
 </div>
 
 
@@ -113,7 +172,7 @@
     // generate words
     for (var i = 0; i < 25; i++) {
       var newWord = dictionary[Math.floor( random() * dictionary.length )];
-      while (words.indexOf(newWord) > 0) {
+      while (words.indexOf(newWord) > -1) {
         newWord = dictionary[Math.floor( random() * dictionary.length )];
       }
       words.push(newWord);
@@ -135,6 +194,8 @@
       codemasterBoard.push( bucket.splice( Math.floor(Math.random() * bucket.length), 1 )[0] );
     }
 
+    $("#first").css({"display": "none"}).html(leader == 0 ? "<span class='blue label'>Blue</span> goes first" : "<span class='red label'>Red</span> goes first");
+
     var j = 0;
     var classMap = {
       '-1': "death",
@@ -145,8 +206,19 @@
     for (var word of words) {
       var ele = $(`<div class='card ${classMap[codemasterBoard[j].toString()]}'>${word}</div>`);
 
+      if (codemasterBoard[j] == 1) {
+        $("#lives-blue").append($("<div class='blue life'></div>"));
+      } else if (codemasterBoard[j] == 2) {
+        $("#lives-red").append($("<div class='red life'></div>"));
+      }
+
       ele.click((e) => {
         $(e.target).addClass("show");
+        if ($(e.target).hasClass("blue")) {
+          $(".blue.life").first().remove();
+        } else if ($(e.target).hasClass("red")) {
+          $(".red.life").first().remove();
+        }
       })
 
       $("#words").append(ele);
@@ -161,6 +233,8 @@
     $("#start").remove();
     generate();
     $(".card").addClass("show");
+
+    $("#first").css({"display": "inline-block"});
   });
 
   $("#enter2").click(() => {
@@ -169,6 +243,8 @@
 
     $("#start").remove();
     generate();
+
+    $("#lives").css({"display": "inline-block"});
   });
 
 </script>
