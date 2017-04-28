@@ -6,15 +6,19 @@
     
     body {
       font-family: arial;
+      padding: 0;
+      margin: 0;
     }
 
-    .reveal, .next {
+    .reveal, .next, #start {
       text-align: center;
       width: 250px;
       color: white;
       background: black;
       font-size: 24pt;
       padding: 10px;
+      user-select: none;
+      cursor: pointer;
     }
 
     .role {
@@ -25,14 +29,30 @@
     }
 
     #map {
+      display: none;
       width: 100%;
     }
 
     .location {
+      position: relative;
       display: inline-block;
-      padding: 60px 10px;
-      width: 20%;
+      vertical-align: top;
+      /*padding: 60px 10px;*/
+      width: 33.3%;
       font-size: 24pt;
+      background-position: center;
+      background-size: cover;
+      margin: 0;
+    }
+
+
+    .location .title {
+      color: white;
+      position: absolute;
+      bottom: 5%;
+      left: 5%;
+      background: rgba(0,0,0,0.9);
+      padding: 2%;
     }
 
     .location .upside {
@@ -41,14 +61,32 @@
       display: none;
     }
 
+    #chooser {
+      display: none;
+    }
+
+    #begin, #chooser {
+      padding: 20px;
+    }
+
+    #members {
+      width: 246px;
+      font-size: 20pt;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+
   </style>
 </head>
 <body>
 
 <div id="begin">
+  <input id="members" type="text" placeholder="How many players?"></input>
+  <div id="start">Start</div>
 </div>
 
 <div id="chooser">
+<p>Press reveal to get a location, then press "Next" before you pass it on.</p>
 <div class="role">
 </div>
 <div class="reveal">Reveal</div>
@@ -56,9 +94,9 @@
 </div>
 <div id="map">
 </div>
-
+<!-- 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/seedrandom.min.js">
-</script>
+</script> -->
 <script
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -91,7 +129,6 @@
     "Cafeteria",
     "Park",
     "Classroom",
-    "Concert",
     "Rave",
     "Smoke Shop",
     "Walmart",
@@ -102,9 +139,7 @@
     "Desert",
     "Mountain",
     "Beach",
-    "Ocean",
     "Farm",
-    "Disneyland",
     "Amusement Park"
   ]
 
@@ -112,7 +147,7 @@
     Math.random();
   }
 
-  var members = 6;
+  var members = 1;
   var round = 0;
 
   var reveal;
@@ -127,23 +162,19 @@
     }
     locationsUsed.push(loc);
 
-    $("#map").append($(`<div class='location'>${loc} <div class='upside'>${loc}</div></div>`))
+    var locationEle = $(`<div class='location'><div class='title'>${loc}</div></div>`);
+    locationEle.css({'backgroundImage': `url(./images/${loc.toLowerCase().replace("'", "").replace(" ", "_")}.jpg)`});
+    $("#map").append(locationEle);
   }
 
   function generate() {
     var spy = Math.floor( Math.random() * members );
-    if (Math.random()*100 < 50) {
-      spy = 0;
-    }
+
     var loc = locationsUsed[Math.floor( Math.random() * locationsUsed.length )];
     reveal = false;
     i = 0;
 
-    $("#chooser")
-      .css({"display": "block"})
-
     $(".role")
-      .css({"display": "none"})
       .text("")
 
     $(".reveal")
@@ -151,7 +182,7 @@
       .click(() => {
 
         $(".role")
-          .css({"display": "block"})
+          .css({"display": "block", "color": "black"})
           .text(i == spy ? "SPY" : loc)
 
         $(".next")
@@ -171,7 +202,6 @@
         if (i < members) {
 
           $(".role")
-            .css({"display": "none"})
             .text("")
 
           $(".next")
@@ -184,6 +214,8 @@
 
           $("#chooser")
             .css({"display": "none"})
+          $("#map")
+            .css({"display": "inline-block"})
 
         }
 
@@ -191,7 +223,26 @@
 
   }
 
-  generate();
+  $(window).resize(() => {
+    $(".location").css({"height": Math.floor(window.innerHeight/4) + "px"});
+  })
+
+  $("#start")
+    .click(() => {
+
+      $("#chooser")
+        .css({"display": "block"});
+
+      $("#begin")
+        .css({"display": "none"});
+
+      members = parseInt($("#members").val());
+
+      generate();
+
+    });
+
+  $(".location").css({"height": Math.floor(window.innerHeight/4) + "px"});
 </script>
 </body>
 </html>
