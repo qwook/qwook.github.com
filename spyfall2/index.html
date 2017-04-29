@@ -200,7 +200,16 @@
           $(".role")
             .css({"display": "block", "color": "red"})
             .text(`You need to put in a number.`)
-          return;          
+          return;
+        }
+
+        playerid -= 1;
+
+        if (playerid < 0 || playerid >= members) {
+          $(".role")
+            .css({"display": "block", "color": "red"})
+            .text(`You need to put in a number between 1 and ${members}.`)
+          return;
         }
 
         $(".role")
