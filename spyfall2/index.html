@@ -10,7 +10,7 @@
       margin: 0;
     }
 
-    .reveal, .next, #start {
+    .reveal, .next, .start, #start {
       text-align: center;
       width: 250px;
       color: white;
@@ -19,6 +19,7 @@
       padding: 10px;
       user-select: none;
       cursor: pointer;
+      margin: 10px 0px;
     }
 
     .role {
@@ -69,7 +70,7 @@
       padding: 20px;
     }
 
-    #members {
+    #members, #gameid, #playerid {
       width: 246px;
       font-size: 20pt;
       margin-bottom: 10px;
@@ -81,22 +82,26 @@
 <body>
 
 <div id="begin">
+  <p>Make sure the Game ID is different every time!</p>
+  <input id="gameid" type="text" placeholder="Game ID"></input>
   <input id="members" type="text" placeholder="How many players?"></input>
   <div id="start">Start</div>
 </div>
 
 <div id="chooser">
-<p>Press reveal to get a location, then press "Next" before you pass it on.</p>
+<p class="playernum">Type in your player ID # and press reveal</p>
+<input id="playerid" type="text" placeholder="Player ID"></input>
 <div class="role">
 </div>
 <div class="reveal">Reveal</div>
 <div class="next">Next</div>
+<div class="start">Start Game</div>
 </div>
 <div id="map">
 </div>
-<!-- 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/seedrandom.min.js">
-</script> -->
+</script>
 <script
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -155,19 +160,24 @@
 
   var locationsUsed = [];
 
-  for (var j = 0; j < 12; j++) {
-    var loc = locations[Math.floor(Math.random() * locations.length)];
-    while (locationsUsed.indexOf(loc) > -1) {
-      loc = locations[Math.floor(Math.random() * locations.length)];
-    }
-    locationsUsed.push(loc);
-
-    var locationEle = $(`<div class='location'><div class='title'>${loc}</div></div>`);
-    locationEle.css({'backgroundImage': `url(./images/${loc.toLowerCase().replace("'", "").replace(" ", "_")}.jpg)`});
-    $("#map").append(locationEle);
-  }
-
   function generate() {
+
+    var idsUsed = [];
+
+    Math.seedrandom($("#gameid").val());
+
+    for (var j = 0; j < 12; j++) {
+      var loc = locations[Math.floor(Math.random() * locations.length)];
+      while (locationsUsed.indexOf(loc) > -1) {
+        loc = locations[Math.floor(Math.random() * locations.length)];
+      }
+      locationsUsed.push(loc);
+
+      var locationEle = $(`<div class='location'><div class='title'>${loc}</div></div>`);
+      locationEle.css({'backgroundImage': `url(./images/${loc.toLowerCase().replace("'", "").replace(" ", "_")}.jpg)`});
+      $("#map").append(locationEle);
+    }
+
     var spy = Math.floor( Math.random() * members );
 
     var loc = locationsUsed[Math.floor( Math.random() * locationsUsed.length )];
@@ -177,13 +187,28 @@
     $(".role")
       .text("")
 
+    $(".playernum")
+      .text(`Type in your player ID # (1 - ${members}) and press reveal. Click "next" after you figure out your role and hand it to the next person.`);
+
     $(".reveal")
       .css({"display": "block"})
       .click(() => {
 
+        var playerid = parseInt($("#playerid").val());
+
+        if (Number.isNaN(playerid)) {
+          $(".role")
+            .css({"display": "block", "color": "red"})
+            .text(`You need to put in a number.`)
+          return;          
+        }
+
         $(".role")
           .css({"display": "block", "color": "black"})
-          .text(i == spy ? "SPY" : loc)
+          .text(playerid == spy ? "SPY" : loc)
+
+        $("#playerid")
+          .css({"display": "none"});
 
         $(".next")
           .css({"display": "block"})
@@ -197,9 +222,12 @@
       .css({"display": "none"})
       .click(() => {
 
-        i++;
+        // i++;
 
-        if (i < members) {
+        // if (i < members) {
+
+          $("#playerid")
+            .css({"display": "inline-block"});
 
           $(".role")
             .text("")
@@ -210,16 +238,23 @@
           $(".reveal")
             .css({"display": "block"})
 
-        } else {
+        // } else {
+
+        // }
+
+      });
+
+      $(".start")
+        .click(() => {
 
           $("#chooser")
             .css({"display": "none"})
           $("#map")
             .css({"display": "inline-block"})
 
-        }
+        })
 
-      });
+      $(".location").css({"height": Math.floor(window.innerHeight/4) + "px"});
 
   }
 
@@ -242,7 +277,6 @@
 
     });
 
-  $(".location").css({"height": Math.floor(window.innerHeight/4) + "px"});
 </script>
 </body>
 </html>
