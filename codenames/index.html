@@ -3,24 +3,44 @@
 <head>
   <title></title>
   <style type="text/css">
+    body {
+      font-family: sans-serif;
+    }
+
     #words {
-      min-width: 800px;
+      /*min-width: 800px;*/
     }
 
     .card {
-      font-size: 20px;
+      font-size: 30px;
       font-family: "arial";
       font-weight: bold;
-      padding: 2%;
+      padding: 1%;
+      text-align: center;
       background: rgb(234, 200, 115);
       color: black;
       display: inline-block;
-      width: 14%;
+      width: 16%;
       margin: 1%;
       border-radius: 6px;
+      line-height: 45px;
 
       user-select: none;
       cursor: pointer;
+
+      transition: font-size 0.5s;
+    }
+
+    @media (max-width: 900px) {
+      .card {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .card {
+        font-size: 14px;
+      }
     }
 
     @keyframes pop {
@@ -104,7 +124,7 @@
     #lives {
       display: none;
       width: 100%;
-      min-width: 800px;
+      /*min-width: 800px;*/
     }
 
     .blue, .red {
@@ -148,6 +168,7 @@
   <input id="gameid" placeholder="Type in Game ID"></input>
   <div id="enter">&gt; Enter as Code Master</div>
   <div id="enter2">&gt; Enter as Normie</div>
+  <p>Put the word <strong>"dirty"</strong> anywhere in the game ID to include dirty words in word pool. Put <strong>"dirtiest"</strong> to have majority dirty words.</p>
 </div>
 <div id="lives">
   <div id="lives-blue">
@@ -158,7 +179,7 @@
 
 
 <script type="text/javascript">
-  console.log(dictionary);
+  var seed = "";
   var words = [];
   var seed = 0;
 
@@ -170,10 +191,22 @@
 
   function generate() {
     // generate words
+    var full_dict = [];
+    console.log(seed);
+    console.log(seed.match("dirtiest"));
+    if (seed.toLowerCase().match("dirty")) {
+      full_dict = dictionary.concat(dirtydictionary);
+    } if (seed.toLowerCase().match("dirtiest")) {
+      console.log("dirtiest");
+      full_dict = dirtydictionary;
+    } else {
+      full_dict = dictionary;
+    }
+
     for (var i = 0; i < 25; i++) {
-      var newWord = dictionary[Math.floor( random() * dictionary.length )];
+      var newWord = full_dict[Math.floor( random() * full_dict.length )];
       while (words.indexOf(newWord) > -1) {
-        newWord = dictionary[Math.floor( random() * dictionary.length )];
+        newWord = full_dict[Math.floor( random() * full_dict.length )];
       }
       words.push(newWord);
     }
@@ -213,11 +246,13 @@
       }
 
       ele.click((e) => {
-        $(e.target).addClass("show");
-        if ($(e.target).hasClass("blue")) {
-          $(".blue.life").first().remove();
-        } else if ($(e.target).hasClass("red")) {
-          $(".red.life").first().remove();
+        if (!$(e.target).hasClass("show")) {
+          $(e.target).addClass("show");
+          if ($(e.target).hasClass("blue")) {
+            $(".blue.life").first().remove();
+          } else if ($(e.target).hasClass("red")) {
+            $(".red.life").first().remove();
+          }
         }
       })
 
@@ -230,6 +265,8 @@
     var val = $("#gameid").val()
     Math.seedrandom(val);
 
+    seed = val;
+
     $("#start").remove();
     generate();
     $(".card").addClass("show");
@@ -240,6 +277,8 @@
   $("#enter2").click(() => {
     var val = $("#gameid").val()
     Math.seedrandom(val);
+
+    seed = val;
 
     $("#start").remove();
     generate();
