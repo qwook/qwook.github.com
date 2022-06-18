@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />  
+    <title>Art Blocks Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- <link rel="stylesheet" type="text/css" href="./style.css" /> -->
+    <script>
+      // Generates a random hash and token id each time you reload, in the following format
+      //let tokenData = {"hash":"0xd9134c11cd5ed9798ea0811364d63bd850c69c5d13383c9983ade39847e9ea86","tokenId":"99000000"};
+      
+      function genTokenData(projectNum)
+      {
+          let data = {};
+          if (!window.location.hash) {
+            let hash = "0x";
+            for (var i = 0; i < 64; i++)
+            {
+                hash += Math.floor(Math.random() * 16).toString(16);
+            }
+            data.hash = hash;
+            data.tokenId = projectNum * 1000000 + Math.floor(Math.random() * 1000);
+            // data.hash = "0x801923719082732hfyas8d7f3h4fasdfh89234haskjdhf8732bgdcx";
+            // data.tokenId = 1283127803917237;
+            return data;
+          } else {
+            const hashCode = s => Math.abs(s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0))
+            let hash = "0x";
+            for (var i = 0; i < 64; i++)
+            {
+                hash += hashCode(window.location.hash);
+            }
+            data.hash = hash;
+            data.tokenId = projectNum * 1000000 + Math.floor(hashCode(window.location.hash) * 1000);
+          }
+          return data;
+      }
+      let tokenData = genTokenData(99);
+      onhashchange = () => {
+        window.location.reload();
+      }
+    </script>
+    <script src="./vendors/three.min.js"></script>
+  </head>
+  <body>
+  </body>
+  <script src="./out/bundle.min.js"></script>
+</html>
