@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@200&display=swap');
+
+.spawnedWord {
+  position: absolute;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-name: slidein;
+  display: block;
+  width: 250%;
+  left: 200%;
+  text-align: left;
+  font-family: 'Handjet', 'Courier New', Courier, monospace;
+  font-size: 30pt;
+  font-weight: 200;
+  background: black;
+}
+
+@keyframes slidein {
+  0% {
+    left: 100%;
+    /* text-shadow: 0px 0px 50px rgba(0,0,0,0); */
+    color: rgba(255,255,255,1);
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  10% {
+    filter: blur(1px);
+  }
+
+  20% {
+    filter: blur(0px);
+  }
+
+  100% {
+    left: -200%;
+    /* text-shadow: 0px 0px 0px black; */
+    color: rgba(255,255,255,1);
+  }
+}
