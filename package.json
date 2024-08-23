@@ -1,0 +1,19 @@
+{
+  "name": "qwook.github.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qwook/qwook.github.com.git"
+  },
+  "author": "qwook",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/qwook/qwook.github.com/issues"
+  },
+  "homepage": "https://github.com/qwook/qwook.github.com#readme"
+}
