@@ -1,7 +1,25 @@
+import "../style/index.scss";
+
+import Pets from "./pets";
+
 export default function Page({ children }) {
   return <>
-    Test!
-    {children}
-    Blah
+    <div>
+      <div style={{ display: "flex", gap: 20 }}>
+        <div style={{}}>
+          <Pets />
+        </div>
+        <div>
+          <div className="nav">
+            <a className="nav-item" href="/">Home</a>
+            <a className="nav-item" href="/projects">Projects</a>
+            <a className="nav-item" href="/list">List of Things</a>
+          </div>
+          <div className="content">
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
   </>
 }
