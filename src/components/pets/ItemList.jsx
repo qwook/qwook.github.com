@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 
+import { CLOTHES } from "./data/items";
 import { PetsContext } from "./PetsContext";
 
 export function Item({
@@ -15,9 +16,48 @@ export function Item({
   happiness,
   actions,
   onAction,
+  showPrice,
 }) {
   const identifier = `${type}-${id}-${uuid}`;
   const { popUp, setPopUp, equipped } = useContext(PetsContext);
+
+  let offsetX = 0;
+  let offsetY = 0;
+  let width = 100;
+  let height = 100;
+
+  if (slot === CLOTHES.SHIRT) {
+    offsetX = -50;
+    offsetY = -75;
+    width = 200;
+    height = 200;
+  } else if (slot === CLOTHES.HAT) {
+    offsetX = -40;
+    offsetY = -5;
+    width = 190;
+    height = 190;
+  } else if (slot === CLOTHES.HAIR) {
+    offsetX = -20;
+    offsetY = -5;
+    width = 140;
+    height = 140;
+  } else if (slot === CLOTHES.GLASSES) {
+    offsetX = -40;
+    offsetY = -25;
+    width = 190;
+    height = 190;
+  } else if (slot === CLOTHES.PANTS) {
+    offsetX = -45;
+    offsetY = -100;
+    width = 190;
+    height = 190;
+  } else if (slot === CLOTHES.SHOES) {
+    offsetX = -45;
+    offsetY = -110;
+    width = 190;
+    height = 190;
+  }
+
   return (
     <div
       style={{
@@ -35,6 +75,11 @@ export function Item({
               ? "3px solid black"
               : "1px solid grey",
           cursor: "pointer",
+          width: 71,
+          height: 71,
+          position: "relative",
+          overflow: "hidden",
+          boxShadow: type === "clothes" ? "inset 0px 0px 10px 7px white" : null,
         }}
         onClick={(e) => {
           setPopUp((popUp) => {
@@ -42,7 +87,37 @@ export function Item({
           });
         }}
       >
-        <img src={image} alt={name} draggable="false" width="100%" />
+        {type === "clothes" && (
+          <img
+            src={require("./images/default_pet.gif")}
+            alt={name}
+            draggable="false"
+            width="100%"
+            style={{
+              position: "absolute",
+              left: `${offsetX}%`,
+              top: `${offsetY}%`,
+              width: `${width}%`,
+              height: `${height}%`,
+              opacity: 0.3,
+              zIndex: -1,
+            }}
+          />
+        )}
+        <img
+          src={image}
+          alt={name}
+          draggable="false"
+          width="100%"
+          style={{
+            position: "absolute",
+            left: `${offsetX}%`,
+            top: `${offsetY}%`,
+            width: `${width}%`,
+            height: `${height}%`,
+            zIndex: -1,
+          }}
+        />
       </div>
       <div
         style={{
@@ -52,7 +127,11 @@ export function Item({
         }}
       >
         {name}
-        <br />${cost}
+        {showPrice && (
+          <>
+            <br />${cost}
+          </>
+        )}
       </div>
       {popUp === identifier && (
         <div

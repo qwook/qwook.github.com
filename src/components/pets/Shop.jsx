@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 import { PetsContext } from "./PetsContext";
 import Tabs from "./Tabs";
-import { items } from "./items";
+import { items } from "./data/items";
 
 export default function Shop() {
   const [tab, setTab] = useState("clothes");
@@ -40,6 +40,7 @@ export default function Shop() {
                 key={`${tab}-${key}`}
                 type={tab}
                 id={key}
+                showPrice
                 {...item}
                 actions={[{ id: "buy", text: "Buy" }]}
                 onAction={(action) => {
