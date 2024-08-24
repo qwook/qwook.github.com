@@ -34,7 +34,7 @@ module.exports = {
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "site"),
+    path: path.resolve(__dirname, "docs"),
   },
   // optimization: {
   //   splitChunks: {
