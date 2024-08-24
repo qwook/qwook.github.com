@@ -1,4 +1,4 @@
-import { CLOTHES, items } from "./items";
+import { CLOTHES, items } from "./data/items";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Coin from "./Coin";
@@ -6,8 +6,8 @@ import Inventory from "./Inventory";
 import { PetsContext } from "./PetsContext";
 import Shop from "./Shop";
 import Tabs from "./Tabs";
-import defaultImage from "./images/default.gif";
-import useLocalStorageState from "./useLocalStorageState";
+import defaultImage from "./images/default_pet.gif";
+import useLocalStorageState from "../../hooks/useLocalStorageState";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Pets() {
@@ -168,6 +168,26 @@ export default function Pets() {
     return coins;
   }, [equipped]);
 
+  const displayEquip = (type) => {
+    const itemPtr = equipped[type];
+    if (!itemPtr) return;
+    const item = items[itemPtr.type][itemPtr.id];
+    if (item) {
+      return (
+        <img
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 250,
+          }}
+          src={item.image}
+          alt="default pet"
+        />
+      );
+    }
+  };
+
   return (
     <>
       <PetsContext.Provider
@@ -209,30 +229,18 @@ export default function Pets() {
             src={defaultImage}
             alt="default pet"
           />
-          {(() => {
-            const itemPtr = equipped[CLOTHES.SHIRT];
-            if (!itemPtr) return;
-            const item = items[itemPtr.type][itemPtr.id];
-            if (item) {
-              return (
-                <img
-                  style={{
-                    position: "absolute",
-                    top: 97,
-                    left: 60,
-                    width: 133,
-                  }}
-                  src={item.image}
-                  alt="default pet"
-                />
-              );
-            }
-          })()}
+          {displayEquip(CLOTHES.GLASSES)}
+          {displayEquip(CLOTHES.HAIR)}
+          {displayEquip(CLOTHES.HAT)}
+          {displayEquip(CLOTHES.SHOES)}
+          {displayEquip(CLOTHES.PANTS)}
+          {displayEquip(CLOTHES.SHIRT)}
         </div>
         <div>
           <div
             style={{
               fontStyle: "italic",
+              minHeight: 50,
             }}
           >
             {`"${message}"`.slice(0, messageIdx)}

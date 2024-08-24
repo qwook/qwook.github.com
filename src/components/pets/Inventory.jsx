@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 import { PetsContext } from "./PetsContext";
 import Tabs from "./Tabs";
-import { items } from "./items";
+import { items } from "./data/items";
 
 export default function Inventory() {
   const {

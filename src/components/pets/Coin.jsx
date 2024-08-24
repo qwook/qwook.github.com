@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 
 import { PetsContext } from "./PetsContext";
-import { items } from "./items";
+import { items } from "./data/items";
 
 export default function Coin({ onEarn }) {
   const [value, setValue] = useState(1);
