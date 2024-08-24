@@ -29,18 +29,18 @@ function getEntryPoints(dir = "src/pages", entries = {}) {
 
 module.exports = {
   entry: {
-    index: { import: "./src/index.jsx" },
+    index: "./src/index.jsx",
     ...getEntryPoints(),
   },
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "site"),
   },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-    },
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: "all",
+  //   },
+  // },
   module: {
     rules: [
       {
