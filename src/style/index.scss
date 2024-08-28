@@ -102,6 +102,12 @@ img {
   -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
 }
 
+.blog {
+  img {
+    image-rendering: auto; /* STOP SMOOTHING, GIVE ME SPEED  */
+  }
+}
+
 .page {
   display: flex;
   gap: 20px;
