@@ -1,6 +1,7 @@
 name: "Build and deploy on Github Pages."
 permissions:
   id-token: write
+  pages: write
 on:
   push:
     branches:
