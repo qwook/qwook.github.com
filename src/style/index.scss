@@ -1,0 +1,250 @@
+body {
+  font-size: 20px;
+  font-family: sans-serif;
+  padding: 20px;
+  margin: 0px;
+  width: 800px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+  .nav-item {
+    margin-bottom: 10px;
+    display: flex;
+  }
+}
+
+.content {
+  display: block;
+  // flex-basis: 500px;
+  // min-width: 500px;
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-style: italic;
+    font-size: 20px;
+  }
+
+  .project {
+    border: 1px solid black;
+    padding: 20px;
+  }
+
+  .project-body {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .project-preview {
+    flex-basis: 800px;
+    max-width: 160px;
+  }
+}
+
+.banner {
+  background-color: rgb(222, 160, 102);
+  position: relative;
+  border: 4px solid black;
+  border-radius: 30px;
+  overflow: hidden;
+
+  .banner-background-text {
+    position: absolute;
+    font-size: 50px;
+    top: -10px;
+    left: -20px;
+    width: 1000px;
+    opacity: 0.1;
+  }
+
+  .banner-foreground-text {
+    margin: 5px;
+    margin-top: 20px;
+    text-align: right;
+    text-shadow: 0px 0px 10px white, 0px 0px 10px white;
+  }
+}
+
+.nav {
+  // background-color: rgb(240, 240, 240);
+  // padding: 20px 20px 10px 0px;
+}
+
+a,
+a:active,
+.fake-link {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.fake-link {
+  user-select: none;
+}
+
+img {
+  image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
+  image-rendering: -moz-crisp-edges; /* Firefox                        */
+  image-rendering: -o-crisp-edges; /* Opera                          */
+  image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+  image-rendering: pixelated; /* Universal support since 2021   */
+  image-rendering: optimize-contrast; /* CSS3 Proposed                  */
+  -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
+}
+
+.blog {
+  img {
+    image-rendering: auto; /* STOP SMOOTHING, GIVE ME SPEED  */
+  }
+}
+
+.pixel img {
+  image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
+  image-rendering: -moz-crisp-edges; /* Firefox                        */
+  image-rendering: -o-crisp-edges; /* Opera                          */
+  image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+  image-rendering: pixelated; /* Universal support since 2021   */
+  image-rendering: optimize-contrast; /* CSS3 Proposed                  */
+  -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
+}
+
+.page {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.symbol {
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+}
+
+.pet-window {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pet-stats {
+  background-color: rgb(255, 255, 176);
+  padding: 10px;
+}
+
+.pets {
+  border: 3px solid black;
+  box-shadow: 1px 5px 10px -5px black;
+  flex-basis: 100px;
+  padding: 10px;
+  margin-top: 25px;
+}
+
+.blog {
+  img {
+    max-width: 100%;
+  }
+}
+
+code {
+  display: block;
+  max-width: 500px;
+  height: 400px;
+  overflow-y: scroll;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 2px solid black;
+}
+
+@media (max-width: 640px) {
+  body {
+    width: auto;
+  }
+  /* Styles for small screens, like smartphones in portrait mode */
+  .page {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .content {
+    flex-basis: initial;
+    min-width: auto;
+  }
+
+  .banner {
+    .banner-foreground-text {
+      font-size: 30px;
+    }
+  }
+
+  .pet-window {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    justify-content: center;
+  }
+
+  .pet-view-and-message {
+    flex-basis: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pet-view {
+    margin: 0px -30px;
+  }
+
+  .pet-stats {
+    width: 300px;
+    flex-basis: 300px;
+  }
+
+  .pets {
+    flex-basis: auto;
+  }
+
+  .nav {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap-reverse;
+    justify-content: space-evenly;
+    // flex-direction: row-reverse;
+    // gap: 5px;
+    gap: initial;
+    .nav-item {
+      margin-bottom: 10px;
+      display: flex;
+    }
+  }
+
+  // .pets {
+  //   text-align: center;
+  // }
+
+  // .pet-view {
+  //   display: inline-block;
+  // }
+
+  code {
+    max-width: auto;
+    width: 100%;
+  }
+}
+
+.carousel {
+  img {
+    max-width: 100%;
+  }
+}
