@@ -196,8 +196,19 @@ code {
     justify-content: center;
   }
 
+  .pet-view-and-message {
+    flex-basis: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pet-view {
+    margin: 0px -30px;
+  }
+
   .pet-stats {
-    flex-basis: 250px;
+    width: 300px;
+    flex-basis: 300px;
   }
 
   .pets {
@@ -210,7 +221,7 @@ code {
     flex-wrap: wrap-reverse;
     justify-content: center;
     // flex-direction: row-reverse;
-    gap: 8px;
+    gap: 5px;
     .nav-item {
       margin-bottom: 10px;
       display: flex;
