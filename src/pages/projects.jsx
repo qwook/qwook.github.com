@@ -62,6 +62,7 @@ const projects = [
       { blog: "/blogs/circle", internal: true },
       { "external blog": "https://j-marx.com/the-circle" },
     ],
+    preview: require("./blogs/circle/preview.png"),
   },
   {
     name: "Henry's Animation Tool",
@@ -81,15 +82,14 @@ const projects = [
         cabinets.
       </p>
     ),
+    link: [{ blog: "/blogs/arcade", internal: true }],
+    preview: require("./blogs/arcade/arcadelauncher.gif"),
   },
   {
-    name: "AI Loving Parents",
-    description: (
-      <p>
-        Artificially generated creepy parents that tell you "I Love You" over
-        and over again.
-      </p>
-    ),
+    name: "Supportive Parents",
+    description: <p>Artificially generated parents that will support you.</p>,
+    link: [{ "watch video": "/blogs/parents", internal: true }],
+    preview: require("./blogs/parents/preview.png"),
   },
 ];
 

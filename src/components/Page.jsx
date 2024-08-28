@@ -6,12 +6,16 @@ export default function Page({ children }) {
   return (
     <>
       <div className="nav">
+        <a className="nav-item" href="/list">
+          Random
+        </a>
+        |
         <a className="nav-item" href="/archive">
           Archive
         </a>
         |
-        <a className="nav-item" href="/list">
-          List of Things
+        <a className="nav-item" href="/art">
+          Art
         </a>
         |
         <a className="nav-item" href="/projects">

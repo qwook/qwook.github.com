@@ -38,8 +38,11 @@ export default function ArchivePage() {
       </p>
       <img src={require("./images/archive/emulater-1.png")} />
       <img src={require("./images/archive/deltaforce.png")} />
+      <p>My Coke Music character:</p>
+      <img src={require("./images/archive/cokemusic.png")} />
       <p>My habbo hotel character:</p>
       <img src={require("./images/archive/habbome.gif")} />
+      <p>I don't remember how I made that GIF.</p>
       <p>
         I had a fancier avatar after my mom gave me $20 to buy Habbo Club. I
         owned a boardgame room that was super popular. I revisited it recently
@@ -48,8 +51,8 @@ export default function ArchivePage() {
       </p>
       <img src={require("./images/archive/habbo.png")} />
       <p>
-        There are photos on the wall! I wish I could see them but Habbo disabled
-        them a while ago due to exploits.
+        There are photos on the wall!!! I wish I could see them but Habbo
+        disabled them a while ago due to exploits.
       </p>
       <p>Luckily, the stickies are still there.</p>
       <Carousel>
@@ -60,7 +63,11 @@ export default function ArchivePage() {
         <img src={require("./images/archive/sticky5.png")} height="300px" />
       </Carousel>
       <p>I can't believe I was managing people haha!!</p>
-      <p>For a very very long time, I played this game called Furcadia.</p>
+      <p>
+        For a very very long time, I played this game called Furcadia. It let
+        you program and build your own worlds. People who made worlds were
+        called "Dreamweavers."
+      </p>
       <img src={require("./images/archive/furcscreeenshot.png")} />
       <p>My first internet girlfriend, Baby Mario:</p>
       <img src={require("./images/archive/thebloodinvasion.png")} />
@@ -70,12 +77,19 @@ export default function ArchivePage() {
         this person a lot, and they replied to one of my forum posts!
       </p>
       <img src={require("./images/archive/carrie_o_kaye.png")} />
+      <p>
+        I worked on my worlds and invited random friends to check out the
+        progress. Here I'm trying to add drivable cars to the game.
+      </p>
+      <img src={require("./images/archive/furc.png")} />
       <p>Sonic me:</p>
       <img src={require("./images/archive/Sonicme.png")} />
       <p>A picture that I had on my Myspace:</p>
       <img src={require("./images/archive/ferktheworld.png")} />
       <p>I created my own neopets profile page:</p>
       <img src={require("./images/archive/neopets.gif")} />
+      <p>Speaking of Neopets, my favorite pet is more than 20 years old now.</p>
+      <img src={require("./images/archive/neopets.png")} />
       <p>
         Below is a CSS file that I wrote in 2004. It was for a website I called
         "multi-player games." I was 10 years old and was ambitiously working on
@@ -89,10 +103,14 @@ export default function ArchivePage() {
       </p>
       <img src={require("./images/archive/3d.png")} />
       <p>
-        Here's a screenshot of what I think is my second ever website. The first
-        website, I actually made with the help of my mom, and it's completely
-        lost forever. This website embedded a Java chat app and allowed for
-        people to talk about Yu-Gi-Oh and Toontown.
+        These lava dudes ended up being the background for a Pet Page on my
+        neopets.
+      </p>
+      <p>
+        Here's a screenshot of my second ever website. My first website's host
+        disappeared and I never got to back the files up. This website embedded
+        a Java chat app and allowed for people to talk about Yu-Gi-Oh and
+        Toontown.
       </p>
       <img
         src={require("./images/archive/walpaper yugioh_zombieattack_chat.gif")}
@@ -125,14 +143,24 @@ export default function ArchivePage() {
         child-Henry was thinking when he made this his security question??
       </p>
       <img src={require("./images/archive/honeymoon.png")} />
-      <p>I lost access to my first Youtube channel that I made in 2007, but I can still see the videos that are public.</p>
-      <p>On it, I can see that I was no longer using AIM and instead I am chatting through meebo.</p>
+      <p>
+        I lost access to my first Youtube channel that I made in 2007, but I can
+        still see the videos that are public.
+      </p>
+      <p>
+        On it, I can see that I was no longer using AIM and instead I am
+        chatting through meebo.
+      </p>
       <img src={require("./images/archive/meebo.png")} />
-      <p>If I can figure out how to regain access to this channel, I'll be able to recover my The Sims music videos.</p>
+      <p>
+        I made one of my videos private, an emo concert filmed in The Sims 2 –
+        with Naruto music playing in the background. If I can figure out how to
+        regain access to this channel, I'll be able to recover my music video.
+      </p>
       <img src={require("./images/archive/youtube.png")} />
       <p>In 2009, I started experimenting with C++ and Lua.</p>
       <img src={require("./images/archive/2009.png")} />
-      <p>Then I discovered the Source Engine and Garry's Mod.</p>
+      <p>I also discovered the Source Engine and Garry's Mod.</p>
       <img src={require("./images/archive/14.png")} />
       <p>
         I can't believe I wrote my age on so many different parts of the
@@ -153,6 +181,17 @@ export default function ArchivePage() {
       <img src={require("./images/archive/hvz.png")} />
       <img src={require("./images/archive/hvz2.png")} />
       <img src={require("./images/archive/hvz3.png")} />
+      <p>Here's a video made using it:</p>
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/ho7WPwFGnN4?si=a4QR74o6TZI7BAhw"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
       <p>
         I started experimenting more with SFML, Irrlicht, Newton Physics, Bullet
         physics, Box2D. A lot of it was to build my own game engine. Here are a
@@ -162,6 +201,16 @@ export default function ArchivePage() {
       <img src={require("./images/archive/engine2.png")} />
       <img src={require("./images/archive/engine3.png")} />
       <img src={require("./images/archive/engine4.png")} />
+      <p>I got famous in high school from my animation tool on Garry's Mod.</p>
+      <img src={require("./images/archive/hat3.png")} />
+      <p>
+        It was the first time I ever made super-official documentation for
+        something.
+      </p>
+      <Carousel>
+        <img src={require("./images/archive/hat.png")} height="500px" />
+        <img src={require("./images/archive/hat2.png")} height="500px" />
+      </Carousel>
       <p>I had a stint of posting random questions on Yahoo! Answers.</p>
       <img src={require("./images/archive/answers.png")} />
       <img src={require("./images/archive/answers2.png")} />
@@ -169,13 +218,35 @@ export default function ArchivePage() {
       <img src={require("./images/archive/college.png")} />
       <img src={require("./images/archive/awwright.jpg")} />
       <p>
+        Here's my Desktop in 2011, showing all my games and hobbies at the time.
+      </p>
+      <img src={require("./images/archive/desktop2011.jpg")} />
+      <p>And here's me complaining about some IDE error on Facebook, idk.</p>
+      <img src={require("./images/archive/fb.jpg")} />
+      <p>
         My web design skills started to improve. Here are a couple tumblr themes
-        I made.
+        I made when I was 17.
       </p>
       <img src={require("./images/archive/henryisasocialburrito.png")} />
       <img src={require("./images/archive/aloneamongbillions.png")} />
       <p>In 2012, this website you're on now went live.</p>
       <img src={require("./images/archive/firstpage.png")} />
+      <p>
+        While in college, I took a huge break from the internet and started
+        focusing on learning how to socialize IRL more. The world was changing
+        too. People bridged their online identity with their real life identity.
+        People showed their face and used their real names. I didn't know it
+        yet, but my old WWW was dying. All the communities I belonged to saw a
+        huge exodus of its members getting way too busy to log back on.
+      </p>
+      <p>
+        My presence on the internet migrated off of forums and onto Snapchat and
+        Instagram Stories. It is sad, but I no longer exist in the same way
+        online.
+      </p>
+      <img src={require("./images/archive/visidyn.png")} />
+      <img src={require("./images/archive/visidyn2.png")} />
+      <img src={require("./images/archive/visidyn3.png")} />
     </div>
   );
 }
