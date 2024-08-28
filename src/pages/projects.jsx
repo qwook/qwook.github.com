@@ -1,13 +1,13 @@
 import Banner from "../components/Banner";
+import Carousel from "../components/Carousel";
 import Page from "../components/Page";
-import aymiImage from "./images/aymi.png";
 import { createPage } from "../app";
 
 const projects = [
   {
     name: "last seen online",
     link: "https://store.steampowered.com/app/2824230/last_seen_online/",
-    date: null,
+    preview: require("./images/lso.png"),
     description: (
       <p>
         A psychological horror game about exploring a teenage girl's abandoned
@@ -18,7 +18,7 @@ const projects = [
   {
     name: "And You'll Miss It",
     link: [{ instagram: "https://www.instagram.com/p/C-TKj2JSPTr/" }],
-    preview: aymiImage,
+    preview: require("./images/aymi.png"),
     description: (
       <p>
         An interactive installation about the unstoppable marching of time,
@@ -30,6 +30,19 @@ const projects = [
   {
     name: "HTMLfest",
     link: "https://htmlfest.com/memories.html",
+    preview: (
+      <Carousel>
+        <img src={require("./images/htmlfest/9.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/8.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/7.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/1.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/2.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/3.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/4.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/5.gif")} alt="project preview" />
+        <img src={require("./images/htmlfest/6.gif")} alt="project preview" />
+      </Carousel>
+    ),
     description: (
       <p>
         A tiny festival of live performances and food in my backyard, with a
@@ -45,7 +58,10 @@ const projects = [
         experience at San Jose State Universe.
       </p>
     ),
-    link: [{ blog: "https://j-marx.com/the-circle" }],
+    link: [
+      { blog: "/blogs/circle", internal: true },
+      { "external blog": "https://j-marx.com/the-circle" },
+    ],
   },
   {
     name: "Henry's Animation Tool",
@@ -63,15 +79,6 @@ const projects = [
       <p>
         Software used to launch and monitor games for SJSU Game Dev's arcade
         cabinets.
-      </p>
-    ),
-  },
-  {
-    name: "Infinite Date",
-    description: (
-      <p>
-        An infinite conversation between two chatbots who are anxiously and
-        avoidantly attached.
       </p>
     ),
   },
@@ -97,32 +104,51 @@ export default function ProjectsPage() {
             <div className="project-description">
               {project.description}
 
-              {project.link &&
-                (() => {
-                  if (project.link instanceof Array) {
-                    return project.link.map((link, idx) => (
-                      <a
-                        key={idx}
-                        target="_blank"
-                        href={Object.values(link)[0]}
-                      >
-                        &gt; {Object.keys(link)[0]}
-                      </a>
-                    ));
-                  } else {
-                    return (
-                      <a target="_blank" href={project.link}>
-                        &gt; visit
-                      </a>
-                    );
-                  }
-                })()}
-            </div>
-            {project.preview && (
-              <div className="project-preview">
-                <img src={project.preview} alt="project preview" width="100%" />
+              <div style={{ display: "flex", gap: 20 }}>
+                {project.link &&
+                  (() => {
+                    if (project.link instanceof Array) {
+                      return project.link.map((link, idx) => {
+                        const internal = link.internal;
+                        delete link.internal;
+                        return (
+                          <a
+                            key={idx}
+                            target={internal ? null : "_blank"}
+                            href={Object.values(link)[0]}
+                          >
+                            &gt; {Object.keys(link)[0]}
+                          </a>
+                        );
+                      });
+                    } else {
+                      return (
+                        <a target="_blank" href={project.link}>
+                          &gt; visit
+                        </a>
+                      );
+                    }
+                  })()}
               </div>
-            )}
+            </div>
+            {project.preview &&
+              (() => {
+                if (typeof project.preview === "string") {
+                  return (
+                    <div className="project-preview">
+                      <img
+                        src={project.preview}
+                        alt="project preview"
+                        width="100%"
+                      />
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className="project-preview">{project.preview}</div>
+                  );
+                }
+              })()}
           </div>
         </div>
       ))}

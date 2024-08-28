@@ -1,10 +1,11 @@
 import { CLOTHES, items } from "./data/items";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import Coin from "./Coin";
 import Inventory from "./Inventory";
 import { PetsContext } from "./PetsContext";
 import Shop from "./Shop";
+import Symbols from "./Symbols";
 import Tabs from "./Tabs";
 import defaultImage from "./images/default_pet.gif";
 import useLocalStorageState from "../../hooks/useLocalStorageState";
@@ -13,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function Pets() {
   const [message, setMessage] = useLocalStorageState(
     "message",
-    "Hello, world!"
+    "Hello, world! Click on the floating coins to earn henpoints!"
   );
   const [health, setHealth] = useLocalStorageState("health", 100);
   const [happiness, setHappiness] = useLocalStorageState("happiness", 100);
@@ -22,8 +23,10 @@ export default function Pets() {
   const [equipped, setEquipped] = useLocalStorageState("equipped", {});
 
   const [popUp, setPopUp] = useState();
-  const [tab, setTab] = useState("");
+  const [tab, setTab] = useState("hide");
   const [messageIdx, setMessageIdx] = useState(0);
+
+  const moneyDiv = useRef();
 
   const buyItem = useCallback(
     (type, id) => {
@@ -217,38 +220,48 @@ export default function Pets() {
           setPopUp,
         }}
       >
-        <div
-          style={{
-            position: "relative",
-          }}
-        >
-          <img
-            style={{
-              width: 250,
-            }}
-            src={defaultImage}
-            alt="default pet"
-          />
-          {displayEquip(CLOTHES.GLASSES)}
-          {displayEquip(CLOTHES.HAIR)}
-          {displayEquip(CLOTHES.HAT)}
-          {displayEquip(CLOTHES.SHOES)}
-          {displayEquip(CLOTHES.PANTS)}
-          {displayEquip(CLOTHES.SHIRT)}
-        </div>
-        <div>
-          <div
-            style={{
-              fontStyle: "italic",
-              minHeight: 50,
-            }}
-          >
-            {`"${message}"`.slice(0, messageIdx)}
+        <div className="pet-window">
+          <div className="pet-view-and-message">
+            <div
+              className="pet-view"
+              style={{
+                position: "relative",
+              }}
+            >
+              <img
+                style={{
+                  width: 250,
+                }}
+                src={defaultImage}
+                alt="default pet"
+              />
+              {displayEquip(CLOTHES.GLASSES)}
+              {displayEquip(CLOTHES.HAIR)}
+              {displayEquip(CLOTHES.HAT)}
+              {displayEquip(CLOTHES.SHOES)}
+              {displayEquip(CLOTHES.PANTS)}
+              {displayEquip(CLOTHES.SHIRT)}
+            </div>
+            <div
+              style={{
+                fontStyle: "italic",
+                minHeight: 50,
+              }}
+            >
+              {`"${message}"`.slice(0, messageIdx)}
+            </div>
           </div>
-          <br />
-          <div>Health: {health} / 100</div>
-          <div>Happiness: {Math.floor(happiness)} / 100</div>
-          <div>${money}</div>
+          <div className="pet-stats">
+            <div>
+              <Symbols.Health /> {health} / 100
+            </div>
+            <div>
+              <Symbols.Happiness /> {Math.floor(happiness)} / 100
+            </div>
+            <div ref={moneyDiv}>
+              <Symbols.Points /> {money}
+            </div>
+          </div>
         </div>
         <br />
         <div>
@@ -263,6 +276,7 @@ export default function Pets() {
               tabs={[
                 { id: "shop", text: "Shop" },
                 { id: "inventory", text: "Inventory" },
+                { id: "hide", text: "[Hide]" },
               ]}
               currentTab={tab}
               onTabChange={(tab) => {
@@ -282,8 +296,9 @@ export default function Pets() {
                 key={i}
                 onEarn={(value) => {
                   setMoney((money) => money + value);
-                  setHappiness((happiness) => happiness - 0.5);
+                  setHappiness((happiness) => Math.max(happiness - 0.5, 0));
                 }}
+                earnGoalEle={moneyDiv}
               />
             );
           }
