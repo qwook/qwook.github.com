@@ -181,17 +181,6 @@ export default function ArchivePage() {
       <img src={require("./images/archive/hvz.png")} />
       <img src={require("./images/archive/hvz2.png")} />
       <img src={require("./images/archive/hvz3.png")} />
-      <p>Here's a video made using it:</p>
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/ho7WPwFGnN4?si=a4QR74o6TZI7BAhw"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-      ></iframe>
       <p>
         I started experimenting more with SFML, Irrlicht, Newton Physics, Bullet
         physics, Box2D. A lot of it was to build my own game engine. Here are a

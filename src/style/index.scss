@@ -204,6 +204,19 @@ code {
     flex-basis: auto;
   }
 
+  .nav {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    // flex-direction: row-reverse;
+    gap: 8px;
+    .nav-item {
+      margin-bottom: 10px;
+      display: flex;
+    }
+  }
+
   // .pets {
   //   text-align: center;
   // }
