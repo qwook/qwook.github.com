@@ -72,6 +72,10 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif|svg)$/, // Images
         type: "asset/resource", // For Webpack 5+
       },
+      {
+        test: /\.txt$/i,
+        type: "asset/source",
+      },
     ],
   },
   plugins: [

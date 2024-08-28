@@ -3,10 +3,12 @@ body {
   font-family: sans-serif;
   padding: 20px;
   margin: 0px;
+  width: 800px;
 }
 
 .nav {
   display: flex;
+  flex-direction: row-reverse;
   gap: 10px;
   .nav-item {
     margin-bottom: 10px;
@@ -16,7 +18,8 @@ body {
 
 .content {
   display: block;
-  width: 500px;
+  // flex-basis: 500px;
+  // min-width: 500px;
 }
 
 .projects {
@@ -43,6 +46,7 @@ body {
   }
 
   .project-preview {
+    flex-basis: 800px;
     max-width: 160px;
   }
 }
@@ -71,9 +75,21 @@ body {
   }
 }
 
+.nav {
+  // background-color: rgb(240, 240, 240);
+  // padding: 20px 20px 10px 0px;
+}
+
 a,
-a:active {
+a:active,
+.fake-link {
+  cursor: pointer;
   color: blue;
+  text-decoration: underline;
+}
+
+.fake-link {
+  user-select: none;
 }
 
 img {
@@ -84,4 +100,105 @@ img {
   image-rendering: pixelated; /* Universal support since 2021   */
   image-rendering: optimize-contrast; /* CSS3 Proposed                  */
   -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
+}
+
+.page {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.symbol {
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+}
+
+.pet-window {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pet-stats {
+  background-color: rgb(255, 255, 176);
+  padding: 10px;
+}
+
+.pets {
+  border: 3px solid black;
+  box-shadow: 1px 5px 10px -5px black;
+  flex-basis: 100px;
+  padding: 10px;
+  margin-top: 25px;
+}
+
+.blog {
+  img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    width: auto;
+  }
+  /* Styles for small screens, like smartphones in portrait mode */
+  .page {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .content {
+    flex-basis: initial;
+    min-width: auto;
+  }
+
+  .banner {
+    .banner-foreground-text {
+      font-size: 30px;
+    }
+  }
+
+  .pet-window {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    justify-content: center;
+  }
+
+  .pet-stats {
+    flex-basis: 150px;
+  }
+
+  .pets {
+    flex-basis: auto;
+  }
+
+  // .pets {
+  //   text-align: center;
+  // }
+
+  // .pet-view {
+  //   display: inline-block;
+  // }
+}
+
+.carousel {
+  img {
+    max-width: 100%;
+  }
+}
+
+code {
+  display: block;
+  width: 640px;
+  height: 400px;
+  overflow-y: scroll;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 2px solid black;
 }

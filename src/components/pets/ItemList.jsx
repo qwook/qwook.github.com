@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 
 import { CLOTHES } from "./data/items";
 import { PetsContext } from "./PetsContext";
+import Symbols from "./Symbols";
 
 export function Item({
   type,
@@ -148,8 +149,16 @@ export function Item({
             boxShadow: "2px 2px 1px black",
           }}
         >
-          {hp && <>Recovers {hp} health.</>}
-          {happiness && <>Recovers {happiness} happiness.</>}
+          {hp && (
+            <>
+              Recovers {hp} <Symbols.Health />
+            </>
+          )}
+          {happiness && (
+            <>
+              Recovers {happiness} <Symbols.Happiness />
+            </>
+          )}
           {special?.coinSpawner && (
             <>
               <strong>When equipped:</strong> Spawns {special.coinSpawner}{" "}

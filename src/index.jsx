@@ -8,7 +8,8 @@ export default function IndexPage() {
       <Banner>Welcome to qwook.io</Banner>
       <p>
         My name is Henry Quoc Tran. I am currently <Age /> years old. I grew up
-        in Milpitas, California. I now live in San Francisco, California.
+        in Milpitas, California. I now live in San Francisco, California. I am
+        Vietnamese and Chinese.
       </p>
       <p>I am an indie game developer and a creative technologist.</p>
       <p>
@@ -19,6 +20,18 @@ export default function IndexPage() {
         I like living a simplified lifestyle, meditating, owning less, buying
         used.
       </p>
+      <center>
+        <a href="https://www.youtube.com/watch?v=6YMJm-_sivE" target="_new">
+          <img
+            style={{
+              maxWidth: "100%",
+              width: 400,
+            }}
+            src={require("./pages/images/furcadia.gif")}
+            alt="furcadia"
+          />
+        </a>
+      </center>
     </div>
   );
 }
