@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/vendors.js"],"names":["require"],"mappings":";;AAAAA,QAAQ,OAAR;AACAA,QAAQ,WAAR","file":"vendors.js","sourcesContent":["require('react');\nrequire('react-dom');"]}
