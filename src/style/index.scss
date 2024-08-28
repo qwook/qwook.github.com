@@ -219,9 +219,10 @@ code {
     display: flex;
     width: 100%;
     flex-wrap: wrap-reverse;
-    justify-content: center;
+    justify-content: space-evenly;
     // flex-direction: row-reverse;
-    gap: 5px;
+    // gap: 5px;
+    gap: initial;
     .nav-item {
       margin-bottom: 10px;
       display: flex;
