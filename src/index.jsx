@@ -16,22 +16,28 @@ export default function IndexPage() {
         I like to explore nostalgia, trauma, and the deterioration of the
         internet. I also like happy things too like matcha mochi donuts.
       </p>
-      <p>
-        I like living a simplified lifestyle, meditating, owning less, buying
-        used.
-      </p>
-      <center>
-        <a href="https://www.youtube.com/watch?v=6YMJm-_sivE" target="_new">
-          <img
-            style={{
-              maxWidth: "100%",
-              width: 400,
-            }}
-            src={require("./pages/images/furcadia.gif")}
-            alt="furcadia"
-          />
-        </a>
-      </center>
+      <ul>
+        <li>
+          <a href="https://x.com/henryqtran" target="_blank">
+            https://x.com/henryqtran
+          </a>
+        </li>
+        <li>
+          <a href="https://instagram.com/nohurryhen" target="_blank">
+            https://instagram.com/nohurryhen
+          </a>
+        </li>
+      </ul>
+      <a href="https://www.youtube.com/watch?v=6YMJm-_sivE" target="_new">
+        <img
+          style={{
+            maxWidth: "100%",
+            width: 400,
+          }}
+          src={require("./pages/images/furcadia.gif")}
+          alt="furcadia"
+        />
+      </a>
     </div>
   );
 }

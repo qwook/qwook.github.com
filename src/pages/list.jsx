@@ -5,7 +5,7 @@ import { createPage } from "../app";
 export default function ListPage() {
   return (
     <>
-      <Banner>List of Things</Banner>
+      <Banner>Random List of Things</Banner>
       <ul>
         <li>
           <a target="_blank" href="https://www.youtube.com/watch?v=wupToqz1e2g">
