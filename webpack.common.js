@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const { ProvidePlugin } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 function getEntryPoints(dir = "src/pages", entries = {}) {
   const fullPath = path.resolve(__dirname, dir);
@@ -96,6 +97,9 @@ module.exports = {
     ),
     new MiniCssExtractPlugin({
       filename: "[name].css",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "src/favicon.gif", to: "favicon.gif" }],
     }),
   ],
   resolve: {
