@@ -31,7 +31,7 @@ export default function WebRing({ image, text, font, link }) {
         className="filler"
         style={{
           fontFamily: "monospace",
-          fontSize: "26",
+          fontSize: "24px",
         }}
       >
         {text}
