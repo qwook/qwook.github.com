@@ -1,5 +1,6 @@
 import Age from "./components/Age";
 import Banner from "./components/Banner";
+import WebRing from "./components/webring/WebRing";
 import { createPage } from "./app";
 
 export default function IndexPage() {
@@ -38,6 +39,58 @@ export default function IndexPage() {
           alt="furcadia"
         />
       </a>
+      <hr />
+      <p>
+        These are links to some cool people that I added without their
+        permission. Please message me if you want your link removed.
+      </p>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 10,
+        }}
+      >
+        <WebRing
+          text={"･ﾟ✧ chia"}
+          image={"https://chia.design/favicon.ico"}
+          link={"https://chia.design"}
+        />
+        <WebRing
+          text={"kevin's garden"}
+          image={"https://kevin.garden/favicon.png"}
+          link={"https://kevin.garden"}
+        />
+        <WebRing
+          text={"empowa"}
+          image={"https://ashleyherr.com/favicon.ico"}
+          link={"https://ashleyherr.com"}
+        />
+        <WebRing
+          text={"the intersection of art and technology"}
+          link={"https://tiat.place/"}
+        />
+        <WebRing
+          text={"leia"}
+          image={"https://leiac.me/favicon.ico"}
+          link={"https://leiac.me/"}
+        />
+        <WebRing
+          text={"isabel li"}
+          image={"https://isabel.li/assets/YUE.png"}
+          link={"https://isabel.li/"}
+        />
+        <WebRing
+          text={"dan dog"}
+          image={"https://dan.dog/doggo.gif"}
+          link={"https://dan.dog/"}
+        />
+        <WebRing
+          text={"weird salmon"}
+          image={"https://simons.dev/static/icon.png"}
+          link={"https://simons.dev/"}
+        />
+      </div>
     </div>
   );
 }
