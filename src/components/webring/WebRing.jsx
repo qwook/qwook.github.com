@@ -31,6 +31,7 @@ export default function WebRing({ image, text, font, link }) {
         className="filler"
         style={{
           fontFamily: "monospace",
+          fontSize: "26",
         }}
       >
         {text}
@@ -38,6 +39,7 @@ export default function WebRing({ image, text, font, link }) {
           className="floating"
           style={{
             fontFamily: fonts[Math.floor(rand * fonts.length) % fonts.length],
+            fontSize: "22px",
           }}
         >
           {text}
