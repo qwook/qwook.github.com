@@ -67,10 +67,6 @@ export default function IndexPage() {
           link={"https://ashleyherr.com"}
         />
         <WebRing
-          text={"the intersection of art and technology"}
-          link={"https://tiat.place/"}
-        />
-        <WebRing
           text={"leia"}
           image={"https://leiac.me/favicon.ico"}
           link={"https://leiac.me/"}
@@ -90,6 +86,19 @@ export default function IndexPage() {
           image={"https://simons.dev/static/icon.png"}
           link={"https://simons.dev/"}
         />
+        <WebRing
+          text={"violand"}
+          image={
+            "https://freight.cargo.site/t/original/i/00ad0e84c5db1b13ee35f3592172653b13393a6076fb5ee57ac3274f4cf7e1b8/yolk.ico"
+          }
+          link={"https://violand.xyz/"}
+        />
+        <WebRing
+          text={"SHARON"}
+          image={"https://sharonzheng.com/favicon.ico"}
+          link={"https://sharonzheng.com/"}
+        />
+        <WebRing text={"t.i.a.t."} link={"https://tiat.place/"} />
       </div>
     </div>
   );
