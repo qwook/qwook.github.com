@@ -85,6 +85,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      sourceUrl: `https://github.com/qwook/qwook.github.com/tree/main/src/index.jsx`,
       chunks: ["index"],
     }),
     ...Object.keys(getEntryPoints()).map(
@@ -92,6 +93,7 @@ module.exports = {
         new HtmlWebpackPlugin({
           filename: `${name}/index.html`,
           template: path.resolve(__dirname, "src/index.html"),
+          sourceUrl: `https://github.com/qwook/qwook.github.com/tree/main/src/pages/${name}.jsx`,
           chunks: [name],
         })
     ),
