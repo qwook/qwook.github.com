@@ -101,36 +101,7 @@ export default function ProjectsPage() {
         <div key={idx} className="project">
           <h2>{project.name} </h2>
           <div className="project-body">
-            <div className="project-description">
-              {project.description}
-
-              <div style={{ display: "flex", gap: 20 }}>
-                {project.link &&
-                  (() => {
-                    if (project.link instanceof Array) {
-                      return project.link.map((link, idx) => {
-                        const internal = link.internal;
-                        delete link.internal;
-                        return (
-                          <a
-                            key={idx}
-                            target={internal ? null : "_blank"}
-                            href={Object.values(link)[0]}
-                          >
-                            &gt; {Object.keys(link)[0]}
-                          </a>
-                        );
-                      });
-                    } else {
-                      return (
-                        <a target="_blank" href={project.link}>
-                          &gt; visit
-                        </a>
-                      );
-                    }
-                  })()}
-              </div>
-            </div>
+            <div className="project-description">{project.description}</div>
             {project.preview &&
               (() => {
                 if (typeof project.preview === "string") {
@@ -146,6 +117,37 @@ export default function ProjectsPage() {
                 } else {
                   return (
                     <div className="project-preview">{project.preview}</div>
+                  );
+                }
+              })()}
+          </div>
+          <div className="project-links">
+            {project.link &&
+              (() => {
+                if (project.link instanceof Array) {
+                  return project.link.map((link, idx) => {
+                    const internal = link.internal;
+                    delete link.internal;
+                    return (
+                      <a
+                        className="project-link"
+                        key={idx}
+                        target={internal ? null : "_blank"}
+                        href={Object.values(link)[0]}
+                      >
+                        {Object.keys(link)[0]}
+                      </a>
+                    );
+                  });
+                } else {
+                  return (
+                    <a
+                      className="project-link"
+                      target="_blank"
+                      href={project.link}
+                    >
+                      visit
+                    </a>
                   );
                 }
               })()}

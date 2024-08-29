@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
 body {
   font-size: 20px;
@@ -37,6 +37,9 @@ body {
   }
 
   .project {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
     border: 1px solid black;
     padding: 20px;
   }
@@ -50,6 +53,23 @@ body {
   .project-preview {
     flex-basis: 800px;
     max-width: 160px;
+    margin-top: 20px;
+  }
+  .project-links {
+    display: flex;
+    gap: 5px 20px;
+    flex-wrap: wrap;
+  }
+
+  .project-link::before {
+    position: absolute;
+    left: -15px;
+    content: ">_";
+    text-decoration: underline;
+  }
+  .project-link {
+    position: relative;
+    margin-left: 10px;
   }
 }
 
@@ -371,4 +391,138 @@ code {
 
 #foot {
   text-align: right;
+}
+
+.english-syntax-highlight {
+  font-family: "Courier New", Courier, monospace;
+
+  border: 1px solid black;
+  padding: 10px;
+
+  .article {
+    color: blue;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .noun {
+    color: red;
+    text-decoration: underline;
+    position: relative;
+  }
+
+  .adjective {
+    color: silver;
+    position: relative;
+  }
+
+  .verb {
+    color: black;
+    position: relative;
+  }
+
+  .conjunction {
+    color: blue;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .preposition {
+    color: green;
+    font-style: italic;
+    position: relative;
+  }
+
+  .pronoun {
+    color: red;
+    text-decoration: underline dashed;
+    position: relative;
+  }
+
+  .possessive {
+    color: red;
+    text-decoration: underline dotted;
+    position: relative;
+  }
+
+  .adverb {
+    color: black;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .article::after,
+  .noun::after,
+  .adjective::after,
+  .verb::after,
+  .conjunction::after,
+  .preposition::after,
+  .pronoun::after,
+  .possessive::after,
+  .adverb::after {
+    content: "";
+    position: absolute;
+    bottom: 100%; /* Position the tooltip above the text */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  .article:hover::after,
+  .noun:hover::after,
+  .adjective:hover::after,
+  .verb:hover::after,
+  .conjunction:hover::after,
+  .preposition:hover::after,
+  .pronoun:hover::after,
+  .possessive:hover::after,
+  .adverb:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .article::after {
+    content: "article";
+  }
+
+  .noun::after {
+    content: "noun";
+  }
+
+  .adjective::after {
+    content: "adjective";
+  }
+
+  .verb::after {
+    content: "verb";
+  }
+
+  .conjunction::after {
+    content: "conjunction";
+  }
+
+  .preposition::after {
+    content: "preposition";
+  }
+
+  .pronoun::after {
+    content: "pronoun";
+  }
+
+  .possessive::after {
+    content: "possessive";
+  }
+
+  .adverb::after {
+    content: "adverb";
+  }
 }
