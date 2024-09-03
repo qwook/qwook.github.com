@@ -130,7 +130,9 @@ export function Item({
         {name}
         {showPrice && (
           <>
-            <br />${cost}
+            <br />
+            <Symbols.Points />
+            {cost}
           </>
         )}
       </div>
@@ -162,13 +164,13 @@ export function Item({
           {special?.coinSpawner && (
             <>
               <strong>When equipped:</strong> Spawns {special.coinSpawner}{" "}
-              additional coin. <br />
+              additional <Symbols.Points />. <br />
             </>
           )}
           {special?.lucky && (
             <>
-              <strong>When equipped:</strong> Increases chance of higher value
-              coin. <br />
+              <strong>When equipped:</strong> Increases chance of higher bundle
+              of <Symbols.Points />. <br />
             </>
           )}
           {actions.map((action) => (

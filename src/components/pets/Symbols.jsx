@@ -6,7 +6,7 @@ const Symbols = {
     return <span className="symbol">&#9786;</span>;
   },
   Points: function () {
-    return <span className="symbol">$</span>;
+    return <span className="symbol">✿</span>;
   },
 };
 
