@@ -147,17 +147,13 @@ export default function Flower({ onEarn, earnGoalEle }) {
   };
 
   const respawn = () => {
-    const padding = 128 + 80;
+    const padding = (128 + 80) / 2;
     for (const flowerImage of flowerImages) {
       flowerImage.current.respawn();
     }
     setPosition([
-      window.scrollX +
-        padding +
-        Math.random() * (window.innerWidth - 2 * padding),
-      window.scrollY +
-        padding +
-        Math.random() * (window.innerHeight - 2 * padding),
+      window.scrollX + Math.random() * (window.innerWidth - 2 * padding),
+      window.scrollY + Math.random() * (window.innerHeight - 2 * padding),
     ]);
     playRustle();
   };
