@@ -6,12 +6,22 @@ export default function useInterval(callback, timeMs, deps = []) {
     callbackRef.current = callback;
   }, [callback, ...deps]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const resetInterval = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
       callbackRef.current();
     }, timeMs);
+  };
+
+  const intervalRef = useRef();
+  useEffect(() => {
+    resetInterval();
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalRef.current);
     };
   }, [timeMs]);
+
+  return {
+    resetInterval,
+  };
 }

@@ -12,6 +12,8 @@ import {
 import { PetsContext } from "./PetsContext";
 import { items } from "./data/items";
 import useInterval from "../../hooks/useInterval";
+import useRefArray from "../../hooks/useRefArray";
+import _ from "lodash";
 
 const FLOWER_IMAGES = [
   require("./images/flower.gif"),
@@ -20,14 +22,40 @@ const FLOWER_IMAGES = [
   require("./images/flower4.gif"),
 ];
 
-const FlowerImage = forwardRef(({ offsetX, offsetY, animationDelay }, ref) => {
+const FlowerImage = forwardRef(({ animationDelay, visible }, ref) => {
+  const [flowerImage, setFlowerImage] = useState(
+    () => FLOWER_IMAGES[Math.floor(Math.random() * FLOWER_IMAGES.length)]
+  );
+  const [offsetX, setOffsetX] = useState(() => (Math.random() - 0.5) * 80);
+  const [offsetY, setOffsetY] = useState(() => (Math.random() - 0.5) * 80);
+
+  const flowerEle = useRef();
+
+  const respawn = () => {
+    setFlowerImage(
+      FLOWER_IMAGES[Math.floor(Math.random() * FLOWER_IMAGES.length)]
+    );
+    setOffsetX((Math.random() - 0.5) * 80);
+    setOffsetY((Math.random() - 0.5) * 80);
+  };
+
   const playRustle = () => {
+    // setTimeout(() => {
     // Reset the animation by removing the class and forcing reflow
     flowerEle.current.style.animation = "none";
     flowerEle.current.offsetHeight; // Trigger reflow to apply the reset
 
     // Reapply the animation
-    flowerEle.current.style.animation = "bushRustle 1s ease-in-out forwards";
+    flowerEle.current.style.animation = `bushRustle 1s ease-in-out ${animationDelay}s forwards`;
+    flowerEle.current.style.transition = "opacity 0s";
+    flowerEle.current.style.opacity = 0;
+    setTimeout(() => {
+      if (flowerEle.current) {
+        flowerEle.current.style.transition = "opacity 0.5s";
+        flowerEle.current.style.opacity = 1;
+      }
+    }, animationDelay * 1000);
+    // }, animationDelay * 1000);
   };
 
   const playRustleBackwards = () => {
@@ -36,8 +64,8 @@ const FlowerImage = forwardRef(({ offsetX, offsetY, animationDelay }, ref) => {
     flowerEle.current.offsetHeight; // Trigger reflow to apply the reset
 
     // Reapply the animation
-    flowerEle.current.style.animation =
-      "bushRustle 0.5s ease-in-out reverse forwards";
+    flowerEle.current.style.animation = `bushRustle 0.5s ease-in-out ${animationDelay}s reverse forwards`;
+    flowerEle.current.style.opacity = 0;
   };
 
   const playRustleNoFade = () => {
@@ -46,27 +74,31 @@ const FlowerImage = forwardRef(({ offsetX, offsetY, animationDelay }, ref) => {
     flowerEle.current.offsetHeight; // Trigger reflow to apply the reset
 
     // Reapply the animation
-    flowerEle.current.style.animation =
-      "bushRustleNoFade 0.5s ease-in-out forwards";
+    flowerEle.current.style.animation = `bushRustleNoFade 0.5s ease-in-out ${animationDelay}s forwards`;
   };
 
-  useImperativeHandle(ref, {
+  useImperativeHandle(ref, () => ({
     playRustle,
     playRustleBackwards,
     playRustleNoFade,
-  });
-
-  const flowerEle = useRef();
+    respawn,
+  }));
 
   return (
     <div
       style={{
+        display: visible ? null : "none",
         position: "absolute",
+        opacity: 0,
+        left: offsetX,
+        top: offsetY,
         width: 128,
         height: 128,
         backgroundImage: `url(${flowerImage})`,
         backgroundPosition: "center",
+        transition: "opacity 0.5s",
       }}
+      ref={flowerEle}
     ></div>
   );
 });
@@ -77,9 +109,8 @@ export default function Flower({ onEarn, earnGoalEle }) {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState([0, 0]);
   const [initialPos, setInitialPos] = useState([0, 0]);
-  const [flowerImage, setFlowerImage] = useState(
-    () => FLOWER_IMAGES[Math.floor(Math.random() * FLOWER_IMAGES.length)]
-  );
+  const [flowerImageCount, setFlowerImageCount] = useState(1);
+  const flowerImages = useRefArray(_.range(0, 5));
   const fadingOut = useRef(false);
   const { equipped } = useContext(PetsContext);
 
@@ -98,39 +129,28 @@ export default function Flower({ onEarn, earnGoalEle }) {
   }, [equipped]);
 
   const playRustle = () => {
-    // Reset the animation by removing the class and forcing reflow
-    flowerEle.current.style.animation = "none";
-    flowerEle.current.offsetHeight; // Trigger reflow to apply the reset
-
-    // Reapply the animation
-    flowerEle.current.style.animation = "bushRustle 1s ease-in-out forwards";
+    for (const flowerImage of flowerImages) {
+      flowerImage.current.playRustle();
+    }
   };
 
   const playRustleBackwards = () => {
-    // Reset the animation by removing the class and forcing reflow
-    flowerEle.current.style.animation = "none";
-    flowerEle.current.offsetHeight; // Trigger reflow to apply the reset
-
-    // Reapply the animation
-    flowerEle.current.style.animation =
-      "bushRustle 0.5s ease-in-out reverse forwards";
+    for (const flowerImage of flowerImages) {
+      flowerImage.current.playRustleBackwards();
+    }
   };
 
   const playRustleNoFade = () => {
-    // Reset the animation by removing the class and forcing reflow
-    flowerEle.current.style.animation = "none";
-    flowerEle.current.offsetHeight; // Trigger reflow to apply the reset
-
-    // Reapply the animation
-    flowerEle.current.style.animation =
-      "bushRustleNoFade 0.5s ease-in-out forwards";
+    for (const flowerImage of flowerImages) {
+      flowerImage.current.playRustleNoFade();
+    }
   };
 
   const respawn = () => {
-    const padding = 40;
-    setFlowerImage(
-      FLOWER_IMAGES[Math.floor(Math.random() * FLOWER_IMAGES.length)]
-    );
+    const padding = 100;
+    for (const flowerImage of flowerImages) {
+      flowerImage.current.respawn();
+    }
     setPosition([
       window.scrollX +
         padding +
@@ -142,7 +162,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
     playRustle();
   };
 
-  useInterval(() => {
+  const { resetInterval: resetRespawnInterval } = useInterval(() => {
     if (collecting) return false;
     playRustleBackwards();
     fadingOut.current = true;
@@ -175,7 +195,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
           setScale(
             1 +
               (0.5 + Math.sin(progress * Math.PI * 1.9 - Math.PI / 2) * 0.5) *
-                2.0
+                1.0
           );
           setOpacity(1 - progress);
           if (progress > 1.0) {
@@ -183,15 +203,18 @@ export default function Flower({ onEarn, earnGoalEle }) {
             setOpacity(1);
             setScale(1);
             setCollecting(false);
-            respawn();
             const probability = Math.random();
             if (probability < (lucky ? 0.15 : 0.05)) {
               setValue(20);
+              setFlowerImageCount(5);
             } else if (probability < (lucky ? 0.3 : 0.2)) {
               setValue(5);
+              setFlowerImageCount(3);
             } else {
               setValue(1);
+              setFlowerImageCount(1);
             }
+            respawn();
           } else {
             setPosition([
               initialPos[0] +
@@ -208,22 +231,16 @@ export default function Flower({ onEarn, earnGoalEle }) {
     [setPosition, earnGoalEle, onEarn, collecting, position]
   );
 
-  const valueColor = {
-    [1]: "#a26a1b",
-    [5]: "silver",
-    [20]: "yellow",
-  };
-
   return (
     <div
       style={{
         position: "absolute",
         left: position[0],
         top: position[1],
-        width: 128,
-        height: 128,
-        backgroundImage: `url(${flowerImage})`,
-        backgroundPosition: "center",
+        // width: 128,
+        // height: 128,
+        // backgroundImage: `url(${flowerImage})`,
+        // backgroundPosition: "center",
         cursor: "pointer",
         textAlign: "center",
         fontSize: 40,
@@ -236,6 +253,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
       ref={flowerEle}
       onClick={(e) => {
         if (collecting) return false;
+        resetRespawnInterval();
         setCollecting(Date.now());
         setInitialPos([...position]);
         e.stopPropagation();
@@ -249,6 +267,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
       }}
       onMouseDown={(e) => {
         if (collecting) return false;
+        resetRespawnInterval();
         setCollecting(Date.now());
         setInitialPos([...position]);
         e.stopPropagation();
@@ -259,8 +278,18 @@ export default function Flower({ onEarn, earnGoalEle }) {
       <div
         style={{
           position: "relative",
+          transform: "translate(-50%, -50%)",
         }}
-      ></div>
+      >
+        {flowerImages.map((ref, idx) => (
+          <FlowerImage
+            key={idx}
+            visible={idx < flowerImageCount}
+            ref={ref}
+            animationDelay={0.2 * idx}
+          />
+        ))}
+      </div>
     </div>
   );
 }
