@@ -24,6 +24,7 @@ body {
   background-image: url("../pages/quests/images/bg10.jpg");
   color: black;
   font-family: "Pixel Arial 11";
+  font-size: 14px;
 }
 h1,
 h2 {
@@ -158,5 +159,35 @@ p,
 @media (max-width: 640px) {
   .pets {
     display: none;
+  }
+
+  .quest {
+    margin: 0px 0px;
+  }
+
+  .quest-scroll-bar {
+    position: relative;
+    height: 30px;
+  }
+
+  .quest-scroll-left {
+    position: absolute;
+    left: -20px;
+    width: 20px;
+    height: 30px;
+    background-size: auto 30px;
+  }
+
+  .quest-scroll-right {
+    position: absolute;
+    right: -20px;
+    width: 20px;
+    height: 30px;
+    background-size: auto 30px;
+  }
+
+  .quest-scroll-bg {
+    background-image: url("../pages/quests/images/quest_scroll_bg.gif");
+    background-size: auto 30px;
   }
 }
