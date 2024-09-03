@@ -147,7 +147,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
   };
 
   const respawn = () => {
-    const padding = (128 + 80) / 2;
+    const padding = 128 + 80;
     for (const flowerImage of flowerImages) {
       flowerImage.current.respawn();
     }
