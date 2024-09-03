@@ -2,6 +2,7 @@ import Banner from "../components/Banner";
 import Carousel from "../components/Carousel";
 import Page from "../components/Page";
 import { createPage } from "../app";
+import HTMLFestCarousel from "../components/HTMLFestCarousel";
 
 const projects = [
   {
@@ -30,19 +31,7 @@ const projects = [
   {
     name: "HTMLfest",
     link: "https://htmlfest.com/memories.html",
-    preview: (
-      <Carousel>
-        <img src={require("./images/htmlfest/9.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/8.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/7.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/1.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/2.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/3.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/4.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/5.gif")} alt="project preview" />
-        <img src={require("./images/htmlfest/6.gif")} alt="project preview" />
-      </Carousel>
-    ),
+    preview: <HTMLFestCarousel />,
     description: (
       <p>
         A tiny festival of live performances and food in my backyard, with a

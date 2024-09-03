@@ -101,7 +101,7 @@ export function Item({
               width: `${width}%`,
               height: `${height}%`,
               opacity: 0.3,
-              zIndex: -1,
+              // zIndex: -1,
             }}
           />
         )}
@@ -116,7 +116,7 @@ export function Item({
             top: `${offsetY}%`,
             width: `${width}%`,
             height: `${height}%`,
-            zIndex: -1,
+            // zIndex: -1,
           }}
         />
       </div>

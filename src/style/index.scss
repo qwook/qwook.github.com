@@ -269,6 +269,11 @@ code {
   img {
     max-width: 100%;
   }
+
+  .fake-link {
+    display: inline-block;
+    min-width: 20px;
+  }
 }
 
 @keyframes funAnimation {
