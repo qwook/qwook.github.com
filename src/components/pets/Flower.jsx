@@ -147,7 +147,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
   };
 
   const respawn = () => {
-    const padding = 100;
+    const padding = (128 + 80) / 2;
     for (const flowerImage of flowerImages) {
       flowerImage.current.respawn();
     }
@@ -231,12 +231,15 @@ export default function Flower({ onEarn, earnGoalEle }) {
     [setPosition, earnGoalEle, onEarn, collecting, position]
   );
 
+  console.log(window.innerWidth - position[0]);
+
   return (
     <div
       style={{
         position: "absolute",
         left: position[0],
         top: position[1],
+        // maxHeight: 800,
         // width: 128,
         // height: 128,
         // backgroundImage: `url(${flowerImage})`,
