@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+@font-face {
+  font-family: "8bitlim";
+  src: url(../pages/quests/images/8-bit-limit/8bitlim.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Lowres Pixel";
+  src: url(../pages/quests/images/lower-pixel/LowresPixel-Regular.otf)
+    format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pixel Arial 11";
+  src: url(../pages/quests/images/pixel_arial_11/pixearg__.ttf)
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  background-color: rgb(230, 230, 230);
+  background-image: url("../pages/quests/images/bg10.jpg");
+  color: black;
+  font-family: "Pixel Arial 11";
+}
+h1,
+h2 {
+  font-family: "8bitlim";
+}
+
+p,
+.quest a {
+  text-shadow: 1px 1px 5px white, 1px 1px 5px white, 1px 1px 5px white,
+    1px 1px 5px white;
+}
+
+.quest {
+  color: white;
+  background-color: rgb(96, 72, 56);
+  background-image: url("../pages/quests/images/quest_scroll_big_bg.gif");
+  padding: 5px 15px;
+  margin: 0px 25px;
+  box-shadow: inset 0px -5px 40px 0px black;
+  &,
+  p {
+    text-shadow: 1px 1px 0px black, 2px 2px 0px black, 3px 3px 0px black,
+      0px 0px 20px black;
+  }
+
+  h2 {
+    color: orange;
+  }
+
+  .quest-item {
+    list-style: none;
+  }
+
+  .quest-name {
+    position: relative;
+    cursor: pointer;
+    color: red;
+    margin-left: 30px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .chevron {
+      position: absolute;
+      left: -30px;
+      width: 20px;
+    }
+  }
+
+  .quest-item-completed .quest-name {
+    color: rgb(0, 255, 0);
+  }
+
+  .quest-item {
+    margin: 0px;
+  }
+
+  .quests {
+    padding: 0;
+  }
+
+  .carousel {
+    text-align: center;
+  }
+
+  .quest-description {
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.2s ease;
+  }
+
+  .quest-description.expanded {
+    height: auto;
+  }
+}
+
+.legend {
+  text-align: center;
+}
+
+.legend-not-done {
+  color: red;
+  text-shadow: 1px 1px 0px black, 2px 2px 0px black, 3px 3px 0px black,
+    0px 0px 10px black;
+}
+
+.legend-finished {
+  color: rgb(0, 255, 0);
+  text-shadow: 1px 1px 0px black, 2px 2px 0px black, 3px 3px 0px black,
+    0px 0px 10px black;
+}
+
+.quest-scroll-bar {
+  justify-items: stretch;
+  justify-content: stretch;
+  align-items: stretch;
+  display: flex;
+  height: 40px;
+  width: 100%;
+}
+
+.quest-scroll-left {
+  flex-basis: 25px;
+  background-image: url("../pages/quests/images/quest_left.gif");
+  background-size: auto 40px;
+}
+
+.quest-scroll-right {
+  flex-basis: 25px;
+  background-image: url("../pages/quests/images/quest_right.gif");
+  background-size: auto 40px;
+  background-position: top right;
+}
+
+.quest-scroll-bg {
+  flex-grow: 1;
+  background-image: url("../pages/quests/images/quest_scroll_bg.gif");
+  background-size: auto 40px;
+}
+
+.pets {
+  max-width: 200px;
+  background-color: white;
+}
+
+.pet-view {
+  transform: scale(0.5) translate(-25%, -25%);
+  width: 250px;
+  height: 150px;
+}
+
+@media (max-width: 640px) {
+  .pets {
+    display: none;
+  }
+}

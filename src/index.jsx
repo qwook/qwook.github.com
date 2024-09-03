@@ -10,9 +10,9 @@ export default function IndexPage() {
       <p>
         My name is Henry Quoc Tran. I am currently <Age /> years old. I grew up
         in Milpitas, California. I now live in San Francisco, California. I am
-        Vietnamese and Chinese.
+        Vietnamese and Chinese. I have many <a href="/quests">quests.</a>
       </p>
-      <p>I am an indie game developer and a creative technologist.</p>
+      <p>I am an indie game developer and creative technologist.</p>
       <p>
         I like to explore nostalgia, trauma, and the deterioration of the
         internet. I also like happy things too like matcha mochi donuts.
