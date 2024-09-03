@@ -1,7 +1,7 @@
 import { CLOTHES, items } from "./data/items";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import Coin from "./Coin";
+import Flower from "./Flower";
 import Inventory from "./Inventory";
 import { PetsContext } from "./PetsContext";
 import Shop from "./Shop";
@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function Pets() {
   const [message, setMessage] = useLocalStorageState(
     "message",
-    "Hello, world! Click on the floating coins to earn henpoints!"
+    "Hello, world! Collect flowers to buy items!"
   );
   const [health, setHealth] = useLocalStorageState("health", 100);
   const [happiness, setHappiness] = useLocalStorageState("happiness", 100);
@@ -292,7 +292,7 @@ export default function Pets() {
           let coinComponents = [];
           for (let i = 0; i < coinsVisible; i++) {
             coinComponents.push(
-              <Coin
+              <Flower
                 key={i}
                 onEarn={(value) => {
                   setMoney((money) => money + value);
