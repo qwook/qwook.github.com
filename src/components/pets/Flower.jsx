@@ -55,6 +55,20 @@ const FlowerImage = forwardRef(({ offsetX, offsetY, animationDelay }, ref) => {
     playRustleBackwards,
     playRustleNoFade,
   });
+
+  const flowerEle = useRef();
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        width: 128,
+        height: 128,
+        backgroundImage: `url(${flowerImage})`,
+        backgroundPosition: "center",
+      }}
+    ></div>
+  );
 });
 
 export default function Flower({ onEarn, earnGoalEle }) {
@@ -68,6 +82,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
   );
   const fadingOut = useRef(false);
   const { equipped } = useContext(PetsContext);
+
   const flowerEle = useRef();
 
   const [collecting, setCollecting] = useState(0);
@@ -240,6 +255,12 @@ export default function Flower({ onEarn, earnGoalEle }) {
         e.preventDefault();
         return false;
       }}
-    ></div>
+    >
+      <div
+        style={{
+          position: "relative",
+        }}
+      ></div>
+    </div>
   );
 }
