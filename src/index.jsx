@@ -98,6 +98,11 @@ export default function IndexPage() {
           image={"https://sharonzheng.com/favicon.ico"}
           link={"https://sharonzheng.com/"}
         />
+        <WebRing
+          text={"anthony tesija"}
+          image={"https://anthonytesija.com/static/media/face.00003743.png"}
+          link={"https://anthonytesija.com/"}
+        />
         <WebRing text={"t.i.a.t."} link={"https://tiat.place/"} />
       </div>
     </div>
