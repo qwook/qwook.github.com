@@ -167,7 +167,7 @@ export default function Flower({ onEarn, earnGoalEle }) {
       if (collecting) return false;
       respawn();
     }, 500);
-  }, 5000);
+  }, 20000);
 
   useEffect(() => {
     // if (flowerEle.current) {
