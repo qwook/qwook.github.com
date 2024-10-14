@@ -115,7 +115,7 @@ export default function QuestsPage() {
           <Quest name="Log 60 days of food that I ate (0/60)">
             I want to figure out what foods make my stomach hurt!
           </Quest>
-          <Quest name="Log 40 days of yoga (3/40)"></Quest>
+          <Quest name="Log 40 days of yoga (4/40)"></Quest>
           <Quest name="Log 90 days of meditation (0/90)"></Quest>
           <Quest name="Log 5 days of trash cleanup (2/5)"></Quest>
           <Quest name="Log 10 days of calling my long distance friends (0/10)">
