@@ -17,11 +17,16 @@ export function useSimpleTexture(path) {
   return texture;
 }
 
+let globIndex = Math.random() * 100000;
+function incrementGlob() {
+  return globIndex++;
+}
+
 export default function Polaroid({ idx }) {
   const { fronts, backs } = useContext(PolaroidsContext);
 
   const meshRef = useRef();
-  const [random, setRandom] = useState(() => Math.random());
+  const [random, setRandom] = useState(() => incrementGlob());
   const frontTexture = useSimpleTexture(
     fronts[Math.floor(random * 100000) % fronts.length]
   );
@@ -34,14 +39,14 @@ export default function Polaroid({ idx }) {
   const front = useFrame((state, delta) => {
     // meshRef.current.rotation.x += delta * 0.5;
     // meshRef.current.rotation.y += delta * 2.0;
-    const now = performance.now() *0.5 + 100000;
+    const now = performance.now() * 0.5 + 100000;
     // console.log(now);
     meshRef.current.rotation.y =
       Math.cos((idx * 1.0 - now / 2000 + 10) % (Math.PI * 2)) * Math.PI +
       Math.PI +
       Math.cos(random * 10) / 4;
-    // meshRef.current.rotation.z =
-    //   ((idx * 0.3 - now / 2000) % (Math.PI * 4)) + Math.PI / 2;
+    meshRef.current.rotation.z =
+      ((idx * 0.3 - now / 2000) % (Math.PI * 4)) + Math.PI / 2;
     meshRef.current.position.x = Math.sin(meshRef.current.rotation.y) * 2.5;
     meshRef.current.position.z =
       Math.cos(meshRef.current.rotation.y) *
@@ -56,7 +61,7 @@ export default function Polaroid({ idx }) {
     if (meshRef.current.position.y < -8) {
       if (!alreadyReset.current) {
         alreadyReset.current = true;
-        setRandom(Math.random());
+        setRandom(incrementGlob());
       }
     }
   });
