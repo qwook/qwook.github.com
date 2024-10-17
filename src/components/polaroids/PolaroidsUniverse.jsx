@@ -5,7 +5,7 @@ import { useThree } from "@react-three/fiber";
 export const PolaroidsContext = createContext({ fronts: [], backs: [] });
 
 export default function PolaroidsUniverse({ fronts, backs }) {
-  const pool = useMemo(() => [...Array(20).keys()]);
+  const pool = useMemo(() => [...Array(10).keys()]);
 
   const { scene } = useThree();
   scene.background = useSimpleTexture(require("../../pages/images/polaroid_skybox.jpg"));

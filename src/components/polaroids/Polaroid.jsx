@@ -37,18 +37,23 @@ export default function Polaroid({ idx }) {
     const now = performance.now() + 100000;
     // console.log(now);
     meshRef.current.rotation.y =
-      ((idx * 0.3 - now / 2000) % (Math.PI * 4)) + Math.PI / 2;
-    meshRef.current.rotation.z =
-      ((idx * 0.3 - now / 2000) % (Math.PI * 4)) + Math.PI / 2;
+      Math.cos((idx * 1.0 - now / 2000 + 10) % (Math.PI * 2)) * Math.PI +
+      Math.PI +
+      Math.cos(random * 10) / 4;
+    // meshRef.current.rotation.z =
+    //   ((idx * 0.3 - now / 2000) % (Math.PI * 4)) + Math.PI / 2;
     meshRef.current.position.x = Math.sin(meshRef.current.rotation.y) * 2.5;
-    meshRef.current.position.z = Math.cos(meshRef.current.rotation.y) * 0.5;
-    meshRef.current.position.y = ((idx * 3.5 - now / 1000) % 14) + 6;
+    meshRef.current.position.z =
+      Math.cos(meshRef.current.rotation.y) *
+        (0.5 + Math.abs(Math.cos(idx * 1.0 - now / 2000 - 10)) * 2) -
+      1.5;
+    meshRef.current.position.y = ((idx * 2.0 - now / 1000) % 14) + 7;
 
-    if (meshRef.current.position.y > 1) {
+    if (meshRef.current.position.y > 0) {
       alreadyReset.current = false;
     }
 
-    if (meshRef.current.position.y < -6) {
+    if (meshRef.current.position.y < -8) {
       if (!alreadyReset.current) {
         alreadyReset.current = true;
         setRandom(Math.random());
