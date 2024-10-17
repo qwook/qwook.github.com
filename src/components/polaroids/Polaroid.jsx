@@ -34,13 +34,15 @@ export default function Polaroid({ idx }) {
   const front = useFrame((state, delta) => {
     // meshRef.current.rotation.x += delta * 0.5;
     // meshRef.current.rotation.y += delta * 2.0;
+    const now = performance.now() + 100000;
+    // console.log(now);
     meshRef.current.rotation.y =
-      ((idx * 0.3 - Date.now() / 2000) % (Math.PI * 4)) + Math.PI / 2;
+      ((idx * 0.3 - now / 2000) % (Math.PI * 4)) + Math.PI / 2;
     meshRef.current.rotation.z =
-      ((idx * 0.3 - Date.now() / 2000) % (Math.PI * 4)) + Math.PI / 2;
+      ((idx * 0.3 - now / 2000) % (Math.PI * 4)) + Math.PI / 2;
     meshRef.current.position.x = Math.sin(meshRef.current.rotation.y) * 2.5;
     meshRef.current.position.z = Math.cos(meshRef.current.rotation.y) * 0.5;
-    meshRef.current.position.y = ((idx * 3.5 - Date.now() / 1000) % 15) + 6;
+    meshRef.current.position.y = ((idx * 3.5 - now / 1000) % 14) + 6;
 
     if (meshRef.current.position.y > 1) {
       alreadyReset.current = false;
