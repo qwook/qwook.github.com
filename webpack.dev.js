@@ -12,6 +12,18 @@ module.exports = merge(common, {
     static: path.resolve(__dirname, "dist"),
     hot: true,
     liveReload: false,
+
+    client: {
+      overlay: {
+        runtimeErrors: (error) => {
+          if (error.message === "ResizeObserver loop limit exceeded") {
+            return false;
+          }
+          return true;
+        },
+      },
+    },
+
     // open: true,
     // historyApiFallback: true,
   },

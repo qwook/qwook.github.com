@@ -2,7 +2,7 @@ import "../style/index.scss";
 
 import Pets from "./pets";
 
-export default function Page({ children }) {
+export default function Page({ children, showPets = true }) {
   return (
     <>
       <div className="nav">
@@ -27,9 +27,11 @@ export default function Page({ children }) {
         </a>
       </div>
       <div className="page">
-        <div className="pets">
-          <Pets />
-        </div>
+        {showPets && (
+          <div className="pets">
+            <Pets />
+          </div>
+        )}
         <div
           className="content"
           style={{
