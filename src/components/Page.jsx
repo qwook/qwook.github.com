@@ -2,30 +2,32 @@ import "../style/index.scss";
 
 import Pets from "./pets";
 
-export default function Page({ children, showPets = true }) {
+export default function Page({ children, showPets = true, showNav = true }) {
   return (
     <>
-      <div className="nav">
-        <a className="nav-item" href="/list">
-          Random
-        </a>
-        |
-        <a className="nav-item" href="/archive">
-          Archive
-        </a>
-        |
-        <a className="nav-item" href="/art">
-          Art
-        </a>
-        |
-        <a className="nav-item" href="/projects">
-          Projects
-        </a>
-        |
-        <a className="nav-item" href="/">
-          Home
-        </a>
-      </div>
+      {showNav && (
+        <div className="nav">
+          <a className="nav-item" href="/list">
+            Random
+          </a>
+          |
+          <a className="nav-item" href="/archive">
+            Archive
+          </a>
+          |
+          <a className="nav-item" href="/art">
+            Art
+          </a>
+          |
+          <a className="nav-item" href="/projects">
+            Projects
+          </a>
+          |
+          <a className="nav-item" href="/">
+            Home
+          </a>
+        </div>
+      )}
       <div className="page">
         {showPets && (
           <div className="pets">
