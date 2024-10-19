@@ -14,7 +14,7 @@ import "./chao.scss";
 
 const lineup = [
   {
-    name: "Alex Togashio",
+    name: "Alex Togashii",
     image: require("./images/chao/artists/2.jpg"),
     description: "alex is cool as a cat, with a chill indie rock sound.",
     spotify:
