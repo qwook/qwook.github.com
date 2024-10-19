@@ -578,3 +578,23 @@ code {
   // animation: bushRustle 1s ease-in-out infinite;
   // display: inline-block;
 }
+
+.pet-stats {
+  .stat {
+    .stat-description {
+      display: none;
+    }
+    .stat-value {
+      display: initial;
+    }
+
+    &:hover {
+      .stat-description {
+        display: initial;
+      }
+      .stat-value {
+        display: none;
+      }
+    }
+  }
+}

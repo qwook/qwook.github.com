@@ -252,14 +252,29 @@ export default function Pets() {
             </div>
           </div>
           <div className="pet-stats">
-            <div>
-              <Symbols.Health /> {health} / 100
+            <div className="stat">
+              <div className="stat-description">
+                <Symbols.Health /> Hunger and health.
+              </div>
+              <div className="stat-value">
+                <Symbols.Health /> {health} / 100
+              </div>
             </div>
-            <div>
-              <Symbols.Happiness /> {Math.floor(happiness)} / 100
+            <div className="stat">
+              <div className="stat-description">
+                <Symbols.Happiness /> Happiness from toys.
+              </div>
+              <div className="stat-value">
+                <Symbols.Happiness /> {Math.floor(happiness)} / 100
+              </div>
             </div>
-            <div ref={moneyDiv}>
-              <Symbols.Points /> {money}
+            <div className="stat" ref={moneyDiv}>
+              <div className="stat-description">
+                <Symbols.Points /> Used to buy stuff.
+              </div>
+              <div className="stat-value">
+                <Symbols.Points /> {money}
+              </div>
             </div>
           </div>
         </div>
