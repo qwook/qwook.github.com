@@ -9,6 +9,7 @@ function FloatingImage({ offsetX, offsetY, src }) {
         position: "absolute",
         top: offsetY,
         left: offsetX,
+        maxHeight: 90,
       }}
       src={src}
       alt={"i float."}
@@ -206,7 +207,7 @@ export default function AnxietyPage() {
         how do i summarize more than <a href="polaroids">three decades of existence?</a>
         <FloatingImage
           offsetY={-30}
-          offsetX={200}
+          offsetX={-20}
           src={require("./images/anxiety/1.png")}
         />
       </p>
