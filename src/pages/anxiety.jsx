@@ -204,7 +204,7 @@ export default function AnxietyPage() {
         <br />
         those are only slivers of who i am
         <br />
-        how do i summarize more than <a href="polaroids">three decades of existence?</a>
+        how do i summarize more than <a href="/polaroids">three decades of existence?</a>
         <FloatingImage
           offsetY={-30}
           offsetX={-20}
