@@ -14,7 +14,7 @@ export default function IndexPage() {
       </p>
       <p>I am an indie game developer and creative technologist.</p>
       <p>
-        I like to explore nostalgia, trauma, and the deterioration of the
+        I like to explore nostalgia, <a href="./anxiety">trauma</a>, and the deterioration of the
         internet. I also like happy things too like matcha mochi donuts.
       </p>
       <ul>
