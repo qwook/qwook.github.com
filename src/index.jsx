@@ -8,7 +8,7 @@ export default function IndexPage() {
     <div>
       <Banner>Welcome to qwook.io</Banner>
       <p>
-        My name is Henry Quoc Tran. I am currently <Age /> years old. I grew up
+        My name is Henry <a href="/blogs/name">Quoc</a> Tran. I am currently <Age /> years old. I grew up
         in Milpitas, California. I now live in San Francisco, California. I am{" "}
         <a href="/blogs/durians">Vietnamese</a> and Chinese. I have many <a href="/quests">QUESTS.</a>
       </p>

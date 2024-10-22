@@ -219,8 +219,9 @@ export default function ChaoPage() {
         t (goodbye), sf!!! <sub>nov.10 2024</sub>
       </h1>
       <p>
-        ? a love letter to san francisco with a hint of saigon. but also
-        literally just my backyard with friends.
+        ? a love letter to san francisco with a hint of nhậu. but also
+        literally just my backyard with friends. there will be live music and
+        thrifting!
       </p>
       <Lineup
         onActClick={(act) => {
@@ -358,6 +359,12 @@ export default function ChaoPage() {
           />
         </div>
       </p>
+      <p>
+        san francisco was always my dream city. i used to take the BART up from
+        south bay all the time to explore the city, look at vinyl records, and
+        go thrifting.
+      </p>
+      <p>i've always embedded the spirit of 'nhậu' into my events, or vietnamese drinking culture. it's what i was raised with. but 'nhậu' isn't just about drinking, it's about togetherness and connection. i'm excited to share one last san franciscan nhậu with you all!</p>
     </div>
   );
 }
