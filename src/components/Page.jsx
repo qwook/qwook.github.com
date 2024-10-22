@@ -19,8 +19,8 @@ export default function Page({ children, showPets = true, showNav = true }) {
             Art
           </a>
           |
-          <a className="nav-item" href="/projects">
-            Projects
+          <a className="nav-item" href="/works">
+            Works
           </a>
           |
           <a className="nav-item" href="/">
