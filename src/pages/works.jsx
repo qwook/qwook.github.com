@@ -4,7 +4,7 @@ import Page from "../components/Page";
 import { createPage } from "../app";
 import HTMLFestCarousel from "../components/HTMLFestCarousel";
 
-const projects = [
+const works = [
   {
     name: "last seen online",
     link: "https://store.steampowered.com/app/2824230/last_seen_online/",
@@ -36,6 +36,15 @@ const projects = [
       <p>
         A tiny festival of live performances and food in my backyard, with a
         focus on small artists of the weird wide web.
+      </p>
+    ),
+  },
+  {
+    name: "Durians and the Monsters We Face",
+    link: "/blogs/durians",
+    description: (
+      <p>
+        A short story about a Vietnamese grandmother making an unexpected friend on the BART. Winner of the 2022 BART Lines Short Story competition.
       </p>
     ),
   },
@@ -82,11 +91,11 @@ const projects = [
   },
 ];
 
-export default function ProjectsPage() {
+export default function WorksPage() {
   return (
     <div className="projects">
-      <Banner>Projects</Banner>
-      {projects.map((project, idx) => (
+      <Banner>Works</Banner>
+      {works.map((project, idx) => (
         <div key={idx} className="project">
           <h2>{project.name} </h2>
           <div className="project-body">
@@ -147,4 +156,4 @@ export default function ProjectsPage() {
   );
 }
 
-createPage(ProjectsPage);
+createPage(WorksPage);

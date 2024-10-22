@@ -22,11 +22,9 @@ const lineup = [
     instagram: "",
   },
   {
-    name: "dumpster fire",
-    image: require("./images/chao/artists/1.jpg"),
-    description: "a jazzy pop cover band with smooth vocals and sound",
-    spotify: "",
-    instagram: "",
+    name: "squidlip",
+    image: require("./images/chao/artists/3.jpg"),
+    description: "male phoebe bridgers",
   },
   {
     name: "chriuung",
@@ -34,117 +32,55 @@ const lineup = [
     description: "chris has a high-energy modern pop punk sound.",
     spotify:
       "https://open.spotify.com/artist/2WzIXzBSWU8B8YBOqBW8y6?si=hQwBpqf8TeSvdSOy0hpxXw",
-    instagram: "",
+    instagram: "https://www.instagram.com/chriung/",
   },
   {
-    name: "douglas qian",
-    image: require("./images/chao/artists/1.jpg"),
-    description: "douglas qian is known best as chaya's boyfriend",
-    spotify: "",
-    instagram: "",
+    name: "??????? ????",
+    description: "guitar + vocal guy with curly hair",
   },
   {
-    name: "frida hallows",
-    image: require("./images/chao/artists/1.jpg"),
-    description: "frida frida frida",
-    spotify: "",
-    instagram: "",
+    name: "????? ???????",
+    description: "jazzy band",
   },
   {
     name: "entropic sonics",
-    image: require("./images/chao/artists/1.jpg"),
+    image: require("./images/chao/artists/4.jpg"),
     description:
       "entropic is known for experimental, deep and heavy ambient-like soundscapes",
-    spotify: "",
-    instagram: "",
+    instagram: "https://www.instagram.com/entropicsonics/",
+    spotify:
+      "https://open.spotify.com/artist/56vHwrGX0i4i9DzNu7EBz6?si=7CL7lf70RXWsuvTbe0KcOg",
   },
 ];
 
 const kylaShop = [
   {
-    image: require("./images/chao/kyla_shop/P0-1.jpg"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
+    image: require("./images/chao/kyla_shop/IMG_9512.jpg"),
+    properties: [],
   },
   {
-    image: require("./images/chao/kyla_shop/P0-2.jpg"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
+    image: require("./images/chao/kyla_shop/IMG_9514.jpg"),
+    properties: [],
   },
   {
-    image: require("./images/chao/kyla_shop/P0-3.jpg"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
+    image: require("./images/chao/kyla_shop/IMG_9518.jpg"),
+    properties: [],
   },
   {
-    image: require("./images/chao/kyla_shop/P0-4.jpg"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
+    image: require("./images/chao/kyla_shop/IMG_9523.jpg"),
+    properties: [],
   },
   {
-    image: require("./images/chao/kyla_shop/P0.jpg"),
+    image: require("./images/chao/kyla_shop/IMG_9529.jpg"),
+    properties: [],
+  },
+  {
+    image: require("./images/chao/kyla_shop/IMG_9533.jpg"),
     properties: [],
   },
 ];
 
-const kailShop = [
-  {
-    image: require("./images/chao/kail_shop/1.png"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
-  },
-  {
-    image: require("./images/chao/kail_shop/1.png"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
-  },
-  {
-    image: require("./images/chao/kail_shop/1.png"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
-  },
-  {
-    image: require("./images/chao/kail_shop/1.png"),
-    properties: [
-      {
-        name: "size",
-        value: "small",
-      },
-    ],
-  },
-  {
-    image: require("./images/chao/kail_shop/1.png"),
-    properties: [],
-  },
-];
+const kailShop = [];
 
 function Act({ act, onClick }) {
   const [rotation, setRotation] = useState(0);
@@ -309,28 +245,30 @@ export default function ChaoPage() {
       >
         {artistPage && (
           <>
-            <div
-              className="photos"
-              style={{
-                height: "25vw",
-                width: "30vw",
-              }}
-            >
+            {artistPage.image && (
               <div
-                className="image"
+                className="photos"
                 style={{
-                  display: "flex",
-                  transform: "rotate(5deg)",
+                  height: "25vw",
+                  width: "30vw",
                 }}
               >
-                <img
+                <div
+                  className="image"
                   style={{
-                    width: "20vw",
+                    display: "flex",
+                    transform: "rotate(5deg)",
                   }}
-                  src={artistPage.image}
-                />
+                >
+                  <img
+                    style={{
+                      width: "20vw",
+                    }}
+                    src={artistPage.image}
+                  />
+                </div>
               </div>
-            </div>
+            )}
             <div
               className="artist-content"
               style={{
@@ -339,12 +277,16 @@ export default function ChaoPage() {
             >
               <div className="description">{artistPage.description}</div>
               <div className="links">
-                <a target="_blank" href={artistPage.spotify}>
-                  spotify
-                </a>
-                <a target="_blank" href={artistPage.instagram}>
-                  instagram
-                </a>
+                {artistPage.spotify && (
+                  <a target="_blank" href={artistPage.spotify}>
+                    spotify
+                  </a>
+                )}
+                {artistPage.instagram && (
+                  <a target="_blank" href={artistPage.instagram}>
+                    instagram
+                  </a>
+                )}
               </div>
             </div>
           </>
@@ -378,7 +320,7 @@ export default function ChaoPage() {
             }
           }}
         >
-          &gt; preview kail's thrift shop
+          &gt; coming soon: ????'s thrift shop
         </ShopButton>
       </p>
       <div className="shop">
