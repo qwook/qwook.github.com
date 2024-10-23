@@ -8,14 +8,16 @@ export default function IndexPage() {
     <div>
       <Banner>Welcome to qwook.io</Banner>
       <p>
-        My name is Henry <a href="/blogs/name">Quoc</a> Tran. I am currently <Age /> years old. I grew up
-        in Milpitas, California. I now live in San Francisco, California. I am{" "}
-        <a href="/blogs/durians">Vietnamese</a> and Chinese. I have many <a href="/quests">QUESTS.</a>
+        My name is Henry <a href="/blogs/name">Quoc</a> Tran. I am currently{" "}
+        <Age /> years old. I grew up in Milpitas, California. I now live in San
+        Francisco, California. I am <a href="/blogs/durians">Vietnamese</a> and
+        Chinese. I have many <a href="/quests">QUESTS.</a>
       </p>
       <p>I am an indie game developer and creative technologist.</p>
       <p>
-        I like to explore nostalgia, <a href="/anxiety">trauma</a>, and the deterioration of the
-        internet. I also like happy things too like matcha mochi donuts.
+        I like to explore nostalgia, <a href="/anxiety">trauma</a>, and the{" "}
+        <a href="/decompose">deterioration of the internet.</a> I also like
+        happy things too like matcha mochi donuts.
       </p>
       <ul>
         <li>

@@ -256,6 +256,9 @@ export default function DecomposePage() {
         internet will decompose, until all that remains is #FFFFFF.
       </p>
       <p>it may take years until all of this is fully realized.</p>
+      <p>
+        <strong>STATUS: </strong> the body is in gestation period
+      </p>
       <div
         style={{
           position: "relative",
