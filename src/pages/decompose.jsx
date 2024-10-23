@@ -390,6 +390,16 @@ export default function DecomposePage() {
           scaleX={1362}
         />
 
+<Image
+          url="https://s-img.mgid.com/g/18564168/1020x574/-/aHR0cDovL2NsLmltZ2hvc3RzLmNvbS9pbWdoL2ltYWdlL2ZldGNoL2FyXzE2OjksY19maWxsLGVfc2hhcnBlbjoxMDAsZl9qcGcsZ19mYWNlczphdXRvLHFfYXV0bzpnb29kLHdfMTAyMC9odHRwOi8vaW1naG9zdHMuY29tL3QvMjAyNC0wMi8xMTU1MjkvNDRmMjg0Y2YyMGIyZDg0MjZmY2E4MWFlOTcxMjJlZjQucG5n.webp?v=1729673937-1YI1L6NhnkK0FOL9neSBBBZTw8mHh3h9kRRyvkv_6wo"
+          x={346}
+          y={208}
+          w={110}
+          h={50}
+          offsetX={-93}
+          offsetY={-100}
+          scaleX={282}
+        />
         <Image
           url="https://pbs.twimg.com/media/FulsrogWIAMMqbv?format=jpg&name=large"
           x={376}
@@ -431,14 +441,14 @@ export default function DecomposePage() {
           scaleX={2102}
         />
         <Image
-          url="https://scontent-sjc3-1.cdninstagram.com/v/t51.2885-15/374878701_285059084233795_8291048117684014328_n.jpg?stp=dst-jpg_e15&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDI1NjAuc2RyLmYzNjMyOS5kZWZhdWx0X2NvdmVyX2ZyYW1lIn0&_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_cat=107&_nc_ohc=SGEQrQqCx0EQ7kNvgEzooiV&_nc_gid=25412358d3f14c898be17182ef56df7e&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MzE4NTI2MTkwOTQxMDYyNjk2OA%3D%3D.3-ccb7-5&oh=00_AYD7d9Dp0UReK8eNXrUBFwTWg_ZVuO4b9Kk_UsCQ5BMt6g&oe=671E160A&_nc_sid=7a9f4b"
-          x={171}
-          y={400}
-          w={120}
-          h={205}
-          offsetX={-172}
-          offsetY={-745}
-          scaleX={2102}
+          url="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.600x338.jpg?t=1727975092"
+          x={164}
+          y={437}
+          w={104}
+          h={161}
+          offsetX={-1481.5}
+          offsetY={-1485.5}
+          scaleX={4359}
         />
         <Image
           url="https://cdn.donaldjtrump.com/djtweb24/general/DJT_banner.jpg"
@@ -490,7 +500,56 @@ export default function DecomposePage() {
           offsetY={-235}
           scaleX={418}
         />
-        {/* https://images.craigslist.org/00808_2sDDmn7lAm7_0ne0t2_1200x900.jpg */}
+        <Image
+          url="https://assetsio.gnwcdn.com/jedi-survivor-data-lancamento.jfif?width=690&quality=75&format=jpg&dpr=2&auto=webp"
+          x={266}
+          y={589}
+          w={138}
+          h={251}
+          offsetX={-1054}
+          offsetY={-526}
+          scaleX={1814}
+        />
+        <Image
+          url="https://play-lh.googleusercontent.com/10dkvGK-B92ENb5dcpoEZ5XdzY0_jGClEUtCN7NAiJ4pUjTJGu34Pd_slkAuVQzQL0hN=w5120-h2880"
+          x={422}
+          y={1019}
+          w={143}
+          h={190}
+          offsetX={-190.5}
+          offsetY={-1746.5}
+          scaleX={1203}
+        />
+        <Image
+          url="https://livedoor.blogimg.jp/rabitsokuhou/imgs/e/a/ea85e7d6-s.jpg"
+          x={403}
+          y={596}
+          w={130}
+          h={285}
+          offsetX={-379.5}
+          offsetY={-569.5}
+          scaleX={727}
+        />
+        <Image
+          url="https://l-userpic.livejournal.com/90194656/8057372"
+          x={415}
+          y={799}
+          w={87}
+          h={86}
+          offsetX={-103}
+          offsetY={-215}
+          scaleX={304}
+        />
+        <Image
+          url="https://s-img.mgid.com/l/513389/492x277/-/aHR0cHM6Ly9jZG4uYmFvcXVvY3RlLnZuL3N0b3Jlcy9uZXdzX2RhdGFpbWFnZXMvMjAyNC8xMDIwMjQvMjMvMTEvY3JvcGVkL2Rhbmgtc2FjaC0yMy1jYXUtdGh1LWRvaS10dXllbi11MTctdmlldC1uYW0tdGhhbS1kdS12b25nLWxvYWktZ2lhaS11MTctY2hhdS1hLTIwMjUtMjAyNDEwMjMxMTAxMDMuanBnP3JhbmRUaW1lPTE3Mjk2NjgwODQ.webp?v=1729673937-u8EeeXbGg1aT3U8GOIstDIC1ileyjhF4d7AVqD8DtMI"
+          x={256}
+          y={831}
+          w={109}
+          h={260}
+          offsetX={-1522}
+          offsetY={-1239}
+          scaleX={3544}
+        />
       </div>
       <h1>part 2</h1>
       <p>
