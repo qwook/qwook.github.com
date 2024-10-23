@@ -19,6 +19,7 @@ export default function IndexPage() {
         <a href="/decompose">deterioration of the internet.</a> I also like
         happy things too like matcha mochi donuts.
       </p>
+      <p>I love collaboration and working with people. If you want me to make you an interactive website or small game, my email is henryquoctran, and the domain is gmail. I prefer small, local bands / artists / stores.</p>
       <ul>
         <li>
           <a href="https://x.com/henryqtran" target="_blank">
