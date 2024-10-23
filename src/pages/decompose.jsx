@@ -341,8 +341,8 @@ export default function DecomposePage() {
         />
         <Image
           url="https://www.agulloplasticsurgery.com/wp-content/themes/pss-theme/_dist/img/img-services-models.png"
-          x={620}
-          y={590}
+          x={583}
+          y={586}
           w={60}
           h={140}
           offsetX={-720}
@@ -440,6 +440,57 @@ export default function DecomposePage() {
           offsetY={-745}
           scaleX={2102}
         />
+        <Image
+          url="https://cdn.donaldjtrump.com/djtweb24/general/DJT_banner.jpg"
+          x={286}
+          y={364}
+          w={111}
+          h={92}
+          offsetX={-1181.5}
+          offsetY={-405.5}
+          scaleX={1763}
+        />
+        <Image
+          url="https://kamalaharris.com/wp-content/uploads/2024/09/COMP-Vice-President-Kamala-Harris-introduces-6k-Lightbox-img.jpg"
+          x={394}
+          y={365}
+          w={109}
+          h={92}
+          offsetX={-701.5}
+          offsetY={-481.5}
+          scaleX={1763}
+        />
+        <Image
+          url="https://img.ssensemedia.com/images/h_1428,w_952,c_limit,f_auto/242281F073012_1/agent-provocateur-black-and-pink-lorna-plunge-underwired-bra.jpg"
+          x={301}
+          y={448}
+          w={202}
+          h={151}
+          offsetX={-76}
+          offsetY={-398}
+          scaleX={346}
+        />
+        <Image
+          url="https://images.squarespace-cdn.com/content/v1/5f6918424a397c549c1e62da/3788ef3e-13bb-4f34-b0ff-141e2172bbf1/LSY_Workshop+Main+Image+%287%29.jpg"
+          x={308}
+          y={448}
+          w={196}
+          h={74}
+          offsetX={-829}
+          offsetY={-555}
+          scaleX={1208}
+        />
+        <Image
+          url="https://images.craigslist.org/00808_2sDDmn7lAm7_0ne0t2_1200x900.jpg"
+          x={231}
+          y={326}
+          w={77}
+          h={132}
+          offsetX={-38}
+          offsetY={-235}
+          scaleX={418}
+        />
+        {/* https://images.craigslist.org/00808_2sDDmn7lAm7_0ne0t2_1200x900.jpg */}
       </div>
       <h1>part 2</h1>
       <p>
@@ -449,8 +500,8 @@ export default function DecomposePage() {
       <p>it is the gestational period of the body</p>
       <p>
         what if a body never dies but goes through stages of metamorphosis? from
-        this, something new, beyond our understandability, beyond
-        anthromorphism, something made of pure #FFFFFF arises.
+        this, something new, beyond our understanding, beyond anthromorphism,
+        something made of pure #FFFFFF arises.
       </p>
     </div>
   );
