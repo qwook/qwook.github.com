@@ -19,6 +19,7 @@ export default function IndexPage() {
         <a href="/decompose">deterioration of the internet.</a> I also like
         happy things too like matcha mochi donuts.
       </p>
+      <p>I don't want to be famous. I have no interest in being original or new. I exist already as a remix and all of my works are remixes. I feel things, and I want to know that other people feel the same things, so that I am less alone.</p>
       <p>I love collaboration and working with people. If you want me to make you an interactive website or small game, my email is henryquoctran, and the domain is gmail. I prefer small, local bands / artists / stores.</p>
       <ul>
         <li>
