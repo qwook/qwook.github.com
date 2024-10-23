@@ -26,6 +26,7 @@ function Image({ url, x, y, w, h, offsetX, offsetY, scaleX }) {
   // For mouse stuff.
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(false);
+  const [hover, setHover] = useState(false);
   const initialPos = useRef({ x: 0, y: 0 });
   const initialClientPos = useRef({ x: 0, y: 0 });
   const initialSize = useRef({ w: 0, h: 0 });
@@ -59,6 +60,8 @@ function Image({ url, x, y, w, h, offsetX, offsetY, scaleX }) {
   useEffect(() => {
     if (editing) {
       const mouseUp = (e) => {
+        clearTimeout(hoverTimeout);
+        setHover(false);
         setEditing(false);
         log.current();
       };
@@ -125,6 +128,8 @@ function Image({ url, x, y, w, h, offsetX, offsetY, scaleX }) {
     }
   }, [editing]);
 
+  const hoverTimeout = useRef();
+
   const ref = useRef();
 
   return (
@@ -170,6 +175,23 @@ function Image({ url, x, y, w, h, offsetX, offsetY, scaleX }) {
         } else {
           setCursor("move");
         }
+
+        setHover(true);
+        if (hoverTimeout.current) {
+          clearTimeout(hoverTimeout.current);
+        }
+        hoverTimeout.current = setTimeout(() => {
+          setHover(false);
+        }, 1000);
+      }}
+      onTouchMove={(e) => {
+        setHover(true);
+        if (hoverTimeout.current) {
+          clearTimeout(hoverTimeout.current);
+        }
+        hoverTimeout.current = setTimeout(() => {
+          setHover(false);
+        }, 1000);
       }}
       onMouseDown={(e) => {
         const rect = ref.current.getBoundingClientRect(); // Get the bounding rectangle of the element
@@ -215,7 +237,7 @@ function Image({ url, x, y, w, h, offsetX, offsetY, scaleX }) {
             left: offset.x,
             top: offset.y,
             width: scale,
-            opacity: error ? 0 : editing ? 0.6 : 1,
+            opacity: editing ? 0.6 : hover ? 0 : error ? 0 : 1,
             userSelect: "none",
           }}
           onError={(e) => {
