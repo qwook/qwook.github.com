@@ -364,7 +364,8 @@ export default function ChaoPage() {
         south bay all the time to explore the city, look at vinyl records, and
         go thrifting.
       </p>
-      <p>i've always embedded the spirit of 'nhậu' into my events, or vietnamese drinking culture. it's what i was raised with. but 'nhậu' isn't just about drinking, it's about togetherness and connection. i'm excited to share one last san franciscan nhậu with you all!</p>
+      <p>"To nhậu is to drink and to eat socially [...], to release oneself of daily burdens through communal imbibing, and to revel in the quaintness of life." - <a href="https://colorbloq-qtpoc-4011.squarespace.com/in-food-and-community-how-vietnamese-drinking-culture-taught-me-to-love-my-queerness">Alex Nguyen</a></p>
+      <p>i've always embedded the spirit of 'nhậu' into my events. it's what i was raised with. but 'nhậu' isn't just about drinking, it's about togetherness and connection. i'm excited to share one last san franciscan nhậu with you all!</p>
     </div>
   );
 }
