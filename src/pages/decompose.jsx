@@ -256,9 +256,6 @@ export default function DecomposePage() {
         internet will decompose, until all that remains is #FFFFFF.
       </p>
       <p>it may take years until all of this is fully realized.</p>
-      <p>
-        <strong>STATUS: </strong> the body is in gestation period
-      </p>
       <div
         style={{
           position: "relative",
@@ -278,6 +275,66 @@ export default function DecomposePage() {
           offsetX={-600}
           offsetY={-400}
           scaleX={2000}
+        />
+        <Image
+          url="https://www.customhomegroup.com/wp-content/uploads/2017/10/how-to-prune-your-garden-1179x450.jpg"
+          x={-5}
+          y={-19}
+          w={517}
+          h={389}
+          offsetX={-775.5}
+          offsetY={-308.5}
+          scaleX={1889}
+        />
+        <Image
+          url="https://wcdn-universe.flyff.com/site/landing/images/new/slider07.jpg"
+          x={321}
+          y={-7}
+          w={477}
+          h={522}
+          offsetX={-1668}
+          offsetY={-708}
+          scaleX={2482}
+        />
+        <Image
+          url="https://images.squarespace-cdn.com/content/v1/54a4792ae4b0ac4256d985e4/1630230753500-NVKQSCLPU4QGUR3959QO/20210804201908_1.jpg?format=2500w"
+          x={-8}
+          y={368}
+          w={462}
+          h={602}
+          offsetX={-1668}
+          offsetY={-441}
+          scaleX={2482}
+        />
+        <Image
+          url="https://myphillypark.org/app/uploads/2021/09/Mows-to-Meadows-Map-small-jpg-scaled.jpg"
+          x={352}
+          y={502}
+          w={458}
+          h={548}
+          offsetX={-3037.5}
+          offsetY={-1546.5}
+          scaleX={4337}
+        />
+        <Image
+          url="https://www.alltrails.com/_next/image?url=https%3A%2F%2Fimages.alltrails.com%2FeyJidWNrZXQiOiJhc3NldHMuYWxsdHJhaWxzLmNvbSIsImtleSI6InVwbG9hZHMvcGhvdG8vaW1hZ2UvMzY5OTcyNTUvNDZjZDVjNWE2Y2QwYzVmMTI0NThiNGM5YmQ1NWRmMTQuanBnIiwiZWRpdHMiOnsidG9Gb3JtYXQiOiJ3ZWJwIiwicmVzaXplIjp7IndpZHRoIjoxMDgwLCJoZWlnaHQiOjcwMCwiZml0IjoiY292ZXIifSwicm90YXRlIjpudWxsLCJqcGVnIjp7InRyZWxsaXNRdWFudGlzYXRpb24iOnRydWUsIm92ZXJzaG9vdERlcmluZ2luZyI6dHJ1ZSwib3B0aW1pc2VTY2FucyI6dHJ1ZSwicXVhbnRpc2F0aW9uVGFibGUiOjN9fX0%3D&w=640&q=90"
+          x={-8}
+          y={955}
+          w={597}
+          h={548}
+          offsetX={-2659}
+          offsetY={-1625}
+          scaleX={3776}
+        />
+        <Image
+          url="https://www.harvard.edu/wp-content/uploads/2024/10/081022_Harvard_Forest_08.jpg?w=768&h=576&crop=1"
+          x={531}
+          y={1037}
+          w={452}
+          h={516}
+          offsetX={-2070}
+          offsetY={-1207}
+          scaleX={2376}
         />
         <Image
           url="https://asset.bloomnation.com/c_limit,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto/v1672393385/vendor/5829/catalog/product/2/0/20170116102957_file_587d4965643c9_447.jpg"
@@ -390,7 +447,7 @@ export default function DecomposePage() {
           scaleX={1362}
         />
 
-<Image
+        <Image
           url="https://s-img.mgid.com/g/18564168/1020x574/-/aHR0cDovL2NsLmltZ2hvc3RzLmNvbS9pbWdoL2ltYWdlL2ZldGNoL2FyXzE2OjksY19maWxsLGVfc2hhcnBlbjoxMDAsZl9qcGcsZ19mYWNlczphdXRvLHFfYXV0bzpnb29kLHdfMTAyMC9odHRwOi8vaW1naG9zdHMuY29tL3QvMjAyNC0wMi8xMTU1MjkvNDRmMjg0Y2YyMGIyZDg0MjZmY2E4MWFlOTcxMjJlZjQucG5n.webp?v=1729673937-1YI1L6NhnkK0FOL9neSBBBZTw8mHh3h9kRRyvkv_6wo"
           x={346}
           y={208}
@@ -549,6 +606,66 @@ export default function DecomposePage() {
           offsetX={-1522}
           offsetY={-1239}
           scaleX={3544}
+        />
+        <Image
+          url="https://p16-sign-sg.tiktokcdn.com/obj/tos-alisg-p-0037/9b1064effab0477eb95c17dc1a955d3e_1723039586?lk3s=b59d6b55&x-expires=1729882800&x-signature=AvmTH0ckchozA%2BQn0ZXAuxJSqSc%3D&shp=b59d6b55&shcp=-"
+          x={277}
+          y={1067}
+          w={73}
+          h={160}
+          offsetX={-282.5}
+          offsetY={-1942.5}
+          scaleX={1425}
+        />
+        <Image
+          url="https://avatars.githubusercontent.com/u/2142817?v=3"
+          x={426}
+          y={885}
+          w={104}
+          h={136}
+          offsetX={-284}
+          offsetY={-364}
+          scaleX={575}
+        />
+        <Image
+          url="https://ansel.frgimages.com/milwaukee-bucks/glenn-robinson-milwaukee-bucks-signed-8x10-glossy-photo-jsa-authenticated_ss2_p-202336010+pv-1+u-ywxvggplguwsfobpxtla+v-rxtivclgqgjvuljvbjlw.jpg?_hv=2&w=900"
+          x={422}
+          y={448}
+          w={108}
+          h={176}
+          offsetX={-598.5}
+          offsetY={-571.5}
+          scaleX={1217}
+        />
+        <Image
+          url="https://rebeccaplotnick.com/cdn/shop/products/MG_7467_small_2048x.jpg?v=1582032689"
+          x={61}
+          y={275}
+          w={87}
+          h={84}
+          offsetX={-503.5}
+          offsetY={-384.5}
+          scaleX={1217}
+        />
+        <Image
+          url="https://media.timeout.com/images/105147024/1536/1152/image.webp"
+          x={683}
+          y={375}
+          w={64}
+          h={80}
+          offsetX={-871.5}
+          offsetY={-342.5}
+          scaleX={1217}
+        />
+        <Image
+          url="https://asset.bloomnation.com/c_pad,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto,w_1400/v1653125083/vendor/6621/catalog/product/2/0/20220402023250_file_6247b5d2acf71_6247b61b2bc52.jpg"
+          x={580}
+          y={819}
+          w={180}
+          h={169}
+          offsetX={-37.5}
+          offsetY={-23.5}
+          scaleX={245}
         />
       </div>
       <h1>part 2</h1>
