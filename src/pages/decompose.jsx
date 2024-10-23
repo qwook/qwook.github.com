@@ -184,7 +184,7 @@ function Image({ url, x, y, w, h, offsetX, offsetY, scaleX }) {
           setHover(false);
         }, 1000);
       }}
-      onTouchMove={(e) => {
+      onTouchStart={(e) => {
         setHover(true);
         if (hoverTimeout.current) {
           clearTimeout(hoverTimeout.current);
