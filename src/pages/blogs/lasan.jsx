@@ -42,12 +42,15 @@ export default function Blogs_LaSan() {
       </p>
       <p>
         In the above picture, you can see <strong>Chinese</strong> calligraphy,
-        along with{" "}
-        <strong>Vietnamese</strong> text written in <strong>Portuguese</strong>
+        along with <strong>Vietnamese</strong> text written in{" "}
+        <strong>Portuguese</strong>
         -imported Latin characters. All of this is set up in a{" "}
         <strong>Catholic</strong> school in <strong>San Jose</strong> that was
-        named after a <strong>French</strong>{" "}
-        missionary named La Salle.
+        named after a <strong>French</strong> priest named La Salle.
+      </p>
+      <p>
+        I was raised both Catholic and Buddhist, attending both church and
+        temples. I identify with both religions and take from both.
       </p>
       <p>
         I hated this school because it was on Saturday morning and it made me
