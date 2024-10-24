@@ -23,8 +23,8 @@ export default function Blogs_SJSU() {
         and lashed out at the tutors. I thought it was a waste of time.
       </p>
       <p>
-        I think it was because It took me away from the things I cared about
-        more. I taught myself how to program in elementary school. I stumbled
+        I think it was because it took me away from the things I cared about
+        more. <a href="/archive">I taught myself how to program in elementary school.</a> I stumbled
         into game modding and game development communities where I wrote my
         first lines of C++.
       </p>
