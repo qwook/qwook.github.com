@@ -11,9 +11,11 @@ export default function Blogs_Name() {
         flee to America.
       </p>
       <p>
-        20 years later, I am born in San Jose, a city with the highest
-        Vietnamese population outside of Vietnam. My parents name me "Quốc"
-        which means nation.
+        20 years later, I am born in San Jose, a city with the{" "}
+        <a href="/blogs/lasan">
+          highest Vietnamese population outside of Vietnam.
+        </a>{" "}
+        My parents name me "Quốc" which means nation.
       </p>
       <p>
         Years later, before understanding the meaning of my name, I stumble onto
@@ -23,8 +25,8 @@ export default function Blogs_Name() {
       </p>
       <p>
         I look up my middle name "Quốc" and find too many search results. I
-        change the spelling to "Qwook" and find no search results. So I take
-        on the name "Qwook."
+        change the spelling to "Qwook" and find no search results. So I take on
+        the name "Qwook."
       </p>
       <p>In an effort to be found, I corrupted my name.</p>
       <p>
