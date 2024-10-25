@@ -80,7 +80,7 @@ function TopBar() {
   useEffect(() => {
     const interval = setInterval(() => {
       setDate(formatDate(new Date()));
-    });
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
