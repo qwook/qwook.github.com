@@ -118,7 +118,7 @@ export default function GodPage() {
     "Terry Davis (1969-2018) was a programmer who spent more than a decade developing TempleOS. Terry was diagnosed with schizophrenia, and believed that he could talk to God through his OS.",
     "There were two ways to talk with God. The first being word-by-word generation. The second would be for God to talk through passages from books and the Bible.",
     "Here, I've ported the word-by-word generation, preserving most of the logic.",
-    "The implementation uses the timestamp to pick out a word from a list of word. I've always felt connected to the logic that Terry uses here, because to Terry, the timestamp is a divine number. Numerologists believe that the sequence of PI is a divine number. I personally believe that reading an atomic probability field will output a divine number.",
+    "The implementation uses the timestamp to pick out a word from a list of words. I've always felt connected to the logic that Terry uses here, because to Terry, the timestamp is a divine number. Numerologists believe that the sequence of PI is a divine number. I personally believe that reading an atomic probability field will output a divine number.",
   ]);
   const [text, setText] = useState("");
   const [generate, setGenerate] = useState(0);
