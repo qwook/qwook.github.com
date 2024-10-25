@@ -49,8 +49,9 @@ export default function Blogs_LaSan() {
         named after a <strong>French</strong> priest named La Salle.
       </p>
       <p>
-        I was raised both Catholic and Buddhist, attending both church and
-        temples. I identify with both religions and take from both.
+        I was raised both <a href="/god">Catholic</a> and Buddhist, attending
+        both church and temples. I identify with both religions and take from
+        both.
       </p>
       <p>
         I hated this school because it was on Saturday morning and it made me
