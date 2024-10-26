@@ -202,7 +202,7 @@ export default function Plant({ rate = 1, birthday = justBorn, now = 0 }) {
   const lampMap = useSimpleTexture(require("./images/lamp.gif"));
   const mandarinsMap = useSimpleTexture(require("./images/mandarins.gif"));
   const candleMap = useSimpleTexture(require("./images/candle.gif"));
-  const riceBowlMap = useSimpleTexture(require("./images/riceBowl.gif"));
+  const ricebowlMap = useSimpleTexture(require("./images/ricebowl.gif"));
   const birthdayNum = useMemo(() => {
     return numDecrush(birthday);
   }, [birthday]);
@@ -272,7 +272,7 @@ export default function Plant({ rate = 1, birthday = justBorn, now = 0 }) {
         </mesh>
         <mesh scale={[0.5, 0.5, 0.5]} position={[-2.8, -4.2, -1]}>
           <planeGeometry args={[1, 1]} />
-          <meshStandardMaterial transparent={true} map={riceBowlMap} />
+          <meshStandardMaterial transparent={true} map={ricebowlMap} />
         </mesh>
       </PlantData.Provider>
     </object3D>
