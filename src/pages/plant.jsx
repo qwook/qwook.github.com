@@ -1,9 +1,25 @@
+import { useEffect, useMemo, useState } from "react";
 import { createPage } from "../app";
-import Plant from "../components/plant/Plant";
+import Plant, { plantTime } from "../components/plant/Plant";
+import { numCrush, numDecrush } from "../utils/numberCrusher";
 import "./polaroids.scss";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 
+const randoPlant = numCrush(plantTime());
 export default function PlantPage() {
+  const [time, setTime] = useState(0);
+  const birthday = window.location.hash || randoPlant;
+  const birthdayNum = useMemo(() => {
+    return numDecrush(birthday);
+  }, [birthday]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(Date.now() * 1000);
+    }, 10);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="plant">
       <div
@@ -16,8 +32,9 @@ export default function PlantPage() {
           zIndex: -1,
         }}
       >
-        <Canvas camera={{ position: [0, 0, 5] }} gl>
-          <Plant />
+        <div>test</div>
+        <Canvas invalidateFrameloop camera={{ position: [0, 0, 5] }} gl>
+          <Plant birthday={window.location.hash || randoPlant} now={time} />
         </Canvas>
       </div>
     </div>

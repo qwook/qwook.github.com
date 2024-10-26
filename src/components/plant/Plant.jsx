@@ -1,9 +1,21 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useSimpleTexture } from "../polaroids/Polaroid";
 import { seededRandom } from "three/src/math/MathUtils.js";
 import { DoubleSide, Vector3 } from "three";
+import { numCrush, numDecrush } from "../../utils/numberCrusher";
 
+const millisecondsInYear = 365 * 24 * 60 * 60 * 1000;
 const maxDepth = 25;
+// I did not program this thing with multiples of the year in mind...
+// Instead it was pretty arbitrary.
+const magicalLocalizer = 100000;
 
 const PlantData = createContext({});
 function easeOutCubic(x) {
@@ -13,17 +25,24 @@ function easeInOutCubic(x) {
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 }
 
-function Node({ depth, branches, leaf, ...props }) {
-  const { progress } = useContext(PlantData);
+function Node({ depth, branches, leaf, random = 0, ...props }) {
+  let { progress } = useContext(PlantData);
 
   const stemMap = useSimpleTexture(require("./images/stem.gif"));
   const flowerMap = useSimpleTexture(require("../pets/images/flower.gif"));
   const leafMap = useSimpleTexture(require("./images/leaf.gif"));
 
   const flower = depth >= maxDepth;
-  const seasonLength = 5;
+  const seasonLength = millisecondsInYear / magicalLocalizer;
+  progress /= magicalLocalizer;
 
   const objectRef = useRef();
+
+  seededRandom(depth * 10000 + random * 10000);
+
+  if (progress <= depth) {
+    return <></>;
+  }
 
   let length = progress > depth ? progress - depth : 0;
   let seasonProgress = 0;
@@ -91,7 +110,7 @@ function Node({ depth, branches, leaf, ...props }) {
     >
       {leaf ? (
         <mesh
-          scale={[length * 2, length * 10, 1]}
+          scale={[length * 1, length * 10, 1]}
           position={[0, (length * 5) / 2, 0]}
           renderOrder={depth + 1000}
         >
@@ -141,7 +160,9 @@ function Node({ depth, branches, leaf, ...props }) {
             />
           </mesh>
           <object3D position={[0, length, 0]}>
-            {depth < maxDepth && <Node depth={depth + 1} />}
+            {depth < maxDepth && (
+              <Node depth={depth + 1} random={seededRandom()} />
+            )}
             {((seededRandom() > 0.9 && depth > maxDepth * 0.3) ||
               (depth > 5 && Math.floor(depth * 10) % 20 === 0)) && (
               <Node depth={depth + seededRandom() * earlyDeath} />
@@ -165,9 +186,15 @@ function Node({ depth, branches, leaf, ...props }) {
   );
 }
 
-let progressG = 0;
+const epoch = 1729898825778;
 
-export default function Plant() {
+export function plantTime() {
+  return Date.now() - epoch;
+}
+
+const justBorn = numCrush(plantTime());
+
+export default function Plant({ rate = 1, birthday = justBorn, now = 0 }) {
   const [progress, setProgress] = useState(0);
   const potBgMap = useSimpleTexture(require("./images/pot_back.gif"));
   const potFgMap = useSimpleTexture(require("./images/pot_fore.gif"));
@@ -176,18 +203,15 @@ export default function Plant() {
   const mandarinsMap = useSimpleTexture(require("./images/mandarins.gif"));
   const candleMap = useSimpleTexture(require("./images/candle.gif"));
   const riceBowlMap = useSimpleTexture(require("./images/riceBowl.gif"));
+  const birthdayNum = useMemo(() => {
+    return numDecrush(birthday);
+  }, [birthday]);
 
-  seededRandom(
-    window.location.hash
-      .split("")
-      .reduce((prev, current) => prev + current.charCodeAt(0), 0)
-  );
+  seededRandom(birthdayNum);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      progressG += 0.1;
-      // setProgress((progress) => progress + 0.01);
-      setProgress(progressG);
+      setProgress((now - epoch - birthdayNum) * rate);
     }, 10);
     return () => clearInterval(interval);
   }, []);
@@ -207,7 +231,8 @@ export default function Plant() {
   */
 
   return (
-    <>
+    // scale={[1.5, 1.5, 1.5]} position={[0, 1.8, 0]}
+    <object3D>
       <PlantData.Provider value={{ progress }}>
         <ambientLight color={0xffffff} intensity={1.0} />
         <directionalLight position={[5, 5, 5]} intensity={1.5} />
@@ -216,16 +241,12 @@ export default function Plant() {
           intensity={0.1}
           color="#ffffff"
         />
-        <mesh scale={[2, 2, 2]} position={[0, -3.5, -1]} renderOrder={0}>
+        <mesh scale={[2.5, 2.5, 2.5]} position={[0, -3.5, -1]} renderOrder={0}>
           <planeGeometry args={[1, 1]} />
           <meshStandardMaterial transparent={true} map={potBgMap} />
         </mesh>
-        <Node depth={0} position={[0, -3, 0]} scale={[0.2, 0.2, 0.2]} />
-        <mesh
-          scale={[1.5, 1.5, 1.5]}
-          position={[0, -2.3, 1]}
-          renderOrder={2000}
-        >
+        <Node depth={0} position={[0, -3, 0]} scale={[0.3, 0.3, 0.3]} />
+        <mesh scale={[2, 2, 2]} position={[0, -2.3, 1]} renderOrder={2000}>
           <planeGeometry args={[1, 1]} />
           <meshStandardMaterial transparent={true} map={potFgMap} />
         </mesh>
@@ -254,6 +275,6 @@ export default function Plant() {
           <meshStandardMaterial transparent={true} map={riceBowlMap} />
         </mesh>
       </PlantData.Provider>
-    </>
+    </object3D>
   );
 }
