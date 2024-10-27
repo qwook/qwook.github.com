@@ -8,14 +8,16 @@ import {
 } from "react";
 import { useSimpleTexture } from "../polaroids/Polaroid";
 import { seededRandom } from "three/src/math/MathUtils.js";
-import { DoubleSide, Vector3 } from "three";
+import { AdditiveBlending, DoubleSide, MultiplyBlending, Vector3 } from "three";
 import { numCrush, numDecrush } from "../../utils/numberCrusher";
+import { useFrame } from "@react-three/fiber";
 
 const millisecondsInYear = 365 * 24 * 60 * 60 * 1000;
-const maxDepth = 25;
+const maxDepth = 15;
 // I did not program this thing with multiples of the year in mind...
 // Instead it was pretty arbitrary.
 const magicalLocalizer = 100000;
+console.log("hey");
 
 const PlantData = createContext({});
 function easeOutCubic(x) {
@@ -29,7 +31,8 @@ function Node({ depth, branches, leaf, random = 0, ...props }) {
   let { progress } = useContext(PlantData);
 
   const stemMap = useSimpleTexture(require("./images/stem.gif"));
-  const flowerMap = useSimpleTexture(require("../pets/images/flower.gif"));
+  // const flowerMap = useSimpleTexture(require("../pets/images/flower.gif"));
+  const flowerMap = useSimpleTexture(require("./images/flower.gif"));
   const leafMap = useSimpleTexture(require("./images/leaf.gif"));
 
   const flower = depth >= maxDepth;
@@ -38,11 +41,11 @@ function Node({ depth, branches, leaf, random = 0, ...props }) {
 
   const objectRef = useRef();
 
-  seededRandom(depth * 10000 + random * 10000);
+  // seededRandom(depth * 10000 + random * 10000);
 
-  if (progress <= depth) {
-    return <></>;
-  }
+  // if (progress <= depth) {
+  //   return <></>;
+  // }
 
   let length = progress > depth ? progress - depth : 0;
   let seasonProgress = 0;
@@ -83,7 +86,7 @@ function Node({ depth, branches, leaf, random = 0, ...props }) {
   let immortality = 0;
   // If we are an old stem, perhaps our children can live longer?
   if (depth > maxDepth * 0.2) {
-    earlyDeath = 10;
+    earlyDeath = 5;
   }
 
   let flowerPos = [0, length / 2, 0];
@@ -122,14 +125,16 @@ function Node({ depth, branches, leaf, random = 0, ...props }) {
           />
         </mesh>
       ) : flower ? (
-        <mesh scale={[length * 5, length * 5, 1]} position={flowerPos}>
-          <planeGeometry args={[1, 1]} />
-          <meshStandardMaterial
-            transparent={true}
-            map={flowerMap}
-            side={DoubleSide}
-          />
-        </mesh>
+        <>
+          <mesh scale={[length * 5, length * 5, 1]} position={flowerPos}>
+            <planeGeometry args={[1, 1]} />
+            <meshStandardMaterial
+              transparent={true}
+              map={flowerMap}
+              side={DoubleSide}
+            />
+          </mesh>
+        </>
       ) : (
         <>
           <mesh
@@ -148,7 +153,7 @@ function Node({ depth, branches, leaf, random = 0, ...props }) {
           <mesh
             scale={[0.5, length, 1]}
             position={[0, length / 2, 0]}
-            rotation={[0, Math.PI, 0]}
+            rotation={[0, Math.PI / 2, 0]}
             renderOrder={depth}
           >
             <planeGeometry args={[1, 1]} />
@@ -163,7 +168,7 @@ function Node({ depth, branches, leaf, random = 0, ...props }) {
             {depth < maxDepth && (
               <Node depth={depth + 1} random={seededRandom()} />
             )}
-            {((seededRandom() > 0.9 && depth > maxDepth * 0.3) ||
+            {((seededRandom() > 0.9 && depth > maxDepth * 0.2) ||
               (depth > 5 && Math.floor(depth * 10) % 20 === 0)) && (
               <Node depth={depth + seededRandom() * earlyDeath} />
             )}
@@ -194,8 +199,8 @@ export function plantTime() {
 
 const justBorn = numCrush(plantTime());
 
-export default function Plant({ rate = 1, birthday = justBorn, now = 0 }) {
-  const [progress, setProgress] = useState(0);
+export default function Plant({ birthday = justBorn, now = 0 }) {
+  // const [progress, setProgress] = useState(0);
   const potBgMap = useSimpleTexture(require("./images/pot_back.gif"));
   const potFgMap = useSimpleTexture(require("./images/pot_fore.gif"));
   const buddhaMap = useSimpleTexture(require("./images/buddha.gif"));
@@ -207,14 +212,17 @@ export default function Plant({ rate = 1, birthday = justBorn, now = 0 }) {
     return numDecrush(birthday);
   }, [birthday]);
 
-  seededRandom(birthdayNum);
+  const rand = seededRandom(birthdayNum);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((now - epoch - birthdayNum) * rate);
-    }, 10);
-    return () => clearInterval(interval);
-  }, []);
+  const progress = now - epoch - birthdayNum;
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setProgress(now - epoch - birthdayNum);
+  //     console.log(now - epoch - birthdayNum);
+  //   }, 10);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   /*
   
@@ -230,6 +238,11 @@ export default function Plant({ rate = 1, birthday = justBorn, now = 0 }) {
   
   */
 
+  const everythingObject = useRef();
+  useFrame((state, deltaTime) => {
+    everythingObject.current.rotation.y += deltaTime;
+  });
+
   return (
     // scale={[1.5, 1.5, 1.5]} position={[0, 1.8, 0]}
     <object3D>
@@ -241,11 +254,20 @@ export default function Plant({ rate = 1, birthday = justBorn, now = 0 }) {
           intensity={0.1}
           color="#ffffff"
         />
-        <mesh scale={[2.5, 2.5, 2.5]} position={[0, -3.5, -1]} renderOrder={0}>
+        <mesh scale={[2.0, 2.0, 2.0]} position={[0, -3.5, -1]} renderOrder={0}>
           <planeGeometry args={[1, 1]} />
           <meshStandardMaterial transparent={true} map={potBgMap} />
         </mesh>
-        <Node depth={0} position={[0, -3, 0]} scale={[0.3, 0.3, 0.3]} />
+        {/*  */}
+        <object3D ref={everythingObject}>
+          <Node
+            depth={0}
+            position={[0, -3, 0]}
+            scale={[0.3, 0.3, 0.3]}
+            random={rand}
+          />
+        </object3D>
+        {/*  */}
         <mesh scale={[2, 2, 2]} position={[0, -2.3, 1]} renderOrder={2000}>
           <planeGeometry args={[1, 1]} />
           <meshStandardMaterial transparent={true} map={potFgMap} />

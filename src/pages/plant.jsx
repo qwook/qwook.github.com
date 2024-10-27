@@ -6,6 +6,8 @@ import "./polaroids.scss";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 
 const randoPlant = numCrush(plantTime());
+const initialTime = Date.now();
+
 export default function PlantPage() {
   const [time, setTime] = useState(0);
   const birthday = window.location.hash || randoPlant;
@@ -15,7 +17,9 @@ export default function PlantPage() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(Date.now() * 1000);
+      const fasterTime = initialTime + (Date.now() - initialTime) * 1000;
+      setTime(fasterTime);
+      // setTime(Date.now());
     }, 10);
     return () => clearInterval(interval);
   }, []);
