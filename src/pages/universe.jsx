@@ -2,7 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPage } from "../app";
 import { Collage, CollageImage } from "../components/collage/Collage";
 import "./universe.scss";
-import { Color } from "three";
+import { Color, Euler, Matrix4, Quaternion, Vector3 } from "three";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Html } from "@react-three/drei";
+import { seededRandom } from "three/src/math/MathUtils.js";
+import { easeInOutCubic } from "../components/plant/Plant";
 
 function FlashingCollage({ collages, animated, speed }) {
   const [idx, setIdx] = useState(0);
@@ -132,7 +136,7 @@ function RayOfText({
             );
             const coloring2 = Math.min(
               Math.max(((progress - 100) / quickness - idx - 3) * 0.05, 0),
-              disappearingBackground ? 1.0 : 0.2
+              disappearingBackground ? 1.0 : 0.8
             );
             let color = new Color(
               1 - coloring + coloring2,
@@ -156,9 +160,9 @@ function RayOfText({
               color.r += coloring;
               color.g += coloring;
               color.b += coloring;
-              bg.r = bg.r - (1*coloring - highlightColor.r);
-              bg.g = bg.g - (1*coloring - highlightColor.g);
-              bg.b = bg.b - (1*coloring - highlightColor.b);
+              bg.r = bg.r - (1 * coloring - highlightColor.r);
+              bg.g = bg.g - (1 * coloring - highlightColor.g);
+              bg.b = bg.b - (1 * coloring - highlightColor.b);
             }
             if (
               hoverCount > 0 &&
@@ -378,7 +382,7 @@ It can make me cry
       if (lines.length === 0) {
         let initialLines = [];
         for (let i = 0; i < 30; i++) {
-          const offset = Math.random() * 500;
+          const offset = Math.random() * 800;
           initialLines.push({
             text: randomText(),
             line: i,
@@ -440,7 +444,7 @@ It can make me cry
           xOffset={0}
           startOffset={0}
           width={1000}
-          disappearingBackground
+          // disappearingBackground
         />
         <RayOfText
           text={
@@ -451,7 +455,7 @@ It can make me cry
           xOffset={0}
           startOffset={100}
           width={1000}
-          disappearingBackground
+          // disappearingBackground
         />
         <RayOfText
           text={
@@ -462,7 +466,7 @@ It can make me cry
           xOffset={0}
           startOffset={200}
           width={1000}
-          disappearingBackground
+          // disappearingBackground
         />
         <RayOfText
           text={
@@ -473,7 +477,7 @@ It can make me cry
           xOffset={0}
           startOffset={200}
           width={1000}
-          disappearingBackground
+          // disappearingBackground
         />
 
         <RayOfText
@@ -483,10 +487,10 @@ It can make me cry
           highlight="As If"
           line={3}
           xOffset={0}
-          startOffset={200}
+          startOffset={400}
           width={1000}
           highlightColor={new Color(0, 0, 1)}
-          disappearingBackground
+          // disappearingBackground
         />
         <RayOfText
           text={
@@ -495,12 +499,280 @@ It can make me cry
           highlight="the universe"
           line={11}
           xOffset={0}
-          startOffset={200}
+          startOffset={450}
           width={1000}
           highlightColor={new Color(0, 0, 1)}
-          disappearingBackground
+          // disappearingBackground
+        />
+        <RayOfText
+          text={
+            "criticism involves three moments: Something speaks to me. I must tell you about it. But I don't know how."
+          }
+          highlight="speaks to me"
+          line={17}
+          xOffset={0}
+          startOffset={450}
+          width={1000}
+          highlightColor={new Color(0, 0, 1)}
+          // disappearingBackground
+        />
+        <RayOfText
+          text={
+            "beat your heart, break through myself. 耳を澄ませば, 語らずとも聞こえる世界に,怖じけず踏み出せ, 思うまま"
+          }
+          highlight="through myself"
+          line={23}
+          xOffset={0}
+          startOffset={550}
+          width={1000}
+          highlightColor={new Color(0, 0, 1)}
+          // disappearingBackground
         />
       </span>
+    </>
+  );
+}
+
+function PulsatingCloudLetter({ letter, offset, position }) {
+  position = useMemo(() => new Vector3(...position), position);
+  const distance = useMemo(() => position.length(), position);
+  const vector = useMemo(() => position.clone().normalize(), position);
+
+  const objectRef = useRef();
+  const now = useRef(0);
+  const letterRef = useRef();
+
+  useFrame((state, deltaTime) => {
+    now.current += deltaTime;
+    // (new Vector3()).clone().multiplyScalar
+    objectRef.current.position
+      .copy(vector)
+      .multiplyScalar(distance + Math.sin(now.current - offset) * 0.2);
+
+    if (letterRef.current)
+      letterRef.current.style.color = `rgba(0,0,0,${Math.max(
+        now.current - offset * 2,
+        0
+      )})`;
+  });
+
+  return (
+    <object3D ref={objectRef} position={position}>
+      <Html sprite zIndexRange={[0, 500]}>
+        <span ref={letterRef}>{letter}</span>
+      </Html>
+    </object3D>
+  );
+}
+
+function HighlightedCloudLetter({ position, letter, space, highlighted }) {
+  return (
+    <object3D position={position}>
+      <Html sprite zIndexRange={[510, 800]}>
+        <span
+          style={{
+            position: "relative",
+            color: highlighted ? "white" : "black",
+            background: highlighted ? "red" : "transparent",
+            paddingRight: space ? 20 : 0,
+            transition: "color 5s, background 5s",
+          }}
+        >
+          {letter}
+        </span>
+      </Html>
+    </object3D>
+  );
+}
+
+function Cloud({ slide }) {
+  const meshRef = useRef();
+  const [highlight, setHighlight] = useState("");
+  const rotation = useMemo(() => new Euler(0, 0, 0));
+  const storedRotation = useRef();
+  const storedStart = useRef(Date.now());
+  const lastSlide = useRef(0);
+
+  const invertedSlide4 = useMemo(() => {
+    const euler = new Euler(Math.PI * 2, Math.PI * 0.25, Math.PI * 0.0);
+    return new Matrix4().makeRotationFromEuler(euler);
+  });
+
+  useFrame((state, deltaTime) => {
+    if (slide >= 2 && slide <= 5) {
+      if (slide != lastSlide.current) {
+        storedRotation.current = meshRef.current.quaternion.clone();
+        storedStart.current = Date.now();
+      }
+      let targetRotation;
+      if (slide === 2) {
+        targetRotation = new Euler(0, Math.PI, 0);
+      } else if (slide === 3) {
+        targetRotation = new Euler(Math.PI * 2, Math.PI * 0.2, Math.PI * 0.3);
+      } else if (slide === 4) {
+        targetRotation = new Euler(Math.PI * 2, Math.PI * 0.25, Math.PI * 0.0);
+      }
+      meshRef.current.quaternion
+        .copy(storedRotation.current)
+        .slerp(
+          new Quaternion().setFromEuler(targetRotation),
+          easeInOutCubic(Math.min((Date.now() - storedStart.current) / 3000, 1))
+        );
+    } else {
+      meshRef.current.quaternion.slerp(
+        new Quaternion().setFromEuler(rotation),
+        0.05
+      );
+      rotation.x += deltaTime * 0.2;
+      rotation.y += deltaTime * 0.2;
+      rotation.z += deltaTime * 0.05;
+    }
+    lastSlide.current = slide;
+  });
+
+  useEffect(() => {
+    // Change highlight by slide.
+  }, [slide]);
+
+  const cloud = useMemo(() => {
+    const letterBank = `
+in cloudy weather
+my brain
+picks out the sun
+`
+      .replace(/[\n]+/g, " ")
+      .split(" ");
+
+    seededRandom(1234);
+    let cloud = [];
+    for (let i = 0; i < 300; i++) {
+      cloud.push({
+        letter: letterBank[Math.floor(seededRandom() * letterBank.length)],
+        position: [
+          seededRandom() * 6 - 3,
+          seededRandom() * 6 - 3,
+          seededRandom() * 6 - 3,
+        ],
+        offset: i * 0.02,
+      });
+    }
+    return cloud;
+  });
+
+  return (
+    <>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} />
+      <object3D ref={meshRef}>
+        <HighlightedCloudLetter
+          position={[2.0, 2.0, -1.0]}
+          letter="when"
+          space
+          highlighted={slide === 2}
+        />
+        <HighlightedCloudLetter
+          position={[1.7, 2.4, -0.2]}
+          letter="I"
+          highlighted={slide === 2}
+          space
+        />
+        <HighlightedCloudLetter
+          position={[1.8, 3.0, 1.0]}
+          letter="love"
+          highlighted={slide === 2}
+        />
+        <HighlightedCloudLetter
+          position={[1.8, 3.0, 1.0]}
+          letter="love"
+          highlighted={slide === 2}
+        />
+        <HighlightedCloudLetter
+          position={[1.8, 2.0, 0.5]}
+          letter="unbounded"
+          highlighted={slide === 2}
+        />
+        <HighlightedCloudLetter
+          position={[0.8, 0.0, -2.0]}
+          letter="I"
+          space
+          highlighted={slide === 3}
+        />
+        <HighlightedCloudLetter
+          position={[-0.73, 1.395, 2.04]}
+          letter="hear"
+          space
+          highlighted={slide === 3}
+        />
+        <HighlightedCloudLetter
+          position={[1.2, -0.65, -0.5]}
+          letter="it"
+          highlighted={slide === 3}
+        />
+        <HighlightedCloudLetter
+          position={[-0.7, -0.65, -0.5]}
+          letter="in"
+          space
+          highlighted={slide === 3}
+        />
+        <HighlightedCloudLetter
+          position={[-0.42, -1.1, -0.4]}
+          letter="the"
+          space
+          highlighted={slide === 3}
+        />
+        <HighlightedCloudLetter
+          position={[-1.19, 1.1, 2.79]}
+          letter="birds"
+          space
+          highlighted={slide === 3}
+        />
+        {/* lol i give up here and do the sane thing, which is use matrices */}
+        <HighlightedCloudLetter
+          position={new Vector3(-1.0, 1.0, -2.0).applyMatrix4(invertedSlide4)}
+          letter="and"
+          space
+          highlighted={slide === 4}
+        />
+        <HighlightedCloudLetter
+          position={new Vector3(0.0, 1.25, -1.8).applyMatrix4(invertedSlide4)}
+          letter="see"
+          space
+          highlighted={slide === 4}
+        />
+        <HighlightedCloudLetter
+          position={new Vector3(1.0, 1.5, -1.3).applyMatrix4(invertedSlide4)}
+          letter="it"
+          space
+          highlighted={slide === 4}
+        />
+        <HighlightedCloudLetter
+          position={new Vector3(-3.0, -0.5, -0.3).applyMatrix4(invertedSlide4)}
+          letter="in"
+          space
+          highlighted={slide === 4}
+        />
+        <HighlightedCloudLetter
+          position={new Vector3(-1.8, -0.8, -0.1).applyMatrix4(invertedSlide4)}
+          letter="the"
+          space
+          highlighted={slide === 4}
+        />
+        <HighlightedCloudLetter
+          position={new Vector3(1.4, -1.6, 0.7).applyMatrix4(invertedSlide4)}
+          letter="trees"
+          highlighted={slide === 4}
+        />
+        {cloud.map((point, idx) => {
+          return (
+            <PulsatingCloudLetter
+              key={idx}
+              letter={point.letter}
+              offset={point.offset}
+              position={point.position}
+            />
+          );
+        })}
+      </object3D>
     </>
   );
 }
@@ -538,7 +810,7 @@ export default function UniversePage() {
       <br />
       <br />
       {slide === currentSlide++ && <>Press [next] to start.</>}
-      {slide >= currentSlide && slide < currentSlide + 3 && (
+      {slide >= currentSlide && slide < currentSlide + 2 ? (
         <div
           style={{
             width: 640,
@@ -554,8 +826,10 @@ export default function UniversePage() {
           <ConsoleCanvas highlight={slide === currentSlide - 1} />
           {slide === currentSlide++ && <ConsoleTrain />}
         </div>
+      ) : (
+        (currentSlide += 2) && null
       )}
-      {slide >= currentSlide && (
+      {slide >= currentSlide && slide < currentSlide + 3 ? (
         <Collage
           sizeRatio={480 / 640}
           context={{ refWidth: 640, refHeight: 480 }}
@@ -900,6 +1174,27 @@ export default function UniversePage() {
             />
           )}*/}
         </Collage>
+      ) : (
+        (currentSlide += 3) && null
+      )}
+      {slide >= currentSlide && slide < currentSlide + 8 ? (
+        <div
+          style={{
+            width: 640,
+            height: 480,
+            overflow: "hidden",
+            position: "relative",
+            fontFamily: "monospace, Courier New",
+            fontSize: 14,
+          }}
+        >
+          <Canvas>
+            {slide === currentSlide++ && <></>}
+            <Cloud slide={slide - 5} />
+          </Canvas>
+        </div>
+      ) : (
+        (currentSlide += 2) && null
       )}
     </div>
   );
