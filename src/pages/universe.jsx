@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createPage } from "../app";
 import { Collage, CollageImage } from "../components/collage/Collage";
 import "./universe.scss";
@@ -290,6 +298,45 @@ C. Social distance`}
   );
 }
 
+function ConsoleCanvas2({ highlight }) {
+  return (
+    <>
+      <RayOfText
+        text="when the impulse comes, even when changing reference signal from for example 5 bars to 0. "
+        highlight={highlight && "even when"}
+        line={5}
+        startOffset={0}
+        width={200}
+        xOffset={0}
+      />
+      <RayOfText
+        text="I am afraid. Not of life, or death, or nothingness, but of wasting it as if I had never been."
+        highlight={highlight && "I am afraid"}
+        line={11}
+        startOffset={200}
+        width={200}
+        xOffset={0}
+      />
+      <RayOfText
+        text="Generally, a request to admit includes multiple statements that can be admitted or denied by the other party."
+        highlight={highlight && "to admit"}
+        line={17}
+        startOffset={300}
+        width={200}
+        xOffset={0}
+      />
+      <RayOfText
+        text="Why would you say that you know how I feel?"
+        highlight={highlight && "how I feel"}
+        line={23}
+        startOffset={400}
+        width={200}
+        xOffset={0}
+      />
+    </>
+  );
+}
+
 function ConsoleTrain() {
   const words = useMemo(() => {
     return `
@@ -533,7 +580,7 @@ It can make me cry
   );
 }
 
-function PulsatingCloudLetter({ letter, offset, position }) {
+function PulsatingCloudLetter({ letter, offset, position, highlight, hide }) {
   position = useMemo(() => new Vector3(...position), position);
   const distance = useMemo(() => position.length(), position);
   const vector = useMemo(() => position.clone().normalize(), position);
@@ -547,25 +594,55 @@ function PulsatingCloudLetter({ letter, offset, position }) {
     // (new Vector3()).clone().multiplyScalar
     objectRef.current.position
       .copy(vector)
-      .multiplyScalar(distance + Math.sin(now.current - offset) * 0.2);
+      .multiplyScalar(
+        letter === "sun"
+          ? distance * 0.4
+          : distance + Math.sin(now.current - offset) * 0.2
+      );
 
     if (letterRef.current)
-      letterRef.current.style.color = `rgba(0,0,0,${Math.max(
-        now.current - offset * 2,
-        0
-      )})`;
+      if (highlight === letter) {
+        letterRef.current.style.color = "white";
+      } else {
+        const opacity = Math.max(now.current - offset * 2, 0);
+        if (opacity < 1) {
+          letterRef.current.style.transition = "";
+        } else {
+          letterRef.current.style.transition =
+            "color 2s, background 2s, opacity 2s";
+        }
+        letterRef.current.style.color = `rgba(0,0,0,${opacity})`;
+      }
   });
 
   return (
     <object3D ref={objectRef} position={position}>
       <Html sprite zIndexRange={[0, 500]}>
-        <span ref={letterRef}>{letter}</span>
+        <span
+          ref={letterRef}
+          style={{
+            color: "black",
+            transition: "color 2s, background 2s, opacity 2s",
+            ...(highlight === letter && {
+              color: "white",
+              background: "red",
+            }),
+            ...(hide.indexOf(letter) !== -1 && {
+              opacity: 0,
+            }),
+          }}
+        >
+          {letter}
+        </span>
       </Html>
     </object3D>
   );
 }
 
+const HighlightedCloudLetterContext = createContext({});
+
 function HighlightedCloudLetter({ position, letter, space, highlighted }) {
+  const { showHighlighted } = useContext(HighlightedCloudLetterContext);
   return (
     <object3D position={position}>
       <Html sprite zIndexRange={[510, 800]}>
@@ -575,7 +652,8 @@ function HighlightedCloudLetter({ position, letter, space, highlighted }) {
             color: highlighted ? "white" : "black",
             background: highlighted ? "red" : "transparent",
             paddingRight: space ? 20 : 0,
-            transition: "color 5s, background 5s",
+            opacity: showHighlighted ? 1 : 0,
+            transition: "color 5s, background 5s, opacity 5s",
           }}
         >
           {letter}
@@ -588,10 +666,12 @@ function HighlightedCloudLetter({ position, letter, space, highlighted }) {
 function Cloud({ slide }) {
   const meshRef = useRef();
   const [highlight, setHighlight] = useState("");
-  const rotation = useMemo(() => new Euler(0, 0, 0));
+  const [hide, setHide] = useState("");
+  const rotation = useMemo(() => new Euler(0, 0, 0), []);
   const storedRotation = useRef();
   const storedStart = useRef(Date.now());
   const lastSlide = useRef(0);
+  const [showHighlighted, setShowHighlighted] = useState(false);
 
   const invertedSlide4 = useMemo(() => {
     const euler = new Euler(Math.PI * 2, Math.PI * 0.25, Math.PI * 0.0);
@@ -599,7 +679,7 @@ function Cloud({ slide }) {
   });
 
   useFrame((state, deltaTime) => {
-    if (slide >= 2 && slide <= 5) {
+    if (slide >= 2 && slide <= 4) {
       if (slide != lastSlide.current) {
         storedRotation.current = meshRef.current.quaternion.clone();
         storedStart.current = Date.now();
@@ -619,10 +699,24 @@ function Cloud({ slide }) {
           easeInOutCubic(Math.min((Date.now() - storedStart.current) / 3000, 1))
         );
     } else {
-      meshRef.current.quaternion.slerp(
-        new Quaternion().setFromEuler(rotation),
-        0.05
-      );
+      if (slide != lastSlide.current) {
+        storedRotation.current = meshRef.current.quaternion.clone();
+        storedStart.current = Date.now();
+        if (slide > 5) {
+          storedStart.current = 0;
+        }
+      }
+
+      // meshRef.current.quaternion.slerp(
+      //   new Quaternion().setFromEuler(rotation),
+      //   0.05
+      // );
+      meshRef.current.quaternion
+        .copy(storedRotation.current)
+        .slerp(
+          new Quaternion().setFromEuler(rotation),
+          easeInOutCubic(Math.min((Date.now() - storedStart.current) / 3000, 1))
+        );
       rotation.x += deltaTime * 0.2;
       rotation.y += deltaTime * 0.2;
       rotation.z += deltaTime * 0.05;
@@ -632,6 +726,24 @@ function Cloud({ slide }) {
 
   useEffect(() => {
     // Change highlight by slide.
+    const words = [
+      "in",
+      "cloudy",
+      "weather",
+      "my",
+      "brain",
+      "picks",
+      "out",
+      "the",
+      "sun",
+    ];
+    setHighlight(words[slide - 5] || "");
+    setHide(words.slice(0, Math.max(slide - 5, 0)));
+    if (slide > 1 && slide <= 5) {
+      setShowHighlighted(true);
+    } else {
+      setShowHighlighted(false);
+    }
   }, [slide]);
 
   const cloud = useMemo(() => {
@@ -664,104 +776,110 @@ picks out the sun
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <object3D ref={meshRef}>
-        <HighlightedCloudLetter
-          position={[2.0, 2.0, -1.0]}
-          letter="when"
-          space
-          highlighted={slide === 2}
-        />
-        <HighlightedCloudLetter
-          position={[1.7, 2.4, -0.2]}
-          letter="I"
-          highlighted={slide === 2}
-          space
-        />
-        <HighlightedCloudLetter
-          position={[1.8, 3.0, 1.0]}
-          letter="love"
-          highlighted={slide === 2}
-        />
-        <HighlightedCloudLetter
-          position={[1.8, 3.0, 1.0]}
-          letter="love"
-          highlighted={slide === 2}
-        />
-        <HighlightedCloudLetter
-          position={[1.8, 2.0, 0.5]}
-          letter="unbounded"
-          highlighted={slide === 2}
-        />
-        <HighlightedCloudLetter
-          position={[0.8, 0.0, -2.0]}
-          letter="I"
-          space
-          highlighted={slide === 3}
-        />
-        <HighlightedCloudLetter
-          position={[-0.73, 1.395, 2.04]}
-          letter="hear"
-          space
-          highlighted={slide === 3}
-        />
-        <HighlightedCloudLetter
-          position={[1.2, -0.65, -0.5]}
-          letter="it"
-          highlighted={slide === 3}
-        />
-        <HighlightedCloudLetter
-          position={[-0.7, -0.65, -0.5]}
-          letter="in"
-          space
-          highlighted={slide === 3}
-        />
-        <HighlightedCloudLetter
-          position={[-0.42, -1.1, -0.4]}
-          letter="the"
-          space
-          highlighted={slide === 3}
-        />
-        <HighlightedCloudLetter
-          position={[-1.19, 1.1, 2.79]}
-          letter="birds"
-          space
-          highlighted={slide === 3}
-        />
-        {/* lol i give up here and do the sane thing, which is use matrices */}
-        <HighlightedCloudLetter
-          position={new Vector3(-1.0, 1.0, -2.0).applyMatrix4(invertedSlide4)}
-          letter="and"
-          space
-          highlighted={slide === 4}
-        />
-        <HighlightedCloudLetter
-          position={new Vector3(0.0, 1.25, -1.8).applyMatrix4(invertedSlide4)}
-          letter="see"
-          space
-          highlighted={slide === 4}
-        />
-        <HighlightedCloudLetter
-          position={new Vector3(1.0, 1.5, -1.3).applyMatrix4(invertedSlide4)}
-          letter="it"
-          space
-          highlighted={slide === 4}
-        />
-        <HighlightedCloudLetter
-          position={new Vector3(-3.0, -0.5, -0.3).applyMatrix4(invertedSlide4)}
-          letter="in"
-          space
-          highlighted={slide === 4}
-        />
-        <HighlightedCloudLetter
-          position={new Vector3(-1.8, -0.8, -0.1).applyMatrix4(invertedSlide4)}
-          letter="the"
-          space
-          highlighted={slide === 4}
-        />
-        <HighlightedCloudLetter
-          position={new Vector3(1.4, -1.6, 0.7).applyMatrix4(invertedSlide4)}
-          letter="trees"
-          highlighted={slide === 4}
-        />
+        <HighlightedCloudLetterContext.Provider value={{ showHighlighted }}>
+          <HighlightedCloudLetter
+            position={[2.0, 2.0, -1.0]}
+            letter="when"
+            space
+            highlighted={slide === 2}
+          />
+          <HighlightedCloudLetter
+            position={[1.7, 2.4, -0.2]}
+            letter="I"
+            highlighted={slide === 2}
+            space
+          />
+          <HighlightedCloudLetter
+            position={[1.8, 3.0, 1.0]}
+            letter="love"
+            highlighted={slide === 2}
+          />
+          <HighlightedCloudLetter
+            position={[1.8, 3.0, 1.0]}
+            letter="love"
+            highlighted={slide === 2}
+          />
+          <HighlightedCloudLetter
+            position={[1.8, 2.0, 0.5]}
+            letter="unbounded"
+            highlighted={slide === 2}
+          />
+          <HighlightedCloudLetter
+            position={[0.8, 0.0, -2.0]}
+            letter="I"
+            space
+            highlighted={slide === 3}
+          />
+          <HighlightedCloudLetter
+            position={[-0.73, 1.395, 2.04]}
+            letter="hear"
+            space
+            highlighted={slide === 3}
+          />
+          <HighlightedCloudLetter
+            position={[1.2, -0.65, -0.5]}
+            letter="it"
+            highlighted={slide === 3}
+          />
+          <HighlightedCloudLetter
+            position={[-0.7, -0.65, -0.5]}
+            letter="in"
+            space
+            highlighted={slide === 3}
+          />
+          <HighlightedCloudLetter
+            position={[-0.42, -1.1, -0.4]}
+            letter="the"
+            space
+            highlighted={slide === 3}
+          />
+          <HighlightedCloudLetter
+            position={[-1.19, 1.1, 2.79]}
+            letter="birds"
+            space
+            highlighted={slide === 3}
+          />
+          {/* lol i give up here and do the sane thing, which is use matrices */}
+          <HighlightedCloudLetter
+            position={new Vector3(-1.0, 1.0, -2.0).applyMatrix4(invertedSlide4)}
+            letter="and"
+            space
+            highlighted={slide === 4}
+          />
+          <HighlightedCloudLetter
+            position={new Vector3(0.0, 1.25, -1.8).applyMatrix4(invertedSlide4)}
+            letter="see"
+            space
+            highlighted={slide === 4}
+          />
+          <HighlightedCloudLetter
+            position={new Vector3(1.0, 1.5, -1.3).applyMatrix4(invertedSlide4)}
+            letter="it"
+            space
+            highlighted={slide === 4}
+          />
+          <HighlightedCloudLetter
+            position={new Vector3(-3.0, -0.5, -0.3).applyMatrix4(
+              invertedSlide4
+            )}
+            letter="in"
+            space
+            highlighted={slide === 4}
+          />
+          <HighlightedCloudLetter
+            position={new Vector3(-1.8, -0.8, -0.1).applyMatrix4(
+              invertedSlide4
+            )}
+            letter="the"
+            space
+            highlighted={slide === 4}
+          />
+          <HighlightedCloudLetter
+            position={new Vector3(1.4, -1.6, 0.7).applyMatrix4(invertedSlide4)}
+            letter="trees"
+            highlighted={slide === 4}
+          />
+        </HighlightedCloudLetterContext.Provider>
         {cloud.map((point, idx) => {
           return (
             <PulsatingCloudLetter
@@ -769,6 +887,8 @@ picks out the sun
               letter={point.letter}
               offset={point.offset}
               position={point.position}
+              highlight={highlight}
+              hide={hide}
             />
           );
         })}
@@ -1177,7 +1297,7 @@ export default function UniversePage() {
       ) : (
         (currentSlide += 3) && null
       )}
-      {slide >= currentSlide && slide < currentSlide + 8 ? (
+      {slide >= currentSlide && slide < currentSlide + 13 ? (
         <div
           style={{
             width: 640,
@@ -1189,12 +1309,269 @@ export default function UniversePage() {
           }}
         >
           <Canvas>
-            {slide === currentSlide++ && <></>}
+            {slide === (currentSlide += 13) && <></>}
             <Cloud slide={slide - 5} />
           </Canvas>
         </div>
       ) : (
-        (currentSlide += 2) && null
+        (currentSlide += 13) && null
+      )}
+      {slide >= currentSlide && slide < currentSlide + 1 ? (
+        <div
+          style={{
+            width: 640,
+            height: 480,
+            fontFamily: "monospace, Courier New",
+            fontSize: 14,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          {slide === currentSlide++ && <></>}
+          <ConsoleCanvas2 highlight={slide === currentSlide - 1} />
+        </div>
+      ) : (
+        (currentSlide += 1) && null
+      )}
+
+      {slide >= currentSlide && slide < currentSlide + 3 ? (
+        <>
+          {slide >= currentSlide++ && (
+            <Collage
+              sizeRatio={160 / 640}
+              context={{ refWidth: 640, refHeight: 160 }}
+            >
+              <FlashingCollage
+                animated
+                speed={400}
+                collages={[
+                  <CollageImage
+                    url={require("./images/universe/31_the_universe/1.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-13.5}
+                    offsetY={-171.5}
+                    scaleX={525}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/31_the_universe/2.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-279.5}
+                    offsetY={-316.5}
+                    scaleX={1251}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/31_the_universe/3.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-63.5}
+                    offsetY={-69.5}
+                    scaleX={703}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/31_the_universe/4.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-894}
+                    offsetY={-364}
+                    scaleX={2062}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/31_the_universe/5.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-420}
+                    offsetY={-415}
+                    scaleX={2062}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/31_the_universe/6.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-83}
+                    offsetY={-143}
+                    scaleX={1478}
+                  />,
+                ]}
+              />
+            </Collage>
+          )}
+          {slide >= currentSlide++ && (
+            <Collage
+              sizeRatio={160 / 640}
+              context={{ refWidth: 640, refHeight: 160 }}
+            >
+              <FlashingCollage
+                animated
+                speed={400}
+                collages={[
+                  <CollageImage
+                    url={require("./images/universe/32_speaks_to_me/1.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={65.5}
+                    offsetY={-107.5}
+                    scaleX={721}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/32_speaks_to_me/2.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-290.5}
+                    offsetY={-201.5}
+                    scaleX={1061}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/32_speaks_to_me/3.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-356.5}
+                    offsetY={-165.5}
+                    scaleX={1177}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/32_speaks_to_me/4.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-268.5}
+                    offsetY={-262.5}
+                    scaleX={1817}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/32_speaks_to_me/5.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-652}
+                    offsetY={-277}
+                    scaleX={1456}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/32_speaks_to_me/6.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-705.5}
+                    offsetY={-465.5}
+                    scaleX={2089}
+                  />,
+                ]}
+              />
+            </Collage>
+          )}
+          {slide >= currentSlide++ && (
+            <Collage
+              sizeRatio={160 / 640}
+              context={{ refWidth: 640, refHeight: 160 }}
+            >
+              {/* <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: "43%",
+                height: "20%",
+                transform: "translate(-50%,-50%)",
+                border: "5px solid red",
+                zIndex: 100000,
+                pointerEvents: "none",
+              }}
+            /> */}
+              <FlashingCollage
+                animated
+                speed={400}
+                collages={[
+                  <CollageImage
+                    url={require("./images/universe/33_through_myself/1.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-275}
+                    offsetY={-127}
+                    scaleX={1183}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/33_through_myself/2.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-492.5}
+                    offsetY={-365.5}
+                    scaleX={1531}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/33_through_myself/3.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-177.5}
+                    offsetY={-48.5}
+                    scaleX={863}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/33_through_myself/4.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-1195.5}
+                    offsetY={-263.5}
+                    scaleX={2035}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/33_through_myself/5.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-446.5}
+                    offsetY={-244.5}
+                    scaleX={1461}
+                  />,
+                  <CollageImage
+                    url={require("./images/universe/33_through_myself/6.png")}
+                    x={0}
+                    y={0}
+                    w={640}
+                    h={160}
+                    offsetX={-891.5}
+                    offsetY={-300.5}
+                    scaleX={1721}
+                  />,
+                ]}
+              />
+            </Collage>
+          )}
+        </>
+      ) : (
+        (currentSlide += 3) && null
       )}
     </div>
   );
