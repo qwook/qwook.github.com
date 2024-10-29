@@ -973,7 +973,7 @@ export default function UniversePage() {
               speed={800}
               collages={[
                 <CollageImage
-                  url={require("./images/universe/00_when_my_heart_broke/1.png")}
+                  url={require("./images/universe/00_when_my_heart_broke/1.jpg")}
                   x={-2}
                   y={-31}
                   w={640}
@@ -983,7 +983,7 @@ export default function UniversePage() {
                   scaleX={973}
                 />,
                 <CollageImage
-                  url={require("./images/universe/00_when_my_heart_broke/2.png")}
+                  url={require("./images/universe/00_when_my_heart_broke/2.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -993,7 +993,7 @@ export default function UniversePage() {
                   scaleX={1366}
                 />,
                 <CollageImage
-                  url={require("./images/universe/00_when_my_heart_broke/4.png")}
+                  url={require("./images/universe/00_when_my_heart_broke/4.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1011,7 +1011,7 @@ export default function UniversePage() {
               speed={700}
               collages={[
                 <CollageImage
-                  url={require("./images/universe/01_i_saw_it_written/1.png")}
+                  url={require("./images/universe/01_i_saw_it_written/1.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1021,7 +1021,7 @@ export default function UniversePage() {
                   scaleX={1602}
                 />,
                 <CollageImage
-                  url={require("./images/universe/01_i_saw_it_written/2.png")}
+                  url={require("./images/universe/01_i_saw_it_written/2.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1031,7 +1031,7 @@ export default function UniversePage() {
                   scaleX={1671}
                 />,
                 <CollageImage
-                  url={require("./images/universe/01_i_saw_it_written/3.png")}
+                  url={require("./images/universe/01_i_saw_it_written/3.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1041,7 +1041,7 @@ export default function UniversePage() {
                   scaleX={1113}
                 />,
                 <CollageImage
-                  url={require("./images/universe/01_i_saw_it_written/4.png")}
+                  url={require("./images/universe/01_i_saw_it_written/4.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1059,7 +1059,7 @@ export default function UniversePage() {
               speed={500}
               collages={[
                 <CollageImage
-                  url={require("./images/universe/02_in_everything/1.png")}
+                  url={require("./images/universe/02_in_everything/1.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1069,7 +1069,7 @@ export default function UniversePage() {
                   scaleX={1552}
                 />,
                 <CollageImage
-                  url={require("./images/universe/02_in_everything/2.png")}
+                  url={require("./images/universe/02_in_everything/2.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1079,7 +1079,7 @@ export default function UniversePage() {
                   scaleX={931}
                 />,
                 <CollageImage
-                  url={require("./images/universe/02_in_everything/3.png")}
+                  url={require("./images/universe/02_in_everything/3.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1089,7 +1089,7 @@ export default function UniversePage() {
                   scaleX={1170}
                 />,
                 <CollageImage
-                  url={require("./images/universe/02_in_everything/4.png")}
+                  url={require("./images/universe/02_in_everything/4.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1107,7 +1107,7 @@ export default function UniversePage() {
               speed={300}
               collages={[
                 <CollageImage
-                  url={require("./images/universe/04_a_song_in_a_bar/1.png")}
+                  url={require("./images/universe/04_a_song_in_a_bar/1.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1117,7 +1117,7 @@ export default function UniversePage() {
                   scaleX={1399}
                 />,
                 <CollageImage
-                  url={require("./images/universe/04_a_song_in_a_bar/2.png")}
+                  url={require("./images/universe/04_a_song_in_a_bar/2.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1127,7 +1127,7 @@ export default function UniversePage() {
                   scaleX={1621}
                 />,
                 <CollageImage
-                  url={require("./images/universe/04_a_song_in_a_bar/3.png")}
+                  url={require("./images/universe/04_a_song_in_a_bar/3.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1137,7 +1137,7 @@ export default function UniversePage() {
                   scaleX={1976}
                 />,
                 <CollageImage
-                  url={require("./images/universe/04_a_song_in_a_bar/4.png")}
+                  url={require("./images/universe/04_a_song_in_a_bar/4.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1155,7 +1155,7 @@ export default function UniversePage() {
               speed={300}
               collages={[
                 <CollageImage
-                  url={require("./images/universe/05_a_couple_on_a_date/1.png")}
+                  url={require("./images/universe/05_a_couple_on_a_date/1.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1165,7 +1165,7 @@ export default function UniversePage() {
                   scaleX={1121}
                 />,
                 <CollageImage
-                  url={require("./images/universe/05_a_couple_on_a_date/2.png")}
+                  url={require("./images/universe/05_a_couple_on_a_date/2.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1175,7 +1175,7 @@ export default function UniversePage() {
                   scaleX={1572}
                 />,
                 <CollageImage
-                  url={require("./images/universe/05_a_couple_on_a_date/3.png")}
+                  url={require("./images/universe/05_a_couple_on_a_date/3.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1185,7 +1185,7 @@ export default function UniversePage() {
                   scaleX={1396}
                 />,
                 <CollageImage
-                  url={require("./images/universe/05_a_couple_on_a_date/4.png")}
+                  url={require("./images/universe/05_a_couple_on_a_date/4.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1203,7 +1203,7 @@ export default function UniversePage() {
               speed={300}
               collages={[
                 <CollageImage
-                  url={require("./images/universe/06_graffiti_that_said/1.png")}
+                  url={require("./images/universe/06_graffiti_that_said/1.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1213,7 +1213,7 @@ export default function UniversePage() {
                   scaleX={1323}
                 />,
                 <CollageImage
-                  url={require("./images/universe/06_graffiti_that_said/2.png")}
+                  url={require("./images/universe/06_graffiti_that_said/2.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1223,7 +1223,7 @@ export default function UniversePage() {
                   scaleX={1408}
                 />,
                 <CollageImage
-                  url={require("./images/universe/06_graffiti_that_said/3.png")}
+                  url={require("./images/universe/06_graffiti_that_said/3.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1233,7 +1233,7 @@ export default function UniversePage() {
                   scaleX={1587}
                 />,
                 <CollageImage
-                  url={require("./images/universe/06_graffiti_that_said/4.png")}
+                  url={require("./images/universe/06_graffiti_that_said/4.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1251,7 +1251,7 @@ export default function UniversePage() {
               speed={300}
               collages={[
                 <CollageImage
-                  url={require("./images/universe/07_lovers_were_here/1.png")}
+                  url={require("./images/universe/07_lovers_were_here/1.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1261,7 +1261,7 @@ export default function UniversePage() {
                   scaleX={983}
                 />,
                 <CollageImage
-                  url={require("./images/universe/07_lovers_were_here/2.png")}
+                  url={require("./images/universe/07_lovers_were_here/2.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1271,7 +1271,7 @@ export default function UniversePage() {
                   scaleX={1880}
                 />,
                 <CollageImage
-                  url={require("./images/universe/07_lovers_were_here/3.png")}
+                  url={require("./images/universe/07_lovers_were_here/3.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1281,7 +1281,7 @@ export default function UniversePage() {
                   scaleX={1664}
                 />,
                 <CollageImage
-                  url={require("./images/universe/07_lovers_were_here/4.png")}
+                  url={require("./images/universe/07_lovers_were_here/4.jpg")}
                   x={0}
                   y={0}
                   w={640}
@@ -1347,7 +1347,7 @@ export default function UniversePage() {
                 speed={400}
                 collages={[
                   <CollageImage
-                    url={require("./images/universe/31_the_universe/1.png")}
+                    url={require("./images/universe/31_the_universe/1.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1357,7 +1357,7 @@ export default function UniversePage() {
                     scaleX={525}
                   />,
                   <CollageImage
-                    url={require("./images/universe/31_the_universe/2.png")}
+                    url={require("./images/universe/31_the_universe/2.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1367,7 +1367,7 @@ export default function UniversePage() {
                     scaleX={1251}
                   />,
                   <CollageImage
-                    url={require("./images/universe/31_the_universe/3.png")}
+                    url={require("./images/universe/31_the_universe/3.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1377,7 +1377,7 @@ export default function UniversePage() {
                     scaleX={703}
                   />,
                   <CollageImage
-                    url={require("./images/universe/31_the_universe/4.png")}
+                    url={require("./images/universe/31_the_universe/4.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1387,7 +1387,7 @@ export default function UniversePage() {
                     scaleX={2062}
                   />,
                   <CollageImage
-                    url={require("./images/universe/31_the_universe/5.png")}
+                    url={require("./images/universe/31_the_universe/5.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1397,7 +1397,7 @@ export default function UniversePage() {
                     scaleX={2062}
                   />,
                   <CollageImage
-                    url={require("./images/universe/31_the_universe/6.png")}
+                    url={require("./images/universe/31_the_universe/6.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1420,7 +1420,7 @@ export default function UniversePage() {
                 speed={400}
                 collages={[
                   <CollageImage
-                    url={require("./images/universe/32_speaks_to_me/1.png")}
+                    url={require("./images/universe/32_speaks_to_me/1.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1430,7 +1430,7 @@ export default function UniversePage() {
                     scaleX={721}
                   />,
                   <CollageImage
-                    url={require("./images/universe/32_speaks_to_me/2.png")}
+                    url={require("./images/universe/32_speaks_to_me/2.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1440,7 +1440,7 @@ export default function UniversePage() {
                     scaleX={1061}
                   />,
                   <CollageImage
-                    url={require("./images/universe/32_speaks_to_me/3.png")}
+                    url={require("./images/universe/32_speaks_to_me/3.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1450,7 +1450,7 @@ export default function UniversePage() {
                     scaleX={1177}
                   />,
                   <CollageImage
-                    url={require("./images/universe/32_speaks_to_me/4.png")}
+                    url={require("./images/universe/32_speaks_to_me/4.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1460,7 +1460,7 @@ export default function UniversePage() {
                     scaleX={1817}
                   />,
                   <CollageImage
-                    url={require("./images/universe/32_speaks_to_me/5.png")}
+                    url={require("./images/universe/32_speaks_to_me/5.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1470,7 +1470,7 @@ export default function UniversePage() {
                     scaleX={1456}
                   />,
                   <CollageImage
-                    url={require("./images/universe/32_speaks_to_me/6.png")}
+                    url={require("./images/universe/32_speaks_to_me/6.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1506,7 +1506,7 @@ export default function UniversePage() {
                 speed={400}
                 collages={[
                   <CollageImage
-                    url={require("./images/universe/33_through_myself/1.png")}
+                    url={require("./images/universe/33_through_myself/1.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1516,7 +1516,7 @@ export default function UniversePage() {
                     scaleX={1183}
                   />,
                   <CollageImage
-                    url={require("./images/universe/33_through_myself/2.png")}
+                    url={require("./images/universe/33_through_myself/2.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1526,7 +1526,7 @@ export default function UniversePage() {
                     scaleX={1531}
                   />,
                   <CollageImage
-                    url={require("./images/universe/33_through_myself/3.png")}
+                    url={require("./images/universe/33_through_myself/3.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1536,7 +1536,7 @@ export default function UniversePage() {
                     scaleX={863}
                   />,
                   <CollageImage
-                    url={require("./images/universe/33_through_myself/4.png")}
+                    url={require("./images/universe/33_through_myself/4.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1546,7 +1546,7 @@ export default function UniversePage() {
                     scaleX={2035}
                   />,
                   <CollageImage
-                    url={require("./images/universe/33_through_myself/5.png")}
+                    url={require("./images/universe/33_through_myself/5.jpg")}
                     x={0}
                     y={0}
                     w={640}
@@ -1556,7 +1556,7 @@ export default function UniversePage() {
                     scaleX={1461}
                   />,
                   <CollageImage
-                    url={require("./images/universe/33_through_myself/6.png")}
+                    url={require("./images/universe/33_through_myself/6.jpg")}
                     x={0}
                     y={0}
                     w={640}

@@ -8,11 +8,19 @@ for dir in */; do
     # Counter for renaming files
     count=1
 
-    # Find and rename each .png file
+    # Find and convert each .png file
     for img in *.png; do
-        # Only rename if the file exists
+        # Only process if the file exists
         if [ -f "$img" ]; then
-            mv "$img" "${count}.png"
+            # Rename and convert to JPG with reduced quality and half size
+            new_img="${count}.jpg"
+            convert "$img" -resize 50% -quality 50 "$new_img"
+            
+            # Remove the original PNG file if conversion was successful
+            if [ -f "$new_img" ]; then
+                rm "$img"
+            fi
+            
             ((count++))
         fi
     done
@@ -21,4 +29,4 @@ for dir in */; do
     cd ..
 done
 
-echo "Renaming complete!"
+echo "Conversion and renaming complete!"
