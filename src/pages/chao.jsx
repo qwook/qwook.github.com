@@ -318,7 +318,7 @@ export default function ChaoPage() {
             }
           }}
         >
-          &gt; coming soon: kail's thrift shop
+          &gt; coming: kail's thrift shop
         </ShopButton>
       </p>
       <div className="shop">
