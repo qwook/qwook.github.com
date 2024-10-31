@@ -35,12 +35,9 @@ const lineup = [
     instagram: "https://www.instagram.com/chriung/",
   },
   {
-    name: "??????? ????",
-    description: "guitar + vocal guy with curly hair",
-  },
-  {
-    name: "????? ???????",
-    description: "jazzy band",
+    name: "nun fiction",
+    image: require("./images/chao/artists/5.jpg"),
+    description: "full jazzy jazz indie rock band ! 👋🤗👯",
   },
   {
     name: "entropic sonics",
@@ -123,7 +120,7 @@ function Act({ act, onClick }) {
   );
 }
 
-function Shop({ inventory }) {
+function Shop({ inventory, seeMore = "" }) {
   return (
     <>
       {inventory.map((inventory, idx) => {
@@ -142,6 +139,21 @@ function Shop({ inventory }) {
           </div>
         );
       })}
+      {seeMore && (
+        <>
+          <a
+            href={seeMore}
+            target="_blank"
+            style={{
+              paddingBottom: 20,
+              width: "100%",
+              textAlign: "center",
+            }}
+          >
+            See More &gt;
+          </a>
+        </>
+      )}
     </>
   );
 }
@@ -206,6 +218,7 @@ function Lineup({ onActClick }) {
 export default function ChaoPage() {
   const [artistPage, setArtistPage] = useState();
   const [shopPage, setShopPage] = useState();
+  const [seeMoreLink, setSeeMoreLink] = useState();
 
   const shopRef = useRef();
 
@@ -219,9 +232,8 @@ export default function ChaoPage() {
         t (goodbye), sf!!! <sub>nov.10 2024</sub>
       </h1>
       <p>
-        ? a love letter to san francisco with a hint of nhậu. but also
-        literally just my backyard with friends. there will be live music and
-        thrifting!
+        ? a love letter to san francisco with a hint of nhậu. but also literally
+        just my backyard with friends. there will be live music and thrifting!
       </p>
       <Lineup
         onActClick={(act) => {
@@ -240,42 +252,26 @@ export default function ChaoPage() {
           justifyContent: "center",
           alignItems: "center",
           // margin: "4vw",
-          height: artistPage ? "30vw" : "0vw",
+          height: artistPage ? "200px" : "0px",
           opacity: artistPage ? "1" : "0",
         }}
       >
         {artistPage && (
           <>
             {artistPage.image && (
-              <div
-                className="photos"
-                style={{
-                  height: "25vw",
-                  width: "30vw",
-                }}
-              >
+              <div className="photos" style={{}}>
                 <div
                   className="image"
                   style={{
                     display: "flex",
-                    transform: "rotate(5deg)",
+                    transform: "rotate(5deg) translateY(-50%)",
                   }}
                 >
-                  <img
-                    style={{
-                      width: "20vw",
-                    }}
-                    src={artistPage.image}
-                  />
+                  <img src={artistPage.image} />
                 </div>
               </div>
             )}
-            <div
-              className="artist-content"
-              style={{
-                width: "40vw",
-              }}
-            >
+            <div className="artist-content" style={{}}>
               <div className="description">{artistPage.description}</div>
               <div className="links">
                 {artistPage.spotify && (
@@ -293,7 +289,6 @@ export default function ChaoPage() {
           </>
         )}
       </div>
-
       <p className="thrifts" ref={shopRef}>
         <ShopButton
           onClick={() => {
@@ -304,6 +299,7 @@ export default function ChaoPage() {
               setTimeout(() => {
                 shopRef.current.scrollIntoView({ behavior: "smooth" });
               }, 100);
+              setSeeMoreLink("https://www.depop.com/robots3xdoll");
             }
           }}
         >
@@ -318,54 +314,78 @@ export default function ChaoPage() {
               setTimeout(() => {
                 shopRef.current.scrollIntoView({ behavior: "smooth" });
               }, 100);
+              setSeeMoreLink("https://www.instagram.com/kailgrown");
             }
           }}
         >
-          &gt; coming soon: ????'s thrift shop
+          &gt; coming soon: kail's thrift shop
         </ShopButton>
       </p>
       <div className="shop">
-        {shopPage && <Shop inventory={shopPage}></Shop>}
+        {shopPage && <Shop inventory={shopPage} seeMore={seeMoreLink}></Shop>}
       </div>
       <p className="photos">
         <div
-          className="image"
+          className="image image-1"
           style={{
-            top: "5vw",
-            left: "0vw",
             transform: "rotate(-5deg)",
           }}
         >
-          <img
-            style={{
-              width: "40vw",
-            }}
-            src={require("./images/chao/photos/1.jpg")}
-          />
+          <img style={{}} src={require("./images/chao/photos/1.jpg")} />
         </div>
         <div
-          className="image"
+          className="image image-2"
           style={{
-            top: "0vw",
-            left: "45vw",
             transform: "rotate(5deg)",
           }}
         >
-          <img
-            style={{
-              width: "30vw",
-            }}
-            src={require("./images/chao/photos/2.jpg")}
-          />
+          <img style={{}} src={require("./images/chao/photos/2.jpg")} />
         </div>
       </p>
+      <h3>what to expect</h3>
+      <p>
+        halloween costumes. potluck table (bring food or snacks). live music. shopping. weird doorbell
+        website.
+      </p>
+      <h3>parking</h3>
+      <p>
+        You'll have better luck on Shotwell and east of Shotwell. The more you
+        go west, the closer you will be to nightlife. Don't leave anything
+        visible in your cars. I put green lines on street I usually see that are
+        free. I also live near 16th Street BART station.
+      </p>
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
+        <img
+          src={require("./images/chao/parking.png")}
+          style={{
+            width: "50%",
+          }}
+        />
+      </div>
+      <h3>some lore</h3>
       <p>
         san francisco was always my dream city. i used to take the BART up from
         south bay all the time to explore the city, look at vinyl records, and
         go thrifting.
       </p>
-      <p>"To nhậu is to drink and to eat socially [...], to release oneself of daily burdens through communal imbibing, and to revel in the quaintness of life." - <a href="https://colorbloq-qtpoc-4011.squarespace.com/in-food-and-community-how-vietnamese-drinking-culture-taught-me-to-love-my-queerness">Alex Nguyen</a></p>
-      <p>i've always embedded the spirit of 'nhậu' into my events. it's what i was raised with. but 'nhậu' isn't just about drinking, it's about togetherness and connection. i'm excited to share one last san franciscan nhậu with you all!</p>
+      <p>
+        "To nhậu is to drink and to eat socially [...], to release oneself of
+        daily burdens through communal imbibing, and to revel in the quaintness
+        of life." -{" "}
+        <a href="https://colorbloq-qtpoc-4011.squarespace.com/in-food-and-community-how-vietnamese-drinking-culture-taught-me-to-love-my-queerness">
+          Alex Nguyen
+        </a>
+      </p>
+      <p>
+        i've always embedded the spirit of 'nhậu' into my events. it's what i
+        was raised with. but 'nhậu' isn't just about drinking, it's about
+        togetherness and connection. i'm excited to share one last san
+        franciscan nhậu with you all!
+      </p>
     </div>
   );
 }

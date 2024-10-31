@@ -36,7 +36,7 @@ h1 {
     text-align: center;
     left: 0;
     width: 100%;
-    top: 0vw;
+    top: 0;
     content: "^";
   }
 }
@@ -119,6 +119,9 @@ p {
   .button {
     padding: 10px;
     background: rgb(0, 0, 200);
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
   }
   &:hover {
     text-decoration: underline;
@@ -133,7 +136,7 @@ p {
 
 .photos {
   position: relative;
-  height: 70vw;
+  height: 50vw;
 }
 
 .image {
@@ -141,12 +144,17 @@ p {
   background: white;
   padding: 3vw;
   box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.2);
+
+  top: 50%;
+  img {
+    max-width: 35vw;
+    max-height: 35vw;
+  }
 }
 
 .artist-page {
   font-family: "Times New roman";
   font-size: 4vw;
-  overflow: hidden;
   height: 30vw;
   transition: opacity 0.5s, height 0.5s;
 }
@@ -157,9 +165,6 @@ p {
 
   gap: 1vw;
 
-  .description {
-  }
-
   .links {
     display: flex;
     flex-wrap: wrap;
@@ -168,7 +173,7 @@ p {
 }
 
 .shop {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   margin: -10px;
   background: white;
   display: flex;
@@ -189,4 +194,115 @@ p {
     display: flex;
     justify-content: center;
   }
+}
+
+.artist-page {
+  padding: 5vw;
+  .photos {
+    // width: 50vw;
+      margin-top: 10vw;
+    margin-right: 10vw;
+    .image {
+      position: relative;
+    }
+  }
+}
+
+.image-1 {
+  top: 5vw;
+  left: 0vw;
+  img {
+    width: 40vw;
+  }
+}
+
+.image-2 {
+  top: 0vw;
+  left: 45vw;
+  img {
+    width: 30vw;
+  }
+}
+
+@media (min-width: 640px) {
+  #root {
+    width: 640px;
+    margin: auto;
+  }
+
+  h1 {
+    font-size: 40pt;
+  }
+
+  sub {
+    font-size: 15pt;
+  }
+
+  p {
+    font-size: 14pt;
+    margin: 40pt 40pt;
+  }
+
+  .artist-page {
+    padding: 30px;
+    font-size: 14pt;
+  }
+
+  .page {
+    display: block;
+  }
+
+  .artist-page {
+    .photos {
+      width: 220px;
+      margin-top: 10px;
+      margin-right: 40px;
+    }
+    .image {
+      width: 150px;
+    }
+  }
+
+  .image {
+    padding: 10pt;
+    // width: 70%;
+    img {
+      width: 100%;
+    }
+  }
+
+  .lineup {
+    .act {
+      font-size: 35pt;
+      line-height: 35pt;
+    }
+  }
+
+  .photos {
+    height: 320px;
+  }
+
+  .image-1 {
+    top: 40px;
+    left: 0px;
+    img {
+      width: 250px;
+    }
+  }
+
+  .image-2 {
+    top: 0px;
+    left: 300px;
+    img {
+      width: 200px;
+    }
+  }
+
+  .thrifts {
+    font-size: 24pt;
+  }
+}
+
+h3 {
+  text-align: center;
 }
