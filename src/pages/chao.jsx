@@ -37,7 +37,7 @@ const lineup = [
   {
     name: "nun fiction",
     image: require("./images/chao/artists/5.jpg"),
-    description: "full jazzy jazz indie rock band ! 👋🤗👯",
+    description: "noisy indie rock band rock band >:) !",
   },
   {
     name: "entropic sonics",
@@ -77,7 +77,32 @@ const kylaShop = [
   },
 ];
 
-const kailShop = [];
+const kailShop = [
+  {
+    image: require("./images/chao/kail_shop/P0.jpg"),
+    properties: [],
+  },
+  {
+    image: require("./images/chao/kail_shop/P0-1.jpg"),
+    properties: [],
+  },
+  {
+    image: require("./images/chao/kail_shop/P0-2.jpg"),
+    properties: [],
+  },
+  {
+    image: require("./images/chao/kail_shop/P0-3.jpg"),
+    properties: [],
+  },
+  {
+    image: require("./images/chao/kail_shop/P0-4.jpg"),
+    properties: [],
+  },
+  {
+    image: require("./images/chao/kail_shop/P0-5.jpg"),
+    properties: [],
+  },
+];
 
 function Act({ act, onClick }) {
   const [rotation, setRotation] = useState(0);
@@ -314,11 +339,11 @@ export default function ChaoPage() {
               setTimeout(() => {
                 shopRef.current.scrollIntoView({ behavior: "smooth" });
               }, 100);
-              setSeeMoreLink("https://www.instagram.com/kailgrown");
+              setSeeMoreLink("https://depop.app.link/u1bV32U9hOb");
             }
           }}
         >
-          &gt; coming: kail's thrift shop
+          &gt; preview kail's thrift shop
         </ShopButton>
       </p>
       <div className="shop">
@@ -344,8 +369,8 @@ export default function ChaoPage() {
       </p>
       <h3>what to expect</h3>
       <p>
-        halloween costumes. potluck table (bring food or snacks). live music. shopping. weird doorbell
-        website.
+        halloween costumes. potluck table (bring food or snacks). live music.
+        shopping. weird doorbell website.
       </p>
       <h3>parking</h3>
       <p>
