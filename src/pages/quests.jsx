@@ -118,7 +118,7 @@ export default function QuestsPage() {
           <Quest name="Log 40 days of yoga (4/40)"></Quest>
           <Quest name="Log 90 days of meditation (0/90)"></Quest>
           <Quest name="Log 5 days of trash cleanup (2/5)"></Quest>
-          <Quest name="Log 10 days of calling my long distance friends (0/10)">
+          <Quest name="Log 10 days of calling my long distance friends (1/10)">
             Hey Will, Juan, Dustin, Kevin, and Chloe! I wanna call you {">:)"}
           </Quest>
           <Quest name="Do a standing forward fold"></Quest>
