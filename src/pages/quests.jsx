@@ -90,8 +90,9 @@ export default function QuestsPage() {
       <div className="quest">
         <h2>Level 30 - Vietnam DLC</h2>
         <ul className="quests">
-          <Quest name="Move to Vietnam">
-            I am planning to be in Vietnam either mid or end of November!
+          <Quest completed name="Move to Vietnam">
+            <s>I am planning to be in Vietnam either mid or end of November!</s>
+            <p>I have moved to Vietnam!!</p>
           </Quest>
           <Quest name="Quit smoking">
             I want to see how well I can socialize while avoiding the most
@@ -108,8 +109,12 @@ export default function QuestsPage() {
           <Quest name="Release two video games (0/2)"></Quest>
           <Quest name="Release a short film"></Quest>
           <Quest name="Playtest Last Seen Online 2"></Quest>
-          <Quest name="Do a live performance"></Quest>
-          <Quest name="Finish playing Half-Life 2 + Episode 1 + Episode 2"></Quest>
+          <Quest completed name="Do a live performance">
+            Kenny got me on stage to sing The Climb by Miley Cyrus!
+          </Quest>
+          <Quest completed name="Finish playing Half-Life 2">This game is so scary.</Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 1"></Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 2"></Quest>
           <Quest name="Pay off one month of rent using money earned from video games"></Quest>
           <Quest name="Learn 5 Vietnamese songs on guitar, and post them"></Quest>
           <Quest name="Log 60 days of food that I ate (0/60)">

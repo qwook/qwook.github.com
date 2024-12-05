@@ -9,39 +9,37 @@ export default function IndexPage() {
       <Banner>Welcome to qwook.io</Banner>
       <p>
         My name is Henry <a href="/blogs/name">Quoc</a> Tran. I am currently{" "}
-        <Age /> years old. I grew up in Milpitas, California. I now live in San
-        Francisco, California. I am <a href="/blogs/durians">Vietnamese</a> and
-        Chinese. I have many <a href="/quests">QUESTS.</a>
+        <Age /> years old. I grew up in Milpitas, California. I live in Saigon,
+        Vietnam. Previously: San Francisco, California. I am{" "}
+        <a href="/blogs/durians">Vietnamese</a> and Chinese. I live life through {" "}
+        <a href="/quests">quests.</a>
       </p>
-      <p>I am an indie game developer and creative technologist.</p>
       <p>
         I like to explore nostalgia, <a href="/anxiety">trauma</a>, and the{" "}
         <a href="/decompose">deterioration of the internet.</a> I also like
         happy things too like matcha mochi donuts.
       </p>
+      <p>I am an <a href="https://lastseenonline.com">indie game developer</a>.</p>
+      <p>I am an <a href="https://instagram.com/nohurryhen">Instagram stories spammer</a>.</p>
       <p>
-        I don't want to be famous. I have no interest in being original or new.
-        I exist already as a remix and all of my works are remixes. I feel
-        things, and I want to know that other people feel the same things, so
-        that I am less alone.
+        I am a <a href="https://substack.com/@henrytran">writer</a>.
+      </p>
+      <p>I am a web developer.</p>
+      <p>
+        I produce electronic <a href="https://soundcloud.com/kid64">music</a>.
       </p>
       <p>
-        I love collaboration and working with people. If you want me to make you
-        an interactive website or small game, my email is henryquoctran, and the
-        domain is gmail. I prefer small, local bands / artists / stores.
+        I host <a href="/chao">events</a>.
       </p>
-      <ul>
-        <li>
-          <a href="https://x.com/henryqtran" target="_blank">
-            https://x.com/henryqtran
-          </a>
-        </li>
-        <li>
-          <a href="https://instagram.com/nohurryhen" target="_blank">
-            https://instagram.com/nohurryhen
-          </a>
-        </li>
-      </ul>
+      <p>
+        I compose and write <a href="https://soundcloud.com/hernry">lyrics</a>.
+      </p>
+      <p>
+        I sometimes <a href="/art">draw</a>.
+      </p>
+      <p>I ride <a href="https://www.instagram.com/p/C_KNpXwRCf1">motorcycles</a>.</p>
+      <p>I do vinyasa yoga.</p>
+      <p>I boulder and top-rope.</p>
       <a href="https://www.youtube.com/watch?v=6YMJm-_sivE" target="_new">
         <img
           style={{
