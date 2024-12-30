@@ -206,7 +206,7 @@ export default function ZinePage() {
   const [currentSound, setCurrentSound] = useState(0);
 
   useEffect(() => {
-    const soundsLeft = Array.from(SOUNDS.keys());
+    const soundsLeft = _.shuffle(Array.from(SOUNDS.keys()));
     setCurrentSound(
       soundsLeft.splice(Math.floor(Math.random() * soundsLeft.length), 1)
     );
@@ -255,7 +255,7 @@ export default function ZinePage() {
           onNextSound={() => {
             let newSoundsLeft = [...soundsLeft];
             if (newSoundsLeft.length === 0) {
-              newSoundsLeft = Array.from(SOUNDS.keys());
+              newSoundsLeft = _.shuffle(Array.from(SOUNDS.keys()));
             }
             console.log(newSoundsLeft);
             setCurrentSound(newSoundsLeft.splice(0, 1));
