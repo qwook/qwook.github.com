@@ -1,14 +1,15 @@
-import { createPage } from "../app";
-import "./polaroids.scss";
+import { createPage } from "../../app";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function ZinePage() {
   return (
     <div>
-      <h1>zines</h1>
-      <p>zine!</p>
+      <h1>qwook.io/zine</h1>
+      <ul>
+        <li>issue 1</li>
+      </ul>
     </div>
   );
 }
 
-createPage(ChaoPage, { showPets: false, showNav: false });
+createPage(ZinePage, { showPets: false, showNav: false });

@@ -20,7 +20,10 @@ function getEntryPoints(dir = "src/pages", entries = {}) {
       // If the item is a .jsx file, add it to the entries
       // Generate a path relative to 'src/pages' and remove the file extension
       const relativePath = path.relative("src/pages", itemPath);
-      const name = relativePath.replace(/\.jsx$/, "").replace(/\\/g, "/"); // Convert backslashes to forward slashes for consistency
+      let name = relativePath.replace(/\.jsx$/, "").replace(/\\/g, "/"); // Convert backslashes to forward slashes for consistency
+      if (item.name === "index.jsx") {
+        name = name.replace(/index$/, "");
+      }
       entries[name] = itemPath;
     }
   });
@@ -70,7 +73,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|mp4|ttf|otf)$/, // Images
+        test: /\.(png|jpg|jpeg|gif|svg|mp3|mp4|ttf|otf)$/, // Images
         type: "asset/resource", // For Webpack 5+
       },
       {
