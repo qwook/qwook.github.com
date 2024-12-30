@@ -114,6 +114,7 @@ export function Panel({ children }) {
         background: "#f1f1f1",
         padding: 20,
         width: 400,
+        maxWidth: "100%",
         borderRadius: 10,
         gap: 10,
       }}
