@@ -2,6 +2,7 @@ import { createPage } from "../../app";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as _ from "lodash";
 import ReactAudioPlayer from "react-audio-player";
+import loadAsset from "load-asset";
 
 function FlashCardDeck({ list }) {
   const [flashCardsLeft, setFlashCardsLeft] = useState(() => list);
@@ -212,6 +213,15 @@ export default function ZinePage() {
       soundsLeft.splice(Math.floor(Math.random() * soundsLeft.length), 1)
     );
     setSetSoundsLeft(soundsLeft);
+
+    (async () => {
+      const soundAssets = {};
+      for (const sound of SOUNDS) {
+        soundAssets[sound.name] = { url: sound.sound, muted: true };
+      }
+
+      await loadAsset.any(soundAssets);
+    })();
   }, []);
 
   return (
