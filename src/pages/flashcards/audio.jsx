@@ -57,52 +57,83 @@ function FlashCardDeck({ list }) {
 
 const SOUNDS = [
   {
-    name: "ơ",
+    name: "ơn",
     sound: require("../../components/flashcards/assets/ơn.mp3"),
   },
   {
-    name: "a",
+    name: "an",
     sound: require("../../components/flashcards/assets/an.mp3"),
   },
   {
-    name: "ă",
+    name: "ăn",
     sound: require("../../components/flashcards/assets/ăn.mp3"),
   },
   {
-    name: "â",
+    name: "ân",
     sound: require("../../components/flashcards/assets/ân.mp3"),
   },
   {
-    name: "u",
+    name: "un",
     sound: require("../../components/flashcards/assets/un.mp3"),
   },
   {
-    name: "ô",
+    name: "ôn",
     sound: require("../../components/flashcards/assets/ôn.mp3"),
   },
   {
-    name: "o",
+    name: "on",
     sound: require("../../components/flashcards/assets/on.mp3"),
   },
   {
-    name: "ê",
+    name: "ên",
     sound: require("../../components/flashcards/assets/ên.mp3"),
   },
   {
-    name: "e",
+    name: "en",
     sound: require("../../components/flashcards/assets/en.mp3"),
   },
+  // {
+  //   name: "au",
+  //   sound: require("../../components/flashcards/assets/aun.mp3"),
+  // },
   {
-    name: "au",
-    sound: require("../../components/flashcards/assets/aun.mp3"),
-  },
-  {
-    name: "ươ",
+    name: "ươn",
     sound: require("../../components/flashcards/assets/ươn.mp3"),
   },
   {
-    name: "uô",
+    name: "uôn",
     sound: require("../../components/flashcards/assets/uôn.mp3"),
+  },
+  {
+    name: "ưn",
+    sound: require("../../components/flashcards/assets/ưn.mp3"),
+  },
+];
+
+const ACCENTS = [
+  {
+    name: "tán",
+    sound: require("../../components/flashcards/assets/tán.mp3"),
+  },
+  {
+    name: "tàn",
+    sound: require("../../components/flashcards/assets/tàn.mp3"),
+  },
+  {
+    name: "tãn",
+    sound: require("../../components/flashcards/assets/tãn.mp3"),
+  },
+  {
+    name: "tản",
+    sound: require("../../components/flashcards/assets/tản.mp3"),
+  },
+  {
+    name: "tạn",
+    sound: require("../../components/flashcards/assets/tạn.mp3"),
+  },
+  {
+    name: "tan",
+    sound: require("../../components/flashcards/assets/tan.mp3"),
   },
 ];
 
@@ -136,11 +167,13 @@ export function Button({ children, onClick, correct }) {
   );
 }
 
-export function AudioPage({ sound, onNextSound }) {
+export function AudioPage({ sound, soundDb, onNextSound }) {
   const audioRef = useRef();
+  const correctAudioRef = useRef();
+  const incorrectAudioRef = useRef();
   const options = useMemo(() => {
     const deck = _.shuffle(
-      Array.from(SOUNDS.keys()).filter((key) => key != sound)
+      Array.from(soundDb.keys()).filter((key) => key != sound)
     )
       .slice(0, 3)
       .concat([sound]);
@@ -168,9 +201,18 @@ export function AudioPage({ sound, onNextSound }) {
               <Button
                 key={i}
                 correct={i === sound && showCorrect}
-                onClick={() => setShowCorrect(true)}
+                onClick={() => {
+                  if (i === sound && !showCorrect) {
+                    correctAudioRef.current.audioEl.current.currentTime = 0;
+                    correctAudioRef.current.audioEl.current.play();
+                  } else {
+                    incorrectAudioRef.current.audioEl.current.currentTime = 0;
+                    incorrectAudioRef.current.audioEl.current.play();
+                  }
+                  setShowCorrect(true);
+                }}
               >
-                {SOUNDS[i].name}
+                {soundDb[i].name}
               </Button>
             );
           })}
@@ -179,9 +221,17 @@ export function AudioPage({ sound, onNextSound }) {
           <div style={{ display: "none" }}>
             <ReactAudioPlayer
               ref={audioRef}
-              src={SOUNDS[sound].sound}
+              src={soundDb[sound].sound}
               autoPlay
               controls
+            />
+            <ReactAudioPlayer
+              ref={correctAudioRef}
+              src={require("../../components/flashcards/assets/correct.mp3")}
+            />
+            <ReactAudioPlayer
+              ref={incorrectAudioRef}
+              src={require("../../components/flashcards/assets/incorrect.mp3")}
             />
           </div>
           <Button
@@ -200,15 +250,16 @@ export function AudioPage({ sound, onNextSound }) {
 }
 
 export default function ZinePage() {
+  const [soundDb, setSoundDb] = useState(SOUNDS);
   const [playing, setPlaying] = useState(false);
 
   const [soundsLeft, setSetSoundsLeft] = useState(() =>
-    Array.from(SOUNDS.keys())
+    Array.from(soundDb.keys())
   );
   const [currentSound, setCurrentSound] = useState(0);
 
-  useEffect(() => {
-    const soundsLeft = _.shuffle(Array.from(SOUNDS.keys()));
+  const calculateSoundsLeft = useCallback((soundDb) => {
+    const soundsLeft = _.shuffle(Array.from(soundDb.keys()));
     setCurrentSound(
       soundsLeft.splice(Math.floor(Math.random() * soundsLeft.length), 1)
     );
@@ -216,7 +267,7 @@ export default function ZinePage() {
 
     (async () => {
       const soundAssets = {};
-      for (const sound of SOUNDS) {
+      for (const sound of soundDb) {
         soundAssets[sound.name] = { url: sound.sound, muted: true };
       }
 
@@ -263,10 +314,11 @@ export default function ZinePage() {
       {playing ? (
         <AudioPage
           sound={currentSound}
+          soundDb={soundDb}
           onNextSound={() => {
             let newSoundsLeft = [...soundsLeft];
             if (newSoundsLeft.length === 0) {
-              newSoundsLeft = _.shuffle(Array.from(SOUNDS.keys()));
+              newSoundsLeft = _.shuffle(Array.from(soundDb.keys()));
             }
             console.log(newSoundsLeft);
             setCurrentSound(newSoundsLeft.splice(0, 1));
@@ -275,7 +327,24 @@ export default function ZinePage() {
         />
       ) : (
         <Panel>
-          <Button onClick={(e) => setPlaying(true)}>Start</Button>
+          <Button
+            onClick={(e) => {
+              setPlaying(true);
+              calculateSoundsLeft(SOUNDS);
+              setSoundDb(SOUNDS);
+            }}
+          >
+            Vowels
+          </Button>
+          <Button
+            onClick={(e) => {
+              setPlaying(true);
+              calculateSoundsLeft(ACCENTS);
+              setSoundDb(ACCENTS);
+            }}
+          >
+            Tones
+          </Button>
           <p>
             Most of these vowels end with an "n" since it's the vowels in
             "action" rather than the name of the vowel.
