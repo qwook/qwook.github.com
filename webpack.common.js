@@ -75,6 +75,9 @@ module.exports = {
       {
         test: /\.(png|jpg|jpeg|gif|svg|mp3|mp4|ttf|otf)$/, // Images
         type: "asset/resource", // For Webpack 5+
+        generator: {
+          filename: "assets/[name].[contenthash][ext]", // Consistent static file names
+        },
       },
       {
         test: /\.txt$/i,
