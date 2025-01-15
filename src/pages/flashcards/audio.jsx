@@ -145,8 +145,8 @@ export function Panel({ children }) {
         flexDirection: "column",
         background: "#f1f1f1",
         padding: 20,
-        width: 400,
-        maxWidth: "100%",
+        // width: "100%",
+        // maxWidth: "100%",
         borderRadius: 10,
         gap: 10,
       }}
@@ -156,10 +156,14 @@ export function Panel({ children }) {
   );
 }
 
-export function Button({ children, onClick, correct }) {
+export function Button({ children, onClick, correct, small }) {
   return (
     <div
-      className={["button", correct ? "correct" : ""].join(" ")}
+      className={[
+        "button",
+        correct ? "correct" : "",
+        small ? "small" : "",
+      ].join(" ")}
       onClick={onClick}
     >
       {children}
@@ -167,7 +171,7 @@ export function Button({ children, onClick, correct }) {
   );
 }
 
-export function AudioPage({ sound, soundDb, onNextSound }) {
+export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
   const audioRef = useRef();
   const correctAudioRef = useRef();
   const incorrectAudioRef = useRef();
@@ -178,11 +182,11 @@ export function AudioPage({ sound, soundDb, onNextSound }) {
       .slice(0, 3)
       .concat([sound]);
     return _.shuffle(deck);
-  }, [sound]);
+  }, [sound, lol]);
 
   useEffect(() => {
     setShowCorrect(false);
-  }, [sound]);
+  }, [sound, lol]);
 
   const [showCorrect, setShowCorrect] = useState(false);
 
@@ -203,9 +207,11 @@ export function AudioPage({ sound, soundDb, onNextSound }) {
                 correct={i === sound && showCorrect}
                 onClick={() => {
                   if (i === sound && !showCorrect) {
+                    correctAudioRef.current.audioEl.current.pause();
                     correctAudioRef.current.audioEl.current.currentTime = 0;
                     correctAudioRef.current.audioEl.current.play();
                   } else {
+                    incorrectAudioRef.current.audioEl.current.pause();
                     incorrectAudioRef.current.audioEl.current.currentTime = 0;
                     incorrectAudioRef.current.audioEl.current.play();
                   }
@@ -243,6 +249,14 @@ export function AudioPage({ sound, soundDb, onNextSound }) {
             Replay
           </Button>
           {showCorrect && <Button onClick={(e) => onNextSound()}>Next</Button>}
+          <Button
+            onClick={() => {
+              onClose();
+            }}
+            small
+          >
+            Close
+          </Button>
         </Panel>
       </div>
     </>
@@ -257,6 +271,7 @@ export default function ZinePage() {
     Array.from(soundDb.keys())
   );
   const [currentSound, setCurrentSound] = useState(0);
+  const [lol, setLol] = useState(0);
 
   const calculateSoundsLeft = useCallback((soundDb) => {
     const soundsLeft = _.shuffle(Array.from(soundDb.keys()));
@@ -292,6 +307,11 @@ export default function ZinePage() {
             align-items: center;
           }
 
+          .button.small {
+            background: rgb(255, 255, 255, 0.1);
+            font-size: 0.7em;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+          }
           .button:hover {
             color: black;
             background: #ddf;
@@ -308,6 +328,7 @@ export default function ZinePage() {
             color: white;
             background: #0a0;
           }
+
           `}
       </style>
       <h1>Vietnamese Vowels</h1>
@@ -315,14 +336,18 @@ export default function ZinePage() {
         <AudioPage
           sound={currentSound}
           soundDb={soundDb}
+          lol={lol}
           onNextSound={() => {
             let newSoundsLeft = [...soundsLeft];
             if (newSoundsLeft.length === 0) {
               newSoundsLeft = _.shuffle(Array.from(soundDb.keys()));
             }
-            console.log(newSoundsLeft);
             setCurrentSound(newSoundsLeft.splice(0, 1));
+            setLol((lol) => (lol += 1));
             setSetSoundsLeft(newSoundsLeft);
+          }}
+          onClose={() => {
+            setPlaying(false);
           }}
         />
       ) : (
