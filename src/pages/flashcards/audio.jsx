@@ -175,6 +175,7 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
   const audioRef = useRef();
   const correctAudioRef = useRef();
   const incorrectAudioRef = useRef();
+  const audioRefs = useRef({});
   const options = useMemo(() => {
     const deck = _.shuffle(
       Array.from(soundDb.keys()).filter((key) => key != sound)
@@ -185,6 +186,11 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
   }, [sound, lol]);
 
   useEffect(() => {
+    if (audioRefs.current[sound]) {
+      audioRefs.current[sound].audioEl.current.pause();
+      audioRefs.current[sound].audioEl.current.currentTime = 0;
+      audioRefs.current[sound].audioEl.current.play();
+    }
     setShowCorrect(false);
   }, [sound, lol]);
 
@@ -225,12 +231,15 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
         </Panel>
         <Panel>
           <div style={{ display: "none" }}>
-            <ReactAudioPlayer
-              ref={audioRef}
-              src={soundDb[sound].sound}
-              autoPlay
-              controls
-            />
+            {soundDb.map((sound, idx) => (
+              <ReactAudioPlayer
+                ref={(el) => {
+                  audioRefs.current[idx] = el;
+                }}
+                src={sound.sound}
+                controls
+              />
+            ))}
             <ReactAudioPlayer
               ref={correctAudioRef}
               src={require("../../components/flashcards/assets/correct.mp3")}
@@ -242,8 +251,9 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
           </div>
           <Button
             onClick={() => {
-              audioRef.current.audioEl.current.currentTime = 0;
-              audioRef.current.audioEl.current.play();
+              audioRefs.current[sound].audioEl.current.pause();
+              audioRefs.current[sound].audioEl.current.currentTime = 0;
+              audioRefs.current[sound].audioEl.current.play();
             }}
           >
             Replay
@@ -316,6 +326,7 @@ export default function ZinePage() {
             color: black;
             background: #ddf;
             box-shadow: 1px 2px 5px rgba(0,0,0,0.5);
+            cursor: pointer;
           }
 
           .button:active {
