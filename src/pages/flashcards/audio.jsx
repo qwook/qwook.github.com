@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as _ from "lodash";
 import ReactAudioPlayer from "react-audio-player";
 import loadAsset from "load-asset";
+import { Howl, Howler } from "howler";
 
 function FlashCardDeck({ list }) {
   const [flashCardsLeft, setFlashCardsLeft] = useState(() => list);
@@ -185,12 +186,46 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
     return _.shuffle(deck);
   }, [sound, lol]);
 
+  const [correctSound, incorrectSound] = useMemo(() => [
+    new Howl(
+      {
+        src: require("../../components/flashcards/assets/correct.mp3"),
+        autoplay: false,
+        volume: 1,
+        html5: true,
+      },
+      []
+    ),
+    new Howl(
+      {
+        src: require("../../components/flashcards/assets/incorrect.mp3"),
+        autoplay: false,
+        volume: 1,
+        html5: true,
+      },
+      []
+    ),
+  ]);
+
+  const sounds = useMemo(
+    () =>
+      soundDb.map(
+        (soundInDb) =>
+          new Howl(
+            {
+              src: soundInDb.sound,
+              autoplay: false,
+              volume: 1,
+              html5: true,
+            },
+            []
+          )
+      ),
+    [soundDb]
+  );
+
   useEffect(() => {
-    if (audioRefs.current[sound]) {
-      audioRefs.current[sound].audioEl.current.pause();
-      audioRefs.current[sound].audioEl.current.currentTime = 0;
-      audioRefs.current[sound].audioEl.current.play();
-    }
+    sounds[sound].play();
     setShowCorrect(false);
   }, [sound, lol]);
 
@@ -213,13 +248,9 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
                 correct={i === sound && showCorrect}
                 onClick={() => {
                   if (i === sound && !showCorrect) {
-                    correctAudioRef.current.audioEl.current.pause();
-                    correctAudioRef.current.audioEl.current.currentTime = 0;
-                    correctAudioRef.current.audioEl.current.play();
+                    correctSound.play();
                   } else {
-                    incorrectAudioRef.current.audioEl.current.pause();
-                    incorrectAudioRef.current.audioEl.current.currentTime = 0;
-                    incorrectAudioRef.current.audioEl.current.play();
+                    incorrectSound.play();
                   }
                   setShowCorrect(true);
                 }}
@@ -230,30 +261,9 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
           })}
         </Panel>
         <Panel>
-          <div style={{ display: "none" }}>
-            {soundDb.map((sound, idx) => (
-              <ReactAudioPlayer
-                ref={(el) => {
-                  audioRefs.current[idx] = el;
-                }}
-                src={sound.sound}
-                controls
-              />
-            ))}
-            <ReactAudioPlayer
-              ref={correctAudioRef}
-              src={require("../../components/flashcards/assets/correct.mp3")}
-            />
-            <ReactAudioPlayer
-              ref={incorrectAudioRef}
-              src={require("../../components/flashcards/assets/incorrect.mp3")}
-            />
-          </div>
           <Button
             onClick={() => {
-              audioRefs.current[sound].audioEl.current.pause();
-              audioRefs.current[sound].audioEl.current.currentTime = 0;
-              audioRefs.current[sound].audioEl.current.play();
+              sounds[sound].play();
             }}
           >
             Replay
@@ -383,7 +393,9 @@ export default function ZinePage() {
           </Button>
           <p>
             Most of these vowels end with an "n" since it's the vowels in
-            "action" rather than the name of the vowel.
+            "action" rather than the name of the vowel. Give a second for audio
+            to load after you select which audio flashcards you want. I have yet
+            to add a loading screen...
           </p>
         </Panel>
       )}
