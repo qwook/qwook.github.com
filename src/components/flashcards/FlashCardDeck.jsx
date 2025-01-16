@@ -18,7 +18,7 @@ export function FlashCardDeck({ list }) {
         return flashCardsLeft.slice(1);
       }
     });
-    setShowAnswer((showAnswer) => Math.random() > 0.5);
+    setShowAnswer(false);
   }, []);
 
   // useEffect(() => {
