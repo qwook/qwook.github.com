@@ -26,7 +26,7 @@ export default function Button({ children, onClick, correct, small, keyCode }) {
         document.removeEventListener("keyup", onKeyUp);
       };
     }
-  }, [keyCode]);
+  }, [keyCode, onClick]);
 
   return (
     <div
