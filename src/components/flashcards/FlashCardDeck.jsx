@@ -21,24 +21,10 @@ export function FlashCardDeck({ list }) {
     setShowAnswer(false);
   }, []);
 
-  // useEffect(() => {
-  //   const onKeyPress = (e) => {
-  //     if (e.keyCode === 32) {
-  //       setShowAnswer((showAnswer) => !showAnswer);
-  //     }
-  //     if (e.keyCode === 13) {
-  //       nextCard();
-  //     }
-  //   };
-  //   document.addEventListener("keypress", onKeyPress);
-
-  //   return () => document.removeEventListener("keypress", onKeyPress);
-  // }, [nextCard]);
-
   return (
     <>
       <Panel>
-        {!showAnswer ? (
+        {showAnswer ? (
           <>
             <h2>{flashCardsLeft[0][0]}</h2>
           </>
