@@ -1,0 +1,9 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: #ccc;
+  padding: 20px;
+  gap: 10px;
+  border: 2px inset white;
+  outline: 2px inset #222;
+}

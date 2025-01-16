@@ -20,6 +20,7 @@ body {
 
 .content {
   display: block;
+  width: 100%;
   // flex-basis: 500px;
   // min-width: 500px;
 }
@@ -149,6 +150,7 @@ img {
   display: flex;
   gap: 20px;
   align-items: flex-start;
+  width: 100%;
 }
 
 .symbol {
@@ -192,7 +194,7 @@ code {
   border: 2px solid black;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 820px) {
   body {
     width: auto;
   }

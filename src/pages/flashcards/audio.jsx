@@ -4,6 +4,8 @@ import * as _ from "lodash";
 import ReactAudioPlayer from "react-audio-player";
 import loadAsset from "load-asset";
 import { Howl, Howler } from "howler";
+import Button from "../../components/ui/Button";
+import { Panel } from "../../components/ui/Panel";
 
 function FlashCardDeck({ list }) {
   const [flashCardsLeft, setFlashCardsLeft] = useState(() => list);
@@ -138,40 +140,6 @@ const ACCENTS = [
   },
 ];
 
-export function Panel({ children }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        background: "#f1f1f1",
-        padding: 20,
-        // width: "100%",
-        // maxWidth: "100%",
-        borderRadius: 10,
-        gap: 10,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-export function Button({ children, onClick, correct, small }) {
-  return (
-    <div
-      className={[
-        "button",
-        correct ? "correct" : "",
-        small ? "small" : "",
-      ].join(" ")}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-}
-
 export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
   const audioRef = useRef();
   const correctAudioRef = useRef();
@@ -241,10 +209,11 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
         }}
       >
         <Panel>
-          {options.map((i) => {
+          {options.map((i, idx) => {
             return (
               <Button
                 key={i}
+                keyCode={49 + idx}
                 correct={i === sound && showCorrect}
                 onClick={() => {
                   if (i === sound && !showCorrect) {
@@ -255,36 +224,39 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
                   setShowCorrect(true);
                 }}
               >
-                {soundDb[i].name}
+                {soundDb[i].name} [{idx + 1}]
               </Button>
             );
           })}
         </Panel>
         <Panel>
           <Button
+            keyCode={82}
             onClick={() => {
               sounds[sound].play();
             }}
           >
-            Replay
+            Replay [R]
           </Button>
           {showCorrect && (
             <Button
+              keyCode={13}
               onClick={(e) => {
                 setShowCorrect(false);
                 onNextSound();
               }}
             >
-              Next
+              Next [Enter]
             </Button>
           )}
           <Button
+            keyCode={27}
             onClick={() => {
               onClose();
             }}
             small
           >
-            Close
+            Close [Esc]
           </Button>
         </Panel>
       </div>
@@ -321,47 +293,7 @@ export default function ZinePage() {
 
   return (
     <div>
-      <style>
-        {`
-          .button {
-            display: flex;
-            background: white;
-            padding: 10px;
-            border: 1px solid rgba(0,0,0,0.3);
-            border-radius: 10px;
-            justify-content: center;
-            // transition: background 0.1s;
-            user-select: none;
-            box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-            align-items: center;
-          }
-
-          .button.small {
-            background: rgb(255, 255, 255, 0.1);
-            font-size: 0.7em;
-            box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-          }
-          .button:hover {
-            color: black;
-            background: #ddf;
-            box-shadow: 1px 2px 5px rgba(0,0,0,0.5);
-            cursor: pointer;
-          }
-
-          .button:active {
-            color: black;
-            background: #ddd;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5) inset;
-          }
-
-          .button.correct {
-            color: white;
-            background: #0a0;
-          }
-
-          `}
-      </style>
-      <h1>Vietnamese Vowels</h1>
+      <h1>Vietnamese Pronunciation</h1>
       {playing ? (
         <AudioPage
           sound={currentSound}
@@ -412,4 +344,4 @@ export default function ZinePage() {
   );
 }
 
-createPage(ZinePage, { showPets: false, showNav: false });
+createPage(ZinePage, { showPets: false, showNav: true });
