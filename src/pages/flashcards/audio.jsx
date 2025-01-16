@@ -224,12 +224,12 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
     [soundDb]
   );
 
+  const [showCorrect, setShowCorrect] = useState(false);
+
   useEffect(() => {
     sounds[sound].play();
     setShowCorrect(false);
   }, [sound, lol]);
-
-  const [showCorrect, setShowCorrect] = useState(false);
 
   return (
     <>
@@ -268,7 +268,16 @@ export function AudioPage({ sound, soundDb, lol, onNextSound, onClose }) {
           >
             Replay
           </Button>
-          {showCorrect && <Button onClick={(e) => onNextSound()}>Next</Button>}
+          {showCorrect && (
+            <Button
+              onClick={(e) => {
+                setShowCorrect(false);
+                onNextSound();
+              }}
+            >
+              Next
+            </Button>
+          )}
           <Button
             onClick={() => {
               onClose();
