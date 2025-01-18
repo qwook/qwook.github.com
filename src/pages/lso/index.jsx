@@ -25,7 +25,7 @@ export default function Page() {
       <div className="center-image">
         <img src={require("../images/lso/friends.gif")} />
       </div>
-      <p>really fun to play with friends!!!</p>
+      <p>really fun to play with friends!!! just 30 minz long!!</p>
       <div
         style={{
           gap: 20,
@@ -63,6 +63,17 @@ export default function Page() {
             <div>(windows, mac)</div>
           </div>
         </Button>
+      </div>
+      <br />
+      <div
+        style={{
+          gap: 20,
+          color: "black",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
         <Button href="https://discord.gg/4HtZG2uR6J">
           <div
             style={{
@@ -122,7 +133,6 @@ export default function Page() {
         allowfullscreen
       ></iframe>
       <hr />
-
       <div
         style={{
           gap: 20,
@@ -153,7 +163,6 @@ export default function Page() {
           </div>
         </Button>
       </div>
-
       <hr />
       <p>
         this page is always under construction!!{" "}
