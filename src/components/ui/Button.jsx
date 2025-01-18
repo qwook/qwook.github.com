@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import "./button.scss";
 
-export default function Button({ children, onClick, correct, small, keyCode }) {
+export default function Button({
+  children,
+  onClick,
+  correct,
+  small,
+  keyCode,
+  href,
+}) {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -29,16 +36,32 @@ export default function Button({ children, onClick, correct, small, keyCode }) {
   }, [keyCode, onClick]);
 
   return (
-    <div
-      className={[
-        "button",
-        correct ? "correct" : "",
-        small ? "small" : "",
-        active ? "active" : "",
-      ].join(" ")}
-      onClick={onClick}
-    >
-      {children}
-    </div>
+    <>
+      {href ? (
+        <a
+          href={href}
+          className={[
+            "button",
+            correct ? "correct" : "",
+            small ? "small" : "",
+            active ? "active" : "",
+          ].join(" ")}
+        >
+          {children}
+        </a>
+      ) : (
+        <div
+          className={[
+            "button",
+            correct ? "correct" : "",
+            small ? "small" : "",
+            active ? "active" : "",
+          ].join(" ")}
+          onClick={onClick}
+        >
+          {children}
+        </div>
+      )}
+    </>
   );
 }

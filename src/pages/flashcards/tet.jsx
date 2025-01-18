@@ -36,6 +36,7 @@ export default function Page() {
           ["lịch dương", "solar calendar"],
           ["lịch âm", "lunar calendar"],
           ["mùng", "day (in lunar calendar)"],
+          ["thắp hương cho tổ tiên", "burn incense for ancestors"]
         ]}
       />
     </div>

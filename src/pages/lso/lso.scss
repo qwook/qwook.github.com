@@ -1,0 +1,40 @@
+body {
+  color: yellow;
+  font-family: "Times New Roman", Times, serif;
+  background: url("../images/lso/background.gif");
+}
+
+strong {
+  color: cyan;
+}
+
+.center-image {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.press {
+  & td {
+    padding: 5px;
+    border: 2px inset yellow;
+  }
+  & a {
+    color: white;
+  }
+}
+
+.images {
+  img {
+    max-width: 100%;
+  }
+}

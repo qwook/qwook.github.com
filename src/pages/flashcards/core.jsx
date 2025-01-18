@@ -13,6 +13,7 @@ export default function Page() {
           ["điều", "things"],
           ["rằng", "formal là"],
           ["vẫn", "still"],
+          ["vào", "enter, incoming, on"],
           ["như", "like so"],
           ["cố gắng", "try"],
           ["vạy", "so, the reason, right? (used at the end.)"],

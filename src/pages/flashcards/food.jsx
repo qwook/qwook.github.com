@@ -17,6 +17,7 @@ export default function Page() {
           ["mặn chát", "salty"],
           ["lạt nhách", "tasteless"],
           ["ngọt ngay", "too sweet"],
+          ["bột ngọt", "MSG"],
           ["ngon", "savory"],
           ["đang nghét", "bitter"],
           ["cay xé lưỡi", "spicy, tears tongue"],
