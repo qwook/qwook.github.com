@@ -4,6 +4,25 @@ import "./lso.scss";
 import Button from "../../components/ui/Button";
 import { Panel } from "../../components/ui/Panel";
 
+const lastSeenOnline = `
+.---.  .---.  .----.------.
+|   | /  ^  \\|  ___/_    _|
+|   |_   _   \\ __  \\ |  |
+|     | / \\   \\    | |  |
+'-----'    '--'---'  '--'
+ .----.----.----.--..--.
+|  ___/ ___| ___|  \\|  |
+\\__   \\ ___| ___|      |
+/     |    |    |  |\\  |
+'----''----'----'--''--'
+.----.--..--.---.---.--..--.----.
+| .. |  \\|  |   |   |  \\|  | ___|
+| || |      |   |_  |      | ___|
+|  ' |  |\\  |     | |  |\\  |    |
+'----'--''--'-----'-'--''--'----'
+
+`;
+
 export default function Page() {
   return (
     <div>
@@ -168,6 +187,7 @@ export default function Page() {
         this page is always under construction!!{" "}
         <img src={require("../images/lso/smashingcomputer.gif")} />
       </p>
+      <pre style={{ fontFamily: "monospace" }}>{lastSeenOnline}</pre>
     </div>
   );
 }
