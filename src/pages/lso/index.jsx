@@ -111,7 +111,7 @@ export default function Page() {
           display: "block",
           margin: "auto",
         }}
-        width="560"
+        width="100%"
         height="315"
         src="https://www.youtube.com/embed/wtvLOKpmv_c?si=wLEguuRmKpVbGAgQ"
         title="YouTube video player"
