@@ -25,6 +25,7 @@ export default function Page() {
       <div className="center-image">
         <img src={require("../images/lso/friends.gif")} />
       </div>
+      <p>really fun to play with friends!!!</p>
       <div
         style={{
           gap: 20,
