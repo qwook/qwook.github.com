@@ -187,7 +187,9 @@ export default function Page() {
         this page is always under construction!!{" "}
         <img src={require("../images/lso/smashingcomputer.gif")} />
       </p>
-      <pre style={{ fontFamily: "monospace" }}>{lastSeenOnline}</pre>
+      <pre style={{ fontFamily: "monospace", overflow: "scroll" }}>
+        {lastSeenOnline}
+      </pre>
     </div>
   );
 }
