@@ -21,6 +21,15 @@ export default function Page() {
           </a>
         </li>
         <li>
+          <a href="./descriptors">Descriptors</a>
+        </li>
+        <li>
+          <a href="./colors">Colors</a>
+        </li>
+        <li>
+          <a href="./directions">Directions</a>
+        </li>
+        <li>
           <a href="./core">Core words</a>
         </li>
       </ul>

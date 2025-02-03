@@ -5,11 +5,14 @@ import { FlashCardDeck } from "../../components/flashcards/FlashCardDeck";
 export default function Page() {
   return (
     <div>
-      <h1>Core Words</h1>
+      <h1>Descriptor Words</h1>
       <FlashCardDeck
         name=""
         list={[
           ["sến", "cheesy"],
+          ["ngượng (ngùng)", "embarassment (awkward)"],
+          ["lười", "lazy"],
+          ["ngại", "shy"],
         ]}
       />
     </div>

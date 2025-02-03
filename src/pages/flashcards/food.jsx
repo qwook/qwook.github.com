@@ -5,7 +5,7 @@ import { FlashCardDeck } from "../../components/flashcards/FlashCardDeck";
 export default function Page() {
   return (
     <div>
-      <h1>Tết and Family</h1>
+      <h1>Food</h1>
       <FlashCardDeck
         name=""
         list={[
@@ -31,6 +31,11 @@ export default function Page() {
           ["muỗng", "spoon"],
           ["dao", "knife"],
           ["đun nước", "boil water"],
+          ["luộc (chín)", "boiled"],
+          ["nướng", "grilled"],
+          ["chiên", "fried"],
+          ["chín", "ripe (fruit)"],
+          ["nước lọc", "water, filtered"],
           ["vào", "heat up"],
           ["đò lót ly", "thing to carry cup (coaster)"],
         ]}
