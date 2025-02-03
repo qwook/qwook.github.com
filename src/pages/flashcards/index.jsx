@@ -24,10 +24,19 @@ export default function Page() {
           <a href="./descriptors">Descriptors</a>
         </li>
         <li>
+          <a href="./feeling">Feeling</a>
+        </li>
+        <li>
+          <a href="./sick">Feeling</a>
+        </li>
+        <li>
           <a href="./colors">Colors</a>
         </li>
         <li>
           <a href="./directions">Directions</a>
+        </li>
+        <li>
+          <a href="./temporal">Temporal</a>
         </li>
         <li>
           <a href="./core">Core words</a>

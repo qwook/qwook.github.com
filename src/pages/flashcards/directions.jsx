@@ -22,6 +22,9 @@ export default function Page() {
           ["ở đó", "there"],
           ["đây", "here"],
           ["hướng", "direction (forward, backward, left or right)"],
+          ["vô / vào", "enter"],
+          ["ra", "exit"],
+          ["đến", "arrive"],
         ]}
       />
     </div>

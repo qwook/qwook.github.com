@@ -26,6 +26,8 @@ export default function Page() {
           ["Mệt (mỏi)", "Tired"],
           ["Ngại (ngùng)", "Shy"],
           ["Khó chịu", "annoyed"],
+          ["ngượng (ngùng)", "embarassment (awkward)"],
+          ["lộn", "confused"],
           ["Bực (bội)", "frustrated"],
           ["Ghen tị", "jealous"],
           ["ổn (định)", "stable / fine / ok"],

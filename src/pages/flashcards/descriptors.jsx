@@ -9,10 +9,12 @@ export default function Page() {
       <FlashCardDeck
         name=""
         list={[
-          ["sến", "cheesy"],
-          ["ngượng (ngùng)", "embarassment (awkward)"],
+          ["sến", "cheesy (actually might not be usable for humans)"],
           ["lười", "lazy"],
           ["ngại", "shy"],
+          ["tốt", "kind"],
+          ["thân thiện", "friendly"],
+          ["xấu", "bad"],
         ]}
       />
     </div>
