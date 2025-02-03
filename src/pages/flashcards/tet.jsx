@@ -18,6 +18,7 @@ export default function Page() {
           ["luôn", "always"],
           ["lớn lên xinh đẹp", "grow up beautiful"],
           ["đẹp lão", "beautiful (age)"],
+          ["may mắn", "lucky"],
           ["trong cuộc sống", "in your life"],
           ["trăm năm hạnh phúc", "100 years of happiness (married)"],
           ["nghe lời ba mẹ", "listen to your parents"],
@@ -36,7 +37,7 @@ export default function Page() {
           ["lịch dương", "solar calendar"],
           ["lịch âm", "lunar calendar"],
           ["mùng", "day (in lunar calendar)"],
-          ["thắp hương cho tổ tiên", "burn incense for ancestors"]
+          ["thắp hương cho tổ tiên", "burn incense for ancestors"],
         ]}
       />
     </div>

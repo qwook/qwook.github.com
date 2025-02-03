@@ -5,7 +5,7 @@ import { FlashCardDeck } from "../../components/flashcards/FlashCardDeck";
 export default function Page() {
   return (
     <div>
-      <h1>Direction Words</h1>
+      <h1>Feelings</h1>
       <FlashCardDeck
         name=""
         list={[
