@@ -10,42 +10,42 @@ export default function Page() {
       <h2>Flashcards</h2>
       <ul>
         <li>
-          <a href="./misc">Misc</a>
+          <a href="/flashcards/misc">Misc</a>
         </li>
         <li>
-          <a href="./tet">Tết and Family</a>
+          <a href="/flashcards/tet">Tết and Family</a>
         </li>
         <li>
-          <a href="./flavor-text">
+          <a href="/flashcards/flavor-text">
             Flavor Text - Text to emphasize or to add quirkiness.
           </a>
         </li>
         <li>
-          <a href="./descriptors">Descriptors</a>
+          <a href="/flashcards/descriptors">Descriptors</a>
         </li>
         <li>
-          <a href="./feeling">Feeling</a>
+          <a href="/flashcards/feeling">Feeling</a>
         </li>
         <li>
-          <a href="./sick">Sick</a>
+          <a href="/flashcards/sick">Sick</a>
         </li>
         <li>
-          <a href="./colors">Colors</a>
+          <a href="/flashcards/colors">Colors</a>
         </li>
         <li>
-          <a href="./directions">Directions</a>
+          <a href="/flashcards/directions">Directions</a>
         </li>
         <li>
-          <a href="./temporal">Temporal</a>
+          <a href="/flashcards/temporal">Temporal</a>
         </li>
         <li>
-          <a href="./core">Core words</a>
+          <a href="/flashcards/core">Core words</a>
         </li>
       </ul>
       <h2>Audio Flashcards</h2>
       <ul>
         <li>
-          <a href="./audio">Vowels and Tones</a>
+          <a href="/flashcards/audio">Vowels and Tones</a>
         </li>
       </ul>
     </div>
