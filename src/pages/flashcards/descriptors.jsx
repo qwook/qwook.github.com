@@ -10,8 +10,8 @@ export default function Page() {
         name=""
         list={[
           ["sến", "cheesy (actually might not be usable for humans)"],
-          ["lười", "lazy"],
-          ["ngại", "shy"],
+          ["lười (biếng)", "lazy"],
+          ["ngại (ngùng)", "shy"],
           ["tốt", "kind"],
           ["thân thiện", "friendly"],
           ["xấu", "bad"],

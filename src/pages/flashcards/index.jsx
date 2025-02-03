@@ -27,7 +27,7 @@ export default function Page() {
           <a href="./feeling">Feeling</a>
         </li>
         <li>
-          <a href="./sick">Feeling</a>
+          <a href="./sick">Sick</a>
         </li>
         <li>
           <a href="./colors">Colors</a>

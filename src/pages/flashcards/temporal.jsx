@@ -34,7 +34,7 @@ export default function Page() {
           ["trong quá khứ", "in the past"],
           ["cuộc sống", "in all life (past and present)"],
           ["cuộc đời", "in my life (past)"],
-          ["suốt", "throughout"],]
+          ["suốt", "throughout"],
         ]}
       />
     </div>
