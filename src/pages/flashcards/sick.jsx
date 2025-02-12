@@ -24,6 +24,8 @@ export default function Page() {
           ["bị đau họng", "have a sore throat"],
           ["bị đau bụng", "have a stomach ache"],
           ["cảm thấy lạnh", "have chills"],
+          ["chóng mặt", "dizzy"],
+          ["mắt bị nhiễm trùng", "infected eyes"],
         ]}
       />
     </div>

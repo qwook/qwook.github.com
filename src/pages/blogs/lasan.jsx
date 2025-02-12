@@ -1,5 +1,97 @@
 import Banner from "../../components/Banner";
 import { createPage } from "../../app";
+import { useRef, useState } from "react";
+
+function HiddenScope({ needle, children, width = 120, height = 50 }) {
+  const haystackRef = useRef();
+  const needleRef = useRef();
+  const needleOffsetRef = useRef();
+  const scopeRef = useRef();
+
+  const [display, setDisplay] = useState(false);
+
+  return (
+    <div
+      ref={haystackRef}
+      onMouseMove={(e) => {
+        scopeRef.current.style.left =
+          e.pageX - haystackRef.current.offsetLeft - width / 2 + "px";
+        scopeRef.current.style.top =
+          e.pageY - haystackRef.current.offsetTop - height / 2 + "px";
+        needleRef.current.style.left =
+          e.pageX - haystackRef.current.offsetLeft - width / 2 + "px";
+        needleRef.current.style.top =
+          e.pageY - haystackRef.current.offsetTop - height / 2 + "px";
+        needleOffsetRef.current.style.left =
+          -(e.pageX - haystackRef.current.offsetLeft - width / 2) + "px";
+        needleOffsetRef.current.style.top =
+          -(e.pageY - haystackRef.current.offsetTop - height / 2) + "px";
+      }}
+      onMouseEnter={(e) => {
+        setDisplay(true);
+      }}
+      onMouseLeave={(e) => {
+        setDisplay(false);
+      }}
+      style={{
+        position: "relative",
+        cursor: "none",
+      }}
+    >
+      <div
+        ref={scopeRef}
+        style={{
+          display: display ? "block" : "none",
+          position: "absolute",
+          background: "black",
+          width,
+          height,
+          borderRadius: "50%",
+          boxShadow: "0px 0px 10px 10px black",
+          userSelect: "none",
+          pointerEvents: "none",
+        }}
+      ></div>
+      <div
+        ref={needleRef}
+        style={{
+          display: display ? "block" : "none",
+          position: "absolute",
+          userSelect: "none",
+          pointerEvents: "none",
+          color: "white",
+          overflow: "hidden",
+          width,
+          height,
+          borderRadius: "50%",
+        }}
+      >
+        <div
+          ref={needleOffsetRef}
+          style={{
+            display: display ? "block" : "none",
+            position: "absolute",
+            width: 500,
+            height: 500,
+          }}
+        >
+          {needle}
+        </div>
+        <div
+          style={{
+            display: display ? "block" : "none",
+            position: "absolute",
+            width,
+            height,
+            borderRadius: "50%",
+            boxShadow: "0px 0px 10px 10px inset black",
+          }}
+        />
+      </div>
+      {children}
+    </div>
+  );
+}
 
 export default function Blogs_LaSan() {
   return (
@@ -40,19 +132,29 @@ export default function Blogs_LaSan() {
         San Jose (and other places too), which became the largest population of
         Vietnamese outside of Vietnam.
       </p>
-      <p>
-        In the above picture, you can see <strong>Chinese</strong> calligraphy,
-        along with <strong>Vietnamese</strong> text written in{" "}
-        <strong>Portuguese</strong>
-        -imported Latin characters. All of this is set up in a{" "}
-        <strong>Catholic</strong> school in <strong>San Jose</strong> that was
-        named after a <strong>French</strong> priest named La Salle.
-      </p>
-      <p>
+      <HiddenScope
+        needle={
+          <>
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp; rebirth from chaos of arcane sins, the end (11)
+          </>
+        }
+      >
+        <p>
+          In the above picture, you can see <strong>Chinese</strong>{" "}
+          calligraphy, along with <strong>Vietnamese</strong> text written in{" "}
+          <strong>Portuguese</strong>
+          -imported Latin characters. All of this is set up in a{" "}
+          <strong>Catholic</strong> school in <strong>San Jose</strong> that was
+          named after a <strong>French</strong> priest named La Salle.
+        </p>
+      </HiddenScope>
+      <HiddenScope needle={<>Hey Isabel, happy birthday! From Henry :) </>}>
         I was raised both <a href="/god">Catholic</a> and Buddhist, attending
         both church and temples. I identify with both religions and take from
         both.
-      </p>
+      </HiddenScope>
       <p>
         I hated this school because it was on Saturday morning and it made me
         miss my Saturday morning cartoons.
