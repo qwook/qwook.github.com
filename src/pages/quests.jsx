@@ -102,21 +102,23 @@ export default function QuestsPage() {
           <Quest name="Host a dinner party in Vietnam"></Quest>
           <Quest name="Spend 7 non-consecutive days speaking only Vietnamese"></Quest>
           <Quest name="Get a tattoo in Vietnam"></Quest>
-          <Quest name="Drive a moped or motorcycle Vietnam"></Quest>
+          <Quest completed name="Drive a moped or motorcycle Vietnam"></Quest>
           <Quest name="Do volunteer work in Vietnam"></Quest>
-          <Quest name="Eat/meditate at a buddhist monstery"></Quest>
-          <Quest name="Convince 3 different friends to film TikTok dance videos"></Quest>
+          <Quest completed name="Eat/meditate at a buddhist monstery"></Quest>
+          <Quest name="Convince 3 different friends to film TikTok dance videos (0/3)"></Quest>
           <Quest name="Release two video games (0/2)"></Quest>
           <Quest name="Release a short film"></Quest>
           <Quest name="Playtest Last Seen Online 2"></Quest>
           <Quest completed name="Do a live performance">
             Kenny got me on stage to sing The Climb by Miley Cyrus!
           </Quest>
-          <Quest completed name="Finish playing Half-Life 2">This game is so scary.</Quest>
+          <Quest completed name="Finish playing Half-Life 2">
+            This game is so scary.
+          </Quest>
           <Quest name="Finish playing Half-Life 2: Episode 1"></Quest>
           <Quest name="Finish playing Half-Life 2: Episode 2"></Quest>
           <Quest name="Pay off one month of rent using money earned from video games"></Quest>
-          <Quest name="Learn 5 Vietnamese songs on guitar, and post them"></Quest>
+          <Quest name="Learn 5 Vietnamese songs on guitar, and post them (0/5)"></Quest>
           <Quest name="Log 60 days of food that I ate (0/60)">
             I want to figure out what foods make my stomach hurt!
           </Quest>
@@ -129,6 +131,11 @@ export default function QuestsPage() {
           <Quest name="Do a standing forward fold"></Quest>
           <Quest name="Bench 135 lbs"></Quest>
           <Quest name="Climb a V7"></Quest>
+          <Quest name="Climb a V5 (Red Route)"></Quest>
+          <Quest name="Say no to 5 events (1/5)"></Quest>
+          <Quest name="Play a friend's game"></Quest>
+          <Quest name="Host a movie night in Vietnam"></Quest>
+          <Quest name="Collaborate with a Vietnamese Creative"></Quest>
         </ul>
         <h2>Level 29 - Game Dev Arc</h2>
         <ul className="quests">
