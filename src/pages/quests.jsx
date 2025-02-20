@@ -136,6 +136,7 @@ export default function QuestsPage() {
           <Quest name="Play a friend's game"></Quest>
           <Quest name="Host a movie night in Vietnam"></Quest>
           <Quest name="Collaborate with a Vietnamese Creative"></Quest>
+          <Quest name="Cook one meal in Vietnam"></Quest>
         </ul>
         <h2>Level 29 - Game Dev Arc</h2>
         <ul className="quests">
