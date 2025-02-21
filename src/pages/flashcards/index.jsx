@@ -45,6 +45,9 @@ export default function Page() {
           <a href="/flashcards/sinhto">Sinh Tố / Smoothie Flavors</a>
         </li>
         <li>
+          <a href="/flashcards/pho">Phở Options</a>
+        </li>
+        <li>
           <a href="/flashcards/jobs">Jobs (need to be double-checked)</a>
         </li>
         <li>
