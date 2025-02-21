@@ -41,6 +41,25 @@ export default function Page() {
         <li>
           <a href="/flashcards/core">Core words</a>
         </li>
+        <li>
+          <a href="/flashcards/sinhto">Sinh Tố / Smoothie Flavors</a>
+        </li>
+        <li>
+          <a href="/flashcards/jobs">Jobs (need to be double-checked)</a>
+        </li>
+        <li>
+          <a href="/flashcards/sauces">Sauces (need to be double-checked)</a>
+        </li>
+        <li>
+          <a href="/flashcards/alphabet">
+            Alphabet (need to be double-checked)
+          </a>
+        </li>
+        <li>
+          <a href="/flashcards/symbols">
+            Math and Address Symbols (/ @ . - +) (need to be double-checked)
+          </a>
+        </li>
       </ul>
       <h2>Audio Flashcards</h2>
       <ul>
