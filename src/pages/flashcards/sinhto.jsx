@@ -17,7 +17,7 @@ export default function Page() {
           ["Dưa gang", "Cantaloupe"],
           ["Dừa", "Coconut"],
           ["Sabô / Sapôchê", "Sapodilla"],
-          ["Khóm", "Pineapple"],
+          ["Khóm / Dứa", "Pineapple"],
           ["Mãng cầu", "Soursop"],
           ["Mít", "Jackfruit"],
           ["Xoài", "Mango"],
