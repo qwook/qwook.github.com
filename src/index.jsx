@@ -11,7 +11,7 @@ export default function IndexPage() {
         My name is Henry <a href="/blogs/name">Quoc</a> Tran. I am currently{" "}
         <Age /> years old. I grew up in Milpitas, California. I live in Saigon,
         Vietnam. Previously: San Francisco, California. I am{" "}
-        <a href="/blogs/durians">Vietnamese</a> and Chinese. I live life through {" "}
+        <a href="/flashcards">Vietnamese</a> and Chinese. I live life through{" "}
         <a href="/quests">quests.</a>
       </p>
       <p>
@@ -19,10 +19,17 @@ export default function IndexPage() {
         <a href="/decompose">deterioration of the internet.</a> I also like
         happy things too like matcha mochi donuts.
       </p>
-      <p>I am an <a href="https://lastseenonline.com">indie game developer</a>.</p>
-      <p>I am an <a href="https://instagram.com/nohurryhen">Instagram stories spammer</a>.</p>
       <p>
-        I am a <a href="https://substack.com/@henrytran">writer</a>.
+        I am an <a href="https://lastseenonline.com">indie game developer</a>.
+      </p>
+      <p>
+        I am an{" "}
+        <a href="https://instagram.com/nohurryhen">Instagram stories spammer</a>
+        .
+      </p>
+      <p>
+        I am a <a href="https://substack.com/@henrytran">writer</a> and I've won{" "}
+        <a href="/blogs/durians">an award</a>.
       </p>
       <p>I am a web developer.</p>
       <p>
@@ -37,7 +44,10 @@ export default function IndexPage() {
       <p>
         I sometimes <a href="/art">draw</a>.
       </p>
-      <p>I ride <a href="https://www.instagram.com/p/C_KNpXwRCf1">motorcycles</a>.</p>
+      <p>
+        I ride <a href="https://www.instagram.com/p/C_KNpXwRCf1">motorcycles</a>
+        .
+      </p>
       <p>I do vinyasa yoga.</p>
       <p>I boulder and top-rope.</p>
       <a href="https://www.youtube.com/watch?v=6YMJm-_sivE" target="_new">
