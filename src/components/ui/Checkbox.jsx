@@ -29,7 +29,7 @@ export function Checkbox({ children, value, onChanged, keyCode, ...props }) {
       >
         &#x2713;
       </div>
-      <label>{children}</label>
+      {children}
     </div>
   );
 }

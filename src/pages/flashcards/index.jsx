@@ -175,7 +175,9 @@ export default function Page() {
         <li>
           <a href="/flashcards/doraemon/1">Doraemon appears with a warning.</a>
         </li>
-        <li>Great-grandson explains.</li>
+        <li>
+          <a href="/flashcards/doraemon/2">Great-grandson explains.</a>
+        </li>
         <li>
           <a href="/flashcards/doraemon/3">Accidents are happening.</a>
         </li>
