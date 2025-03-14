@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./button.scss";
+import { useHotkey } from "./useHotkey";
 
 export default function Button({
   children,
@@ -11,29 +12,7 @@ export default function Button({
 }) {
   const [active, setActive] = useState(false);
 
-  useEffect(() => {
-    if (keyCode) {
-      const onKeyDown = (e) => {
-        if (e.keyCode === keyCode) {
-          onClick();
-          setActive(true);
-        }
-      };
-      document.addEventListener("keydown", onKeyDown);
-
-      const onKeyUp = (e) => {
-        if (e.keyCode === keyCode) {
-          setActive(false);
-        }
-      };
-      document.addEventListener("keyup", onKeyUp);
-
-      return () => {
-        document.removeEventListener("keydown", onKeyDown);
-        document.removeEventListener("keyup", onKeyUp);
-      };
-    }
-  }, [keyCode, onClick]);
+  useHotkey(keyCode, onClick, setActive);
 
   return (
     <>

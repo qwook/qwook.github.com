@@ -39,6 +39,9 @@ export default function Page() {
           <a href="/flashcards/temporal">Temporal</a>
         </li>
         <li>
+          <a href="/flashcards/weekdays">Weekdays</a>
+        </li>
+        <li>
           <a href="/flashcards/core">Core words</a>
         </li>
         <li>
@@ -62,6 +65,12 @@ export default function Page() {
           <a href="/flashcards/symbols">
             Math and Address Symbols (/ @ . - +) (need to be double-checked)
           </a>
+        </li>
+        <li>
+          <a href="/flashcards/math">Math Symbols Only</a>
+        </li>
+        <li>
+          <a href="/flashcards/fried-chicken">Fried Chicken (Chicken Cuts)</a>
         </li>
       </ul>
       <h2>Audio Flashcards</h2>

@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Panel } from "../ui/Panel";
 import Button from "../ui/Button";
+import { Checkbox } from "../ui/Checkbox";
 
 export function FlashCardDeck({ list }) {
   const [flashCardsLeft, setFlashCardsLeft] = useState(() => list);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [flipAnswer, setFlipAnswer] = useState(false);
 
   useEffect(() => {
     setFlashCardsLeft(_.shuffle(list));
@@ -24,7 +26,7 @@ export function FlashCardDeck({ list }) {
   return (
     <>
       <Panel>
-        {showAnswer ? (
+        {showAnswer ^ flipAnswer ? (
           <>
             <h2>{flashCardsLeft[0][0]}</h2>
           </>
@@ -42,6 +44,11 @@ export function FlashCardDeck({ list }) {
         <Button keyCode={13} onClick={nextCard}>
           Next [Enter]
         </Button>
+      </Panel>
+      <Panel>
+        <Checkbox keyCode={82} value={flipAnswer} onChanged={setFlipAnswer}>
+          Flip question / answers of cards [R]
+        </Checkbox>
       </Panel>
     </>
   );

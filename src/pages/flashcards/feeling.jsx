@@ -29,7 +29,7 @@ export default function Page() {
           ["Ngượng (ngùng)", "embarassment (awkward)"],
           ["lộn", "confused"],
           ["Bực (bội)", "frustrated"],
-          ["Ghen tị", "jealous"],
+          ["Ghen tị", "jealous (romantic)"],
           ["thoải mái", "comfortable"],
           ["ổn (định)", "stable / fine / ok"],
         ]}
