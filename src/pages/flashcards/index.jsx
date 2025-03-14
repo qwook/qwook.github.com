@@ -165,6 +165,21 @@ export default function Page() {
           </Story>
         </li>
       </ul>
+      <h2>Doraemon Flashcards</h2>
+      <p>
+        I've been reading Doraemon and have been writing down words I don't
+        recognize. Since there's no categorization, I've put them into sets of
+        10.
+      </p>
+      <ol>
+        <li>
+          <a href="/flashcards/doraemon/1">Doraemon appears with a warning.</a>
+        </li>
+        <li>Great-grandson explains.</li>
+        <li>
+          <a href="/flashcards/doraemon/3">Accidents are happening.</a>
+        </li>
+      </ol>
       <h2>Audio Flashcards</h2>
       <ul>
         <li>
