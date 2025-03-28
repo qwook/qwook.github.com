@@ -183,11 +183,19 @@ export function MultipleChoiceGame({ list }) {
         {showFirstAnswer && <>{list[question][1]}</>}
         {chosen === -1 ? (
           <>
-            <Progress minValue={0} maxValue={fasterTimeout ? 5 : 10} value={timer} />
+            <Progress
+              minValue={0}
+              maxValue={fasterTimeout ? 5 : 10}
+              value={timer}
+            />
           </>
         ) : (
           <>
-            <Progress minValue={0} maxValue={fasterTimeout ? 5 : 10} value={0} />
+            <Progress
+              minValue={0}
+              maxValue={fasterTimeout ? 5 : 10}
+              value={0}
+            />
           </>
         )}
         {choices.map((choiceIdx, idx) => {
@@ -231,13 +239,19 @@ export function MultipleChoiceGame({ list }) {
           <br />
           <Panel outie>
             <h4>Debug Info:</h4>
-            <ul>
+            <p>Higher weight means you got this word wrong more than others.</p>
+            <table>
+              <tr>
+                <th>Word</th>
+                <th>Weight</th>
+              </tr>
               {probability.map((p, idx) => (
-                <li key={idx}>
-                  {list[idx][0]} - {p}
-                </li>
+                <tr key={idx}>
+                  <td>{list[idx][0]}</td>
+                  <td>{p}</td>
+                </tr>
               ))}
-            </ul>
+            </table>
           </Panel>
         </>
       )}
