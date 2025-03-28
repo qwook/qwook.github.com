@@ -260,7 +260,7 @@ export function MultipleChoiceGame({ list }) {
 }
 
 export function FlashCardDeck({ list }) {
-  const [game, setGame] = useState("multiple");
+  const [game, setGame] = useState();
 
   return (
     <>
