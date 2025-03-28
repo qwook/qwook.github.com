@@ -6,4 +6,10 @@
   gap: 10px;
   border: 2px inset white;
   outline: 2px inset #222;
+
+  &.outie {
+    border: 2px outset white;
+    outline: 2px outset #222;
+    background: #dedede;
+  }
 }

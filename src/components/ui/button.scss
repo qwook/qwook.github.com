@@ -40,3 +40,14 @@
   background: #090;
   border: 2px inset #0d0;
 }
+
+.button.wrong {
+  color: white;
+  background: rgb(212, 72, 72);
+  border: 2px outset rgb(212, 72, 72);
+}
+
+.button.wrong:active, .button.wrong.active {
+  background: rgb(134, 47, 47);
+  border: 2px inset rgb(212, 72, 72);
+}

@@ -6,6 +6,7 @@ export default function Button({
   children,
   onClick,
   correct,
+  wrong,
   small,
   keyCode,
   href,
@@ -22,6 +23,7 @@ export default function Button({
           className={[
             "button",
             correct ? "correct" : "",
+            wrong ? "wrong" : "",
             small ? "small" : "",
             active ? "active" : "",
           ].join(" ")}
@@ -33,6 +35,7 @@ export default function Button({
           className={[
             "button",
             correct ? "correct" : "",
+            wrong ? "wrong" : "",
             small ? "small" : "",
             active ? "active" : "",
           ].join(" ")}
