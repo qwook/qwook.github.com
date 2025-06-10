@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "vcr";
+  src: url(./images/KK7VCROSDMono.ttf) format("truetype");
+}
+
+body {
+  // background: blue;
+  background: black;
+}
+
+.vcr-closed-captions {
+  position: relative;
+  overflow: hidden;
+  height: 4em;
+}
+
+.vcr-text {
+  font-family: vcr;
+  background: black;
+  color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+  // text-transform: uppercase;
+}
+
+.vcr-line {
+  position: absolute;
+  line-height: 0.75em;
+}

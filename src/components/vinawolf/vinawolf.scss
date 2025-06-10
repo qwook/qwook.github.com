@@ -1,0 +1,22 @@
+.roles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  outline: 2px dashed #ccc;
+
+  .role-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 100px;
+
+    .small {
+      font-size: 0.5em;
+    }
+  }
+}
