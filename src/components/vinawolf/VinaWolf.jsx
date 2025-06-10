@@ -87,6 +87,10 @@ export function VinaWolf() {
           ["begin"]: require("./sounds/begin.mp3"),
           ["werewolf1"]: require("./sounds/werewolf1.mp3"),
           ["werewolf2"]: require("./sounds/werewolf2.mp3"),
+          ["mason1"]: require("./sounds/mason1.mp3"),
+          ["mason2"]: require("./sounds/mason2.mp3"),
+          ["seer1"]: require("./sounds/seer1.mp3"),
+          ["seer2"]: require("./sounds/seer2.mp3"),
           ["end1"]: require("./sounds/end1.mp3"),
           ["end2"]: require("./sounds/end2.mp3"),
         }).map(([k, sound]) => [
@@ -139,7 +143,6 @@ export function VinaWolf() {
                 setPlaying(true);
                 setCancel(() =>
                   sleepable(async (sleep, cancelCheck) => {
-                    sounds["bgm"].volume(0.2);
                     sounds["bgm"].play();
 
                     if (await sleep(1000)) return;
@@ -162,8 +165,10 @@ export function VinaWolf() {
                       setInstruction(
                         "Masons, open your eyes and look for other masons."
                       );
+                      await playSoundSync(sounds["mason1"], cancelCheck);
                       if (await sleep(1000)) return;
                       setInstruction("Masons, close your eyes.");
+                      await playSoundSync(sounds["mason2"], cancelCheck);
                       if (await sleep(1000)) return;
                     }
 
@@ -171,8 +176,10 @@ export function VinaWolf() {
                       setInstruction(
                         "Seer, open your eyes. You may look at another player's card, or two cards in the center."
                       );
+                      await playSoundSync(sounds["seer1"], cancelCheck);
                       if (await sleep(1000)) return;
                       setInstruction("Seer, close your eyes.");
+                      await playSoundSync(sounds["seer2"], cancelCheck);
                       if (await sleep(1000)) return;
                     }
 
