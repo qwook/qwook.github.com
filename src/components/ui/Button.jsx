@@ -10,6 +10,7 @@ export default function Button({
   small,
   keyCode,
   href,
+  style,
 }) {
   const [active, setActive] = useState(false);
 
@@ -27,6 +28,7 @@ export default function Button({
             small ? "small" : "",
             active ? "active" : "",
           ].join(" ")}
+          style={style}
         >
           {children}
         </a>
@@ -40,6 +42,7 @@ export default function Button({
             active ? "active" : "",
           ].join(" ")}
           onClick={onClick}
+          style={style}
         >
           {children}
         </div>
