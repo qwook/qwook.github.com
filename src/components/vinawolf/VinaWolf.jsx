@@ -178,7 +178,7 @@ export function VinaWolf() {
   const [delay, setDelay] = useState(5);
   const [timer, setTimer] = useState(5 * 60);
 
-  const [screen, setScreen] = useState("timer");
+  const [screen, setScreen] = useState("selection");
 
   // const sounds = useState();
   const sounds = useMemo(
