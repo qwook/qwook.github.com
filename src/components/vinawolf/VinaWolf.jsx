@@ -4,6 +4,70 @@ import Button from "../ui/Button";
 import { Howl } from "howler";
 import { Panel } from "../ui/Panel";
 
+const SOUND_DB = {
+  ["timer10s"]: require("./sounds/timer10s.mp3"),
+  ["timer30s"]: require("./sounds/timer30s.mp3"),
+  ["timerend"]: require("./sounds/timerend.mp3"),
+  ["bgm"]: require("./sounds/bgm.mp3"),
+  ["begin"]: require("./sounds/begin.mp3"),
+  ["werewolf1"]: require("./sounds/werewolf1.mp3"),
+  ["werewolf2"]: require("./sounds/werewolf2.mp3"),
+  ["mason1"]: require("./sounds/mason1.mp3"),
+  ["mason2"]: require("./sounds/mason2.mp3"),
+  ["seer1"]: require("./sounds/seer1.mp3"),
+  ["seer2"]: require("./sounds/seer2.mp3"),
+  ["robber1"]: require("./sounds/robber1.mp3"),
+  ["robber2"]: require("./sounds/robber2.mp3"),
+  ["troublemaker1"]: require("./sounds/troublemaker1.mp3"),
+  ["troublemaker2"]: require("./sounds/troublemaker2.mp3"),
+  ["drunk1"]: require("./sounds/drunk1.mp3"),
+  ["drunk2"]: require("./sounds/drunk2.mp3"),
+  ["insomniac1"]: require("./sounds/insomniac1.mp3"),
+  ["insomniac2"]: require("./sounds/insomniac2.mp3"),
+  ["end1"]: require("./sounds/end1.mp3"),
+  ["end2"]: require("./sounds/end2.mp3"),
+};
+
+const SoundContext = createContext({});
+
+function SoundContextProvider({ children, soundDb }) {
+  const [toLoad, setToLoad] = useState(0);
+  const [loadedSounds, setLoadedSounds] = useState(new Set());
+  const loading = loadedSounds.size < toLoad;
+  const sounds = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(soundDb).map(([k, sound]) => [
+          k,
+          new Howl(
+            {
+              src: sound,
+              autoplay: false,
+              volume: 1,
+              html5: true,
+              onload: () =>
+                setLoadedSounds((loadedSounds) =>
+                  new Set(loadedSounds).add(sound)
+                ),
+            },
+            []
+          ),
+        ])
+      ),
+    [soundDb]
+  );
+
+  useEffect(() => {
+    setToLoad(Object.values(soundDb).length);
+  }, [soundDb]);
+
+  return (
+    <SoundContext.Provider value={{ sounds, toLoad, loadedSounds, loading }}>
+      {children}
+    </SoundContext.Provider>
+  );
+}
+
 function Timer({ timer, onReturnToScreen }) {
   const [timeLeft, setTimeLeft] = useState(timer);
 
@@ -168,6 +232,16 @@ function sleepable(fn) {
 }
 
 export function VinaWolf() {
+  return (
+    <SoundContextProvider soundDb={SOUND_DB}>
+      <VinaWolfInner />
+    </SoundContextProvider>
+  );
+}
+
+function VinaWolfInner() {
+  const { sounds, loading, toLoad, loadedSounds } = useContext(SoundContext);
+
   const [villager, setVillager] = useState(false);
   const [selectedId, setSelectedId] = useState({});
   const [selectedRole, setSelectedRoles] = useState([]);
@@ -179,45 +253,6 @@ export function VinaWolf() {
   const [timer, setTimer] = useState(5 * 60);
 
   const [screen, setScreen] = useState("selection");
-
-  // const sounds = useState();
-  const sounds = useMemo(
-    () =>
-      Object.fromEntries(
-        Object.entries({
-          ["bgm"]: require("./sounds/bgm.mp3"),
-          ["begin"]: require("./sounds/begin.mp3"),
-          ["werewolf1"]: require("./sounds/werewolf1.mp3"),
-          ["werewolf2"]: require("./sounds/werewolf2.mp3"),
-          ["mason1"]: require("./sounds/mason1.mp3"),
-          ["mason2"]: require("./sounds/mason2.mp3"),
-          ["seer1"]: require("./sounds/seer1.mp3"),
-          ["seer2"]: require("./sounds/seer2.mp3"),
-          ["robber1"]: require("./sounds/robber1.mp3"),
-          ["robber2"]: require("./sounds/robber2.mp3"),
-          ["troublemaker1"]: require("./sounds/troublemaker1.mp3"),
-          ["troublemaker2"]: require("./sounds/troublemaker2.mp3"),
-          ["drunk1"]: require("./sounds/drunk1.mp3"),
-          ["drunk2"]: require("./sounds/drunk2.mp3"),
-          ["insomniac1"]: require("./sounds/insomniac1.mp3"),
-          ["insomniac2"]: require("./sounds/insomniac2.mp3"),
-          ["end1"]: require("./sounds/end1.mp3"),
-          ["end2"]: require("./sounds/end2.mp3"),
-        }).map(([k, sound]) => [
-          k,
-          new Howl(
-            {
-              src: sound,
-              autoplay: false,
-              volume: 1,
-              html5: true,
-            },
-            []
-          ),
-        ])
-      ),
-    []
-  );
 
   function stopAllSounds() {
     for (const sound of Object.values(sounds)) {
@@ -247,296 +282,324 @@ export function VinaWolf() {
 
   return (
     <>
-      <RoleContext.Provider
-        value={{ selectedId, setSelectedId, selectedRole, setSelectedRoles }}
-      >
-        {screen === "selection" && (
-          <>
-            <div className="button-row">
+      {loading ? (
+        <>
+          Loading... {loadedSounds.size}/{toLoad}
+        </>
+      ) : (
+        <RoleContext.Provider
+          value={{ selectedId, setSelectedId, selectedRole, setSelectedRoles }}
+        >
+          {screen === "selection" && (
+            <>
+              <div className="button-row">
+                <Button
+                  onClick={() => {
+                    setScreen("playing");
+                    setCancel(() =>
+                      sleepable(async (sleep, cancelCheck) => {
+                        if (sounds["bgm"].playing()) {
+                          sounds["bgm"].seek(0);
+                        } else {
+                          sounds["bgm"].play();
+                        }
+                        if (await sleep(100)) return;
+                        sounds["bgm"].fade(0, 1, 1);
+
+                        if (await sleep(1000)) return;
+                        setInstruction("Everyone, close your eyes.");
+                        await playSoundSync(sounds["begin"], cancelCheck);
+                        if (await sleep(1000)) return;
+
+                        if (selectedRole.includes("Werewolf")) {
+                          setInstruction(
+                            "Werewolves, open your eyes and look for other werewolves. If there are no other werewolves, then you may look at a card from the center."
+                          );
+                          if (
+                            await playSoundSync(
+                              sounds["werewolf1"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction("Werewolves, close your eyes.");
+                          if (
+                            await playSoundSync(
+                              sounds["werewolf2"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(1000)) return;
+                        }
+
+                        if (selectedRole.includes("Masons")) {
+                          setInstruction(
+                            "Masons, open your eyes and look for other masons."
+                          );
+                          if (
+                            await playSoundSync(sounds["mason1"], cancelCheck)
+                          )
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction("Masons, close your eyes.");
+                          await playSoundSync(sounds["mason2"], cancelCheck);
+                          if (await sleep(1000)) return;
+                        }
+
+                        if (selectedRole.includes("Seer")) {
+                          setInstruction(
+                            "Seer, open your eyes. You may look at another player's card, or two cards in the center."
+                          );
+                          if (await playSoundSync(sounds["seer1"], cancelCheck))
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction("Seer, close your eyes.");
+                          if (await playSoundSync(sounds["seer2"], cancelCheck))
+                            return;
+                          if (await sleep(1000)) return;
+                        }
+
+                        if (selectedRole.includes("Robber")) {
+                          setInstruction(
+                            "Robber, open your eyes. Reach for another player's card, look at it, and then replace it with your own card."
+                          );
+                          if (
+                            await playSoundSync(sounds["robber1"], cancelCheck)
+                          )
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction("Robber, close your eyes.");
+                          if (
+                            await playSoundSync(sounds["robber2"], cancelCheck)
+                          )
+                            return;
+                          if (await sleep(1000)) return;
+                        }
+
+                        if (selectedRole.includes("Troublemaker")) {
+                          setInstruction(
+                            "Troublemaker, open your eyes. Swap two other player's cards, but do not look at the cards."
+                          );
+                          if (
+                            await playSoundSync(
+                              sounds["troublemaker1"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction("Troublemaker, close your eyes.");
+                          if (
+                            await playSoundSync(
+                              sounds["troublemaker2"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(1000)) return;
+                        }
+
+                        if (selectedRole.includes("Drunk")) {
+                          setInstruction(
+                            "Drunk, open your eyes. Swap your card with a card from the center. Do not look at your new card."
+                          );
+                          if (
+                            await playSoundSync(sounds["drunk1"], cancelCheck)
+                          )
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction("Drunk, close your eyes.");
+                          if (
+                            await playSoundSync(sounds["drunk2"], cancelCheck)
+                          )
+                            return;
+                          if (await sleep(1000)) return;
+                        }
+
+                        if (selectedRole.includes("Insomniac")) {
+                          setInstruction(
+                            "Insomniac, open your eyes. Look at your own card."
+                          );
+                          if (
+                            await playSoundSync(
+                              sounds["insomniac1"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction(
+                            "Insomniac, put your card back down and close your eyes."
+                          );
+                          if (
+                            await playSoundSync(
+                              sounds["insomniac2"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(1000)) return;
+                        }
+
+                        setInstruction(
+                          "Everyone, reach out and move your card around just a tiny bit."
+                        );
+                        if (await playSoundSync(sounds["end1"], cancelCheck))
+                          return;
+                        if (await sleep(1000)) return;
+                        setInstruction("Everyone, open your eyes.");
+                        if (await playSoundSync(sounds["end2"], cancelCheck))
+                          return;
+                        if (await sleep(1000)) return;
+
+                        setScreen("timer");
+                        stopAllSounds();
+                      })
+                    );
+                  }}
+                >
+                  Play &#9658;
+                </Button>
+                <Button
+                  style={{ flexGrow: 0 }}
+                  onClick={() => setScreen("settings")}
+                >
+                  Settings
+                </Button>
+              </div>
+              <br />
+              <div className="roles">
+                <Role
+                  id="1"
+                  vn={"Ma Sói"}
+                  en={"Werewolf"}
+                  icon={require("./images/werewolf.png")}
+                />
+                <Role
+                  id="4"
+                  vn={"Kẻ Phản Bội"}
+                  en={"Minion"}
+                  icon={require("./images/minion.png")}
+                />
+                <Role
+                  id="2"
+                  vn={"Thợ Hồ"}
+                  en={"Mason"}
+                  icon={require("./images/masons.png")}
+                />
+                <Role
+                  id="2b"
+                  vn={"Thợ Hồ"}
+                  en={"Mason"}
+                  icon={require("./images/masons.png")}
+                />
+                <Role
+                  id="3"
+                  vn={"Tiên Tri"}
+                  en={"Seer"}
+                  icon={require("./images/seer.png")}
+                />
+                <Role
+                  id="5"
+                  vn={"Đạo Tặc"}
+                  en={"Robber"}
+                  icon={require("./images/robber.png")}
+                />
+                <Role
+                  id="6"
+                  vn={"Kẻ Gây Rối"}
+                  en={"Troublemaker"}
+                  icon={require("./images/troublemaker.png")}
+                />
+                <Role
+                  id="7"
+                  vn={"Bợm Nhậu"}
+                  en={"Drunk"}
+                  icon={require("./images/drunk.png")}
+                />
+                <Role
+                  id="8"
+                  vn={"Cú Đêm"}
+                  en={"Insomniac"}
+                  icon={require("./images/insomniac.png")}
+                />
+                <Role
+                  id="9"
+                  vn={"Kẻ Chán Đời"}
+                  en={"Tanner"}
+                  icon={require("./images/tanner.png")}
+                />
+                <Role
+                  id="10"
+                  vn={"Dân Làng"}
+                  en={"Villager"}
+                  icon={require("./images/villager.png")}
+                />
+                <Role
+                  id="11"
+                  vn={"Dân Làng"}
+                  en={"Villager"}
+                  icon={require("./images/villager.png")}
+                />
+                <Role
+                  id="12"
+                  vn={"Dân Làng"}
+                  en={"Villager"}
+                  icon={require("./images/villager.png")}
+                />
+              </div>
+            </>
+          )}
+          {screen === "settings" && (
+            <>
+              <Button onClick={() => setScreen("selection")}>Go Back</Button>
+              <h3>Game Timer</h3>
+              <div className="button-row">
+                <DelayControl
+                  min={0}
+                  max={60 * 10}
+                  increment={30}
+                  defaultValue={60 * 5}
+                  onDelayChange={setTimer}
+                />
+              </div>
+              <h3>Role Timer</h3>
+              <div className="button-row">
+                <DelayControl
+                  min={1}
+                  max={10}
+                  increment={1}
+                  defaultValue={5}
+                  onDelayChange={setDelay}
+                />
+              </div>
+            </>
+          )}
+          {screen === "playing" && (
+            <>
               <Button
                 onClick={() => {
-                  setScreen("playing");
-                  setCancel(() =>
-                    sleepable(async (sleep, cancelCheck) => {
-                      if (sounds["bgm"].playing()) {
-                        sounds["bgm"].seek(0);
-                      } else {
-                        sounds["bgm"].play();
-                      }
-                      if (await sleep(100)) return;
-                      sounds["bgm"].fade(0, 1, 1);
-
-                      if (await sleep(1000)) return;
-                      setInstruction("Everyone, close your eyes.");
-                      await playSoundSync(sounds["begin"], cancelCheck);
-                      if (await sleep(1000)) return;
-
-                      if (selectedRole.includes("Werewolf")) {
-                        setInstruction(
-                          "Werewolves, open your eyes and look for other werewolves. If there are no other werewolves, then you may look at a card from the center."
-                        );
-                        if (
-                          await playSoundSync(sounds["werewolf1"], cancelCheck)
-                        )
-                          return;
-                        if (await sleep(delay * 1000)) return;
-                        setInstruction("Werewolves, close your eyes.");
-                        if (
-                          await playSoundSync(sounds["werewolf2"], cancelCheck)
-                        )
-                          return;
-                        if (await sleep(1000)) return;
-                      }
-
-                      if (selectedRole.includes("Masons")) {
-                        setInstruction(
-                          "Masons, open your eyes and look for other masons."
-                        );
-                        if (await playSoundSync(sounds["mason1"], cancelCheck))
-                          return;
-                        if (await sleep(delay * 1000)) return;
-                        setInstruction("Masons, close your eyes.");
-                        await playSoundSync(sounds["mason2"], cancelCheck);
-                        if (await sleep(1000)) return;
-                      }
-
-                      if (selectedRole.includes("Seer")) {
-                        setInstruction(
-                          "Seer, open your eyes. You may look at another player's card, or two cards in the center."
-                        );
-                        if (await playSoundSync(sounds["seer1"], cancelCheck))
-                          return;
-                        if (await sleep(delay * 1000)) return;
-                        setInstruction("Seer, close your eyes.");
-                        if (await playSoundSync(sounds["seer2"], cancelCheck))
-                          return;
-                        if (await sleep(1000)) return;
-                      }
-
-                      if (selectedRole.includes("Robber")) {
-                        setInstruction(
-                          "Robber, open your eyes. Reach for another player's card, look at it, and then replace it with your own card."
-                        );
-                        if (await playSoundSync(sounds["robber1"], cancelCheck))
-                          return;
-                        if (await sleep(delay * 1000)) return;
-                        setInstruction("Robber, close your eyes.");
-                        if (await playSoundSync(sounds["robber2"], cancelCheck))
-                          return;
-                        if (await sleep(1000)) return;
-                      }
-
-                      if (selectedRole.includes("Troublemaker")) {
-                        setInstruction(
-                          "Troublemaker, open your eyes. Swap two other player's cards, but do not look at the cards."
-                        );
-                        if (
-                          await playSoundSync(
-                            sounds["troublemaker1"],
-                            cancelCheck
-                          )
-                        )
-                          return;
-                        if (await sleep(delay * 1000)) return;
-                        setInstruction("Troublemaker, close your eyes.");
-                        if (
-                          await playSoundSync(
-                            sounds["troublemaker2"],
-                            cancelCheck
-                          )
-                        )
-                          return;
-                        if (await sleep(1000)) return;
-                      }
-
-                      if (selectedRole.includes("Drunk")) {
-                        setInstruction(
-                          "Drunk, open your eyes. Swap your card with a card from the center. Do not look at your new card."
-                        );
-                        if (await playSoundSync(sounds["drunk1"], cancelCheck))
-                          return;
-                        if (await sleep(delay * 1000)) return;
-                        setInstruction("Drunk, close your eyes.");
-                        if (await playSoundSync(sounds["drunk2"], cancelCheck))
-                          return;
-                        if (await sleep(1000)) return;
-                      }
-
-                      if (selectedRole.includes("Insomniac")) {
-                        setInstruction(
-                          "Insomniac, open your eyes. Look at your own card."
-                        );
-                        if (
-                          await playSoundSync(sounds["insomniac1"], cancelCheck)
-                        )
-                          return;
-                        if (await sleep(delay * 1000)) return;
-                        setInstruction(
-                          "Insomniac, put your card back down and close your eyes."
-                        );
-                        if (
-                          await playSoundSync(sounds["insomniac2"], cancelCheck)
-                        )
-                          return;
-                        if (await sleep(1000)) return;
-                      }
-
-                      setInstruction(
-                        "Everyone, reach out and move your card around just a tiny bit."
-                      );
-                      if (await playSoundSync(sounds["end1"], cancelCheck))
-                        return;
-                      if (await sleep(1000)) return;
-                      setInstruction("Everyone, open your eyes.");
-                      if (await playSoundSync(sounds["end2"], cancelCheck))
-                        return;
-                      if (await sleep(1000)) return;
-
-                      setScreen("timer");
-                      stopAllSounds();
-                    })
-                  );
+                  cancel();
+                  setScreen("selection");
+                  stopAllSounds();
                 }}
               >
-                Play &#9658;
+                Stop &#9209;
               </Button>
-              <Button
-                style={{ flexGrow: 0 }}
-                onClick={() => setScreen("settings")}
-              >
-                Settings
-              </Button>
-            </div>
-            <br />
-            <div className="roles">
-              <Role
-                id="1"
-                vn={"Ma Sói"}
-                en={"Werewolf"}
-                icon={require("./images/werewolf.png")}
-              />
-              <Role
-                id="4"
-                vn={"Kẻ Phản Bội"}
-                en={"Minion"}
-                icon={require("./images/minion.png")}
-              />
-              <Role
-                id="2"
-                vn={"Thợ Hồ"}
-                en={"Mason"}
-                icon={require("./images/masons.png")}
-              />
-              <Role
-                id="2b"
-                vn={"Thợ Hồ"}
-                en={"Mason"}
-                icon={require("./images/masons.png")}
-              />
-              <Role
-                id="3"
-                vn={"Tiên Tri"}
-                en={"Seer"}
-                icon={require("./images/seer.png")}
-              />
-              <Role
-                id="5"
-                vn={"Đạo Tặc"}
-                en={"Robber"}
-                icon={require("./images/robber.png")}
-              />
-              <Role
-                id="6"
-                vn={"Kẻ Gây Rối"}
-                en={"Troublemaker"}
-                icon={require("./images/troublemaker.png")}
-              />
-              <Role
-                id="7"
-                vn={"Bợm Nhậu"}
-                en={"Drunk"}
-                icon={require("./images/drunk.png")}
-              />
-              <Role
-                id="8"
-                vn={"Cú Đêm"}
-                en={"Insomniac"}
-                icon={require("./images/insomniac.png")}
-              />
-              <Role
-                id="9"
-                vn={"Kẻ Chán Đời"}
-                en={"Tanner"}
-                icon={require("./images/tanner.png")}
-              />
-              <Role
-                id="10"
-                vn={"Dân Làng"}
-                en={"Villager"}
-                icon={require("./images/villager.png")}
-              />
-              <Role
-                id="11"
-                vn={"Dân Làng"}
-                en={"Villager"}
-                icon={require("./images/villager.png")}
-              />
-              <Role
-                id="12"
-                vn={"Dân Làng"}
-                en={"Villager"}
-                icon={require("./images/villager.png")}
-              />
-            </div>
-          </>
-        )}
-        {screen === "settings" && (
-          <>
-            <Button onClick={() => setScreen("selection")}>Go Back</Button>
-            <h3>Game Timer</h3>
-            <div className="button-row">
-              <DelayControl
-                min={0}
-                max={60 * 10}
-                increment={30}
-                defaultValue={60 * 5}
-                onDelayChange={setTimer}
-              />
-            </div>
-            <h3>Role Timer</h3>
-            <div className="button-row">
-              <DelayControl
-                min={1}
-                max={10}
-                increment={1}
-                defaultValue={5}
-                onDelayChange={setDelay}
-              />
-            </div>
-          </>
-        )}
-        {screen === "playing" && (
-          <>
-            <Button
-              onClick={() => {
-                cancel();
-                setScreen("selection");
-                stopAllSounds();
-              }}
-            >
-              Stop &#9209;
-            </Button>
-            <br />
-            {instruction}
-          </>
-        )}
-        {screen === "timer" && (
-          <Timer
-            timer={timer}
-            onReturnToScreen={() => setScreen("selection")}
-          />
-        )}
-      </RoleContext.Provider>
+              <br />
+              {instruction}
+            </>
+          )}
+          {screen === "timer" && (
+            <Timer
+              timer={timer}
+              onReturnToScreen={() => setScreen("selection")}
+            />
+          )}
+        </RoleContext.Provider>
+      )}
     </>
   );
 }
