@@ -5,27 +5,27 @@ import { Howl } from "howler";
 import { Panel } from "../ui/Panel";
 
 const SOUND_DB = {
-  ["timer10s"]: require("./sounds/timer10s.mp3"),
-  ["timer30s"]: require("./sounds/timer30s.mp3"),
-  ["timerend"]: require("./sounds/timerend.mp3"),
-  ["bgm"]: require("./sounds/bgm.mp3"),
-  ["begin"]: require("./sounds/begin.mp3"),
-  ["werewolf1"]: require("./sounds/werewolf1.mp3"),
-  ["werewolf2"]: require("./sounds/werewolf2.mp3"),
-  ["mason1"]: require("./sounds/mason1.mp3"),
-  ["mason2"]: require("./sounds/mason2.mp3"),
-  ["seer1"]: require("./sounds/seer1.mp3"),
-  ["seer2"]: require("./sounds/seer2.mp3"),
-  ["robber1"]: require("./sounds/robber1.mp3"),
-  ["robber2"]: require("./sounds/robber2.mp3"),
-  ["troublemaker1"]: require("./sounds/troublemaker1.mp3"),
-  ["troublemaker2"]: require("./sounds/troublemaker2.mp3"),
-  ["drunk1"]: require("./sounds/drunk1.mp3"),
-  ["drunk2"]: require("./sounds/drunk2.mp3"),
-  ["insomniac1"]: require("./sounds/insomniac1.mp3"),
-  ["insomniac2"]: require("./sounds/insomniac2.mp3"),
-  ["end1"]: require("./sounds/end1.mp3"),
-  ["end2"]: require("./sounds/end2.mp3"),
+  ["timer10s"]: require("./sounds/timer10s.mp3.100.mp3"),
+  ["timer30s"]: require("./sounds/timer30s.mp3.100.mp3"),
+  ["timerend"]: require("./sounds/timerend.mp3.100.mp3"),
+  ["bgm"]: require("./sounds/bgm.mp3.100.mp3"),
+  ["begin"]: require("./sounds/begin.mp3.100.mp3"),
+  ["werewolf1"]: require("./sounds/werewolf1.mp3.100.mp3"),
+  ["werewolf2"]: require("./sounds/werewolf2.mp3.100.mp3"),
+  ["mason1"]: require("./sounds/mason1.mp3.100.mp3"),
+  ["mason2"]: require("./sounds/mason2.mp3.100.mp3"),
+  ["seer1"]: require("./sounds/seer1.mp3.100.mp3"),
+  ["seer2"]: require("./sounds/seer2.mp3.100.mp3"),
+  ["robber1"]: require("./sounds/robber1.mp3.100.mp3"),
+  ["robber2"]: require("./sounds/robber2.mp3.100.mp3"),
+  ["troublemaker1"]: require("./sounds/troublemaker1.mp3.100.mp3"),
+  ["troublemaker2"]: require("./sounds/troublemaker2.mp3.100.mp3"),
+  ["drunk1"]: require("./sounds/drunk1.mp3.100.mp3"),
+  ["drunk2"]: require("./sounds/drunk2.mp3.100.mp3"),
+  ["insomniac1"]: require("./sounds/insomniac1.mp3.100.mp3"),
+  ["insomniac2"]: require("./sounds/insomniac2.mp3.100.mp3"),
+  ["end1"]: require("./sounds/end1.mp3.100.mp3"),
+  ["end2"]: require("./sounds/end2.mp3.100.mp3"),
 };
 
 const SoundContext = createContext({});
@@ -45,10 +45,12 @@ function SoundContextProvider({ children, soundDb }) {
               autoplay: false,
               volume: 1,
               html5: true,
-              onload: () =>
+              onload: () => {
+                console.log("Loaded " + sound)
                 setLoadedSounds((loadedSounds) =>
                   new Set(loadedSounds).add(sound)
-                ),
+                )
+              },
             },
             []
           ),

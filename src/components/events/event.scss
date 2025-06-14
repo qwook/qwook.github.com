@@ -1,0 +1,40 @@
+body {
+  background: black;
+  color: white;
+
+  font-family: "Courier New", Courier, monospace;
+
+  .event {
+    max-width: 500px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px dotted white;
+    &:hover,
+    &:active {
+      color: white;
+      background-color: blue;
+      border-bottom: 1px solid transparent;
+      outline: 1px dotted white;
+    }
+    &:active {
+      background-color: purple;
+      text-decoration: none;
+    }
+  }
+
+  &::selection {
+    background: white;
+    color: black;
+  }
+
+  b {
+    color: red;
+  }
+}
