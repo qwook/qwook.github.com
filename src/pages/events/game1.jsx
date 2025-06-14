@@ -4,9 +4,9 @@ import { Event } from "../../components/events/event";
 export default function EventPage() {
   return (
     <Event
-      title="🎮 games day!!"
+      title="🎮 games night!!"
       start="June 20, 2025 7:00 PM"
-      duration={[1, "hour"]}
+      duration={[4, "hour"]}
       host={{
         name: "Henry",
         url: "https://instagram.com/nohurryhen",
@@ -23,11 +23,12 @@ export default function EventPage() {
         <a href="https://qwook.io/vinawolf">One Night Ultimate Werewolf</a> Viet
         translation.
       </p>
-      <p>Or Shifty-Eyed Spies.</p>
-      <p>Or Overcooked!</p>
+      <p>And Shifty-Eyed Spies.</p>
+      <p>And Overcooked!</p>
+      <p>bring snacks and beer if you want</p>
       <p>
-        The above address is a restaurant near my house, please message me for my real
-        address!
+        The above address is a restaurant near my house, please message me for
+        my real address!
       </p>
       <b>This is not an open event, please ask me before bringing friends.</b>
     </Event>

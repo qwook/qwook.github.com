@@ -12,7 +12,15 @@ export function Event({
   children,
   duration,
 }) {
-  const startTime = useMemo(() => new Date(start));
+  const startTime = useMemo(() => new Date(start), [start]);
+  const endTime = useMemo(() => {
+    if (duration[1] === "hour") {
+      return new Date(startTime.getTime() + 60 * 60 * 1000 * duration[0]);
+    } else if (duration[1] === "minute") {
+      return new Date(startTime.getTime() + 60 * 1000 * duration[0]);
+    }
+    return new Date(startTime.getTime());
+  }, [startTime, ...duration]);
 
   const calendarLink = useMemo(() => {
     const event = {
@@ -40,7 +48,8 @@ export function Event({
             <a href={calendarLink.google} target="_blank">
               {startTime.getDate()}/{startTime.getMonth() + 1}/
               {startTime.getFullYear() % 100} {startTime.getHours() < 10 && "0"}
-              {startTime.getHours()}h{startTime.getMinutes()}
+              {startTime.getHours()}h{startTime.getMinutes()} -{" "}
+              {endTime.getHours()}h{endTime.getMinutes()}
             </a>
             <br />
             Hosted by{" "}
