@@ -38,6 +38,10 @@ export default function EventPage() {
       </p>
       <p>bring snacks and beer if you want</p>
       <p>
+        also if you have a ratchet strap, allen wrenches, and regular wrenches
+        let me know, please help me carry my sofa up the stairs
+      </p>
+      <p>
         The above address is a restaurant near my house, please message me for
         my real address!
       </p>
