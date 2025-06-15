@@ -2,9 +2,15 @@ import "../style/index.scss";
 
 import Pets from "./pets";
 
-export default function Page({ children, showPets = true, showNav = true }) {
+export default function Page({
+  children,
+  showPets = true,
+  showNav = true,
+  title = "qwook's Homepage",
+}) {
   return (
     <>
+      <title>{title}</title>
       {showNav && (
         <div className="nav">
           <a className="nav-item" href="/list">
