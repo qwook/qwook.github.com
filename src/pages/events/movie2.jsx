@@ -39,8 +39,8 @@ export default function EventPage() {
       </p>
       <p>bring snacks and beer if you want</p>
       <p>
-        The above address is a restaurant near my house, please message me for
-        my real address!
+        <strong>The above address is a restaurant near my house, please message me for
+        my real address!</strong>
       </p>
       <b>
         This is not an open event, my room is small, please ask me before

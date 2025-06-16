@@ -46,10 +46,22 @@ export function Event({
         {host && (
           <>
             <a href={calendarLink.google} target="_blank">
+              {
+                [
+                  "Chủ Nhật",
+                  "Thứ Hai",
+                  "Thứ Ba",
+                  "Thứ Bốn",
+                  "Thứ Năm",
+                  "Thứ Sáu",
+                  "Thứ Bảy",
+                ][startTime.getDay()]
+              }
+              <br />
               {startTime.getDate()}/{startTime.getMonth() + 1}/
               {startTime.getFullYear() % 100} {startTime.getHours() < 10 && "0"}
-              {startTime.getHours()}h{startTime.getMinutes()} -{" "}
-              {endTime.getHours()}h{endTime.getMinutes()}
+              {startTime.getHours()}h{startTime.getMinutes() < 10 && "0"}{startTime.getMinutes()} -{" "}
+              {endTime.getHours()}h{endTime.getMinutes() < 10 && "0"}{endTime.getMinutes()}
             </a>
             <br />
             Hosted by{" "}
@@ -57,7 +69,7 @@ export function Event({
               {host.name}
             </a>
             <br />
-            Kế bên <a href={location.url}>{location.address}</a>
+            📌 Kế bên <a href={location.url}>{location.address}</a>
           </>
         )}
         <br />
