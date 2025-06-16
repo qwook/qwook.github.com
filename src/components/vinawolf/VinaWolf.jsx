@@ -44,7 +44,7 @@ function SoundContextProvider({ children, soundDb }) {
               src: sound,
               autoplay: false,
               volume: 1,
-              html5: true,
+              html5: false,
               onload: () => {
                 console.log("Loaded " + sound)
                 setLoadedSounds((loadedSounds) =>
