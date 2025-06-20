@@ -4,7 +4,7 @@ const common = require("./webpack.common.js");
 const path = require("path");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const PrerendererWebpackPlugin = require("./webpack-plugin");
+// const PrerendererWebpackPlugin = require("./webpack-plugin");
 
 function getEntryPoints(dir = "src/pages", entries = {}) {
   const fullPath = path.resolve(__dirname, dir);
