@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "../style/index.scss";
 
 import Pets from "./pets";
@@ -8,6 +9,10 @@ export default function Page({
   showNav = true,
   title = "qwook's Homepage",
 }) {
+  useEffect(() => {
+    document.dispatchEvent(new Event("render-event"));
+  }, []);
+
   return (
     <>
       <title>{title}</title>

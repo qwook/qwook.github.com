@@ -14,6 +14,8 @@ const SOUND_DB = {
   ["werewolf2"]: require("./sounds/werewolf2.mp3.100.mp3"),
   ["mason1"]: require("./sounds/mason1.mp3.100.mp3"),
   ["mason2"]: require("./sounds/mason2.mp3.100.mp3"),
+  ["minion1"]: require("./sounds/minion1.mp3.100.mp3"),
+  ["minion2"]: require("./sounds/minion2.mp3.100.mp3"),
   ["seer1"]: require("./sounds/seer1.mp3.100.mp3"),
   ["seer2"]: require("./sounds/seer2.mp3.100.mp3"),
   ["robber1"]: require("./sounds/robber1.mp3.100.mp3"),
@@ -26,7 +28,37 @@ const SOUND_DB = {
   ["insomniac2"]: require("./sounds/insomniac2.mp3.100.mp3"),
   ["end1"]: require("./sounds/end1.mp3.100.mp3"),
   ["end2"]: require("./sounds/end2.mp3.100.mp3"),
+  ["flavor1"]: require("./sounds/mientay/flavor1.mp3"),
+  ["flavor2"]: require("./sounds/mientay/flavor2.mp3"),
 };
+
+// const SOUND_DB = {
+//   ["timer10s"]: require("./sounds/timer10s.mp3.100.mp3"),
+//   ["timer30s"]: require("./sounds/timer30s.mp3.100.mp3"),
+//   ["timerend"]: require("./sounds/timerend.mp3.100.mp3"),
+//   ["bgm"]: require("./sounds/mientay/bgm.mp3"),
+//   ["begin"]: require("./sounds/mientay/begin.mp3"),
+//   ["werewolf1"]: require("./sounds/mientay/werewolf1.mp3"),
+//   ["werewolf2"]: require("./sounds/mientay/werewolf2.mp3"),
+//   ["mason1"]: require("./sounds/mientay/mason1.mp3"),
+//   ["mason2"]: require("./sounds/mientay/mason2.mp3"),
+//   ["minion1"]: require("./sounds/mientay/minion1.mp3"),
+//   ["minion2"]: require("./sounds/mientay/minion2.mp3"),
+//   ["seer1"]: require("./sounds/mientay/seer1.mp3"),
+//   ["seer2"]: require("./sounds/mientay/seer2.mp3"),
+//   ["robber1"]: require("./sounds/mientay/robber1.mp3"),
+//   ["robber2"]: require("./sounds/mientay/robber2.mp3"),
+//   ["troublemaker1"]: require("./sounds/mientay/troublemaker1.mp3"),
+//   ["troublemaker2"]: require("./sounds/mientay/troublemaker2.mp3"),
+//   ["drunk1"]: require("./sounds/mientay/drunk1.mp3"),
+//   ["drunk2"]: require("./sounds/mientay/drunk2.mp3"),
+//   ["insomniac1"]: require("./sounds/mientay/insomniac1.mp3"),
+//   ["insomniac2"]: require("./sounds/mientay/insomniac2.mp3"),
+//   ["end1"]: require("./sounds/mientay/end1.mp3"),
+//   ["end2"]: require("./sounds/mientay/end2.mp3"),
+//   ["flavor1"]: require("./sounds/mientay/flavor1.mp3"),
+//   ["flavor2"]: require("./sounds/mientay/flavor2.mp3"),
+// };
 
 const SoundContext = createContext({});
 
@@ -46,10 +78,10 @@ function SoundContextProvider({ children, soundDb }) {
               volume: 1,
               html5: false,
               onload: () => {
-                console.log("Loaded " + sound)
+                console.log("Loaded " + sound);
                 setLoadedSounds((loadedSounds) =>
                   new Set(loadedSounds).add(sound)
-                )
+                );
               },
             },
             []
@@ -309,6 +341,10 @@ function VinaWolfInner() {
                         sounds["bgm"].fade(0, 1, 1);
 
                         if (await sleep(1000)) return;
+                        setInstruction("[INTRO]");
+                        await playSoundSync(sounds["flavor1"], cancelCheck);
+
+                        if (await sleep(1000)) return;
                         setInstruction("Everyone, close your eyes.");
                         await playSoundSync(sounds["begin"], cancelCheck);
                         if (await sleep(1000)) return;
@@ -336,7 +372,30 @@ function VinaWolfInner() {
                           if (await sleep(1000)) return;
                         }
 
-                        if (selectedRole.includes("Masons")) {
+                        if (selectedRole.includes("Minion")) {
+                          setInstruction(
+                            "Minion, open your eyes. Werewolves, stick out your thumb so that the minion can see you."
+                          );
+                          if (
+                            await playSoundSync(
+                              sounds["minion1"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(delay * 1000)) return;
+                          setInstruction("Werewolves, put your thumb away. Minion, close your eyes.");
+                          if (
+                            await playSoundSync(
+                              sounds["minion2"],
+                              cancelCheck
+                            )
+                          )
+                            return;
+                          if (await sleep(1000)) return;
+                        }
+
+                        if (selectedRole.includes("Mason")) {
                           setInstruction(
                             "Masons, open your eyes and look for other masons."
                           );
@@ -450,6 +509,9 @@ function VinaWolfInner() {
                         );
                         if (await playSoundSync(sounds["end1"], cancelCheck))
                           return;
+                        if (await sleep(1000)) return;
+                        setInstruction("[OUTRO]");
+                        await playSoundSync(sounds["flavor2"], cancelCheck);
                         if (await sleep(1000)) return;
                         setInstruction("Everyone, open your eyes.");
                         if (await playSoundSync(sounds["end2"], cancelCheck))

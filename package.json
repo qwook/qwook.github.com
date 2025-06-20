@@ -44,6 +44,9 @@
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
+    "@prerenderer/monorepo": "github:qwook/prerenderer",
+    "@prerenderer/renderer-puppeteer": "^1.2.4",
+    "@prerenderer/webpack-plugin": "file:../../21.08 Third Party/prerenderer/packages/webpack-plugin",
     "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
     "calendar-link": "^2.10.0",
