@@ -77,6 +77,7 @@ function SoundContextProvider({ children, soundDb }) {
               autoplay: false,
               volume: 1,
               html5: false,
+              loop: k === "bgm",
               onload: () => {
                 console.log("Loaded " + sound);
                 setLoadedSounds((loadedSounds) =>
@@ -377,19 +378,15 @@ function VinaWolfInner() {
                             "Minion, open your eyes. Werewolves, stick out your thumb so that the minion can see you."
                           );
                           if (
-                            await playSoundSync(
-                              sounds["minion1"],
-                              cancelCheck
-                            )
+                            await playSoundSync(sounds["minion1"], cancelCheck)
                           )
                             return;
                           if (await sleep(delay * 1000)) return;
-                          setInstruction("Werewolves, put your thumb away. Minion, close your eyes.");
+                          setInstruction(
+                            "Werewolves, put your thumb away. Minion, close your eyes."
+                          );
                           if (
-                            await playSoundSync(
-                              sounds["minion2"],
-                              cancelCheck
-                            )
+                            await playSoundSync(sounds["minion2"], cancelCheck)
                           )
                             return;
                           if (await sleep(1000)) return;
