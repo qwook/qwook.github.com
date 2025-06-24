@@ -165,6 +165,22 @@ export default function Page() {
           </Story>
         </li>
       </ul>
+      <h2>Flashcards - Part 2</h2>
+      <p>
+        These are the words I learned after my visa run, I suppose it might be
+        good to split it out this way.
+      </p>
+      <ul>
+        <li>
+          <a href="./part2/jobs">Jobs / Office</a>
+        </li>
+        <li>
+          <a href="./part2/positional">Positional</a>
+        </li>
+        <li>
+          <a href="./part2/misc">Miscellaneous</a>
+        </li>
+      </ul>
       <h2>Doraemon Flashcards</h2>
       <p>
         I've been reading Doraemon and have been writing down words I don't
