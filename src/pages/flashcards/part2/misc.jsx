@@ -1,6 +1,6 @@
-import { createPage } from "../../app";
+import { createPage } from "../../../app";
 import * as _ from "lodash";
-import { FlashCardDeck } from "../../components/flashcards/FlashCardDeck";
+import { FlashCardDeck } from "../../../components/flashcards/FlashCardDeck";
 
 export default function Page() {
   return (
