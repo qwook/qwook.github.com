@@ -2,6 +2,7 @@ import Age from "./components/Age";
 import Banner from "./components/Banner";
 import WebRing from "./components/webring/WebRing";
 import { createPage } from "./app";
+import { Collapsible } from "./components/ui/Collapsible";
 
 export default function IndexPage() {
   return (
@@ -11,8 +12,15 @@ export default function IndexPage() {
         My name is Henry <a href="/blogs/name">Quoc</a> Tran. I am currently{" "}
         <Age /> years old. I grew up in Milpitas, California. I live in Saigon,
         Vietnam. Previously: San Francisco, California. I am{" "}
-        <a href="/flashcards">Vietnamese</a> and Chinese. I live life through{" "}
+        <a href="/blogs/lasan">Vietnamese</a> and Chinese. I live life through{" "}
         <a href="/quests">quests.</a>
+      </p>
+      <p>
+        Currently, I am in Saigon focused on learning{" "}
+        <a href="/flashcards">Vietnamese</a> and hosting{" "}
+        <a href="/events/movie2">movie nights</a>. Recently I made a translation
+        of the <a href="/vinawolf">One Night Ultimate Werewolf</a> app in
+        Vietnamese!
       </p>
       <p>
         I like to explore nostalgia, <a href="/anxiety">trauma</a>, and the{" "}
@@ -20,36 +28,45 @@ export default function IndexPage() {
         happy things too like matcha mochi donuts.
       </p>
       <p>
-        I am an <a href="https://lastseenonline.com">indie game developer</a>.
+        <Collapsible name="Also, I guess I am a bunch of other stuff...">
+          <p>
+            I am an{" "}
+            <a href="https://lastseenonline.com">indie game developer</a>.
+          </p>
+          <p>
+            I am an{" "}
+            <a href="https://instagram.com/nohurryhen">
+              Instagram stories spammer
+            </a>
+            .
+          </p>
+          <p>
+            I am a <a href="https://substack.com/@henrytran">writer</a> and I've
+            won <a href="/blogs/durians">an award</a>.
+          </p>
+          <p>I am a web developer.</p>
+          <p>
+            I produce electronic{" "}
+            <a href="https://soundcloud.com/kid64">music</a>.
+          </p>
+          <p>
+            I host <a href="/chao">events</a>.
+          </p>
+          <p>
+            I compose and write{" "}
+            <a href="https://soundcloud.com/hernry">lyrics</a>.
+          </p>
+          <p>
+            I sometimes <a href="/art">draw</a>.
+          </p>
+          <p>
+            I ride{" "}
+            <a href="https://www.instagram.com/p/C_KNpXwRCf1">motorcycles</a>.
+          </p>
+          <p>I do vinyasa yoga.</p>
+          <p>I boulder and top-rope.</p>
+        </Collapsible>
       </p>
-      <p>
-        I am an{" "}
-        <a href="https://instagram.com/nohurryhen">Instagram stories spammer</a>
-        .
-      </p>
-      <p>
-        I am a <a href="https://substack.com/@henrytran">writer</a> and I've won{" "}
-        <a href="/blogs/durians">an award</a>.
-      </p>
-      <p>I am a web developer.</p>
-      <p>
-        I produce electronic <a href="https://soundcloud.com/kid64">music</a>.
-      </p>
-      <p>
-        I host <a href="/chao">events</a>.
-      </p>
-      <p>
-        I compose and write <a href="https://soundcloud.com/hernry">lyrics</a>.
-      </p>
-      <p>
-        I sometimes <a href="/art">draw</a>.
-      </p>
-      <p>
-        I ride <a href="https://www.instagram.com/p/C_KNpXwRCf1">motorcycles</a>
-        .
-      </p>
-      <p>I do vinyasa yoga.</p>
-      <p>I boulder and top-rope.</p>
       <a href="https://www.youtube.com/watch?v=6YMJm-_sivE" target="_new">
         <img
           style={{
@@ -73,6 +90,23 @@ export default function IndexPage() {
         }}
       >
         <WebRing
+          text={"violand"}
+          image={
+            "https://freight.cargo.site/t/original/i/00ad0e84c5db1b13ee35f3592172653b13393a6076fb5ee57ac3274f4cf7e1b8/yolk.ico"
+          }
+          link={"https://violand.xyz/"}
+        />
+        <WebRing
+          text={"empowa"}
+          image={"https://ashleyherr.com/favicon.ico"}
+          link={"https://ashleyherr.com"}
+        />
+        <WebRing
+          text={"dan dog"}
+          image={"https://dan.dog/doggo.gif"}
+          link={"https://dan.dog/"}
+        />
+        <WebRing
           text={"･ﾟ✧ chia"}
           image={"https://chia.design/favicon.ico"}
           link={"https://chia.design"}
@@ -81,11 +115,6 @@ export default function IndexPage() {
           text={"kevin's garden"}
           image={"https://kevin.garden/favicon.png"}
           link={"https://kevin.garden"}
-        />
-        <WebRing
-          text={"empowa"}
-          image={"https://ashleyherr.com/favicon.ico"}
-          link={"https://ashleyherr.com"}
         />
         <WebRing
           text={"leia"}
@@ -98,21 +127,9 @@ export default function IndexPage() {
           link={"https://isabel.li/"}
         />
         <WebRing
-          text={"dan dog"}
-          image={"https://dan.dog/doggo.gif"}
-          link={"https://dan.dog/"}
-        />
-        <WebRing
           text={"weird salmon"}
           image={"https://simons.dev/static/icon.png"}
           link={"https://simons.dev/"}
-        />
-        <WebRing
-          text={"violand"}
-          image={
-            "https://freight.cargo.site/t/original/i/00ad0e84c5db1b13ee35f3592172653b13393a6076fb5ee57ac3274f4cf7e1b8/yolk.ico"
-          }
-          link={"https://violand.xyz/"}
         />
         <WebRing
           text={"SHARON"}

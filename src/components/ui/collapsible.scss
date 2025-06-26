@@ -1,0 +1,24 @@
+.collapsible {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.2s ease;
+}
+
+.collapsible.expanded {
+  height: auto;
+}
+
+.collapsible-title {
+  cursor: pointer;
+  text-decoration: underline;
+  user-select: none;
+
+  &:hover {
+    outline: 1px dashed black;
+    box-shadow: 0px 0px 20px -5px black;
+  }
+  &:active {
+    color: purple;
+    box-shadow: 0px 0px 20px purple;
+  }
+}
