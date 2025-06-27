@@ -23,6 +23,7 @@ export default function Page() {
           ["phức tạp", "complicated"],
           ["tội đồ", "sinner"],
           ["cái bang", "begger"],
+          ["(tiên) thanh toán", "payment / pay by"],
         ]}
       />
     </div>
