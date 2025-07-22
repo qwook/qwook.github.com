@@ -6,6 +6,15 @@ export default function ListPage() {
   return (
     <>
       <Banner>Random List of Things</Banner>
+      <h1>Game Design</h1>
+      <ul>
+        <li>
+          <a target="_blank" href="https://www.youtube.com/watch?v=c91IWh4agzU">
+            Will Wright's Design Plunder (With Slides)
+          </a>
+        </li>
+      </ul>
+      <h1>Random</h1>
       <ul>
         <li>
           <a target="_blank" href="https://humanshader.com/">

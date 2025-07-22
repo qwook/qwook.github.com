@@ -4,6 +4,7 @@ const common = require("./webpack.common.js");
 const path = require("path");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { HotModuleReplacementPlugin } = require("webpack");
+const webpack = require("webpack");
 
 module.exports = merge(common, {
   mode: "development",

@@ -204,7 +204,8 @@ export default function AnxietyPage() {
         <br />
         those are only slivers of who i am
         <br />
-        how do i summarize more than <a href="/polaroids">three decades of existence?</a>
+        how do i summarize more than{" "}
+        <a href="/polaroids">three decades of existence?</a>
         <FloatingImage
           offsetY={-30}
           offsetX={-20}
@@ -265,7 +266,10 @@ export default function AnxietyPage() {
           and when they find out who i really am, they'll leave me
         </ChildMe>
         <Me>i'm no longer afraid of that, but the anxiety is still there</Me>
-        <ChildMe>i'm scared that if i open up to someone, then maybe they will take advantage of me</ChildMe>
+        <ChildMe>
+          i'm scared that if i open up to someone, then maybe they will take
+          advantage of me
+        </ChildMe>
         <Me>i still get hurt, but it hurts a lot less every time</Me>
         <ChildMe>will my anxiety ever go away?</ChildMe>
         <Me>i don't think so</Me>

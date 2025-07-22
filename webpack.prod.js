@@ -4,6 +4,9 @@ const common = require("./webpack.common.js");
 const path = require("path");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const TitleInjectorPlugin = require("./TitleInjectorPlugin");
+const webpack = require("webpack");
+
 // const PrerendererWebpackPlugin = require("./webpack-plugin");
 
 function getEntryPoints(dir = "src/pages", entries = {}) {
@@ -31,7 +34,7 @@ function getEntryPoints(dir = "src/pages", entries = {}) {
   return entries;
 }
 
-module.exports = merge(common, {
+const production = merge(common, {
   mode: "production",
   devtool: "source-map",
   optimization: {
@@ -56,3 +59,16 @@ module.exports = merge(common, {
   //   }),
   // ],
 });
+
+module.exports = [
+  merge(production, {
+    output: {
+      filename: "[name].bundle.js",
+      path: path.resolve(__dirname, "node"),
+    },
+    target: "node",
+  }),
+  merge(production, {
+    plugins: [new TitleInjectorPlugin()],
+  }),
+];

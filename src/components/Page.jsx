@@ -9,10 +9,6 @@ export default function Page({
   showNav = true,
   title = "qwook's Homepage",
 }) {
-  useEffect(() => {
-    document.dispatchEvent(new Event("render-event"));
-  }, []);
-
   return (
     <>
       <title>{title}</title>

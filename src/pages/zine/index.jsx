@@ -1,3 +1,11 @@
+import { headTags } from "../../utils/headTags";
+
+headTags({
+  title: "Zines from Henry",
+  description: "This is a zine test!",
+  image: require("../events/images/anora.gif"),
+});
+
 import { createPage } from "../../app";
 import { useEffect, useMemo, useRef, useState } from "react";
 

@@ -1,3 +1,11 @@
+import { headTags } from "../../utils/headTags";
+
+headTags({
+  title: "Anora (2024)",
+  description: "welcome to anora!",
+  image: require("./images/anora.gif"),
+});
+
 import { createPage } from "../../app";
 import { Event } from "../../components/events/event";
 import { Genre } from "../../components/events/genre";
