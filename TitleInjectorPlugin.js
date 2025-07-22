@@ -103,7 +103,7 @@ class TitleInjectorPlugin {
                       HtmlWebpackPlugin.createHtmlTagObject("meta", {
                         name: "og:description",
                         property: "og:description",
-                        content: "/" + e.description,
+                        content: e.description,
                       })
                     );
                   console.log(data.headTags);
