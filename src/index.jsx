@@ -11,8 +11,12 @@ import Banner from "./components/Banner";
 import WebRing from "./components/webring/WebRing";
 import { createPage } from "./app";
 import { Collapsible } from "./components/ui/Collapsible";
+import { useState } from "react";
 
 export default function IndexPage() {
+  const [showCode, setShowCode] = useState(false);
+  const [showCodeToggle, setShowCodeToggle] = useState(false);
+
   return (
     <div>
       <Banner>Welcome to qwook.io</Banner>
@@ -29,6 +33,137 @@ export default function IndexPage() {
         <a href="/events/movie2">movie nights</a>. Recently I made a translation
         of the <a href="/vinawolf">One Night Ultimate Werewolf</a> app in
         Vietnamese!
+      </p>
+      <p
+        style={{ position: "relative", display: "inline-block" }}
+        onMouseEnter={() => {
+          setShowCode(true);
+        }}
+        onMouseLeave={() => {
+          setShowCode(false);
+        }}
+        onClick={() => {
+          setShowCodeToggle((toggle) => !toggle);
+        }}
+      >
+        <img
+          style={{
+            maxWidth: "100%",
+            width: 400,
+          }}
+          alt="me"
+          src={require("./pages/images/output.gif")}
+        ></img>
+        <code
+          style={{
+            display: showCode || showCodeToggle ? "block" : "none",
+            fontSize: 12,
+            maxWidth: "100%",
+            width: 400,
+            height: 200,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            background: "white",
+          }}
+        >
+          <pre>
+            {`
+//
+//  main.cpp
+//  VisionTest
+//
+//  Created by hen on 8/14/14.
+//  Copyright (c) 2014 qwook. All rights reserved.
+//
+
+#include <iostream>
+
+#include <opencv2/opencv.hpp>
+
+#include <zlib.h>
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, const char * argv[])
+{
+    VideoCapture cam(0);
+    
+    Mat frameOriginal;
+    
+    Mat saved;
+    
+    Mat previous;
+    Mat frame;
+    Mat flow;
+//    SIFT extractor;
+    
+    char key;
+    bool first = true;
+    
+    while (true) {
+        
+        cam >> frameOriginal;
+        resize(frameOriginal, frame, Size(frameOriginal.cols/2, frameOriginal.rows/2));
+        
+        if (key == 'q') break;
+        if (key == 'c' or first) {
+            first = false;
+            frame.copyTo(saved);
+//            resize(frame, saved, Size(frame.cols/4, frame.rows/4));
+        }
+        if (key == 'a') {
+            
+            if (!previous.empty()) {
+                Mat previousGrey;
+                cvtColor(previous, previousGrey, COLOR_BGR2GRAY);
+                
+                Mat frameGrey;
+                cvtColor(frame, frameGrey, COLOR_BGR2GRAY);
+                
+//                calcOpticalFlowFarneback(previousGrey, frameGrey, flow, 0.5f, 3, 15, 3, 5, 1.2, OPTFLOW_FARNEBACK_GAUSSIAN);
+                calcOpticalFlowFarneback(previousGrey, frameGrey, flow, 0.5f, 3, 15, 3, 5, 1.2, 0);
+            }
+            
+            frame.copyTo(previous);
+            
+            const int rows = flow.rows;
+            const int cols = flow.cols;
+            
+            const int saved_rows = saved.rows;
+            const int saved_cols = saved.cols;
+            
+            Mat oldSaved;
+            saved.copyTo(oldSaved);
+            
+            for (int y = 0; y < rows; y+=1) {
+                for (int x = 0; x < cols; x+=1) {
+                    Vec2f flowVec = flow.at<Vec2f>(y, x);
+//                    line(saved, Point2f(x + flowVec[0], y + flowVec[1]), Point2f(x + flowVec[0], y + flowVec[1]), Scalar(255, 0, 0));
+                    Vec3b pixel = oldSaved.at<Vec3b>(y, x);
+                    saved.at<Vec3b>((int)MAX(MIN(round((y + flowVec[1])), saved_rows-1), 0), (int)MAX(MIN(round((x + flowVec[0])), saved_cols-1), 0)) = pixel;
+                    
+//                    saved.at<Vec3b>(y, x) = Vec3b(flowVec[0]*127, flowVec[1]*127, flowVec[0]*127);
+                    
+                }
+            }
+        }
+        
+        key = waitKey(1);
+        
+        imshow("window", saved);
+
+        
+    }
+
+    return 0;
+}
+
+
+`}
+          </pre>
+        </code>
       </p>
       <p>
         I like to explore nostalgia, <a href="/anxiety">trauma</a>, and the{" "}
