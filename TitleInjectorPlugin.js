@@ -101,7 +101,7 @@ class TitleInjectorPlugin {
                       HtmlWebpackPlugin.createHtmlTagObject("meta", {
                         name: "og:image",
                         property: "og:image",
-                        content: e.image,
+                        content: "/" + e.image,
                       })
                     );
                   console.log(data.headTags);
