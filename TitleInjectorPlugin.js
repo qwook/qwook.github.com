@@ -71,12 +71,6 @@ class TitleInjectorPlugin {
             handleChunksConfig(data, tags);
             const chunks = getHeadAndBodyChunks(tags);
 
-            // data.headTags = chunks.headChunks;
-            // data.bodyTags = chunks.bodyChunks;
-
-            // console.log(data);
-            // console.log(data.plugin.options.chunks.map((chunk) => chunk.runtime));
-
             const chunk = compilation.chunks.find(
               (value) => value.name === data.plugin.options.chunks[0]
             );
@@ -102,6 +96,14 @@ class TitleInjectorPlugin {
                         name: "og:image",
                         property: "og:image",
                         content: "/" + e.image,
+                      })
+                    );
+                  e.description &&
+                    data.headTags.push(
+                      HtmlWebpackPlugin.createHtmlTagObject("meta", {
+                        name: "og:description",
+                        property: "og:description",
+                        content: "/" + e.description,
                       })
                     );
                   console.log(data.headTags);
