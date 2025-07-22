@@ -1,3 +1,11 @@
+import { headTags } from "./utils/headTags";
+
+headTags({
+  title: "Henry Quoc Tran's Homepage!",
+  image: require("./pages/images/furcadia.gif"),
+  description: "Here is my existence on the world wide web.",
+});
+
 import Age from "./components/Age";
 import Banner from "./components/Banner";
 import WebRing from "./components/webring/WebRing";
