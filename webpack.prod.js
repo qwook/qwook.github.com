@@ -34,7 +34,7 @@ function getEntryPoints(dir = "src/pages", entries = {}) {
   return entries;
 }
 
-const production = merge(common, {
+module.exports = merge(common, {
   mode: "production",
   devtool: "source-map",
   optimization: {
@@ -59,16 +59,3 @@ const production = merge(common, {
   //   }),
   // ],
 });
-
-module.exports = [
-  merge(production, {
-    output: {
-      filename: "[name].bundle.js",
-      path: path.resolve(__dirname, "node"),
-    },
-    target: "node",
-  }),
-  merge(production, {
-    plugins: [new TitleInjectorPlugin()],
-  }),
-];

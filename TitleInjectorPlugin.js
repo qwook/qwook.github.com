@@ -104,8 +104,10 @@ class TitleInjectorPlugin {
                         content: e.image,
                       })
                     );
+                  console.log(data.headTags);
+                } else {
+                  console.log(e);
                 }
-                console.log(data.headTags);
               }
 
               // const asset = compilation.assets[file];
