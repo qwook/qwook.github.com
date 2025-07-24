@@ -95,7 +95,7 @@ export default function ArchivePage() {
         "multi-player games." I was 10 years old and was ambitiously working on
         a multiplayer game with my friend Enzo.
       </p>
-      <code>{require("./images/archive/DONTFREAKINSTEALME.txt")}</code>
+      <code className="code-archive">{require("./images/archive/DONTFREAKINSTEALME.txt")}</code>
       <p>
         Enzo and I spent a considerable amount of time trying to create a game
         called Zombie Attack. The below 3D work is from a day where Enzo and I

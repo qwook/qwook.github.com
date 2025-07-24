@@ -192,7 +192,7 @@ img {
   }
 }
 
-code {
+.code-archive {
   display: block;
   max-width: 500px;
   height: 400px;
@@ -610,6 +610,16 @@ code {
       .stat-value {
         display: none;
       }
+    }
+  }
+}
+
+.blog {
+  p {
+    code {
+      padding: 0px 10px;
+      color: green;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     }
   }
 }

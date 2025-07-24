@@ -12,6 +12,8 @@ import WebRing from "./components/webring/WebRing";
 import { createPage } from "./app";
 import { Collapsible } from "./components/ui/Collapsible";
 import { useState } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export default function IndexPage() {
   const [showCode, setShowCode] = useState(false);
@@ -23,7 +25,8 @@ export default function IndexPage() {
       <p>
         My name is Henry <a href="/blogs/name">Quoc</a> Tran. I am currently{" "}
         <Age /> years old. I grew up in Milpitas, California. I live in Saigon,
-        Vietnam. Previously: San Francisco, California. I am{" "}
+        Vietnam. Previously: San Francisco, California. I like to{" "}
+        <a href="/blogs/dev">develop games!</a> I am{" "}
         <a href="/blogs/lasan">Vietnamese</a> and Chinese. I live life through{" "}
         <a href="/quests">quests.</a>
       </p>
@@ -54,7 +57,7 @@ export default function IndexPage() {
           alt="me"
           src={require("./pages/images/output.gif")}
         ></img>
-        <code
+        <div
           style={{
             display: showCode || showCodeToggle ? "block" : "none",
             fontSize: 12,
@@ -64,10 +67,11 @@ export default function IndexPage() {
             position: "absolute",
             top: 0,
             left: 0,
-            background: "white",
+            overflowY: "scroll",
+            // background: "white",
           }}
         >
-          <pre>
+          <SyntaxHighlighter language="javascript" style={docco}>
             {`
 //
 //  main.cpp
@@ -162,8 +166,8 @@ int main(int argc, const char * argv[])
 
 
 `}
-          </pre>
-        </code>
+          </SyntaxHighlighter>
+        </div>
       </p>
       <p>
         I like to explore nostalgia, <a href="/anxiety">trauma</a>, and the{" "}
