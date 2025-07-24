@@ -8,6 +8,7 @@ headTags({
 import { createPage } from "../../../app";
 import Banner from "../../../components/Banner";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import { VideoPlayer } from "../../../components/VideoPlayer";
 
 function BlogPage() {
   return (
@@ -63,13 +64,7 @@ function BlogPage() {
         and can see the cursor I set on my website, try moving it off the right
         and bottom of the window.
       </p>
-      <video
-        autoPlay
-        loop
-        playsInline
-        controls
-        src={require("./images/IMG_8093.webm")}
-      />
+      <VideoPlayer src={require("./images/IMG_8093.webm")} />
       <p>
         Why have this security policy in the first place? Well, hackers were
         abusing the cursor to render convincing fake error windows that appeared
@@ -95,13 +90,7 @@ function BlogPage() {
       </p>
       <p>So, what to do...</p>
       <p>Why not both?</p>
-      <video
-        autoPlay
-        loop
-        playsInline
-        controls
-        src={require("./images/IMG_8092.webm")}
-      />
+      <VideoPlayer src={require("./images/IMG_8092.webm")} />
       <p>
         When the cursor moves to the right or bottom of the screen, I turn off
         the system cursor and turn on the fake cursor rendered inside the
@@ -154,13 +143,7 @@ function BlogPage() {
         where the user touches on the screen (with some linear interpolation to
         make it a smooth movement). WOW a cursor for the phone??
       </p>
-      <video
-        autoPlay
-        loop
-        playsInline
-        controls
-        src={require("./images/fakecursor.webm")}
-      />
+      <VideoPlayer src={require("./images/fakecursor.webm")} />
       <p>
         If you're a game developer, you really have to embrace these moments and
         love solving these kinds of issues because there's going to be a lot of

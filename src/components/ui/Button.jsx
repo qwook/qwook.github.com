@@ -11,6 +11,8 @@ export default function Button({
   keyCode,
   href,
   style,
+  disabled,
+  ...props
 }) {
   const [active, setActive] = useState(false);
 
@@ -27,8 +29,10 @@ export default function Button({
             wrong ? "wrong" : "",
             small ? "small" : "",
             active ? "active" : "",
+            disabled ? "disabled" : "",
           ].join(" ")}
           style={style}
+          {...props}
         >
           {children}
         </a>
@@ -40,9 +44,11 @@ export default function Button({
             wrong ? "wrong" : "",
             small ? "small" : "",
             active ? "active" : "",
+            disabled ? "disabled" : "",
           ].join(" ")}
           onClick={onClick}
           style={style}
+          {...props}
         >
           {children}
         </div>

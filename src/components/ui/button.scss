@@ -23,7 +23,8 @@
   cursor: pointer;
 }
 
-.button:active, .button.active {
+.button:active,
+.button.active {
   color: black;
   background: #aaa;
   border: 2px inset white;
@@ -36,7 +37,8 @@
   border: 2px outset #0d0;
 }
 
-.button.correct:active, .button.correct.active {
+.button.correct:active,
+.button.correct.active {
   background: #090;
   border: 2px inset #0d0;
 }
@@ -47,7 +49,23 @@
   border: 2px outset rgb(212, 72, 72);
 }
 
-.button.wrong:active, .button.wrong.active {
+.button.wrong:active,
+.button.wrong.active {
   background: rgb(134, 47, 47);
   border: 2px inset rgb(212, 72, 72);
+}
+
+.button.disabled {
+  cursor: default;
+  color: #888;
+
+  &:hover {
+    background: #ccc;
+  }
+
+  &:active {
+    border: 2px outset white;
+    outline: 2px outset #222;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+  }
 }
