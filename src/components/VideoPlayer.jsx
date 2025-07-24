@@ -149,6 +149,15 @@ export function VideoPlayer({ src }) {
           >
             ■
           </Button>
+          <div style={{ flexGrow: 1 }}></div>
+          <Button
+            onClick={(e) => {
+              video.current.requestFullscreen();
+            }}
+            style={{ fontSize: 40, padding: 5, lineHeight: 0 }}
+          >
+            &#x26F6;
+          </Button>
         </div>
       </Panel>
     </>
