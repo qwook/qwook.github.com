@@ -2,7 +2,7 @@ import { headTags } from "../../../utils/headTags";
 
 headTags({
   title: "Custom cursors in Javascript and CSS.",
-  description: "Adding custom cursots in my game!",
+  description: "Adding custom cursors in my game!",
 });
 
 import { createPage } from "../../../app";
