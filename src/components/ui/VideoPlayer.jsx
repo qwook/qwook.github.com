@@ -4,6 +4,35 @@ import "./VideoPlayer.scss";
 import { Panel } from "./Panel";
 import _ from "lodash";
 
+// https://stackoverflow.com/questions/75224463/how-to-make-fullscreen-work-for-videos-on-smartphone-with-safari
+function openFullscreen(elem) {
+  //# for most browsers
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  }
+
+  //# for Safari (older versions)
+  else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+
+  //# for Safari (newer versions)
+  else if (elem.webkitEnterFullscreen) {
+    elem.webkitEnterFullscreen();
+  }
+
+  //# for Safari iPhone (where only the Video tag itself can be fullscreen)
+  else if (elem.children[0].webkitEnterFullscreen) {
+    elem.children[0].webkitEnterFullscreen();
+    //toggle_controls(); //# your own function to show/hide iOS media controls
+  }
+
+  //# for Internet Explorer 11
+  else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen();
+  }
+}
+
 function Scrubber({ max = 100, value, setValue, onPress, onRelease }) {
   const [dragging, setDragging] = useState(false);
   // const [value, setValue] = useState(0);
@@ -164,7 +193,7 @@ export function VideoPlayer({ src }) {
           <div style={{ flexGrow: 1 }}></div>
           <Button
             onClick={(e) => {
-              video.current.requestFullscreen();
+              openFullscreen(video.current);
             }}
             style={{ fontSize: 25, padding: 5, lineHeight: 0 }}
           >
