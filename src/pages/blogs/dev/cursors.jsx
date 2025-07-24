@@ -8,7 +8,7 @@ headTags({
 import { createPage } from "../../../app";
 import Banner from "../../../components/Banner";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { VideoPlayer } from "../../../components/VideoPlayer";
+import { VideoPlayer } from "../../../components/ui/VideoPlayer";
 
 function BlogPage() {
   return (

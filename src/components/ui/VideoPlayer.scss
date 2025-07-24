@@ -1,6 +1,10 @@
 .video-control {
   display: flex;
   flex-direction: row;
+
+  .disabled img {
+    opacity: 0.5;
+  }
 }
 
 .video-scrubber {

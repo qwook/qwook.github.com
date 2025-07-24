@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import Button from "./ui/Button";
+import Button from "./Button";
 import "./VideoPlayer.scss";
-import { Panel } from "./ui/Panel";
+import { Panel } from "./Panel";
 import _ from "lodash";
 
 function Scrubber({ max = 100, value, setValue, onPress, onRelease }) {
@@ -122,22 +122,28 @@ export function VideoPlayer({ src }) {
         />
         <div className="video-control">
           <Button
+            style={{ padding: 10, width: 25, textAlign: "center" }}
             onClick={(e) => {
               video.current.play();
             }}
             disabled={playing}
-            style={{ fontSize: 25, padding: 10, lineHeight: 1 }}
           >
-            ▶
+            <img width={16} src={require("./images/play.png")} />
           </Button>
           <Button
             onClick={(e) => {
               video.current.pause();
             }}
             disabled={!playing}
-            style={{ fontSize: 30, padding: 5, lineHeight: 0 }}
+            style={{
+              fontSize: 30,
+              padding: 10,
+              width: 25,
+              textAlign: "center",
+              lineHeight: 0,
+            }}
           >
-            ▮▮
+            <img width={16} src={require("./images/pause.png")} />
           </Button>
           <Button
             onClick={(e) => {
@@ -145,16 +151,22 @@ export function VideoPlayer({ src }) {
               video.current.currentTime = 0;
             }}
             disabled={!playing}
-            style={{ fontSize: 50, padding: 5, lineHeight: 0 }}
+            style={{
+              fontSize: 50,
+              padding: 10,
+              width: 25,
+              textAlign: "center",
+              lineHeight: 0,
+            }}
           >
-            ■
+            <img width={16} src={require("./images/stop.png")} />
           </Button>
           <div style={{ flexGrow: 1 }}></div>
           <Button
             onClick={(e) => {
               video.current.requestFullscreen();
             }}
-            style={{ fontSize: 40, padding: 5, lineHeight: 0 }}
+            style={{ fontSize: 25, padding: 5, lineHeight: 0 }}
           >
             &#x26F6;
           </Button>
