@@ -11,7 +11,7 @@ export default function DevPage() {
       }}>
         {[
           {
-            title: "Custom Cursors on Chrome",
+            title: "Custom cursors in Javascript and CSS.",
             link: "/blogs/dev/cursors",
             date: 1753346585922,
           },
