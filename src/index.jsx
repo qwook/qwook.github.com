@@ -12,8 +12,9 @@ import WebRing from "./components/webring/WebRing";
 import { createPage } from "./app";
 import { Collapsible } from "./components/ui/Collapsible";
 import { useState } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter"
+import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Smiley } from "./components/smiley/Smiley";
 
 export default function IndexPage() {
   const [showCode, setShowCode] = useState(false);
@@ -28,7 +29,7 @@ export default function IndexPage() {
         Vietnam. Previously: San Francisco, California. I like to{" "}
         <a href="/blogs/dev">develop games!</a> I am{" "}
         <a href="/blogs/lasan">Vietnamese</a> and Chinese. I live life through{" "}
-        <a href="/quests">quests.</a>
+        <a href="/quests">quests.</a> <Smiley id={48} />
       </p>
       <p>
         Currently, I am in Saigon focused on learning{" "}
@@ -172,7 +173,7 @@ int main(int argc, const char * argv[])
       <p>
         I like to explore nostalgia, <a href="/anxiety">trauma</a>, and the{" "}
         <a href="/decompose">deterioration of the internet.</a> I also like
-        happy things too like matcha mochi donuts.
+        happy things too like matcha mochi donuts. <Smiley id={103} />
       </p>
       <p>
         <Collapsible name="Also, I guess I am a bunch of other stuff...">

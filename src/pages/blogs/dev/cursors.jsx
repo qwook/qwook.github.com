@@ -9,6 +9,7 @@ import { createPage } from "../../../app";
 import Banner from "../../../components/Banner";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { VideoPlayer } from "../../../components/ui/VideoPlayer";
+import { Smiley } from "../../../components/smiley/Smiley";
 
 function BlogPage() {
   return (
@@ -68,9 +69,9 @@ function BlogPage() {
       <p>
         Why have this security policy in the first place? Well, hackers were
         abusing the cursor to render convincing fake error windows that appeared
-        outside of the browser window. But I'm not a hacker!! :( And this switch
-        from the game cursor to the tiny system cursor is super jarring and not
-        too polished.
+        outside of the browser window. But I'm not a hacker!! <Smiley id={20} />
+        And this switch from the game cursor to the tiny system cursor is super
+        jarring and not too polished.
       </p>
       <p>
         My first approach was hiding the system cursor and drawing my own
@@ -103,16 +104,17 @@ function BlogPage() {
       <p>
         But there's a problem with using custom cursors like this! While
         hovering over links or buttons, I want the cursor to change to a
-        pointer, and this functionality doesn't come out of the box.
+        pointer, and this functionality doesn't come out of the box.{" "}
+        <Smiley id={39} />
       </p>
       <p>
         Now if you remember, you can change the system cursor based on elements
-        you hover over, using CSS. For the fake cursor, we have no idea what the
-        cursor should be based on the element we are hovering over. We'll need
-        to manually traverse – starting from the element the mouse is hovering
-        over – all the way up the tree to find the closest element with a
-        "cursor" computed style property, then map it to a cursor image. I can
-        write a function to manually dig upwards, but I got lazy. So I just used{" "}
+        you hover over, using CSS. For the fake cursor; we have no idea what the
+        cursor should be, based on the element we are hovering over. We'll need
+        to manually traverse–starting from the element the mouse is hovering
+        over–all the way up the tree to find the closest element with a "cursor"
+        computed style property, then map it to a cursor image. I can write a
+        function to manually dig upwards, but I got lazy. So I just used{" "}
         <code>.closest()</code> to dig for me, which utilizes the CSS selector
         syntax to match an element.
       </p>
@@ -135,7 +137,8 @@ function BlogPage() {
       <p>
         A big negative of using system cursors is applications like Photoshop or
         Quicktime hijacking the cursor even if the program isn't on the screen.
-        Not cool, but whatever. If the user gets a tiny cursor who cares -_-
+        Not cool, but whatever. If the user gets a tiny cursor who cares{" "}
+        <Smiley>-_-</Smiley>
       </p>
       <p>
         Finally, now that I have a fake cursor, I can do something really cool!
