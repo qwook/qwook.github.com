@@ -620,12 +620,15 @@ img {
       padding: 0px 10px;
       color: green;
       box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
     }
   }
 }
 
 .blog .smiley,
 .smiley {
+  margin-top: -3px;
+  margin-bottom: -8px;
   height: 18 * 2px;
   image-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
