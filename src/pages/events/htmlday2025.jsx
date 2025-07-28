@@ -2,6 +2,13 @@ import { useEffect, useRef } from "react";
 import { createPage } from "../../app";
 import { EventSpecial } from "../../components/events/event-special";
 import cub from "./htmlday2025/cub.txt";
+import { headTags } from "../../utils/headTags";
+
+headTags({
+  title: "HTML Day 2025 - Sài Gòn",
+  description: "a day of HTML freewrite",
+  image: require("./htmlday2025/metadata.png"),
+});
 
 const TITLE = "HTML Day 2025 - Sài Gòn";
 
