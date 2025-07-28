@@ -28,7 +28,9 @@ body {
     width: 100%;
   }
 
-  a {
+  a,
+  .fake-link {
+    display: inline;
     color: blue;
     text-decoration: underline dashed;
     border-bottom: 1px dotted white;
@@ -56,13 +58,14 @@ body {
   }
 
   .icon {
-    display: inline-block;
+    display: block;
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
     background-size: cover;
     background-position: center;
     margin-right: 10px;
+    flex: 0 0 20px;
   }
 
   .q {
@@ -76,4 +79,16 @@ body {
     color: white;
     padding: 10px;
   }
+
+  .language.selected,
+  .language:hover {
+    text-decoration: none;
+    color: white;
+    background: blue;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
 }

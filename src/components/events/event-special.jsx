@@ -12,6 +12,8 @@ export function EventSpecial({
   description,
   children,
   duration,
+  language,
+  setLanguage,
 }) {
   const startTime = useMemo(() => new Date(start), [start]);
   const endTime = useMemo(() => {
@@ -43,66 +45,107 @@ export function EventSpecial({
     <>
       <div className="event">
         <h1>{titleHtml}</h1>
+        <p>
+          [
+          <div
+            className={[
+              "language",
+              "fake-link",
+              language === "vn" ? "selected" : "",
+            ].join(" ")}
+            onClick={(e) => setLanguage("vn")}
+          >
+            Tiếng Việt
+          </div>
+          {" / "}
+          <div
+            className={[
+              "language",
+              "fake-link",
+              language === "en" ? "selected" : "",
+            ].join(" ")}
+            onClick={(e) => setLanguage("en")}
+          >
+            English
+          </div>
+          ]
+        </p>
         {hosts && (
           <>
-            <div
-              className="icon"
-              style={{
-                backgroundImage: `url(${require("../../pages/events/htmlday2025/clock.gif")})`,
-              }}
-            />
-            <div style={{ display: "inline-block", verticalAlign: "top" }}>
-              <a href={calendarLink.google} target="_blank">
-                {
-                  [
-                    "Chủ Nhật",
-                    "Thứ Hai",
-                    "Thứ Ba",
-                    "Thứ Bốn",
-                    "Thứ Năm",
-                    "Thứ Sáu",
-                    "Thứ Bảy",
-                  ][startTime.getDay()]
-                }
-                <br />
-                {startTime.getDate()}/{startTime.getMonth() + 1}/
-                {startTime.getFullYear() % 100}{" "}
-                {startTime.getHours() < 10 && "0"}
-                {startTime.getHours()}h{startTime.getMinutes() < 10 && "0"}
-                {startTime.getMinutes()} - {endTime.getHours()}h
-                {endTime.getMinutes() < 10 && "0"}
-                {endTime.getMinutes()}
-              </a>
-            </div>
-            <br />
-            <div
-              className="icon"
-              style={{
-                backgroundImage: `url(${require("../../pages/events/htmlday2025/at.gif")})`,
-              }}
-            />
-            <div style={{ display: "inline-block", verticalAlign: "top" }}>
-              Hosted by{" "}
-              {hosts.map((host, idx) => {
-                return (
-                  <>
-                    <a href={host.url} target="_blank">
-                      {host.name}
-                    </a>
-                    {idx !== hosts.length - 1 ? " and " : ""}
-                  </>
-                );
-              })}
-            </div>
-            <br />
-            <div
-              className="icon"
-              style={{
-                backgroundImage: `url(${require("../../pages/events/htmlday2025/world.gif")})`,
-              }}
-            />
-            <div style={{ display: "inline-block", verticalAlign: "top" }}>
-              {location.address}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div className="row">
+                <div
+                  className="icon"
+                  style={{
+                    backgroundImage: `url(${require("../../pages/events/htmlday2025/clock.gif")})`,
+                  }}
+                />
+                <div style={{flexGrow: 1}}>
+                  <a href={calendarLink.google} target="_blank">
+                    {language === "vn"
+                      ? [
+                          "Chủ Nhật",
+                          "Thứ Hai",
+                          "Thứ Ba",
+                          "Thứ Bốn",
+                          "Thứ Năm",
+                          "Thứ Sáu",
+                          "Thứ Bảy",
+                        ][startTime.getDay()]
+                      : [
+                          "Sunday",
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday",
+                          "Friday",
+                          "Saturday",
+                        ][startTime.getDay()]}
+                    <br />
+                    {startTime.getDate()}/{startTime.getMonth() + 1}/
+                    {startTime.getFullYear() % 100}{" "}
+                    {startTime.getHours() < 10 && "0"}
+                    {startTime.getHours()}h{startTime.getMinutes() < 10 && "0"}
+                    {startTime.getMinutes()} - {endTime.getHours()}h
+                    {endTime.getMinutes() < 10 && "0"}
+                    {endTime.getMinutes()}
+                  </a>
+                </div>
+              </div>
+              <div className="row">
+                <div
+                  className="icon"
+                  style={{
+                    backgroundImage: `url(${require("../../pages/events/htmlday2025/at.gif")})`,
+                  }}
+                />
+                <div style={{flexGrow: 1}}>
+                  {language === "vn" ? "Sự kiện được host bởi " : "Hosted by "}
+                  {hosts.map((host, idx) => {
+                    return (
+                      <>
+                        <a href={host.url} target="_blank">
+                          {host.name}
+                        </a>
+                        {idx !== hosts.length - 1
+                          ? language === "vn"
+                            ? " và "
+                            : " and "
+                          : ""}
+                      </>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="row">
+                <div
+                  className="icon"
+                  style={{
+                    backgroundImage: `url(${require("../../pages/events/htmlday2025/world.gif")})`,
+                  }}
+                />
+                <div>{location.address}</div>
+              </div>
             </div>
           </>
         )}
