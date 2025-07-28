@@ -1,0 +1,77 @@
+body {
+  background: white;
+  color: black;
+
+  font-family: "Courier New", Courier, monospace;
+
+  h1 {
+    color: lime;
+    text-shadow: 0px 0px 20px lime;
+  }
+
+  .cub {
+    color: black;
+    text-shadow: 0px 0px 20px black;
+  }
+
+  .event {
+    max-width: 640px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  pre {
+    width: 100%;
+  }
+
+  a {
+    color: blue;
+    text-decoration: underline dashed;
+    border-bottom: 1px dotted white;
+    &:hover,
+    &:active {
+      color: white;
+      background-color: blue;
+      // border-bottom: 1px solid transparent;
+      outline: 1px dotted white;
+    }
+    &:active {
+      background-color: purple;
+      text-decoration: none;
+    }
+  }
+
+  &::selection {
+    background: lime;
+    color: white;
+    text-shadow: 0px 0px 5px white;
+  }
+
+  b {
+    color: red;
+  }
+
+  .icon {
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+  }
+
+  .q {
+    font-weight: bold;
+  }
+
+  .RSVP {
+    font-size: 50px;
+    text-decoration: none;
+    background: lime;
+    color: white;
+    padding: 10px;
+  }
+}
