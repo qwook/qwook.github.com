@@ -94,6 +94,7 @@ export default function EventPage() {
         <a href="https://html.energy/events.html">html energy events page</a>.
         If your city isn't listed, feel free to organize your own!
       </div>
+      <p>🛵🏙️🇻🇳</p>
     </EventSpecial>
   );
 }
