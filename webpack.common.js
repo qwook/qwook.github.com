@@ -73,7 +73,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|mp3|mp4|mov|webm|ttf|otf)$/, // Images
+        test: /\.(png|jpg|jpeg|gif|svg|mp3|mp4|mov|webm|ttf|otf|zip)$/, // Images
         type: "asset/resource", // For Webpack 5+
         generator: {
           filename: "assets/[name].[contenthash][ext]", // Consistent static file names
