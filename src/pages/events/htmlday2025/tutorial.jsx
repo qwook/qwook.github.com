@@ -11,17 +11,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { VideoPlayer } from "../../../components/ui/VideoPlayer";
 import { Smiley } from "../../../components/smiley/Smiley";
 import { useEffect, useRef } from "react";
-
-function CodeWithFrame({ src }) {
-  return (
-    <div className="code-with-frames">
-      <h4>Code</h4>
-      <SyntaxHighlighter language="html">{src}</SyntaxHighlighter>
-      <h4>Preview</h4>
-      <iframe srcdoc={src}></iframe>
-    </div>
-  );
-}
+import { CodeWithFrame } from "../../../components/CodeWithFrame";
 
 function BlogPage() {
   return (
