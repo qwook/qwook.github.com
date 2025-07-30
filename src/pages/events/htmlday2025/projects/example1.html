@@ -1,0 +1,62 @@
+
+<input id="loveButton" type="button" value="I Love You"></input>
+<love-area id="loveArea" style="display: block; position: relative;">
+  
+</love-area>
+
+<script>
+  const loveArray = ["i can't compare you to anyone else", "i respect you", "i'm inspired by you", "i find peace with your presence", "you give me safety", "i can't explain how i feel", "i am myself with you", "i feel understood by you"];
+  const hateArray = ["i feel suffocated", "you make me anxious", "i can't stand parts of you", "i will never understand this", "you seem so distant sometimes"];
+
+  loveButton.addEventListener("click", () => {
+    if (loveButton.value === "I Love You") {
+      loveButton.value = "I Hate You";
+
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        if (i > 100) {
+          clearInterval(interval);
+          return;
+        }
+
+        const element = document.createElement("love");
+        element.innerText = loveArray[Math.floor(Math.random() * loveArray.length)];
+        element.style.display = "block";
+        element.style.position = "absolute";
+        element.style.top =  Math.random() * 200 + "px";
+        element.style.left = Math.random() * 200 + "px";
+        element.style.color = "black";
+        loveArea.appendChild(element);
+        setTimeout(() => {
+          loveArea.removeChild(element);
+        }, 10000);
+
+      }, 10);
+    } else {
+      loveButton.value = "I Love You";
+
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        if (i > 100) {
+          clearInterval(interval);
+          return;
+        }
+
+        const element = document.createElement("love");
+        element.innerText = hateArray[Math.floor(Math.random() * hateArray.length)];
+        element.style.display = "block";
+        element.style.position = "absolute";
+        element.style.top =  Math.random() * 300 + "px";
+        element.style.left = Math.random() * 300 + "px";
+        element.style.color = "white";
+        loveArea.appendChild(element);
+        setTimeout(() => {
+          loveArea.removeChild(element);
+        }, 10000);
+      }, 100);
+
+     }
+  });
+</script>
