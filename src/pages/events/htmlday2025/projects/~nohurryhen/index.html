@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML ENERGY</title>
+  </head>
+  <body>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+
+      .shoe {
+        background-size: cover;
+        background-position: center;
+        width: 120px;
+        height: 120px;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        transform: translateY(100px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        text-shadow: 0px 0px 20px lime, 0px 0px 20px lime, 0px 0px 20px lime,
+          0px 0px 20px lime, 0px 0px 10px lime, 0px 0px 5px white,
+          0px 0px 5px white, 0px 0px 5px white;
+
+        font-size: 30px;
+
+        pointer-events: none;
+      }
+
+      img {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
+
+      .grass {
+        background-size: cover;
+        background-position: center;
+        width: 120px;
+        height: 120px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: opacity 0.5s;
+      }
+    </style>
+    <script>
+      for (let x = 0; x < 10; x++) {
+        for (let y = 0; y < 10; y++) {
+          const grass = document.createElement("div");
+          grass.className = "grass";
+          grass.style.left = x * (10 + Math.random()) + "%";
+          grass.style.top = y * (10 + Math.random()) + "%";
+          grass.style.transform = `rotate(${Math.random() * 20 - 5}deg)`;
+          grass.style.backgroundImage = `url("./grass.gif")`;
+          document.body.appendChild(grass);
+          let grassTimeout;
+          grass.addEventListener("mousemove", () => {
+            grass.style.opacity = 0.2;
+            console.log("yo");
+            if (grassTimeout) clearTimeout(grassTimeout);
+            grassTimeout = setTimeout(() => {
+              grass.style.opacity = 1;
+            }, 20000);
+          });
+        }
+      }
+
+      const text =
+        `step march follow walk run behind lead carve echo đi theo đi chạy đi đâu? the path once full of branches is now free. do we follow the footsteps of those before us? when a group of people end up in a small room together, was it inevitable? how much of our path is truly our own?`.split(
+          " "
+        );
+      let textIndex = 0;
+
+      const shoes = [];
+      let lastTime = 0;
+      document.addEventListener("mousemove", (e) => {
+        // if (Date.now() < lastTime) {
+        //   return;
+        // }
+
+        // Look through all the shoes, and check the distance.
+        for (let shoe of shoes) {
+          if (
+            Math.pow(shoe.x - e.clientX, 2) + Math.pow(shoe.y - e.clientY, 2) <
+            20000
+          ) {
+            return;
+          }
+        }
+
+        const shoe = document.createElement("div");
+        shoe.className = "shoe";
+        shoe.style.transform = `translate(${e.clientX - 60}px, ${
+          e.clientY - 60
+        }px) rotate(${Math.random() * 360}deg)`;
+        shoe.style.backgroundImage = `url("./shoe${Math.floor(
+          Math.random() * 19 + 1
+        )}.gif")`;
+
+        shoe.x = e.clientX;
+        shoe.y = e.clientY;
+
+        shoes.push(shoe);
+
+        document.body.appendChild(shoe);
+
+        setTimeout(() => {
+          shoe.innerText = text[textIndex];
+          textIndex = (textIndex + 1) % text.length;
+          shoe.style.transform = `translate(${shoe.x - 60}px, ${
+            shoe.y - 60
+          }px) rotate(${Math.random() * 10 - 5}deg)`;
+        }, 500);
+
+        setTimeout(() => {
+          document.body.removeChild(shoe);
+          shoes.splice(shoes.indexOf(shoe), 1);
+        }, 5000);
+
+        lastTime = Date.now() + 100;
+      });
+    </script>
+  </body>
+</html>

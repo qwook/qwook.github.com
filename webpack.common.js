@@ -111,7 +111,7 @@ module.exports = {
         { from: "src/favicon.gif", to: "favicon.gif" },
         {
           from: "src/pages/events/htmlday2025/projects",
-          to: "events/htmlday2025/projects",
+          to: "events/htmlday2025",
         },
       ],
     }),
