@@ -1,0 +1,14 @@
+body {
+  background-image: url(./a7d369b7c8b4ecc0f0ffe790f233cbe58b7154c0.jpg);
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  height: 300px;
+}
