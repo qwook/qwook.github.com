@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nhất trần đời</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- This wrapper holds all the foreground content -->
+    <div class="content-wrapper">
+        <!-- Container for the buttons on the left -->
+        <div class="button-container">
+            <!-- The large, non-interactive button -->
+            <button class="btn btn-vk" aria-label="VK Button"></button>
+            
+            <!-- The clickable button that will trigger the effect -->
+            <button class="btn btn-normal" id="poemButton" aria-label="Default Button"></button>
+        </div>
+        
+        <!-- The TAO image in the background -->
+        <img src="TAO.png" alt="TAO Logo" class="tao-image">
+    </div>
+
+    <!-- A completely empty container for our dynamic text -->
+    <div id="dynamic-text-container" class="hidden"></div>
+
+
+    <!-- UPDATED: The script now loops endlessly -->
+    <script>
+        // --- Configuration ---
+        const poemLines = [
+            "mình yêu vk", "yêu vk nhất trần đời", "yêu lúc tỉnh dậy được nằm cạnh vk",
+            "được vk hun hun", "rùi hun hun lại vk", "nhớ mùi vk nữa", "được tắm cùng nhau",
+            "được kì lưng cho vk", "được thoa vaseline cho nhau", "rùi mới đi ngủ",
+            "nhớ vk nhiều lắm", "yêu vk nhiều nữa", "nhớ được spooning",
+            "được vk ôm trong lòng", "giờ vi đang ở toà nhà nơi chúng mình từng ở",
+            "mà vi cứ nhớ những ngày mình ở cùng nhau", "cảm thấy mình thiếu đi một nửa",
+            "yêu vk nhất milky way", "chụt", "moaz", "hun"
+        ];
+        // Speed of text generation in milliseconds (lower is faster)
+        const GENERATION_SPEED = 250; 
+
+        // --- Element Hooks ---
+        const poemButton = document.getElementById('poemButton');
+        const textContainer = document.getElementById('dynamic-text-container');
+
+        // --- State Variables ---
+        let intervalId = null; // To store the ID of our loop
+        let lineIndex = 0;     // To track which line of the poem we're on
+
+        // --- Functions ---
+
+        function addNextLine() {
+            // MODIFIED: Instead of stopping, we reset the index to 0 to loop the poem.
+            if (lineIndex >= poemLines.length) {
+                lineIndex = 0; 
+            }
+
+            const lineText = poemLines[lineIndex];
+            const lineElement = document.createElement('span');
+            lineElement.className = 'poem-line';
+            lineElement.textContent = lineText;
+
+            // Generate random properties
+            const x = Math.random() * (window.innerWidth - 250); 
+            const y = Math.random() * (window.innerHeight - 100);
+            const scale = Math.random() * 1.2 + 0.5;
+            
+            // Apply the random styles
+            lineElement.style.left = `${x}px`;
+            lineElement.style.top = `${y}px`;
+            lineElement.style.transform = `scale(${scale})`;
+
+            textContainer.appendChild(lineElement);
+            lineIndex++;
+        }
+
+        function stopAndHide() {
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+            // MODIFIED: Clear the generated text when hiding
+            textContainer.innerHTML = ''; 
+            textContainer.classList.add('hidden');
+        }
+
+        // --- Event Listeners ---
+
+        poemButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            if (intervalId) return; 
+
+            // Clear any old text and reset
+            textContainer.innerHTML = '';
+            lineIndex = 0;
+            
+            textContainer.classList.remove('hidden');
+            intervalId = setInterval(addNextLine, GENERATION_SPEED);
+        });
+
+        textContainer.addEventListener('click', stopAndHide);
+
+    </script>
+
+</body>
+</html>

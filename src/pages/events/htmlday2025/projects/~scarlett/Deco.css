@@ -1,0 +1,44 @@
+body {
+  font-family: "Arial";
+background-image: url('./rose_PNG66734.png');
+  background-size: cover; 
+  height: 500vh;
+  cursor: url('./images-1-Photoroom.png'), auto;
+  
+}
+
+audio1
+{
+  display: flex; 
+  justify-content: center;
+}
+h1
+{
+  font-size:50px;
+  margin: -4px;
+  color:Red;
+text-align: center;
+}
+
+img
+{
+  display: block; 
+  margin: 0 auto; 
+  border-radius: 12px; 
+  max-width: 400px;
+}
+p1
+{
+  color: white;
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Courier New", Courier, monospace;
+ text-shadow:
+    0 0 5px red,
+    0 0 10px deeppink,
+    0 0 15px purple;
+}

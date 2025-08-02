@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #8ace00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.center-box {
+    background-color: #000000;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.center-box h2 {
+    color: #f4ecec;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.center-box p {
+    color: #f4ecec;
+    line-height: 3rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container.checkbox-right {
+    justify-content: center;
+    gap: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #f4ecec;
+}
+
+.checkbox-container label {
+    color: #f4ecec;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.checkbox-container.checkbox-right input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #f4ecec;
+    pointer-events: auto;
+    z-index: 10;
+    position: relative;
+}
+
+.second-question {
+    margin-top: 20px;
+    padding-top: 15px;
+}
+
+.second-question p {
+    color: #f4ecec;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.third-question {
+    margin-top: 20px;
+    padding-top: 15px;
+}
+
+.third-question p {
+    color: #f4ecec;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.crosswalk {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.crosswalk img {
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.crosswalk img:hover {
+    transform: scale(1.05);
+}

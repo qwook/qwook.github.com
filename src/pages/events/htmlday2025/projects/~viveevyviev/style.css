@@ -1,0 +1,135 @@
+/* --- General Setup and Background --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+body {
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Main container for the interactive elements --- */
+.content-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- The TAO Image (Fixed Front Image) --- */
+.tao-image {
+    width: 300px; /* You can also change this to percentages, e.g., width: 20vw; */
+    height: 300px;
+    z-index: 0; 
+    
+    /* --- NEW POSITIONING LOGIC --- */
+    position: absolute;   /* Remove the image from the flexbox flow */
+    top: 50%;             /* Start with the top edge at the vertical center */
+    left: 50%;            /* Start with the left edge at the horizontal center */
+    
+    /* 
+       Translate handles the positioning:
+       - The first -50%, -50% centers the image perfectly.
+       - The second values are your percentage-based offsets.
+    */
+    transform: translate(calc(-50% + 105%), calc(-50% + 20%)); 
+}
+
+/* --- Container for the buttons on the left --- */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    z-index: 1; 
+}
+
+/* --- Shared styles for the buttons --- */
+.btn {
+    width: 180px;
+    height: 50px;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px #ff00f0);
+}
+
+/* --- Specific button styles --- */
+.btn-vk {
+    background-image: url('BUTTON_VK.png');
+    width: 540px;
+    height: 300px;
+    cursor: default;
+}
+
+.btn-vk:hover {
+    transform: none;
+    filter: none;
+}
+
+.btn-normal {
+    background-image: url('BUTTON.png');
+    margin-top: 10px;
+}
+
+/* 
+    ======================================================
+    REWRITTEN: Styles for the Dynamic Text Generation
+    ======================================================
+*/
+
+/* The container for the dynamic text. It's a fullscreen overlay. */
+#dynamic-text-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    overflow: hidden;
+    cursor: pointer; /* Indicates the user can click to close */
+}
+
+/* The '.hidden' class keeps the container invisible */
+.hidden {
+    display: none;
+}
+
+/* Styles for each individual line of poem text created by JavaScript */
+.poem-line {
+    position: absolute; /* Allows positioning with 'top' and 'left' */
+    color: #ff00c6;
+    font-size: 1.5em; /* Base font size, scale will be applied on top */
+    font-weight: bold;
+    white-space: nowrap; /* Prevents long lines from wrapping */
+    
+    /* MODIFIED: Added multiple pink shadows to create a glow effect */
+    text-shadow: 
+        /* The white stroke (kept from before) */
+        -1.5px -1.5px 0 #fff,  
+         1.5px -1.5px 0 #fff,
+        -1.5px  1.5px 0 #fff,
+         1.5px  1.5px 0 #fff,
+        /* The NEW pink glow */
+         0 0 5px #ff00c6,
+         0 0 10px #ff00c6,
+         0 0 15px #ff00c6;
+}
