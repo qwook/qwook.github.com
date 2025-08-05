@@ -85,6 +85,7 @@ export default function EventPage() {
               "~scarlett",
               "~tiff_nguyennn",
               "~viveevyviev",
+              "~lá",
             ].map((url, idx) => {
               return (
                 <div className="row" key={url}>

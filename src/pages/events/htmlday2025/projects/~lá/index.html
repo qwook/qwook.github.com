@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@1.9.6/dist/tailwind.min.css"
+    />
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      class="bg-white w-full"
+      style="height: calc(100vh - 84px); z-index: 1"
+    >
+    </canvas>
+    <div id="text" class="flex items-center justify-center space-x-4 p-4">
+      <p class="text-center text-2xl px-4 py-2 rounded-lg text-white">
+        hi, I'm currently doing my work, so can you go find this color in the
+        meantime?
+      </p>
+      <button
+        id="hintBtn"
+        class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700"
+      >
+        Hint
+      </button>
+      <button
+        id="resetBtn"
+        class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-600"
+      >
+        Reset
+      </button>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
