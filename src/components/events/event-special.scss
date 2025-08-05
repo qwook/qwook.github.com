@@ -1,6 +1,9 @@
 body {
   background: white;
   color: black;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 
   font-family: "Courier New", Courier, monospace;
 
@@ -66,6 +69,14 @@ body {
     background-position: center;
     margin-right: 10px;
     flex: 0 0 20px;
+
+    image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges; /* Firefox                        */
+    image-rendering: -o-crisp-edges; /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Universal support since 2021   */
+    image-rendering: optimize-contrast; /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
   }
 
   .q {
@@ -91,4 +102,40 @@ body {
 .row {
   display: flex;
   flex-direction: row;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+}
+
+.archive,
+.archive-under {
+  padding: 30px;
+}
+
+.archive {
+  box-shadow: 0px -10px 20px black;
+  background: white;
+}
+
+.archive-body {
+  max-width: 640px;
+
+  .row {
+    .url-holder {
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .dots {
+      border-bottom: 1px dotted black;
+      margin-bottom: 10px;
+      margin-left: 10px;
+    }
+  }
 }
