@@ -44,7 +44,6 @@ export default function EventPage() {
       }px)`;
 
       setAnim((anim) => {
-        console.log((Math.floor((Math.sin(height.current) + 2) * 2)));
         const copy = [...anim];
         copy.splice(
           0,
