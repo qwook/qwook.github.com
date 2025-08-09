@@ -38,6 +38,10 @@ export default function IndexPage() {
         of the <a href="/vinawolf">One Night Ultimate Werewolf</a> app in
         Vietnamese!
       </p>
+      <p>
+        I love magic, one of my heroes is Derren Brown.{" "}
+        <a href="/astrology">Click here to get your digital palm read!</a>
+      </p>
       <p
         style={{ position: "relative", display: "inline-block" }}
         onMouseEnter={() => {
