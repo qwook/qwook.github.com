@@ -9,9 +9,14 @@ import { TypingList } from "../components/TypingList";
 // No, there is no LLM. This was all made organically :)
 
 // Yes, this is a Barnum Statement. It was originally written by Derren Brown.
-// Read more about it here: https://en.wikipedia.org/wiki/Barnum_effect
 // It's applicable to almost everyone and uses enough vague wording that you
 // can fill in the blanks with yourself.
+// I find it very comforting that almost everybody is going through the same
+// or similar experience, reading barnum statements and relating to them also
+// make me feel very connected to other people. We really aren't going through
+// life alone.
+
+// Read more about it here: https://en.wikipedia.org/wiki/Barnum_effect
 
 // Watch it in action here: https://www.youtube.com/watch?v=haP7Ys9ocTk
 
