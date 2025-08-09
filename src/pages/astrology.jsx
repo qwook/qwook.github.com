@@ -46,7 +46,7 @@ Conclusion: It's very interesting doing your reading, as you do present somethin
 <br/><br/>
 You really have an appealing personality - genuinely. Many thanks for doing this, and for offering something far more substantial than most.
 <br/><br/>
-If you enjoyed your reading, please scroll all the way to the bottom and checkout the source code for this app!`.split(
+If you enjoyed your reading, please scroll all the way to the bottom and check out the source code for this app!`.split(
     " "
   );
 
