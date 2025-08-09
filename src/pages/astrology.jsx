@@ -44,7 +44,9 @@ You have links at the moment with people abroad, which are quite interesting, an
 <br/><br/>
 Conclusion: It's very interesting doing your reading, as you do present something of a conundrum, which won't surprise you. You are certainly bright, but unusually open to life's possibilities - something not normally found among achieving people. I'd say you'd do well to be less self-absorbed, as it tends to distance you a little, and to relinquish some of the control you exercise when you present that stylized version of yourself to others. You could let people in a little more, but I am aware that there is a darkness you feel you should hide (much of this is in the personal/relationship/sexual area, and is related to a neediness which you don't like).
 <br/><br/>
-You really have an appealing personality - genuinely. Many thanks for doing this, and for offering something far more substantial than most.`.split(
+You really have an appealing personality - genuinely. Many thanks for doing this, and for offering something far more substantial than most.
+<br/><br/>
+If you enjoyed your reading, please scroll all the way to the bottom and checkout the source code for this app!`.split(
     " "
   );
 
