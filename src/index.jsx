@@ -42,6 +42,14 @@ export default function IndexPage() {
         I love magic, one of my heroes is Derren Brown.{" "}
         <a href="/astrology">Click here to get your digital palm read!</a>
       </p>
+      <p>
+        I have a habit of scrolling endlessly through old Geocities pages –
+        remnants of the old internet. Or stalking people <a target="_blank" href="https://web.archive.org/web/19961227151809/http://www.ualberta.ca:80/~jnguyen/vietfun.html">20 years older</a> than me,
+        who I used to play games and learn how to program with. I find it
+        interesting how I am now their age when they first talked to me. Most of
+        them disappeared off the internet. I wonder what happened, and I wonder
+        if I'll also, one day, disappear.
+      </p>
       <p
         style={{ position: "relative", display: "inline-block" }}
         onMouseEnter={() => {
