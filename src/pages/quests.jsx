@@ -94,19 +94,24 @@ export default function QuestsPage() {
             <s>I am planning to be in Vietnam either mid or end of November!</s>
             <p>I have moved to Vietnam!!</p>
           </Quest>
-          <Quest name="Quit smoking">
+          <Quest completed name="Quit smoking">
             I want to see how well I can socialize while avoiding the most
-            common social device.
+            common social device. I managed to quit for a whole year!
           </Quest>
-          <Quest name="Host an artist event in Vietnam"></Quest>
-          <Quest name="Host a dinner party in Vietnam"></Quest>
-          <Quest name="Spend 7 non-consecutive days speaking only Vietnamese"></Quest>
+          <Quest completed name="Host an artist event in Vietnam"></Quest>
+          <Quest completed name="Host a dinner party in Vietnam">
+            I did not host it directly, but I helped with Hannah and Linh's
+            dinner party!
+          </Quest>
+          <Quest name="Spend 7 non-consecutive days speaking only Vietnamese">
+            I think... This one is hard to measure.
+          </Quest>
           <Quest name="Get a tattoo in Vietnam"></Quest>
           <Quest completed name="Drive a moped or motorcycle Vietnam"></Quest>
-          <Quest name="Do volunteer work in Vietnam"></Quest>
+          <Quest completed name="Do volunteer work in Vietnam"></Quest>
           <Quest completed name="Eat/meditate at a buddhist monstery"></Quest>
           <Quest name="Convince 3 different friends to film TikTok dance videos (0/3)"></Quest>
-          <Quest name="Release two video games (0/2)"></Quest>
+          <Quest name="Release two video games (1/2)"></Quest>
           <Quest name="Release a short film"></Quest>
           <Quest name="Playtest Last Seen Online 2"></Quest>
           <Quest completed name="Do a live performance">
@@ -117,26 +122,47 @@ export default function QuestsPage() {
           </Quest>
           <Quest name="Finish playing Half-Life 2: Episode 1"></Quest>
           <Quest name="Finish playing Half-Life 2: Episode 2"></Quest>
-          <Quest name="Pay off one month of rent using money earned from video games"></Quest>
+          <Quest
+            completed
+            name="Pay off one month of rent using money earned from video games"
+          >
+            I managed to use the money from my DJ Dave collaboration to pay off
+            a month of rent.
+          </Quest>
           <Quest name="Learn 5 Vietnamese songs on guitar, and post them (0/5)"></Quest>
-          <Quest name="Log 60 days of food that I ate (0/60)">
+          <Quest name="Log 60 days of food that I ate (14/60)">
             I want to figure out what foods make my stomach hurt!
           </Quest>
           <Quest name="Log 40 days of yoga (4/40)"></Quest>
-          <Quest name="Log 90 days of meditation (0/90)"></Quest>
-          <Quest name="Log 5 days of trash cleanup (2/5)"></Quest>
+          <Quest name="Log 90 days of meditation (84/90)"></Quest>
+          <Quest name="Log 5 days of trash cleanup (5/5)" completed>
+            I volunteered for Saigon Xanh!
+          </Quest>
           <Quest name="Log 10 days of calling my long distance friends (1/10)">
             Hey Will, Juan, Dustin, Kevin, and Chloe! I wanna call you {">:)"}
           </Quest>
           <Quest name="Do a standing forward fold"></Quest>
           <Quest name="Bench 135 lbs"></Quest>
           <Quest name="Climb a V7"></Quest>
-          <Quest name="Climb a V5 (Red Route)"></Quest>
+          <Quest name="Climb a V5 (Red Route)" completed></Quest>
           <Quest name="Say no to 5 events (1/5)"></Quest>
-          <Quest name="Play a friend's game"></Quest>
-          <Quest name="Host a movie night in Vietnam"></Quest>
-          <Quest name="Collaborate with a Vietnamese Creative"></Quest>
-          <Quest name="Cook one meal in Vietnam"></Quest>
+          <Quest name="Play a friend's game" completed>
+            I played all of{" "}
+            <a href="https://jackieisonline.itch.io/" target="_blank">
+              Jackie Liu
+            </a>
+            's games. I also played a lot of student games in Vietnam.
+          </Quest>
+          <Quest name="Host a movie night in Vietnam" completed></Quest>
+          <Quest completed name="Collaborate with a Vietnamese Creative">
+            For my installation at Reading Cabin named mẹGank, I collaborated
+            with Vietnamese students to showcase their games. I also
+            collaborated with Oniks Le to produce a track for an exhibit I had
+            in San Francsico.
+          </Quest>
+          <Quest completed name="Cook one meal in Vietnam">
+            I literally only cooked one single meal this entire year hahaha
+          </Quest>
         </ul>
         <h2>Level 29 - Game Dev Arc</h2>
         <ul className="quests">
