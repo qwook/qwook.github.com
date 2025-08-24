@@ -69,7 +69,7 @@ export function Event({
               {host.name}
             </a>
             <br />
-            📌 Kế bên <a href={location.url}>{location.address}</a>
+            📌 <a href={location.url}>{location.address}</a>
           </>
         )}
         <br />
