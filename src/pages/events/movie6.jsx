@@ -3,7 +3,7 @@ import { headTags } from "../../utils/headTags";
 headTags({
   title: "Movies at Henry's - Before Sunset (2004)",
   description: "What if you had a second chance with the one that got away?",
-  image: require("./images/afterlife.gif"),
+  image: require("./images/beforesunset.gif"),
 });
 
 import { createPage } from "../../app";
