@@ -36,6 +36,9 @@ export default function Page() {
       <h2>Flashcards</h2>
       <ul>
         <li>
+          <a href="/flashcards/words">Word Types and Accent Marks</a>
+        </li>
+        <li>
           <a href="/flashcards/misc">Misc</a>
         </li>
         <li>
