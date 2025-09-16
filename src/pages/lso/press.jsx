@@ -44,6 +44,10 @@ export default function Page() {
             <td>Henry Quoc Tran (as Sochin Studio)</td>
           </tr>
           <tr>
+            <td>Country of Origin</td>
+            <td>USA / Vietnam</td>
+          </tr>
+          <tr>
             <td>Developer Website</td>
             <td>
               <a href="https://qwook.io">qwook.io</a>
@@ -56,7 +60,7 @@ export default function Page() {
             </td>
           </tr>
           <tr>
-            <td>Likes</td>
+            <td>Creator's Interests</td>
             <td>
               Bạc Xỉu, Rock Climbing, Porter Robinson, Soccer Mommy, Phoebe
               Bridgers, Thịnh Suy, American Football, Tùng, Alex G, Yeule
@@ -64,7 +68,7 @@ export default function Page() {
           </tr>
           <tr>
             <td>Release Date</td>
-            <td>23 December, 2023</td>
+            <td>December 23, 2023 (Web / itch.io), March 15, 2024 (Steam)</td>
           </tr>
           <tr>
             <td>Regular Price</td>
@@ -111,6 +115,17 @@ export default function Page() {
       <div className="images">
         <img src={require("../images/lso/logo.png")}></img>
       </div>
+      <h1>Trailer</h1>
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/wtvLOKpmv_c?si=zkAefYho4oyrdkO0"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
       <h1>Screenshots</h1>
       <div className="images center-image">
         <img src={require("../images/lso/ss/desktop.jpg")}></img>
