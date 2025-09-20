@@ -1,10 +1,16 @@
 import { headTags } from "../../utils/headTags";
 
-headTags({
-  title: "Movies at Henry's - After Life (1998)",
+export const movieDetails = {
+  title: "After Life (1998)",
   description:
     "After souls leave their bodies on Earth, they go through a process before entering their personal heaven, a single special memory they want to live for eternity.",
   image: require("./images/afterlife.gif"),
+};
+
+headTags({
+  title: "Movies at Henry's - " + movieDetails.title,
+  description: movieDetails.description,
+  image: movieDetails.image,
 });
 
 import { createPage } from "../../app";

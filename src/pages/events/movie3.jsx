@@ -2,6 +2,13 @@ import { createPage } from "../../app";
 import { Event } from "../../components/events/event";
 import { Genre } from "../../components/events/genre";
 
+export const movieDetails = {
+  title: "Monster (2023)",
+  description:
+    "A single mother demands answers from a school teacher when her son begins acting strangely. A fight at school causes even more trouble.",
+  image: require("./images/monster.gif"),
+};
+
 const TITLE = "Monster (2023)";
 
 export default function EventPage() {

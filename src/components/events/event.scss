@@ -38,3 +38,16 @@ body {
     color: red;
   }
 }
+
+.previous-nights {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+
+  .movie {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}

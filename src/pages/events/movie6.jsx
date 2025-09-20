@@ -1,9 +1,15 @@
 import { headTags } from "../../utils/headTags";
 
-headTags({
-  title: "Movies at Henry's - Before Sunset (2004)",
+export const movieDetails = {
+  title: "Before Sunset (2004)",
   description: "What if you had a second chance with the one that got away?",
   image: require("./images/beforesunset.gif"),
+};
+
+headTags({
+  title: "Movies at Henry's - " + movieDetails.title,
+  description: movieDetails.description,
+  image: movieDetails.image,
 });
 
 import { createPage } from "../../app";
