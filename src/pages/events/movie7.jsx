@@ -44,7 +44,7 @@ headTags({
           Genre: <Genre list={["Animation", "Action", "Musical"]} />
         </p>
         <p>🇺🇸 ENSUB ONLY</p>
-        <p>movieDetails.description</p>
+        <p>{movieDetails.description}</p>
         <p>
           When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums
           or topping the Billboard charts, they're moonlighting as demon hunters

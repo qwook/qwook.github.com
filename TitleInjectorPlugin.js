@@ -81,15 +81,8 @@ class TitleInjectorPlugin {
               global.document = {};
               global.export = {};
               try {
-                console.log(file);
-                if (file === "events/movie7.bundle.js") {
-                  console.log("yo");
-                }
-                require("./" + path.join("node", file))
+                require("./" + path.join("node", file));
               } catch (e) {
-                if (file === "events/movie7.bundle.js") {
-                  console.log(e);
-                }
                 if (e.headTag) {
                   e.title &&
                     data.headTags.push(
