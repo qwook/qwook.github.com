@@ -78,9 +78,18 @@ class TitleInjectorPlugin {
             for (const file of chunk.files) {
               global.window = {};
               global.NODE_ENV = true;
+              global.document = {};
+              global.export = {};
               try {
-                console.log(require("./" + path.join("node", file)));
+                console.log(file);
+                if (file === "events/movie7.bundle.js") {
+                  console.log("yo");
+                }
+                require("./" + path.join("node", file))
               } catch (e) {
+                if (file === "events/movie7.bundle.js") {
+                  console.log(e);
+                }
                 if (e.headTag) {
                   e.title &&
                     data.headTags.push(
@@ -108,7 +117,7 @@ class TitleInjectorPlugin {
                     );
                   console.log(data.headTags);
                 } else {
-                  console.log(e);
+                  // console.log(e);
                 }
               }
 
