@@ -14,14 +14,14 @@ headTags({
 });
 
 // The things I do to get metatags to be exported.....
-(() => {
-  const { createPage } = import("../../app");
-  const { Event } = import("../../components/events/event");
-  const { Genre } = import("../../components/events/genre");
+(async () => {
+  const { createPage } = await import("../../app");
+  const { Event } = await import("../../components/events/event");
+  const { Genre } = await import("../../components/events/genre");
 
-  const { movieDetails: movie3 } = import("./movie3");
-  const { movieDetails: movie5 } = import("./movie5");
-  const { movieDetails: movie6 } = import("./movie6");
+  const { movieDetails: movie3 } = await import("./movie3");
+  const { movieDetails: movie5 } = await import("./movie5");
+  const { movieDetails: movie6 } = await import("./movie6");
 
   function EventPage() {
     return (
