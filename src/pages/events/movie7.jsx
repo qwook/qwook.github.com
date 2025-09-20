@@ -51,6 +51,11 @@ headTags({
           to protect their fans from ever-present supernatural danger.
         </p>
         <p>
+          <strong>Who usually goes to this?</strong> Each movie night gets
+          roughly 2-4 people attending and the crowd is different every time.
+          Artists, game devs, rock climbing friends, or people I vibe with.
+        </p>
+        <p>
           <strong>
             The above address is a restaurant near my house, please message me
             for my real address!
