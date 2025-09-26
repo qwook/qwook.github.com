@@ -1,10 +1,10 @@
 import { headTags } from "../../utils/headTags";
 
 export const movieDetails = {
-  title: "KPop Demon Hunters (2025)",
+  title: "Crows are White (2022)",
   description:
-    "Okay, I swear we'll watch some avante-garde stuff soon, but somebody told me this was unironically good for no reason.",
-  image: require("./images/kpop.gif"),
+    "A documentary director going through a life crisis meets a monk who likes heavy metal.",
+  image: require("./images/crowsarewhite.gif"),
 };
 
 headTags({
@@ -22,15 +22,15 @@ headTags({
   const { Event } = await import("../../components/events/event");
   const { Genre } = await import("../../components/events/genre");
 
-  const { movieDetails: movie3 } = await import("./movie3");
-  const { movieDetails: movie5 } = await import("./movie5");
   const { movieDetails: movie6 } = await import("./movie6");
+  const { movieDetails: movie5 } = await import("./movie5");
+  const { movieDetails: movie7 } = await import("./movie7");
 
   function EventPage() {
     return (
       <Event
         title={movieDetails.title}
-        start="September 22, 2025 7:30 PM"
+        start="September 29, 2025 7:30 PM"
         duration={[2, "hour"]}
         host={{
           name: "Henry",
@@ -44,14 +44,13 @@ headTags({
         <img src={movieDetails.image} />
         <p>Runtime: 1 hour 35 minutes</p>
         <p>
-          Genre: <Genre list={["Animation", "Action", "Musical"]} />
+          Genre: <Genre list={["Documentary"]} />
         </p>
         <p>🇺🇸 ENSUB ONLY</p>
         <p>{movieDetails.description}</p>
         <p>
-          When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums
-          or topping the Billboard charts, they're moonlighting as demon hunters
-          to protect their fans from ever-present supernatural danger.
+          "Men will make a whole ass documentary to avoid dealing with their
+          problems." - Bobby Harris
         </p>
         <p>
           <strong>Who usually goes to this?</strong> Each movie night gets
@@ -68,17 +67,17 @@ headTags({
         <hr />
         <h1>Previous Nights:</h1>
         <div className="previous-nights">
-          <a href="/events/movie3" className="movie">
-            <img src={movie3.image} />
-            <p>{movie3.title}</p>
+          <a href="/events/movie6" className="movie">
+            <img src={movie6.image} />
+            <p>{movie6.title}</p>
           </a>
           <a href="/events/movie5" className="movie">
             <img src={movie5.image} />
             <p>{movie5.title}</p>
           </a>
-          <a href="/events/movie6" className="movie">
-            <img src={movie6.image} />
-            <p>{movie6.title}</p>
+          <a href="/events/movie7" className="movie">
+            <img src={movie7.image} />
+            <p>{movie7.title}</p>
           </a>
         </div>
       </Event>
