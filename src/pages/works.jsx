@@ -7,7 +7,7 @@ import HTMLFestCarousel from "../components/HTMLFestCarousel";
 const works = [
   {
     name: "last seen online",
-    link: "https://store.steampowered.com/app/2824230/last_seen_online/",
+    link: "/lso",
     preview: require("./images/lso.png"),
     description: (
       <p>
@@ -29,6 +29,24 @@ const works = [
     ),
   },
   {
+    name: "Chào Tạm Biệt (2024)",
+    link: "/blogs/chao",
+    preview: (
+      <Carousel>
+        <img src={require("./blogs/chao/IMG_1651.jpg")} alt="project preview" />
+        <img src={require("./blogs/chao/IMG_1682.jpg")} alt="project preview" />
+        <img src={require("./blogs/chao/IMG_1009.jpg")} alt="project preview" />
+        <img
+          src={require("./blogs/chao/chao_tam_biet_poster.jpg")}
+          alt="project preview"
+        />
+      </Carousel>
+    ),
+    description: (
+      <p>An backyard show I threw when I said goodbye to San Francisco.</p>
+    ),
+  },
+  {
     name: "HTMLfest",
     link: "https://htmlfest.com/memories.html",
     preview: <HTMLFestCarousel />,
@@ -44,7 +62,8 @@ const works = [
     link: "/blogs/durians",
     description: (
       <p>
-        A short story about a Vietnamese grandmother making an unexpected friend on the BART. Winner of the 2022 BART Lines Short Story competition.
+        A short story about a Vietnamese grandmother making an unexpected friend
+        on the BART. Winner of the 2022 BART Lines Short Story competition.
       </p>
     ),
   },

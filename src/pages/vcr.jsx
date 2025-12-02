@@ -53,43 +53,14 @@ Special Thanks To
 >> Nay Mai (@naymai.day)
 `;
 
-const poem1 = `Dưới ánh đèn vàng dịu mắt
-Em lật nhìn bàn tay em
-Bàn tay bé bỏng trắng xinh
-Ngón thon nhỏ dịu
-Không hằn một vết chai vết xước
-Tay này tay em vẫn thường giở sách,
-Là tay cầm bút, viết chữ
-Là tay người thương vẫn hôn nhẹ khi em giận dỗi
-Là bàn tay chưa khóc bao giờ
- 
-
-Dưới ánh đèn vàng dịu mắt
-Em lật nhớ bàn tay mẹ
-Bàn tay xương xẩu thô cằn
-Không chỗ nào lành lặn dễ coi
-Tay này tay mẹ vẫn thường cuốc đất
-Là tay gặt lúa, cắt cỏ
-Là tay mẹ vẫn thường ôm đầu những khi cần tự vệ
-Là bàn tay chưa nín khóc bao giờ
- 
-
-Em ước đôi tay mình có thể khóc trước đôi tay mẹ
-Như một đứa con hiếu thảo
-Áp mặt vào bảy mũi khâu
-Máu chảy lành vết sâu đụng xương
-Để mẹ biết em vẫn thương mẹ
-Như một đứa con hiếu thảo
-Nhưng em không
-là.
- 
-
-Em ước tay mình có thể viết một bài thơ về đôi tay mẹ
-Như một nhà thơ tài hoa
-Về những gì đôi bàn tay ấy đã có thể là
-Nếu chúng không là đôi tay mẹ.
-Nhưng em không
-thể.`;
+const poem1 = `this interview excerpt with
+'Last Seen Online' developer,
+> Henry Quốc Trần
+was conducted by
+> Cyn Phương-Anh Lê
+for 'SEA2SEA'
+at 'Lower Grand Radio'
+`;
 
 const poem2 = `sớm nay con đã hút điếu thuốc khi xưa
 từng nằm trên tay ba
@@ -174,7 +145,7 @@ const VCRCaption = forwardRef(
           });
         }
         resetMoveLineUpTimer();
-      }, 4000);
+      }, 1000);
     }
 
     useEffect(() => {
@@ -277,7 +248,7 @@ function Poem({ poemSource, maxLines, style, delay = 0 }) {
         if (poem[line]) {
           caption.current.spawnCaption(poem[line]);
         }
-      }, 1500);
+      }, 500);
     }, delay);
     return () => {
       clearTimeout(timeOut);
@@ -488,17 +459,18 @@ function VCRPage() {
   return (
     <>
       {/* <SubtitleClosedCaptions /> */}
-      {/* <Poem
+      <Poem
         poemSource={poem1}
-        maxLines={5}
+        maxLines={7}
         style={{
           position: "absolute",
-          top: 20,
-          left: 20,
+          top: 200,
+          left: 300,
           width: 1000,
+          height: 1000,
         }}
-      /> */}
-      <SimpleVCR
+      />
+      {/* <SimpleVCR
         text={`A Dream State Informercial
 
 Mis Perfect,
@@ -530,7 +502,7 @@ Bleach,
 
 Bridge to Everywhere,
 &dir Spencer Tsang`}
-      />
+      /> */}
       {/* <Poem
         poemSource={poem2}
         maxLines={5}
