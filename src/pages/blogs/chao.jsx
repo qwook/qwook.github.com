@@ -166,6 +166,10 @@ export default function Blogs_Chao() {
         that they're at the gate.
       </p>
       <p>
+        For one of my parties, I had a website with a button people can press to
+        play a doorbell sound on speakers in the background.
+      </p>
+      <p>
         I then realized that I could add more things people can do after they've
         rang the doorbell, such as upload a picture of themselves!
       </p>
