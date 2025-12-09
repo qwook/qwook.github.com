@@ -8,7 +8,7 @@ export const movieDetails = {
 };
 
 headTags({
-  title: "Tokyo Godfathers - " + movieDetails.title,
+  title: "Henry's Movie Nights - " + movieDetails.title,
   description: movieDetails.description,
   image: movieDetails.image,
 });
@@ -48,6 +48,7 @@ headTags({
         </p>
         <p>🇻🇳 VN-SUB ON REQUEST 🇺🇸 EN-SUB</p>
         <p>{movieDetails.description}</p>
+        <p>Wow I finally fixed my room up for a movie night!</p>
         <p>
           From the director of Paprika and Perfect blue. "With its rich
           characters, moments of comedy, drama, and pure action, Tokyo
