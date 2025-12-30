@@ -2,17 +2,40 @@ import Banner from "../components/Banner";
 import Page from "../components/Page";
 import { createPage } from "../app";
 
+// Imagine being so lazy that you make a component for this.
+function OuterLink({ href, children }) {
+  return (
+    <li>
+      <a target="_blank" href={href}>
+        {children}
+      </a>
+    </li>
+  );
+}
+
 export default function ListPage() {
   return (
     <>
       <Banner>Random List of Things</Banner>
+      <h1>Blogs</h1>
+      <ul>
+        <OuterLink href="https://www.blog.radiator.debacle.us/search/label/design%20rant">
+          Robert Yang's Design Rants
+        </OuterLink>
+        <OuterLink href="http://www.lumpley.com/">Lumpley</OuterLink>
+        <OuterLink href="https://factorio.com/blog/search/c++">
+          Factorio
+        </OuterLink>
+        <OuterLink href="https://garry.net/posts">Garry's Blog</OuterLink>
+        <OuterLink href="https://jvns.ca/blog/brag-documents/">
+          Julia Evans on Brag Docs
+        </OuterLink>
+      </ul>
       <h1>Game Design</h1>
       <ul>
-        <li>
-          <a target="_blank" href="https://www.youtube.com/watch?v=c91IWh4agzU">
-            Will Wright's Design Plunder (With Slides)
-          </a>
-        </li>
+        <OuterLink href="https://www.youtube.com/watch?v=c91IWh4agzU">
+          Will Wright's Design Plunder (With Slides)
+        </OuterLink>
       </ul>
       <h1>Random</h1>
       <ul>

@@ -2,15 +2,14 @@ import Age from "../../components/Age";
 import Banner from "../../components/Banner";
 import { createPage } from "../../app";
 
-export default function Blogs_CirclePage() {
+export default function Blogs_MeGankPage() {
   return (
     <div className="blog">
-      <Banner>SJSU Arcade Launcher</Banner>
+      <Banner>mẹGank</Banner>
 
-      <h1>SJSU Arcade Launcher</h1>
+      <h1>mẹGank</h1>
       <p>
-        A light-weight launcher for the SJSU arcade cabinets. Used to display,
-        start, and monitor the games put on the arcade cabinets.
+        A showcase of RMIT student games.
       </p>
       <div className="content">
         <div className="media">
@@ -250,4 +249,4 @@ export default function Blogs_CirclePage() {
   );
 }
 
-createPage(Blogs_CirclePage);
+createPage(Blogs_MeGankPage);

@@ -1,0 +1,121 @@
+.bubble {
+  display: flex;
+  transform: scale(100%, 100%);
+  animation: bubblePop 0.3s normal ease-out;
+  user-select: none;
+  height: 7em;
+  align-self: center;
+}
+
+.bubble-inner {
+  align-self: center;
+  justify-self: center;
+  padding: 10px;
+  background: rgb(167, 211, 255);
+  border-radius: 10px;
+  border: 4px outset rgb(197, 236, 255);
+}
+
+.name {
+  align-self: center;
+}
+
+.status {
+  font-weight: bold;
+  align-self: center;
+}
+
+.results {
+  animation: startStageRight 0s normal forwards;
+}
+
+.avatar {
+  background-size: 64px;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
+  image-rendering: -moz-crisp-edges; /* Firefox                        */
+  image-rendering: -o-crisp-edges; /* Opera                          */
+  image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+  image-rendering: pixelated; /* Universal support since 2021   */
+  image-rendering: optimize-contrast; /* CSS3 Proposed                  */
+  -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
+
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  align-self: center;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 30%;
+  cursor: pointer;
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  width: 100%;
+  height: 600px;
+}
+
+.people {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+@keyframes bubblePop {
+  0% {
+    transform: scale(110%, 110%);
+  }
+  100% {
+    transform: scale(100%, 100%);
+  }
+}
+
+@keyframes exitStageLeft {
+  0% {
+    transform: translate(0%, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+@keyframes enterStageRight {
+  0% {
+    transform: translate(100%, 0);
+  }
+  100% {
+    transform: translate(0%, 0);
+  }
+}
+
+@keyframes startStageRight {
+  0% {
+    transform: translate(100%, 0);
+  }
+  100% {
+    transform: translate(100%, 0);
+  }
+}
+
+.reactions {
+  animation: startStageRight 0s normal forwards;
+}
+
+.selected {
+  .avatar {
+    outline: 5px solid lime;
+  }
+}

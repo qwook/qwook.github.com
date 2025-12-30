@@ -15,7 +15,7 @@ export default function Page({
       {showNav && (
         <div className="nav">
           <a className="nav-item" href="/list">
-            Random
+            Bookmarks
           </a>
           |
           <a className="nav-item" href="/archive">
