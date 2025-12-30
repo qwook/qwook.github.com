@@ -583,7 +583,7 @@ export default function InviteGamePage() {
         for (let i = 0; i < copy.length; i++) {
           const person = copy[i];
           const clone = { ...person };
-          if (clone.selected || clone.automaticIncrease) {
+          if (clone.selected || clone.rounds[clone.invites].automaticIncrease) {
             clone.invites++;
           }
           clone.selected = false;
