@@ -130,6 +130,16 @@ export default function InviteGamePage() {
           party: [],
           reality: false,
         },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
       ],
     },
     {
@@ -190,6 +200,16 @@ export default function InviteGamePage() {
           ],
           reality: true,
         },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
       ],
     },
     {
@@ -248,6 +268,16 @@ export default function InviteGamePage() {
             "want to go on a date some time?",
           ],
           reality: true,
+        },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
         },
       ],
     },
@@ -308,6 +338,16 @@ export default function InviteGamePage() {
         },
         {
           beckon: ["hey beautiful....", "i miss you"],
+          party: [],
+          reality: false,
+        },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
+        {
+          beckon: [],
           party: [],
           reality: false,
         },
@@ -378,6 +418,16 @@ export default function InviteGamePage() {
           reality: true,
           automaticIncrease: true,
         },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
       ],
     },
     {
@@ -398,6 +448,16 @@ export default function InviteGamePage() {
         {
           beckon: [],
           party: ["ah, maybe next time?"],
+          reality: false,
+        },
+        {
+          beckon: [],
+          party: [],
+          reality: false,
+        },
+        {
+          beckon: [],
+          party: [],
           reality: false,
         },
         {
