@@ -1,0 +1,24 @@
+.type-box {
+  display: inline-block;
+  background: black;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid yellow;
+  transition: border 0.5s;
+  text-align: left;
+}
+
+.type-box-stopper {
+  width: 300px;
+  // transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.expected {
+  color: yellow;
+}
+
+.focused {
+  border: 10px solid red;
+}

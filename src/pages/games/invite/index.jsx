@@ -1,4 +1,4 @@
-import { createPage } from "../../app";
+import { createPage } from "../../../app";
 import {
   forwardRef,
   useEffect,
@@ -8,10 +8,10 @@ import {
   useState,
 } from "react";
 import "./invite.scss";
-import { Collapsible } from "../../components/ui/Collapsible";
-import Button from "../../components/ui/Button";
-import { Panel } from "../../components/ui/Panel";
-import Banner from "../../components/Banner";
+import { Collapsible } from "../../../components/ui/Collapsible";
+import Button from "../../../components/ui/Button";
+import { Panel } from "../../../components/ui/Panel";
+import Banner from "../../../components/Banner";
 
 const Person = forwardRef(
   (
