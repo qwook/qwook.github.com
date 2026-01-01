@@ -491,7 +491,7 @@ function Zombie({ position }) {
 
       const comparison = telexComparison(text, proposal);
 
-      if (comparison > 0) {
+      if (comparison > 0 && proposal.length > 0) {
         if (focused) {
           setTyped(proposal);
           state.hit = 1;
