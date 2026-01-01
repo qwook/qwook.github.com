@@ -171,8 +171,6 @@ for (let key of Object.keys(ACCENT_DECODE_MAP)) {
 
 const VOWEL_PRIORITY = ["e", "o", "u", "a", "i", "y"];
 
-console.log(ACCESS_ENCODE_MAP);
-
 function convertToDecoded(text) {
   const codes = [];
   for (let letter of text) {
@@ -244,6 +242,18 @@ function telexComparison(left, right) {
 }
 
 const DICTIONARY_LEVEL_1 = [
+  "giờ",
+  "lịch",
+  "một",
+  "đi",
+  "xa",
+  "nhỏ",
+  "đẹp",
+  "dễ",
+  "bạn",
+];
+
+const DICTIONARY_LEVEL_2 = [
   "bún bò huế",
   "phở đạc biệt",
   "bánh xèo",
@@ -261,19 +271,20 @@ function Zombie({ position }) {
   const materialRef = useRef();
 
   const [text, setText] = useState(() => {
-    return convertToDecoded(
-      DICTIONARY_LEVEL_1[Math.floor(Math.random() * DICTIONARY_LEVEL_1.length)]
-    );
+    return [];
   });
   const [focused, setFocused] = useState(false);
   const [typed, setTyped] = useState([]);
 
   useEffect(() => {
+    respawn();
+
     return () => {
       // Oh nooo I am dead!
       // I don't want the focus anymore!!
       if (focused && game.focused.current) {
         game.focused.current = false;
+        game.removeWord(decodedToText(text));
       }
     };
   }, []);
@@ -291,18 +302,15 @@ function Zombie({ position }) {
     root.current.position.y = position[1];
     root.current.position.z = -10;
 
+    game.removeWord(decodedToText(text));
+
     if (focused && game.focused.current) {
       game.focused.current = false;
       setFocused(false);
-      setText(
-        convertToDecoded(
-          DICTIONARY_LEVEL_1[
-            Math.floor(Math.random() * DICTIONARY_LEVEL_1.length)
-          ]
-        )
-      );
-      setTyped([]);
     }
+
+    setText(convertToDecoded(game.generateWord()));
+    setTyped([]);
   };
 
   const state = useThree();
@@ -339,7 +347,6 @@ function Zombie({ position }) {
 
   useEffect(() => {
     const keyPress = (e) => {
-      console.log(e.code);
       // This is a letter!
       const proposal = _.cloneDeep(typed);
       if (KEY_TO_CHAR[e.code]) {
@@ -367,7 +374,6 @@ function Zombie({ position }) {
             if (proposal[i].letter == " ") {
               break;
             }
-            console.log(proposal[i].letter);
             if (proposal[i].letter == "u" || proposal[i].letter == "o") {
               proposal[i].variation = ",";
             }
@@ -377,7 +383,6 @@ function Zombie({ position }) {
             if (proposal[i].letter == " ") {
               break;
             }
-            console.log(proposal[i].letter);
             if (proposal[i].letter == "a") {
               proposal[i].variation = "U";
             }
@@ -480,9 +485,9 @@ function Zombie({ position }) {
         }
       }
 
-      console.log(text);
-      console.log(proposal);
-      console.log(telexComparison(text, proposal));
+      // console.log(text);
+      // console.log(proposal);
+      // console.log(telexComparison(text, proposal));
 
       const comparison = telexComparison(text, proposal);
 
@@ -547,6 +552,47 @@ export default function TelexGamePage() {
   const [playing, setPlaying] = useState(false);
   const [score, setScore] = useState(0);
   const [life, setLife] = useState(3);
+  const wordsUsed = useRef([]);
+
+  const generateWord = () => {
+    if (wordsUsed.current) {
+      for (let i = 0; i < 10; i++) {
+        const randomWord =
+          DICTIONARY_LEVEL_1[
+            Math.floor(DICTIONARY_LEVEL_1.length * Math.random())
+          ];
+        if (
+          wordsUsed.current
+            .map(
+              (word) =>
+                ACCENT_DECODE_MAP[word.charAt(0)]?.letter || word.charAt(0)
+            )
+            .indexOf(
+              ACCENT_DECODE_MAP[randomWord.charAt(0)]?.letter ||
+                randomWord.charAt(0)
+            ) === -1
+        ) {
+          wordsUsed.current.push(randomWord);
+          return randomWord;
+        }
+      }
+
+      const randomWord =
+        DICTIONARY_LEVEL_1[
+          Math.floor(DICTIONARY_LEVEL_1.length * Math.random())
+        ];
+      wordsUsed.current.push(randomWord);
+      return randomWord;
+    }
+  };
+
+  const removeWord = (word) => {
+    console.log("remove " + word);
+
+    if (wordsUsed.current.indexOf(word) !== -1) {
+      wordsUsed.current.splice(wordsUsed.current.indexOf(word), 1);
+    }
+  };
 
   useEffect(() => {
     if (life <= 0) {
@@ -563,6 +609,8 @@ export default function TelexGamePage() {
             setScore(0);
             setLife(3);
             setPlaying(true);
+            wordsUsed.current = [];
+            focused.current = false;
           }}
         >
           Play
@@ -580,6 +628,8 @@ export default function TelexGamePage() {
             setLife,
             playing,
             setPlaying,
+            generateWord,
+            removeWord,
           }}
         >
           <Canvas>
