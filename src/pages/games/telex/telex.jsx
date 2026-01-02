@@ -682,10 +682,13 @@ playCameraAnimation();
 
 function Scene({ stage, onCameraEnded }) {
   const map = useTexture(require("./assets/concrete.jpg"));
-  const skybox = useTexture(require("./assets/sky.jpg"));
+  const skybox = useTexture(require("./assets/sky.gif"));
+  const cabin = useTexture(require("./assets/cabin.jpg"));
 
   const state = useThree();
-  const { camera } = state;
+  const { camera, scene } = state;
+
+  scene.background = skybox;
 
   const cameraState = useRef({}).current;
 
@@ -771,7 +774,7 @@ function Scene({ stage, onCameraEnded }) {
       </mesh>
       <mesh scale={[5, 5, 5]} position={[0, 0, 0]}>
         <boxGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" map={map} />
+        <meshStandardMaterial attach="material" map={cabin} />
       </mesh>
     </>
   );
