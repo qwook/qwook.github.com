@@ -252,7 +252,7 @@ const DICTIONARY_LEVEL_1 = [
   "dễ",
   "bạn",
   "ngon",
-  "vậng",
+  "vâng",
   "thứ",
   "xe",
   "máy",
@@ -690,6 +690,10 @@ function Scene({ stage, onCameraEnded }) {
   }, []);
 
   useFrame((state, delta) => {
+    if (state.size.height > state.size.width) {
+      state.camera.fov = 120;
+      state.camera.updateProjectionMatrix();
+    }
     if (cameraState.cameraAnimId !== -1) {
       const goal =
         KEY_POINTS[cameraState.cameraAnimId]?.track[
@@ -837,6 +841,17 @@ export default function TelexGamePage() {
     }
   }, []);
 
+  const floatingInput = useRef();
+  useEffect(() => {
+    const floatingInputFocus = () => {
+      floatingInput.current.focus();
+    };
+    window.addEventListener("click", floatingInputFocus);
+    return () => {
+      window.removeEventListener("click", floatingInputFocus);
+    };
+  }, []);
+
   return (
     <>
       <Banner>Telex of The Dead</Banner>
@@ -856,7 +871,13 @@ export default function TelexGamePage() {
       )}
       <p>Score: {score}</p>
       <p>Life: {life}</p>
-      <div style={{ height: 500 }}>
+      <div style={{ height: 500, position: "relative" }}>
+        <input
+          ref={floatingInput}
+          type="text"
+          className="floating-input"
+          value={""}
+        ></input>
         <GameContext.Provider
           value={{
             focused: focused,
