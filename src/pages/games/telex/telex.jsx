@@ -584,7 +584,9 @@ function Zombie({ position, onDeath, speed = 2 }) {
           <div className="type-box-stopper">
             <div className={["type-box", focused && "focused"].join(" ")}>
               <div className="expected">{decodedToText(text)}</div>
-              <div className="typed">{decodedToText(typed)}</div>
+              <div className="typed">
+                {decodedToText(typed) + (typed.length > 0 ? "_" : "")}
+              </div>
             </div>
           </div>
         </Html>
