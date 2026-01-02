@@ -274,7 +274,6 @@ const DICTIONARY_LEVEL_2 = [
   "hủ tiếu",
   "phở trộn",
   "đạc biệt",
-  "vui qúa",
 ];
 
 const GameContext = createContext();
