@@ -169,7 +169,7 @@ for (let key of Object.keys(ACCENT_DECODE_MAP)) {
     key;
 }
 
-const VOWEL_PRIORITY = ["e", "o", "u", "a", "i", "y"];
+const VOWEL_PRIORITY = ["e", "a", "o", "u", "i", "y"];
 
 function convertToDecoded(text) {
   const codes = [];
@@ -274,7 +274,7 @@ const DICTIONARY_LEVEL_2 = [
   "hủ tiếu",
   "phở trộn",
   "đạc biệt",
-  "vui quá",
+  "vui qúa",
 ];
 
 const GameContext = createContext();
