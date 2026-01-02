@@ -862,6 +862,7 @@ export default function TelexGamePage() {
             setScore(0);
             setLife(3);
             setPlaying(true);
+            setEntities([]);
             startRound(0);
             wordsUsed.current = [];
             focused.current = false;
