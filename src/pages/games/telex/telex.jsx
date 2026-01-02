@@ -2,10 +2,18 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { createPage } from "../../../app";
 import Banner from "../../../components/Banner";
 import { Html, useTexture } from "@react-three/drei";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import * as THREE from "three";
 import "./telex.scss";
 import Button from "../../../components/ui/Button";
+import { Howl, Howler } from "howler";
 
 /*
 
@@ -314,6 +322,17 @@ function Zombie({ position, onDeath, speed = 2 }) {
 
     onDeath && onDeath();
     setDead(true);
+    // game.sounds["death"].volume(
+    //   (10 - root.current.position.distanceTo(state.camera.position)) / 10
+    // );
+    const side = new THREE.Vector3(0, 1, 0).cross(
+      state.camera.getWorldDirection(new THREE.Vector3())
+    );
+    const pan = side.dot(
+      root.current.position.clone().sub(state.camera.position).normalize()
+    );
+    game.sounds["death"].stereo(-pan * 0.7);
+    game.sounds["death"].play();
 
     if (focused) {
       game.removeWord(decodedToText(text));
@@ -538,12 +557,14 @@ function Zombie({ position, onDeath, speed = 2 }) {
       if (comparison > 0 && proposal.length > 0) {
         if (focused) {
           setTyped(proposal);
+          game.sounds["shot"].play();
           state.hit = 1;
         } else {
           if (!game.focused.current) {
             game.focused.current = true;
             setFocused(true);
             setTyped(proposal);
+            game.sounds["shot"].play();
             state.hit = 1;
           }
         }
@@ -853,6 +874,63 @@ export default function TelexGamePage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (playing) {
+      sounds["music"].play();
+      sounds["deathMusic"].stop();
+    } else {
+      sounds["music"].stop();
+      sounds["deathMusic"].play();
+      sounds["deathMusic"].fade(0, 1, 5);
+    }
+  }, [playing]);
+
+  const sounds = useMemo(
+    () => ({
+      shot: new Howl(
+        {
+          src: require("./assets/shot.mp3"),
+          autoplay: false,
+          volume: 1,
+          // html5: true,
+        },
+        []
+      ),
+      death: new Howl(
+        {
+          src: require("./assets/death1.mp3"),
+          autoplay: false,
+          volume: 1,
+          // html5: true,
+        },
+        []
+      ),
+      music: new Howl(
+        {
+          src: require("./assets/4our.mp3"),
+          autoplay: false,
+          volume: 1,
+          loop: true,
+          pool: 1,
+          html5: true,
+        },
+        []
+      ),
+      deathMusic: new Howl(
+        {
+          src: require("./assets/death_music.mp3"),
+          autoplay: false,
+          volume: 1,
+          loop: true,
+          pool: 1,
+          html5: true,
+        },
+        []
+      ),
+    }),
+    []
+  );
+
   return (
     <>
       <Banner>Telex of The Dead</Banner>
@@ -864,6 +942,7 @@ export default function TelexGamePage() {
             setPlaying(true);
             setEntities([]);
             startRound(0);
+            zombiesToTrack.current = [];
             wordsUsed.current = [];
             focused.current = false;
           }}
@@ -871,6 +950,7 @@ export default function TelexGamePage() {
           Play
         </Button>
       )}
+      <p>Song: Phút Cuối Cùng by 4our</p>
       <p>Score: {score}</p>
       <p>Life: {life}</p>
       <div style={{ height: 500, position: "relative" }}>
@@ -891,6 +971,7 @@ export default function TelexGamePage() {
             setPlaying,
             generateWord,
             removeWord,
+            sounds,
           }}
         >
           <Canvas scene={{ background: "black" }}>
