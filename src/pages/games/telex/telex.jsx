@@ -249,7 +249,9 @@ function telexComparison(left, right) {
   }
 }
 
-const DICTIONARY_LEVEL_1 = [
+const DICTIONARY_LEVEL_1 = ["ê", "dê", "bê"];
+
+let z = [
   "giờ",
   "lịch",
   "một",
@@ -408,6 +410,10 @@ function Zombie({ position, onDeath, speed = 2 }) {
 
   useEffect(() => {
     const keyPress = (e) => {
+      if (game.focused.current && !focused) {
+        return;
+      }
+
       // This is a letter!
       const proposal = _.cloneDeep(typed);
       if (KEY_TO_CHAR[e.code]) {
@@ -415,7 +421,7 @@ function Zombie({ position, onDeath, speed = 2 }) {
       }
 
       // W key or , accent mark or U accent mark
-      if (e.code === "KeyW") {
+      if (e.code === "KeyW" || e.code === "Digit7") {
         // Search for U or O.
         let haveUorO = false;
         let haveA = false;
@@ -439,7 +445,7 @@ function Zombie({ position, onDeath, speed = 2 }) {
               proposal[i].variation = ",";
             }
           }
-        } else if (haveA) {
+        } else if (haveA && e.code === "KeyW") {
           for (let i = proposal.length - 1; i >= 0; i--) {
             if (proposal[i].letter == " ") {
               break;
@@ -481,7 +487,14 @@ function Zombie({ position, onDeath, speed = 2 }) {
         e.code === "KeyS" ||
         e.code === "KeyF" ||
         e.code === "KeyX" ||
-        e.code === "KeyJ"
+        e.code === "KeyJ" ||
+        e.code === "KeyZ" ||
+        e.code === "Digit0" ||
+        e.code === "Digit1" ||
+        e.code === "Digit2" ||
+        e.code === "Digit3" ||
+        e.code === "Digit4" ||
+        e.code === "Digit5"
       ) {
         let vowelsFound = [];
         let vowelIndex;
@@ -497,18 +510,30 @@ function Zombie({ position, onDeath, speed = 2 }) {
         }
         vowelsFound.sort((a, b) => a.priority - b.priority);
         if (vowelsFound.length > 0) {
-          if (e.code === "KeyR") {
+          if (e.code === "KeyR" || e.code === "Digit3") {
             proposal[vowelsFound[0].vowelIndex].accent = "?";
-          } else if (e.code === "KeyS") {
+          } else if (e.code === "KeyS" || e.code === "Digit1") {
             proposal[vowelsFound[0].vowelIndex].accent = "/";
-          } else if (e.code === "KeyF") {
+          } else if (e.code === "KeyF" || e.code === "Digit2") {
             proposal[vowelsFound[0].vowelIndex].accent = "|";
-          } else if (e.code === "KeyX") {
+          } else if (e.code === "KeyX" || e.code === "Digit4") {
             proposal[vowelsFound[0].vowelIndex].accent = "~";
-          } else if (e.code === "KeyJ") {
+          } else if (e.code === "KeyJ" || e.code === "Digit5") {
             proposal[vowelsFound[0].vowelIndex].accent = ".";
+          } else if (e.code === "KeyZ" || e.code === "Digit0") {
+            proposal[vowelsFound[0].vowelIndex].accent = null;
           }
-          if (e.code !== "KeyF" && e.code !== "KeyJ") {
+
+          if (
+            e.code !== "KeyF" &&
+            e.code !== "KeyJ" &&
+            e.code !== "Digit0" &&
+            e.code !== "Digit1" &&
+            e.code !== "Digit2" &&
+            e.code !== "Digit3" &&
+            e.code !== "Digit4" &&
+            e.code !== "Digit5"
+          ) {
             proposal.pop();
           }
         }
@@ -546,13 +571,55 @@ function Zombie({ position, onDeath, speed = 2 }) {
         }
       }
 
+      // Add ^ hat for VNI
+      if (e.code === "Digit6") {
+        for (let i = proposal.length - 1; i >= 0; i--) {
+          if (proposal[i].letter == " ") {
+            break;
+          }
+
+          console.log(proposal[i].letter);
+          if (["a", "o", "e"].indexOf(proposal[i].letter) !== -1) {
+            proposal[i].variation = "^";
+            break;
+          }
+        }
+      }
+
+      // Add u hat for a
+      if (e.code === "Digit8") {
+        for (let i = proposal.length - 1; i >= 0; i--) {
+          if (proposal[i].letter == " ") {
+            break;
+          }
+
+          if (proposal[i].letter === "a") {
+            proposal[i].variation = "U";
+            break;
+          }
+        }
+      }
+
+      // Add - for d
+      if (e.code === "Digit9") {
+        for (let i = proposal.length - 1; i >= 0; i--) {
+          if (proposal[i].letter == " ") {
+            break;
+          }
+
+          if (proposal[i].letter === "d") {
+            proposal[i].variation = "-";
+            break;
+          }
+        }
+      }
+      // if (e.code === "Key1")
+
       // console.log(text);
       // console.log(proposal);
       // console.log(telexComparison(text, proposal));
 
       const comparison = telexComparison(text, proposal);
-
-      console.log(game.focused.current);
 
       if (comparison > 0 && proposal.length > 0) {
         if (focused) {
