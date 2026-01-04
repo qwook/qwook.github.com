@@ -28,7 +28,7 @@ Chasing after human.
 2 more zombies walking slowly
 
 Level 3:
-Zombie throwing barrels. (Small words)
+Zombie throwing barrels. (Small words, Letters)
 
 Level 4:
 Giant zombie.
@@ -249,9 +249,9 @@ function telexComparison(left, right) {
   }
 }
 
-const DICTIONARY_LEVEL_1 = ["ê", "dê", "bê"];
+const DICTIONARY_LEVEL_1 = ["â", "ô", "ê", "í", "à", "ạ", "ọ", "ư", "ố"];
 
-let z = [
+const DICTIONARY_LEVEL_2 = [
   "giờ",
   "lịch",
   "một",
@@ -272,7 +272,7 @@ let z = [
   "trà",
 ];
 
-const DICTIONARY_LEVEL_2 = [
+const DICTIONARY_LEVEL_3 = [
   // "bún bò huế",
   "bún bò",
   // "phở đạc biệt",
@@ -862,12 +862,13 @@ export default function TelexGamePage() {
   const [entities, setEntities] = useState([]);
 
   const generateWord = () => {
+    const dictionary = [
+      ...DICTIONARY_LEVEL_1,
+      ...(score > 20 ? DICTIONARY_LEVEL_2 : []),
+      ...(score > 30 ? DICTIONARY_LEVEL_3 : []),
+    ];
     if (wordsUsed.current) {
       for (let i = 0; i < 10; i++) {
-        const dictionary = [
-          ...DICTIONARY_LEVEL_1,
-          ...(score > 10 ? DICTIONARY_LEVEL_2 : []),
-        ];
         const randomWord =
           dictionary[Math.floor(dictionary.length * Math.random())];
         if (
