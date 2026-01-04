@@ -4,8 +4,10 @@ import Banner from "../../../components/Banner";
 import { Html, useTexture } from "@react-three/drei";
 import {
   createContext,
+  forwardRef,
   useContext,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
   useState,
@@ -283,7 +285,7 @@ const DICTIONARY_LEVEL_3 = [
   "cà phê",
   "hủ tiếu",
   "phở trộn",
-  "đạc biệt",
+  "đặc biệt",
 ];
 
 const GameContext = createContext();
@@ -673,13 +675,24 @@ function Zombie({ position, onDeath, speed = 2 }) {
             <div className={["type-box", focused && "focused"].join(" ")}>
               <div className="expected">{decodedToText(text)}</div>
               <div className="typed">
-                {decodedToText(typed) + (typed.length > 0 ? "_" : "")}
+                <UnderlineLastLetter text={decodedToText(typed)} />
               </div>
             </div>
           </div>
         </Html>
       )}
     </object3D>
+  );
+}
+
+function UnderlineLastLetter({ text }) {
+  return (
+    <>
+      {text.substring(0, text.length - 1)}
+      <span style={{ borderBottom: "3px solid white" }}>
+        {text.substring(text.length - 1)}
+      </span>
+    </>
   );
 }
 
@@ -747,7 +760,7 @@ playCameraAnimation();
 
 */
 
-function Scene({ stage, onCameraEnded }) {
+const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
   const map = useTexture(require("./assets/concrete.jpg"));
   const skybox = useTexture(require("./assets/sky.gif"));
   const cabin = useTexture(require("./assets/cabin.jpg"));
@@ -758,6 +771,37 @@ function Scene({ stage, onCameraEnded }) {
   scene.background = skybox;
 
   const cameraState = useRef({}).current;
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        jumpToBeginning(round) {
+          cameraState.cameraAnimId = round || cameraState.cameraAnimId;
+          if (cameraState.cameraAnimId !== -1) {
+            cameraState.cameraAnimSubId = 0;
+            cameraState.cameraAnimTime = 0;
+            const goal =
+              KEY_POINTS[cameraState.cameraAnimId]?.track[
+                cameraState.cameraAnimSubId
+              ];
+            if (goal) {
+              cameraState.cameraAnimTime = goal.duration;
+              const goalPos = new THREE.Vector3(...goal.position);
+              const goalAng = new THREE.Quaternion().setFromEuler(
+                new THREE.Euler(...goal.rotation, "ZYX")
+              );
+              camera.position.copy(goalPos);
+              camera.quaternion.copy(goalAng);
+              cameraState.cameraStartPos = camera.position.clone();
+              cameraState.cameraStartAng = camera.quaternion.clone();
+            }
+          }
+        },
+      };
+    },
+    []
+  );
 
   const playCameraAnimation = (id) => {
     cameraState.cameraAnimId = id;
@@ -845,7 +889,7 @@ function Scene({ stage, onCameraEnded }) {
       </mesh>
     </>
   );
-}
+});
 
 let GLOBAL_ENTITY_TRACKER = 0;
 let DEBUG_STAGE = null;
@@ -856,6 +900,7 @@ export default function TelexGamePage() {
   const [score, setScore] = useState(0);
   const [life, setLife] = useState(3);
   const wordsUsed = useRef([]);
+  const scene = useRef();
 
   // Idk man...
   // Idk how to handle entities in react cleanly.
@@ -1013,6 +1058,7 @@ export default function TelexGamePage() {
             setPlaying(true);
             setEntities([]);
             startRound(0);
+            scene.current.jumpToBeginning(round);
             zombiesToTrack.current = [];
             wordsUsed.current = [];
             focused.current = false;
@@ -1097,8 +1143,116 @@ export default function TelexGamePage() {
               //   <Zombie position={[-8, -3, -8]} />
               // </>
             }
-            <Scene stage={round} />
+            <Scene ref={scene} stage={round} />
           </Canvas>
+          <h1>How to play:</h1>
+          <p>
+            This game implements two ways of typing Vietnamese characters, Telex
+            and VNI.
+          </p>
+          <p>
+            With telex, you can modify any vowel by typing a modifier letter
+            directly after the vowel. Ex: uow becomes ươ
+          </p>
+          <p>The same can be done with other letters:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Typed</th>
+                <th>Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  a<strong>s</strong>
+                </td>
+                <td>á</td>
+              </tr>
+              <tr>
+                <td>
+                  a<strong>f</strong>
+                </td>
+                <td>à</td>
+              </tr>
+              <tr>
+                <td>
+                  o<strong>j</strong>
+                </td>
+                <td>ọ</td>
+              </tr>
+              <tr>
+                <td>
+                  o<strong>x</strong>
+                </td>
+                <td>õ</td>
+              </tr>
+              <tr>
+                <td>
+                  o<strong>r</strong>
+                </td>
+                <td>ỏ</td>
+              </tr>
+              <tr>
+                <td>
+                  o<strong>w</strong>
+                </td>
+                <td>ơ</td>
+              </tr>
+              <tr>
+                <td>
+                  u<strong>w</strong>
+                </td>
+                <td>ư</td>
+              </tr>
+              <tr>
+                <td>
+                  uo<strong>w</strong>
+                </td>
+                <td>ươ</td>
+              </tr>
+              <tr>
+                <td>
+                  a<strong>w</strong>
+                </td>
+                <td>ă</td>
+              </tr>
+              <tr>
+                <td colSpan={2}>
+                  Typing o,e,a vowels twice modifies it with a ^ hat.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  o<strong>o</strong>
+                </td>
+                <td>ô</td>
+              </tr>
+              <tr>
+                <td>
+                  e<strong>e</strong>
+                </td>
+                <td>ê</td>
+              </tr>
+              <tr>
+                <td>
+                  a<strong>a</strong>
+                </td>
+                <td>â</td>
+              </tr>
+              <tr>
+                <td colSpan={2}>
+                  You can use multiple modifiers on a character.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  a<strong>as</strong>
+                </td>
+                <td>ấ</td>
+              </tr>
+            </tbody>
+          </table>
         </GameContext.Provider>
       </div>
     </>
