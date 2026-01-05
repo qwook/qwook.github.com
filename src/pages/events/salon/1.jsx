@@ -1,129 +1,27 @@
 import { useEffect, useRef, useState } from "react";
-import { createPage } from "../../app";
-import { EventSpecial } from "../../components/events/event-special";
-import cub from "./htmlday2025/cub.txt";
-import { headTags } from "../../utils/headTags";
-import "./htmlday2025/style.scss";
+import { createPage } from "../../../app";
+import { EventSpecial } from "../../../components/events/event-special";
+import { headTags } from "../../../utils/headTags";
+import "./salon.scss";
 
 headTags({
   title: "HTML Day 2025 - Sài Gòn",
   description: "a day of HTML freewrite",
-  image: require("./htmlday2025/metadata.png"),
 });
 
 const TITLE = "HTML Day 2025 - Sài Gòn";
 
 export default function EventPage() {
-  const xeMay = useRef();
-  const xeMayX = useRef(0);
-  const direction = useRef("right");
   const [language, setLanguage] = useState("vn");
-
-  const [anim, setAnim] = useState([]);
-
-  const symbols = `|/-*-\\|/-\\|/-#-\\|/-\\|/-\\|/-\\|/-\\yad lmth/-\\|/-\\`;
-  const symbol = useRef(0);
-  const height = useRef(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (direction.current === "right") {
-        xeMayX.current += 3;
-        if (xeMayX.current > 100) {
-          direction.current = "left";
-        }
-      } else {
-        xeMayX.current -= 3;
-        if (xeMayX.current < 0) {
-          direction.current = "right";
-        }
-      }
-      xeMay.current.style.transform = `translate(${
-        xeMayX.current - 25
-      }%, 0) scale(${direction.current === "right" ? 1 : -1}, 1) translateX(${
-        direction.current === "left" ? 250 : 0
-      }px)`;
-
-      setAnim((anim) => {
-        const copy = [...anim];
-        copy.splice(
-          0,
-          0,
-          new Array(Math.floor((Math.sin(height.current / 3) + 1.8) * 3)).join(
-            symbols[symbol.current]
-          )
-        );
-        if (copy.length > 9) {
-          copy.splice(9, 1);
-        }
-        return copy;
-      });
-
-      height.current += 1;
-      symbol.current = (symbol.current + 1) % symbols.length;
-    }, 100);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   return (
     <>
-      <div className="archive">
-        <div className="archive-body">
-          Thanks so much for attending! Here is an archive of the websites that
-          were created:
-          <br />
-          <br />
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {[
-              "~monicachauhuynh",
-              "~hatrangtraan",
-              "~mikeyokei",
-              "~nohurryhen",
-              "~___duc_hai",
-              "~rabi",
-              "~scarlett",
-              "~tiff_nguyennn",
-              "~viveevyviev",
-              "~la",
-            ].map((url, idx) => {
-              return (
-                <div className="row" key={url}>
-                  <div
-                    className="icon"
-                    style={{
-                      width: 14,
-                      height: 16,
-                      flex: "0 0 14px",
-                      backgroundImage: `url(${require("./htmlday2025/file.gif")})`,
-                    }}
-                  />
-                  <div>
-                    <a
-                      href={"/events/htmlday2025/" + url + "/"}
-                      target="_blank"
-                      style={{}}
-                    >
-                      {url}
-                    </a>
-                  </div>
-                  <div className="dots" style={{ flexGrow: 1 }}></div>
-                  <div>{anim[idx]}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      <div className="archive-under">
+      <div>
         <EventSpecial
           title={TITLE}
           titleHtml={
             <>
-              HTML Day 2025
-              <br />
-              Sài Gòn
+              Sài Gòn Sà Lon
             </>
           }
           start="August 2, 2025 1:30 PM"
@@ -157,9 +55,6 @@ export default function EventPage() {
           </a>
           <br />
           <br />
-          <pre ref={xeMay} className="cub" style={{ width: 640, fontSize: 12 }}>
-            {cub}
-          </pre>
           {language === "vn" ? (
             <>
               <div className="q">Ngày hội HTML là gì?</div>
@@ -219,7 +114,6 @@ export default function EventPage() {
               </div>
             </>
           )}
-          <p>🛵🏙️🇻🇳</p>
         </EventSpecial>
       </div>
     </>

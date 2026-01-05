@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Xanh+Mono:ital@0;1&family=Yeseva+One&display=swap");
+
+body {
+  background: rgb(255, 253, 246) url("./bg.gif");
+  color: black;
+  margin: 0;
+  padding: 50px;
+  line-height: 1.5em;
+  // width: 100%;
+
+  font-family: "Xanh Mono", "Georgia", "Times New Roman", serif;
+
+  h1 {
+    color: rgb(0, 0, 0);
+    // font-family: "Yeseva One";
+  }
+
+  .cub {
+    // color: black;
+    // text-shadow: 0px 0px 20px black;
+    color: lime;
+    text-shadow: 0px 0px 5px lime;
+  }
+
+  .event {
+    max-width: 640px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  pre {
+    width: 100%;
+  }
+
+  a,
+  .fake-link {
+    display: inline;
+    color: blue;
+    text-decoration: none;
+    border-bottom: 1px dotted white;
+    &:hover,
+    &:active {
+      color: white;
+      background-color: blue;
+      // border-bottom: 1px solid transparent;
+      outline: 1px dotted white;
+    }
+    &:active {
+      background-color: purple;
+      text-decoration: none;
+    }
+  }
+
+  &::selection {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-shadow: 0px 0px 5px white;
+  }
+
+  b {
+    color: red;
+  }
+
+  .icon {
+    display: block;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+    flex: 0 0 20px;
+
+    image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges; /* Firefox                        */
+    image-rendering: -o-crisp-edges; /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Universal support since 2021   */
+    image-rendering: optimize-contrast; /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    box-shadow: -5px 5px 0px rgb(123, 123, 209);
+
+    // font-family: "Times New Roman";
+    letter-spacing: 0.01em;
+    text-shadow: -2px 2px 0px rgb(0, 0, 255), -3px 3px 0px rgb(231, 238, 255);
+    background: rgb(194, 194, 255);
+    color: white;
+    padding: 10px;
+    &:before {
+      content: "✰	";
+    }
+
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  .q {
+    font-weight: bold;
+    // letter-spacing: -0.05em;
+    font-size: 1.2em;
+    // font-family: "Yeseva One";
+    padding-top: 1em;
+  }
+
+  .RSVP {
+    font-size: 50px;
+    text-decoration: none;
+    background: rgb(0, 0, 0);
+    color: white;
+    padding: 10px;
+    outline: 1px dashed black;
+    border: 0px;
+  }
+
+  .language.selected,
+  .language:hover {
+    text-decoration: none;
+    color: white;
+    background: blue;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+}
+
+.archive,
+.archive-under {
+  padding: 30px;
+}
+
+.archive {
+  box-shadow: 0px -10px 20px black;
+  background: white;
+}
+
+.archive-body {
+  max-width: 640px;
+
+  .row {
+    .url-holder {
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .dots {
+      border-bottom: 1px dotted black;
+      margin-bottom: 10px;
+      margin-left: 10px;
+    }
+  }
+}
+
+h2 {
+  // padding-bottom: 5px;
+}
+
+.salon-table {
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  line-height: 1em;
+
+  td:nth-child(2) {
+    text-align: right;
+  }
+
+  tr:before {
+    content: "↳";
+  }
+}
+
+.canvas-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}

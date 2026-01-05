@@ -1253,6 +1253,10 @@ export default function TelexGamePage() {
               </tr>
             </tbody>
           </table>
+          <p>
+            The other way of writing vietnamese, using numbers instead, is
+            implemented. I'm too lazy to write about it now.
+          </p>
         </GameContext.Provider>
       </div>
     </>

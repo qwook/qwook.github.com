@@ -1,8 +1,6 @@
 import { google, outlook, office365, yahoo, ics } from "calendar-link";
 import { useMemo } from "react";
 
-import "./event-special.scss";
-
 export function EventSpecial({
   title,
   titleHtml,
