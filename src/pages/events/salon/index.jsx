@@ -179,11 +179,18 @@ export default function EventPage() {
         <P5Canvas />
         <h1>show&telex</h1>
         <p>
-          A casual show and tell of cool technological creative work in trung
-          tâm Sài Gòn. Software + Hardware + Art + Play!
+          A casual{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/Salon_(gathering)"
+            target="_blank"
+          >
+            salon
+          </a>{" "}
+          where we present, demo, or educate about cool technological creative
+          work in trung tâm Sài Gòn. Software + Hardware + Art + Play!
         </p>
         <h2>
-          Salon 1 - 25/1/2026 <img src={require("./new.gif")} />
+          salon 1 - 25/1/2026 <img src={require("./new.gif")} />
           <sub>
             <a href="/events/salon/1">Register to Attend</a>
           </sub>

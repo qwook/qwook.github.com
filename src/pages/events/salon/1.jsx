@@ -6,11 +6,11 @@ import "./salon.scss";
 import { TdWithPreview } from "./td";
 
 headTags({
-  title: "HTML Day 2025 - Sài Gòn",
-  description: "a day of HTML freewrite",
+  title: "show&telex - 25/1/2026",
+  description: "show and tell in sài gòn",
 });
 
-const TITLE = "HTML Day 2025 - Sài Gòn";
+const TITLE = "show&telex - 25/1/2026";
 
 export default function EventPage() {
   const [language, setLanguage] = useState("en");
@@ -62,11 +62,17 @@ export default function EventPage() {
             <>
               <div className="q">What is this?</div>
               <div className="a">
-                A casual show and tell of cool technological creative work in
-                trung tâm Sài Gòn. Software + Hardware + Art + Play!{" "}
-                <a href="/events/salon/">
-                  Check out our previous show and tells!
-                </a>
+                A casual{" "}
+                <a
+                  href="https://en.wikipedia.org/wiki/Salon_(gathering)"
+                  target="_blank"
+                >
+                  salon
+                </a>{" "}
+                where we present, demo, or educate about cool technological
+                creative work in trung tâm Sài Gòn. Software + Hardware + Art +
+                Play!{" "}
+                <a href="/events/salon/">Check out our previous salons!</a>
               </div>
               <div className="q">Who's show and telling?</div>
               <div className="a">
