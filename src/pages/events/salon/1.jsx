@@ -19,12 +19,8 @@ export default function EventPage() {
       <div>
         <EventSpecial
           title={TITLE}
-          titleHtml={
-            <>
-              Sài Gòn Sà Lon
-            </>
-          }
-          start="August 2, 2025 1:30 PM"
+          titleHtml={<>show&telex 1</>}
+          start="January 25, 2026 3:30 PM"
           duration={[3, "hour"]}
           hosts={[
             {
@@ -34,6 +30,10 @@ export default function EventPage() {
             {
               name: "Spencer",
               url: "https://instagram.com/iamtheangrysons",
+            },
+            {
+              name: "Quang-Anh",
+              url: "https://instagram.com/boltself",
             },
             {
               name: "Jay",
@@ -89,28 +89,18 @@ export default function EventPage() {
             <>
               <div className="q">What is this?</div>
               <div className="a">
-                a yearly event where we write HTML together
+                A casual show and tell of cool technological creative work in
+                trung tâm Sài Gòn. Software + Hardware + Art + Play!
               </div>
-              <div className="q">What should I bring?</div>
+              <div className="q">Can I demo?</div>
+              <div className="a">Reach out to one of us with your project.</div>
+              <div className="q">What's the schedule?</div>
               <div className="a">
-                a charged computer, friends, good energy, and some basic html
-                skills.
-              </div>
-              <div className="q">Where exactly?</div>
-              <div className="a">
-                it'll most likely rain, so a coffee shop in District 1 or an
-                apartment :) specific location announced in instagram group.
-                please RSVP.
-              </div>
-              <div className="q">
-                I'm not in Sài Gòn, is there an event in my city?
-              </div>
-              <div className="a">
-                check out the{" "}
-                <a href="https://html.energy/events.html">
-                  html energy events page
-                </a>
-                . If your city isn't listed, feel free to organize your own!
+                <ul>
+                  <li>15hr30 - Doors Open</li>
+                  <li>16hr00 - Presentations</li>
+                  <li>17hr00 - Hangout</li>
+                </ul>
               </div>
             </>
           )}

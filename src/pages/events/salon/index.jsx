@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPage } from "../../../app";
 import { EventSpecial } from "../../../components/events/event-special";
 import { headTags } from "../../../utils/headTags";
@@ -6,8 +6,8 @@ import "./salon.scss";
 import p5 from "p5";
 
 headTags({
-  title: "HTML Day 2025 - Sài Gòn",
-  description: "a day of HTML freewrite",
+  title: "show&telex",
+  description: "A day to show off your creative projects.",
 });
 
 const TITLE = "HTML Day 2025 - Sài Gòn";
@@ -25,7 +25,7 @@ function P5Canvas() {
     strokeWidthRef.current = strokeWidth;
   }, [strokeWidth]);
 
-  const sketch = (p) => {
+  const sketch = useCallback((p) => {
     p.setup = () => {
       const rectangle = canvasContainer.current.getBoundingClientRect();
       const canvas = p.createCanvas(rectangle.width, rectangle.height);
@@ -37,8 +37,8 @@ function P5Canvas() {
       // Set the noise level and scale.
       let noiseLevel = 255;
       let noiseScale = 0.09;
-      offsetTime += p.deltaTime * 0.0001;
-      offsetX += p.deltaTime * 0.001;
+      offsetTime += p.deltaTime * 0.0005;
+      offsetX += p.deltaTime * 0.0007;
       offsetY += p.deltaTime * 0.0005;
 
       // Iterate from top to bottom.
@@ -54,7 +54,7 @@ function P5Canvas() {
 
           const matWidth = p.width / 20;
           const matHeight = p.height / 20;
-          let alpha =
+          let a =
             6000 *
             Math.pow(
               (matWidth / 2 - Math.abs(x - matWidth / 2)) / (matWidth / 2),
@@ -66,8 +66,9 @@ function P5Canvas() {
             );
 
           // Draw the point.
-          p.textSize(24);
-          p.fill(0, 0, 255, alpha);
+          p.textFont("Xanh Mono");
+          p.textSize(20);
+          p.fill(0, 0, 255, a);
           p.strokeWeight(0);
           if (c > 0.65) {
             // fill("black");
@@ -76,29 +77,32 @@ function P5Canvas() {
             // stroke("white");
             // strokeWeight(2);
             p.text("ề", x * 20, y * 20);
-          } else if (c > 0.65) {
+          } else if (c > 0.5) {
             // fill("black");
             // text('ô', x*20-2, y*20+2)
             // fill("blue");
             // stroke("white");
             // strokeWeight(2);
-            p.text("ô", x * 20, y * 20);
-          } else if (c > 0.55) {
+            p.text("õ", x * 20, y * 20);
+          } else if (c > 0.4) {
             p.text("*", x * 20, y * 20);
-          } else if (c > 0.5) {
+          } else if (c > 0.3) {
             p.text(".", x * 20, y * 20);
           }
         }
       }
     };
-  };
+  }, []);
 
   useEffect(() => {
     if (!canvasContainer.current) return;
     const p5Instance = new p5(sketch, canvasContainer.current);
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        p5Instance.resizeCanvas(entry.contentRect.width, entry.contentRect.height);
+        p5Instance.resizeCanvas(
+          entry.contentRect.width,
+          entry.contentRect.height
+        );
       }
     });
     resizeObserver.observe(canvasContainer.current);
@@ -115,6 +119,27 @@ function P5Canvas() {
   );
 }
 
+function TdWithPreview({ children, preview }) {
+  const [showPreview, setShowPreview] = useState(false);
+  return (
+    <td
+      className="project"
+      onClick={(e) => {
+        setShowPreview((showPreview) => !showPreview);
+        e.preventDefault();
+      }}
+    >
+      <span className="name">{children}</span>
+      {showPreview && preview && (
+        <>
+          <br />
+          <div className="description">{preview}</div>
+        </>
+      )}
+    </td>
+  );
+}
+
 export default function EventPage() {
   const [language, setLanguage] = useState("vn");
 
@@ -122,21 +147,41 @@ export default function EventPage() {
     <>
       <div>
         <P5Canvas />
-        <h1>Sài Gòn Sà Lon</h1>
+        <h1>show&telex</h1>
         <p>
-          A casual show and tell of cool creative work in trung tâm Sài Gòn.
+          A casual show and tell of cool technological creative work in trung
+          tâm Sài Gòn. Software + Hardware + Art + Play!
         </p>
         <h2>
-          Salon 1 - 31/1/2026 <img src={require("./new.gif")} />
+          Salon 1 - 25/1/2026 <img src={require("./new.gif")} />
+          <sub>
+            <a href="/events/salon/1">Register to Attend</a>
+          </sub>
         </h2>
         <table className="salon-table">
           <tr>
-            <td>Telex of the Dead</td>
+            <TdWithPreview
+              preview={
+                "A keyboard with more than 300 buttons, for every possible vowel."
+              }
+            >
+              Bàn Phím
+            </TdWithPreview>
+            <td>Quang-Anh</td>
+          </tr>
+          <tr>
+            <TdWithPreview preview={"A typing game with Vietnamese words."}>
+              Telex of the Dead
+            </TdWithPreview>
             <td>Henry Quoc Tran</td>
           </tr>
           <tr>
-            <td>Telex of the Dead</td>
-            <td>Henry Quoc Tran</td>
+            <TdWithPreview>??? ?? ??? ??</TdWithPreview>
+            <td>??? ?????</td>
+          </tr>
+          <tr>
+            <TdWithPreview>???????? ??? ????</TdWithPreview>
+            <td>????? ???</td>
           </tr>
         </table>
       </div>
