@@ -12,7 +12,7 @@ headTags({
 const TITLE = "HTML Day 2025 - Sài Gòn";
 
 export default function EventPage() {
-  const [language, setLanguage] = useState("vn");
+  const [language, setLanguage] = useState("en");
 
   return (
     <>
@@ -56,35 +56,7 @@ export default function EventPage() {
           <br />
           <br />
           {language === "vn" ? (
-            <>
-              <div className="q">Ngày hội HTML là gì?</div>
-              <div className="a">
-                Là một sự kiện/meet up hàng năm, tụi mình sẽ hội tụ và sử dụng
-                HTML cùng nhau
-              </div>
-              <div className="q">Mình cần chuẩn bị gì?</div>
-              <div className="a">
-                Bạn chỉ cần mang laptop (sạc đủ pin), rủ thêm bạn bè, good
-                energy và một ít kiến thức cơ bản về html (cứ thoải mái hỏi han
-                nếu bạn gặp vấn đề nhé!)
-              </div>
-              <div className="q">Tụi mình sẽ gặp nhau ở đâu?</div>
-              <div className="a">
-                Vì thời tiết gần đây hơi bất ổn nên tụi mình sẽ tụ họp tại một
-                quán cà phê ở Quận 1, hoặc tại một chung cư? Bạn hãy đăng ký qua
-                link Google Forms và tụi mình sẽ add vô một group Instagram rồi
-                cập nhật địa chỉ sau nhé!
-              </div>
-              <div className="q">
-                Mình không ở Sài Gòn, liệu mình có thể tham gia được không?
-              </div>
-              <div className="a">
-                Bạn coi thử website của{" "}
-                <a href="https://html.energy/events.html">HTML Energy</a> nhé.
-                Nếu ko có sự kiện tại nơi bạn đang sinh sống thì bạn có thể tự
-                host hoặc tổ chức!
-              </div>
-            </>
+            <>:)</>
           ) : (
             <>
               <div className="q">What is this?</div>
