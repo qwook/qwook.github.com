@@ -13,20 +13,21 @@ headTags({
 
 const TITLE = "HTML Day 2025 - Sài Gòn";
 
-let offsetTime = 0;
-let offsetX = 0;
-let offsetY = 0;
-
 function P5Canvas() {
   const canvasContainer = useRef(null);
   const [strokeWidth, setStrokeWidth] = useState(2);
   const strokeWidthRef = useRef(strokeWidth);
+  const mouse = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     strokeWidthRef.current = strokeWidth;
   }, [strokeWidth]);
 
   const sketch = useCallback((p) => {
+    let offsetTime = 0;
+    let offsetX = 0;
+    let offsetY = 0;
+
     p.setup = () => {
       const rectangle = canvasContainer.current.getBoundingClientRect();
       const canvas = p.createCanvas(rectangle.width, rectangle.height);
@@ -56,7 +57,7 @@ function P5Canvas() {
           const matWidth = p.width / 20;
           const matHeight = p.height / 20;
           let a =
-            6000 *
+            25 *
             Math.pow(
               (matWidth / 2 - Math.abs(x - matWidth / 2)) / (matWidth / 2),
               2
@@ -66,11 +67,51 @@ function P5Canvas() {
               2
             );
 
+          let distance = Math.sqrt(
+            Math.pow(mouse.current.x / 20 - x, 2) +
+              Math.pow(mouse.current.y / 20 - y, 2)
+          );
+
+          console.log(distance);
+
+          a = Math.min(1, a);
+          a = a * Math.pow(Math.min(1, distance / 5), 3);
+
+          c -= Math.pow(Math.min(1, distance / 30), 3) * 0.4;
+
           // Draw the point.
           p.textFont("Xanh Mono");
           p.textSize(20);
-          p.fill(0, 0, 255, a);
+          p.fill(0, 0, 255, a * 255);
           p.strokeWeight(0);
+
+          if (
+            x === Math.floor(mouse.current.x / 20) - 1 &&
+            y === Math.floor(mouse.current.y / 20)
+          ) {
+            p.fill(0, 0, 255, 255);
+            p.text("ò", x * 20, y * 20);
+            continue;
+          }
+
+          if (
+            x === Math.floor(mouse.current.x / 20) &&
+            y === Math.floor(mouse.current.y / 20)
+          ) {
+            p.fill(0, 0, 255, 255);
+            p.text(".", x * 20, y * 20);
+            continue;
+          }
+
+          if (
+            x === Math.floor(mouse.current.x / 20) + 1 &&
+            y === Math.floor(mouse.current.y / 20)
+          ) {
+            p.fill(0, 0, 255, 255);
+            p.text("ó", x * 20, y * 20);
+            continue;
+          }
+
           if (c > 0.65) {
             // fill("black");
             // text('ề', x*20-2, y*20+2)
@@ -97,7 +138,8 @@ function P5Canvas() {
 
   useEffect(() => {
     if (!canvasContainer.current) return;
-    const p5Instance = new p5(sketch, canvasContainer.current);
+    const container = canvasContainer.current;
+    const p5Instance = new p5(sketch, container);
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         p5Instance.resizeCanvas(
@@ -106,16 +148,24 @@ function P5Canvas() {
         );
       }
     });
-    resizeObserver.observe(canvasContainer.current);
+    resizeObserver.observe(container);
     return () => {
       p5Instance.remove();
-      resizeObserver.unobserve(canvasContainer.current);
+      resizeObserver.unobserve(container);
     };
   }, []);
 
   return (
     <>
-      <div className="canvas-container" ref={canvasContainer}></div>
+      <div
+        className="canvas-container"
+        ref={canvasContainer}
+        onPointerMove={(e) => {
+          const x = e.pageX - e.currentTarget.offsetLeft;
+          const y = e.pageY - e.currentTarget.offsetTop;
+          mouse.current = { x, y };
+        }}
+      ></div>
     </>
   );
 }
