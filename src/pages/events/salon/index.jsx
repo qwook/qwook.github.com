@@ -4,6 +4,7 @@ import { EventSpecial } from "../../../components/events/event-special";
 import { headTags } from "../../../utils/headTags";
 import "./salon.scss";
 import p5 from "p5";
+import { TdWithPreview } from "./td";
 
 headTags({
   title: "show&telex",
@@ -116,27 +117,6 @@ function P5Canvas() {
     <>
       <div className="canvas-container" ref={canvasContainer}></div>
     </>
-  );
-}
-
-function TdWithPreview({ children, preview }) {
-  const [showPreview, setShowPreview] = useState(false);
-  return (
-    <td
-      className="project"
-      onClick={(e) => {
-        setShowPreview((showPreview) => !showPreview);
-        e.preventDefault();
-      }}
-    >
-      <span className="name">{children}</span>
-      {showPreview && preview && (
-        <>
-          <br />
-          <div className="description">{preview}</div>
-        </>
-      )}
-    </td>
   );
 }
 

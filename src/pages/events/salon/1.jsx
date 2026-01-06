@@ -3,6 +3,7 @@ import { createPage } from "../../../app";
 import { EventSpecial } from "../../../components/events/event-special";
 import { headTags } from "../../../utils/headTags";
 import "./salon.scss";
+import { TdWithPreview } from "./td";
 
 headTags({
   title: "HTML Day 2025 - Sài Gòn",
@@ -62,9 +63,43 @@ export default function EventPage() {
               <div className="q">What is this?</div>
               <div className="a">
                 A casual show and tell of cool technological creative work in
-                trung tâm Sài Gòn. Software + Hardware + Art + Play!
+                trung tâm Sài Gòn. Software + Hardware + Art + Play!{" "}
+                <a href="/events/salon/">
+                  Check out our previous show and tells!
+                </a>
               </div>
-              <div className="q">Can I demo?</div>
+              <div className="q">Who's show and telling?</div>
+              <div className="a">
+                <table className="salon-table">
+                  <tr>
+                    <TdWithPreview
+                      preview={
+                        "A keyboard with more than 300 buttons, for every possible vowel."
+                      }
+                    >
+                      Bàn Phím
+                    </TdWithPreview>
+                    <td>Quang-Anh</td>
+                  </tr>
+                  <tr>
+                    <TdWithPreview
+                      preview={"A typing game with Vietnamese words."}
+                    >
+                      Telex of the Dead
+                    </TdWithPreview>
+                    <td>Henry Quoc Tran</td>
+                  </tr>
+                  <tr>
+                    <TdWithPreview>??? ?? ??? ??</TdWithPreview>
+                    <td>??? ?????</td>
+                  </tr>
+                  <tr>
+                    <TdWithPreview>???????? ??? ????</TdWithPreview>
+                    <td>????? ???</td>
+                  </tr>
+                </table>
+              </div>
+              <div className="q">Can I show and tell?</div>
               <div className="a">Reach out to one of us with your project.</div>
               <div className="q">What's the schedule?</div>
               <div className="a">
