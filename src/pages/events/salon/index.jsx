@@ -204,30 +204,41 @@ export default function EventPage() {
         </p>
         <h1>show&telex</h1>
         {language === "en" ? (
-          <p>
-            A casual{" "}
-            <a
-              href="https://en.wikipedia.org/wiki/Salon_(gathering)"
-              target="_blank"
-            >
-              salon
-            </a>{" "}
-            where we present, demo, or educate about cool technological creative
-            work in trung tâm Sài Gòn. Software + Hardware + Art + Play!
-          </p>
+          <div className="row" style={{ gap: 10 }}>
+            <div className="col">
+              A casual{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Salon_(gathering)"
+                target="_blank"
+              >
+                salon
+              </a>{" "}
+              where we present, demo, or educate about cool technological
+              creative work in trung tâm Sài Gòn. Software + Hardware + Art +
+              Play!
+            </div>
+            <div className="col" style={{ width: 640 }}>
+              <img src={require("./hangout.gif")} />
+            </div>
+          </div>
         ) : (
-          <p>
-            Một buổi{" "}
-            <a
-              href="https://en.wikipedia.org/wiki/Salon_(gathering)"
-              target="_blank"
-            >
-              salon
-            </a>{" "}
-            (gặp mặt) nơi mọi người giới thiệu, thử nghiệm và học hỏi về những
-            dự án công nghệ sáng tạo ở khu vực trung tâm Sài Gòn. Phần Mềm +
-            Phần Cứng + Nghệ Thuật + Vui Chơi!
-          </p>
+          <div className="row" style={{ gap: 10 }}>
+            <div className="col">
+              Một buổi{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Salon_(gathering)"
+                target="_blank"
+              >
+                salon
+              </a>{" "}
+              (gặp mặt) nơi mọi người giới thiệu, thử nghiệm và học hỏi về những
+              dự án công nghệ sáng tạo ở khu vực trung tâm Sài Gòn. Phần Mềm +
+              Phần Cứng + Nghệ Thuật + Vui Chơi!
+            </div>
+            <div className="col" style={{ width: 640 }}>
+              <img src={require("./hangout.gif")} />
+            </div>
+          </div>
         )}
         <h2>
           salon 1 - 25/1/2026 <img src={require("./new.gif")} />
