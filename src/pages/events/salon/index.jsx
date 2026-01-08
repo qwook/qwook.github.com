@@ -11,7 +11,7 @@ headTags({
   description: "A day to show off your creative projects.",
 });
 
-const TITLE = "HTML Day 2025 - Sài Gòn";
+const TITLE = "show&telex";
 
 function P5Canvas() {
   const canvasContainer = useRef(null);
@@ -177,22 +177,64 @@ export default function EventPage() {
     <>
       <div>
         <P5Canvas />
-        <h1>show&telex</h1>
         <p>
-          A casual{" "}
-          <a
-            href="https://en.wikipedia.org/wiki/Salon_(gathering)"
-            target="_blank"
+          [
+          <div
+            className={[
+              "language",
+              "fake-link",
+              language === "vn" ? "selected" : "",
+            ].join(" ")}
+            onClick={(e) => setLanguage("vn")}
           >
-            salon
-          </a>{" "}
-          where we present, demo, or educate about cool technological creative
-          work in trung tâm Sài Gòn. Software + Hardware + Art + Play!
+            Tiếng Việt
+          </div>
+          {" / "}
+          <div
+            className={[
+              "language",
+              "fake-link",
+              language === "en" ? "selected" : "",
+            ].join(" ")}
+            onClick={(e) => setLanguage("en")}
+          >
+            English
+          </div>
+          ]
         </p>
+        <h1>show&telex</h1>
+        {language === "en" ? (
+          <p>
+            A casual{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/Salon_(gathering)"
+              target="_blank"
+            >
+              salon
+            </a>{" "}
+            where we present, demo, or educate about cool technological creative
+            work in trung tâm Sài Gòn. Software + Hardware + Art + Play!
+          </p>
+        ) : (
+          <p>
+            Một buổi{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/Salon_(gathering)"
+              target="_blank"
+            >
+              salon
+            </a>{" "}
+            (gặp mặt) nơi mọi người giới thiệu, thử nghiệm và học hỏi về những
+            dự án công nghệ sáng tạo ở khu vực trung tâm Sài Gòn. Phần Mềm +
+            Phần Cứng + Nghệ Thuật + Vui Chơi!
+          </p>
+        )}
         <h2>
           salon 1 - 25/1/2026 <img src={require("./new.gif")} />
           <sub>
-            <a href="/events/salon/1">Register to Attend</a>
+            <a href="/events/salon/1">
+              {language === "en" ? "Register to Attend" : "Đăng kí để tham gia"}
+            </a>
           </sub>
         </h2>
         <table className="salon-table">

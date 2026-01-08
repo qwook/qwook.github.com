@@ -13,7 +13,7 @@ headTags({
 const TITLE = "show&telex - 25/1/2026";
 
 export default function EventPage() {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("vn");
 
   return (
     <>
@@ -49,15 +49,73 @@ export default function EventPage() {
         >
           <a
             className="RSVP"
-            href="https://forms.gle/31JmpEmPM9DykuJU6"
+            href="https://docs.google.com/forms/d/e/1FAIpQLScdiy1DxcoGCXPqzHL2BF1rMOW6G-gX_uZbBX8icvLcpykTPQ/viewform"
             target="_blank"
           >
-            RSVP
+            {language === "vn" ? "Đăng Kí" : "RSVP"}
           </a>
           <br />
           <br />
           {language === "vn" ? (
-            <>:)</>
+            <>
+              <div className="q">Cái gì đây?</div>
+              <div className="a">
+                Một buổi{" "}
+                <a
+                  href="https://en.wikipedia.org/wiki/Salon_(gathering)"
+                  target="_blank"
+                >
+                  salon
+                </a>{" "}
+                (gặp mặt) nơi mọi người giới thiệu, thử nghiệm và học hỏi về
+                những dự án công nghệ sáng tạo ở khu vực trung tâm Sài Gòn. Phần
+                Mềm + Phần Cứng + Nghệ Thuật + Vui Chơi!{" "}
+                <a href="/events/salon/">Xem tất cả salon trước đây!</a>
+              </div>
+              <div className="q">Có ai?</div>
+              <div className="a">
+                <table className="salon-table">
+                  <tr>
+                    <TdWithPreview
+                      preview={
+                        "A keyboard with more than 300 buttons, for every possible vowel."
+                      }
+                    >
+                      Bàn Phím
+                    </TdWithPreview>
+                    <td>Quang-Anh</td>
+                  </tr>
+                  <tr>
+                    <TdWithPreview
+                      preview={"A typing game with Vietnamese words."}
+                    >
+                      Telex of the Dead
+                    </TdWithPreview>
+                    <td>Henry Quoc Tran</td>
+                  </tr>
+                  <tr>
+                    <TdWithPreview>??? ?? ??? ??</TdWithPreview>
+                    <td>??? ?????</td>
+                  </tr>
+                  <tr>
+                    <TdWithPreview>???????? ??? ????</TdWithPreview>
+                    <td>????? ???</td>
+                  </tr>
+                </table>
+              </div>
+              <div className="q">Sao mình trình bày được?</div>
+              <div className="a">
+                Nhấn tin cho một host để giới thiệu dụ án của mình.
+              </div>
+              <div className="q">Lịch trình như thế nào?</div>
+              <div className="a">
+                <ul>
+                  <li>15hr30 - Mở Của</li>
+                  <li>16hr00 - Presentations</li>
+                  <li>17hr00 - Hangout</li>
+                </ul>
+              </div>
+            </>
           ) : (
             <>
               <div className="q">What is this?</div>
