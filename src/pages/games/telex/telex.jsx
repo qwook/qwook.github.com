@@ -329,6 +329,11 @@ function Zombie({ position, onDeath, speed = 2 }) {
 
     if (actions.walking) {
       actions["idle"].stop();
+      // actions["walking"].play();
+      // actions["walking"].timeScale = speed;
+      // actions["walking"].startAt(Math.random() * 2);
+      // actions["walking"].setLoop(THREE.LoopRepeat);
+
       actions["walking"].play();
       actions["walking"].timeScale = speed;
       actions["walking"].startAt(Math.random() * 2);
@@ -406,6 +411,8 @@ function Zombie({ position, onDeath, speed = 2 }) {
   };
 
   const state = useThree();
+  const [attacking, setAttacking] = useState(false);
+  const attackingTimer = useRef(0);
 
   useFrame((state, deltaTime) => {
     if (!game.playing) {
@@ -416,17 +423,28 @@ function Zombie({ position, onDeath, speed = 2 }) {
     }
     const goal = state.camera.position.clone();
     goal.y = -1;
-    root.current.position.add(
-      goal
-        .sub(root.current.position)
-        .normalize()
-        .multiplyScalar(deltaTime * speed)
-    );
-    root.current.position.y = -1;
-    if (root.current.position.distanceTo(state.camera.position) < 4) {
-      damage();
-      shot(false);
+    if (root.current.position.distanceTo(state.camera.position) < 5) {
+      if (!attacking) {
+        actions["walking"].fadeOut(0.2);
+        actions["attack"].play();
+        attackingTimer.current = 0;
+        setAttacking(true);
+      } else {
+        attackingTimer.current += deltaTime;
+        if (attackingTimer.current > 2) {
+          damage();
+          shot(false);
+        }
+      }
+    } else {
+      root.current.position.add(
+        goal
+          .sub(root.current.position)
+          .normalize()
+          .multiplyScalar(deltaTime * speed)
+      );
     }
+    root.current.position.y = -1;
     root.current.rotation.y = Math.atan2(
       state.camera.position.x - root.current.position.x,
       state.camera.position.z - root.current.position.z
@@ -694,13 +712,14 @@ function Zombie({ position, onDeath, speed = 2 }) {
 
   // console.log(fbx.children[0].children[0]);
 
-  // const mesh = fbx.getObjectByName("Human001");
+  // const mesh = fbx.getObjectByName("Human");
   // const mixamo = fbx.children[0]?.children[0].clone();
   // console.log(mixamo);
 
   // const cloned = SkeletonUtils.clone(nodes.Human);
   console.log(nodes.mixamorigHips);
   console.log(materials);
+  console.log(nodes);
 
   return (
     <group ref={root} position={position} dispose={null}>
@@ -714,8 +733,8 @@ function Zombie({ position, onDeath, speed = 2 }) {
           <skinnedMesh
             castShadow
             receiveShadow
-            geometry={nodes.Human001.geometry}
-            skeleton={nodes.Human001.skeleton}
+            geometry={nodes.Human.geometry}
+            skeleton={nodes.Human.skeleton}
             material={materials["Material.002"]}
             // rotation={[-Math.PI / 2, 0, 0]}
             scale={[100, 100, 100]}
@@ -723,7 +742,7 @@ function Zombie({ position, onDeath, speed = 2 }) {
         </group>
       </group>
       {!dead && (
-        <Html position={[0, -2, 0]} transform>
+        <Html position={[0, -2, 0]}>
           <div className="type-box-stopper">
             <div className={["type-box", focused && "focused"].join(" ")}>
               <div className="expected">{decodedToText(text)}</div>
