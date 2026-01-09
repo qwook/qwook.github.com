@@ -1,10 +1,21 @@
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useGraph, useThree } from "@react-three/fiber";
 import { createPage } from "../../../app";
 import Banner from "../../../components/Banner";
-import { Html, useTexture } from "@react-three/drei";
+import {
+  Clone,
+  Fbx,
+  Gltf,
+  Html,
+  Loader,
+  useAnimations,
+  useFBX,
+  useGLTF,
+  useTexture,
+} from "@react-three/drei";
 import {
   createContext,
   forwardRef,
+  Suspense,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -16,6 +27,7 @@ import * as THREE from "three";
 import "./telex.scss";
 import Button from "../../../components/ui/Button";
 import { Howl, Howler } from "howler";
+import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 
 /*
 
@@ -302,6 +314,30 @@ function Zombie({ position, onDeath, speed = 2 }) {
   const [typed, setTyped] = useState([]);
   const [dead, setDead] = useState(false);
 
+  const { scene, animations, materials } = useGLTF(
+    require("./assets/long_zombie.glb")
+  );
+  const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
+  // useGraph creates two flat object collections for nodes and materials
+  const { nodes } = useGraph(clone);
+
+  const { ref: animRef, actions, names } = useAnimations(animations);
+
+  useEffect(() => {
+    actions["idle"].play();
+    actions["idle"].setLoop(THREE.LoopRepeat);
+
+    if (actions.walking) {
+      actions["idle"].stop();
+      actions["walking"].play();
+      actions["walking"].timeScale = speed;
+      actions["walking"].startAt(Math.random() * 2);
+      actions["walking"].setLoop(THREE.LoopRepeat);
+    }
+  }, [speed]);
+
+  console.log(materials);
+
   useEffect(() => {
     respawn();
 
@@ -399,14 +435,14 @@ function Zombie({ position, onDeath, speed = 2 }) {
       state.hit = state.hit || 0;
       if (state.hit > 0) {
         state.hit -= deltaTime * 10;
-        materialRef.current.color = new THREE.Color(10, 1, 1);
+        // materialRef.current.color = new THREE.Color(10, 1, 1);
       }
       if (state.hit < 0) {
         state.hit = 0;
-        materialRef.current.color = new THREE.Color(1, 1, 1);
+        // materialRef.current.color = new THREE.Color(1, 1, 1);
       }
     } else {
-      materialRef.current.color = new THREE.Color(1, 1, 1);
+      // materialRef.current.color = new THREE.Color(1, 1, 1);
     }
   });
 
@@ -656,19 +692,36 @@ function Zombie({ position, onDeath, speed = 2 }) {
 
   const map = useTexture(require("./assets/zombie.png"));
 
+  // console.log(fbx.children[0].children[0]);
+
+  // const mesh = fbx.getObjectByName("Human001");
+  // const mixamo = fbx.children[0]?.children[0].clone();
+  // console.log(mixamo);
+
+  // const cloned = SkeletonUtils.clone(nodes.Human);
+  console.log(nodes.mixamorigHips);
+  console.log(materials);
+
   return (
-    <object3D ref={root} position={position}>
-      <mesh scale={[2, 4, 2]}>
-        <planeGeometry attach="geometry" args={[1, 1, 1]} />
-        {/* <boxGeometry attach="geometry" args={[1, 1, 1]} /> */}
-        <meshStandardMaterial
-          ref={materialRef}
-          attach="material"
-          color="white"
-          transparent
-          map={map}
-        />
-      </mesh>
+    <group ref={root} position={position} dispose={null}>
+      <group ref={animRef}>
+        <group
+          scale={[0.01, 0.01, 0.01]}
+          rotation={[Math.PI / 2, 0, 0]}
+          position={[0, -1.5, 0]}
+        >
+          <primitive object={nodes.mixamorigHips} />
+          <skinnedMesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Human001.geometry}
+            skeleton={nodes.Human001.skeleton}
+            material={materials["Material.002"]}
+            // rotation={[-Math.PI / 2, 0, 0]}
+            scale={[100, 100, 100]}
+          ></skinnedMesh>
+        </group>
+      </group>
       {!dead && (
         <Html position={[0, -2, 0]} transform>
           <div className="type-box-stopper">
@@ -681,7 +734,7 @@ function Zombie({ position, onDeath, speed = 2 }) {
           </div>
         </Html>
       )}
-    </object3D>
+    </group>
   );
 }
 
@@ -875,10 +928,6 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
 
   return (
     <>
-      {/* <mesh scale={[60, 50, 1]} position={[0, 5, -20]}>
-        <planeGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" map={skybox} />
-      </mesh> */}
       <mesh scale={[40, 1, 40]} position={[0, -3, 0]}>
         <boxGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial attach="material" map={map} />
