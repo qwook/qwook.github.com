@@ -537,14 +537,20 @@ export function Typebox({
           onHit();
         } else {
           if (!game.focused) {
-            locked = true;
-            game.setFocused(decodedToText(decoded));
-            setFocused(true);
-            setTyped(proposal);
-            onHit();
-            setTimeout(() => {
-              locked = false;
-            }, 0);
+            // One letter...
+            if (proposal.length === decoded.length && comparison === 2) {
+              onHit();
+              onFinished(true);
+            } else {
+              locked = true;
+              game.setFocused(decodedToText(decoded));
+              setFocused(true);
+              setTyped(proposal);
+              onHit();
+              setTimeout(() => {
+                locked = false;
+              }, 0);
+            }
           }
         }
         if (

@@ -369,31 +369,40 @@ export default function TelexGamePage() {
     };
   }, []);
 
+  const gameContainer = useRef();
+
   return (
     <>
       <Banner>Telex of The Dead</Banner>
-      {!playing && (
-        <Button
-          onClick={() => {
-            setFocused();
-            setScore(0);
-            setLife(3);
-            setPlaying(true);
-            setEntities([]);
-            startRound(0);
-            scene.current.jumpToBeginning(round);
-            zombiesToTrack.current = [];
-            wordsUsed.current = [];
-          }}
-        >
-          Play
-        </Button>
-      )}
       <p>Song: Phút Cuối Cùng by 4our</p>
       {playing ? "Playing" : "Not Playing"}
       <p>Score: {score}</p>
       <p>Life: {life}</p>
-      <div style={{ height: 500, position: "relative" }}>
+      <div ref={gameContainer} style={{ height: 500, position: "relative" }}>
+        {!playing && (
+          <Button
+            style={{
+              position: "absolute",
+              zIndex: 1000,
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+            onClick={() => {
+              setFocused();
+              setScore(0);
+              setLife(3);
+              setPlaying(true);
+              setEntities([]);
+              startRound(0);
+              scene.current.jumpToBeginning(round);
+              zombiesToTrack.current = [];
+              wordsUsed.current = [];
+            }}
+          >
+            Play
+          </Button>
+        )}
         <input
           ref={floatingInput}
           type="text"
@@ -475,120 +484,125 @@ export default function TelexGamePage() {
             }
             <Scene ref={scene} stage={round} />
           </Canvas>
-          <h1>How to play:</h1>
-          <p>
-            This game implements two ways of typing Vietnamese characters, Telex
-            and VNI.
-          </p>
-          <p>
-            With telex, you can modify any vowel by typing a modifier letter
-            directly after the vowel. Ex: uow becomes ươ
-          </p>
-          <p>The same can be done with other letters:</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Typed</th>
-                <th>Output</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  a<strong>s</strong>
-                </td>
-                <td>á</td>
-              </tr>
-              <tr>
-                <td>
-                  a<strong>f</strong>
-                </td>
-                <td>à</td>
-              </tr>
-              <tr>
-                <td>
-                  o<strong>j</strong>
-                </td>
-                <td>ọ</td>
-              </tr>
-              <tr>
-                <td>
-                  o<strong>x</strong>
-                </td>
-                <td>õ</td>
-              </tr>
-              <tr>
-                <td>
-                  o<strong>r</strong>
-                </td>
-                <td>ỏ</td>
-              </tr>
-              <tr>
-                <td>
-                  o<strong>w</strong>
-                </td>
-                <td>ơ</td>
-              </tr>
-              <tr>
-                <td>
-                  u<strong>w</strong>
-                </td>
-                <td>ư</td>
-              </tr>
-              <tr>
-                <td>
-                  uo<strong>w</strong>
-                </td>
-                <td>ươ</td>
-              </tr>
-              <tr>
-                <td>
-                  a<strong>w</strong>
-                </td>
-                <td>ă</td>
-              </tr>
-              <tr>
-                <td colSpan={2}>
-                  Typing o,e,a vowels twice modifies it with a ^ hat.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  o<strong>o</strong>
-                </td>
-                <td>ô</td>
-              </tr>
-              <tr>
-                <td>
-                  e<strong>e</strong>
-                </td>
-                <td>ê</td>
-              </tr>
-              <tr>
-                <td>
-                  a<strong>a</strong>
-                </td>
-                <td>â</td>
-              </tr>
-              <tr>
-                <td colSpan={2}>
-                  You can use multiple modifiers on a character.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  a<strong>as</strong>
-                </td>
-                <td>ấ</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            The other way of writing vietnamese, using numbers instead, is
-            implemented. I'm too lazy to write about it now.
-          </p>
         </GameContext.Provider>
       </div>
+      <Button
+        onClick={() => {
+          gameContainer.current.requestFullscreen();
+        }}
+      >
+        Fullscreen
+      </Button>
+      <h1>How to play:</h1>
+      <p>
+        This game implements two ways of typing Vietnamese characters, Telex and
+        VNI.
+      </p>
+      <p>
+        With telex, you can modify any vowel by typing a modifier letter
+        directly after the vowel. Ex: uow becomes ươ
+      </p>
+      <p>The same can be done with other letters:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Typed</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              a<strong>s</strong>
+            </td>
+            <td>á</td>
+          </tr>
+          <tr>
+            <td>
+              a<strong>f</strong>
+            </td>
+            <td>à</td>
+          </tr>
+          <tr>
+            <td>
+              o<strong>j</strong>
+            </td>
+            <td>ọ</td>
+          </tr>
+          <tr>
+            <td>
+              o<strong>x</strong>
+            </td>
+            <td>õ</td>
+          </tr>
+          <tr>
+            <td>
+              o<strong>r</strong>
+            </td>
+            <td>ỏ</td>
+          </tr>
+          <tr>
+            <td>
+              o<strong>w</strong>
+            </td>
+            <td>ơ</td>
+          </tr>
+          <tr>
+            <td>
+              u<strong>w</strong>
+            </td>
+            <td>ư</td>
+          </tr>
+          <tr>
+            <td>
+              uo<strong>w</strong>
+            </td>
+            <td>ươ</td>
+          </tr>
+          <tr>
+            <td>
+              a<strong>w</strong>
+            </td>
+            <td>ă</td>
+          </tr>
+          <tr>
+            <td colSpan={2}>
+              Typing o,e,a vowels twice modifies it with a ^ hat.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              o<strong>o</strong>
+            </td>
+            <td>ô</td>
+          </tr>
+          <tr>
+            <td>
+              e<strong>e</strong>
+            </td>
+            <td>ê</td>
+          </tr>
+          <tr>
+            <td>
+              a<strong>a</strong>
+            </td>
+            <td>â</td>
+          </tr>
+          <tr>
+            <td colSpan={2}>You can use multiple modifiers on a character.</td>
+          </tr>
+          <tr>
+            <td>
+              a<strong>as</strong>
+            </td>
+            <td>ấ</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        The other way of writing vietnamese, using numbers instead, is
+        implemented. I'm too lazy to write about it now.
+      </p>
     </>
   );
 }
