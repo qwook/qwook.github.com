@@ -5,9 +5,9 @@
   padding: 5px;
   border-radius: 10px;
   border: 2px solid yellow;
-  transition: border 0.5s;
+  transition: border 0.5s, opacity 0.25s;
   text-align: left;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .type-box-stopper {
@@ -23,6 +23,10 @@
 
 .focused {
   border: 10px solid red;
+}
+
+.blurred {
+  opacity: 0.4;
 }
 
 .floating-input {

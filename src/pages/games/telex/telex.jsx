@@ -28,745 +28,11 @@ import "./telex.scss";
 import Button from "../../../components/ui/Button";
 import { Howl, Howler } from "howler";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
-
-/*
-
-Build a map in blender3D
-Go around in a circle.
-
-Level 1:
-3 zombies walking slowly, 1 at a time.
-
-Level 2:
-Chasing after human.
-2 more zombies walking slowly
-
-Level 3:
-Zombie throwing barrels. (Small words, Letters)
-
-Level 4:
-Giant zombie.
-Eveyr 3 words, throws barrels.
-
-
-// Step 1
-Have three zombies on screen, slowly walking back
-"Kill" them if they walk too close (respawn)
-
-// Step 2
-Create a simple cube level.
-Kill 1 zombie, kill 2 zombies, kill 3 zombies, go in a circle.
-Select better words without the same starting letter.
-
-
-
-// Telex stuff
-If you type "ư" and then you type "o" it will
-automatically turn into "ơ".
-
-Typing in "w" will make an "ư"
-Typing in "w" will turn any "o" or "u" into
-ơ and ư.
-
-Accents usually magnetize to the strongest vowels first.
-"o"
-"e"
-"u"
-"a"
-"i"
-
-
-*/
-
-const KEY_TO_CHAR = {
-  KeyA: "a",
-  KeyB: "b",
-  KeyC: "c",
-  KeyD: "d",
-  KeyE: "e",
-  KeyG: "g",
-  KeyH: "h",
-  KeyI: "i",
-  KeyK: "k",
-  KeyL: "l",
-  KeyM: "m",
-  KeyN: "n",
-  KeyO: "o",
-  KeyP: "p",
-  KeyQ: "q",
-  KeyR: "r",
-  KeyS: "s",
-  KeyT: "t",
-  KeyU: "u",
-  KeyV: "v",
-  KeyX: "x",
-  KeyY: "y",
-  Space: " ",
-};
-
-const ACCENT_DECODE_MAP = {
-  ă: { letter: "a", variation: "U" },
-  â: { letter: "a", variation: "^" },
-  đ: { letter: "d", variation: "-" },
-  ê: { letter: "e", variation: "^" },
-  ô: { letter: "o", variation: "^" },
-  ơ: { letter: "o", variation: "," },
-  ư: { letter: "u", variation: "," },
-
-  á: { letter: "a", accent: "/" },
-  é: { letter: "e", accent: "/" },
-  ý: { letter: "y", accent: "/" },
-  í: { letter: "i", accent: "/" },
-  ó: { letter: "o", accent: "/" },
-  ú: { letter: "u", accent: "/" },
-
-  à: { letter: "a", accent: "|" },
-  è: { letter: "e", accent: "|" },
-  ỳ: { letter: "y", accent: "|" },
-  ì: { letter: "i", accent: "|" },
-  ò: { letter: "o", accent: "|" },
-  ù: { letter: "u", accent: "|" },
-
-  ả: { letter: "a", accent: "?" },
-  ẻ: { letter: "e", accent: "?" },
-  ỷ: { letter: "y", accent: "?" },
-  ỉ: { letter: "i", accent: "?" },
-  ỏ: { letter: "o", accent: "?" },
-  ủ: { letter: "u", accent: "?" },
-
-  ã: { letter: "a", accent: "~" },
-  ẽ: { letter: "e", accent: "~" },
-  ỹ: { letter: "y", accent: "~" },
-  ĩ: { letter: "i", accent: "~" },
-  õ: { letter: "o", accent: "~" },
-  ũ: { letter: "u", accent: "~" },
-
-  ạ: { letter: "a", accent: "." },
-  ẹ: { letter: "e", accent: "." },
-  ỵ: { letter: "y", accent: "." },
-  ị: { letter: "i", accent: "." },
-  ọ: { letter: "o", accent: "." },
-  ụ: { letter: "u", accent: "." },
-
-  ắ: { letter: "a", variation: "U", accent: "/" },
-  ấ: { letter: "a", variation: "^", accent: "/" },
-  ế: { letter: "e", variation: "^", accent: "/" },
-  ố: { letter: "o", variation: "^", accent: "/" },
-  ớ: { letter: "o", variation: ",", accent: "/" },
-  ứ: { letter: "u", variation: ",", accent: "/" },
-
-  ằ: { letter: "a", variation: "U", accent: "|" },
-  ầ: { letter: "a", variation: "^", accent: "|" },
-  ề: { letter: "e", variation: "^", accent: "|" },
-  ồ: { letter: "o", variation: "^", accent: "|" },
-  ờ: { letter: "o", variation: ",", accent: "|" },
-  ừ: { letter: "u", variation: ",", accent: "|" },
-
-  ẳ: { letter: "a", variation: "U", accent: "?" },
-  ẩ: { letter: "a", variation: "^", accent: "?" },
-  ể: { letter: "e", variation: "^", accent: "?" },
-  ổ: { letter: "o", variation: "^", accent: "?" },
-  ở: { letter: "o", variation: ",", accent: "?" },
-  ử: { letter: "u", variation: ",", accent: "?" },
-
-  ẵ: { letter: "a", variation: "U", accent: "~" },
-  ẫ: { letter: "a", variation: "^", accent: "~" },
-  ễ: { letter: "e", variation: "^", accent: "~" },
-  ỗ: { letter: "o", variation: "^", accent: "~" },
-  ỡ: { letter: "o", variation: ",", accent: "~" },
-  ữ: { letter: "u", variation: ",", accent: "~" },
-
-  ặ: { letter: "a", variation: "U", accent: "." },
-  ậ: { letter: "a", variation: "^", accent: "." },
-  ệ: { letter: "e", variation: "^", accent: "." },
-  ộ: { letter: "o", variation: "^", accent: "." },
-  ợ: { letter: "o", variation: ",", accent: "." },
-  ự: { letter: "u", variation: ",", accent: "." },
-};
-
-const ACCESS_ENCODE_MAP = {};
-for (let key of Object.keys(ACCENT_DECODE_MAP)) {
-  const val = ACCENT_DECODE_MAP[key];
-  ACCESS_ENCODE_MAP[val.letter + (val.variation || "") + (val.accent || "")] =
-    key;
-}
-
-const VOWEL_PRIORITY = ["e", "a", "o", "u", "i", "y"];
-
-function convertToDecoded(text) {
-  const codes = [];
-  for (let letter of text) {
-    if (ACCENT_DECODE_MAP[letter]) {
-      codes.push(ACCENT_DECODE_MAP[letter]);
-    } else {
-      codes.push({ letter: letter, original: letter });
-    }
-  }
-  return codes;
-}
-
-function decodedToText(array) {
-  return array
-    .map(
-      (decoded) =>
-        ACCESS_ENCODE_MAP[
-          decoded.letter + (decoded.variation || "") + (decoded.accent || "")
-        ] || decoded.letter
-    )
-    .join("");
-}
-
-function telexComparison(left, right) {
-  // 0 = wrong
-  // 1 = right path
-  // 2 = fully correct
-
-  let partial = false;
-
-  for (let i = 0; i < right.length; i++) {
-    if (!left[i]) {
-      return 0;
-    }
-
-    if (left[i].letter !== right[i].letter) {
-      return 0;
-    }
-
-    if (right[i].variation && left[i].variation !== right[i].variation) {
-      return 0;
-    }
-
-    if (right[i].accent && left[i].accent !== right[i].accent) {
-      return 0;
-    }
-
-    if (left[i].variation !== right[i].variation) {
-      partial = true;
-    }
-
-    if (left[i].accent !== right[i].accent) {
-      partial = true;
-    }
-
-    // Cannot move on until all accent marks are added.
-    if (left[i].letter === " ") {
-      if (partial) {
-        return 0;
-      }
-    }
-  }
-
-  if (partial) {
-    return 1;
-  } else {
-    return 2;
-  }
-}
-
-const DICTIONARY_LEVEL_1 = ["â", "ô", "ê", "í", "à", "ạ", "ọ", "ư", "ố"];
-
-const DICTIONARY_LEVEL_2 = [
-  "giờ",
-  "lịch",
-  "một",
-  "đi",
-  "xa",
-  "nhỏ",
-  "đẹp",
-  "dễ",
-  "bạn",
-  "ngon",
-  "vâng",
-  "thứ",
-  "xe",
-  "máy",
-  "hai",
-  "ba",
-  "năm",
-  "trà",
-];
-
-const DICTIONARY_LEVEL_3 = [
-  // "bún bò huế",
-  "bún bò",
-  // "phở đạc biệt",
-  "phở gà",
-  "bánh xèo",
-  // "xôi thập cẩm",
-  // "cà phê sữa đá",
-  "cà phê",
-  "hủ tiếu",
-  "phở trộn",
-  "đặc biệt",
-];
-
-const GameContext = createContext();
-
-function Zombie({ position, onDeath, speed = 2 }) {
-  const game = useContext(GameContext);
-  const root = useRef();
-  const materialRef = useRef();
-
-  const [text, setText] = useState(() => {
-    return [];
-  });
-  const [focused, setFocused] = useState(false);
-  const [typed, setTyped] = useState([]);
-  const [dead, setDead] = useState(false);
-
-  const { scene, animations, materials } = useGLTF(
-    require("./assets/long_zombie.glb")
-  );
-  const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
-  // useGraph creates two flat object collections for nodes and materials
-  const { nodes } = useGraph(clone);
-
-  const { ref: animRef, actions, names } = useAnimations(animations);
-
-  useEffect(() => {
-    actions["idle"].play();
-    actions["idle"].setLoop(THREE.LoopRepeat);
-
-    if (actions.walking) {
-      actions["idle"].stop();
-      // actions["walking"].play();
-      // actions["walking"].timeScale = speed;
-      // actions["walking"].startAt(Math.random() * 2);
-      // actions["walking"].setLoop(THREE.LoopRepeat);
-
-      actions["walking"].play();
-      actions["walking"].timeScale = speed;
-      actions["walking"].startAt(Math.random() * 2);
-      actions["walking"].setLoop(THREE.LoopRepeat);
-    }
-  }, [speed]);
-
-  console.log(materials);
-
-  useEffect(() => {
-    respawn();
-
-    return () => {
-      // Oh nooo I am dead!
-      // I don't want the focus anymore!!
-      if (game && focused && game.focused.current) {
-        game.focused.current = false;
-        game.removeWord(decodedToText(text));
-      }
-    };
-  }, []);
-
-  const damage = () => {
-    game.setLife((life) => life - 1);
-  };
-
-  const shot = (shouldScore) => {
-    if (shouldScore) {
-      game.setScore((score) => score + 1);
-    }
-
-    onDeath && onDeath();
-    setDead(true);
-    // game.sounds["death"].volume(
-    //   (10 - root.current.position.distanceTo(state.camera.position)) / 10
-    // );
-    const side = new THREE.Vector3(0, 1, 0).cross(
-      state.camera.getWorldDirection(new THREE.Vector3())
-    );
-    const pan = side.dot(
-      root.current.position.clone().sub(state.camera.position).normalize()
-    );
-    game.sounds["death"].stereo(-pan * 0.7);
-    game.sounds["death"].play();
-
-    if (focused) {
-      game.removeWord(decodedToText(text));
-
-      if (focused && game.focused.current) {
-        game.focused.current = false;
-        setFocused(false);
-      }
-    }
-  };
-
-  const respawn = () => {
-    root.current.position.x = position[0];
-    root.current.position.y = position[1];
-    root.current.position.z = position[2];
-    console.log(root.current.position);
-
-    if (!game) return;
-
-    if (focused) {
-      game.removeWord(decodedToText(text));
-
-      if (focused && game.focused.current) {
-        game.focused.current = false;
-        setFocused(false);
-      }
-    }
-
-    setText(convertToDecoded(game.generateWord()));
-    setTyped([]);
-  };
-
-  const state = useThree();
-  const [attacking, setAttacking] = useState(false);
-  const attackingTimer = useRef(0);
-
-  useFrame((state, deltaTime) => {
-    if (!game.playing) {
-      return;
-    }
-    if (dead) {
-      return;
-    }
-    const goal = state.camera.position.clone();
-    goal.y = -1;
-    if (root.current.position.distanceTo(state.camera.position) < 5) {
-      if (!attacking) {
-        actions["walking"].fadeOut(0.2);
-        actions["attack"].play();
-        attackingTimer.current = 0;
-        setAttacking(true);
-      } else {
-        attackingTimer.current += deltaTime;
-        if (attackingTimer.current > 2) {
-          damage();
-          shot(false);
-        }
-      }
-    } else {
-      root.current.position.add(
-        goal
-          .sub(root.current.position)
-          .normalize()
-          .multiplyScalar(deltaTime * speed)
-      );
-    }
-    root.current.position.y = -1;
-    root.current.rotation.y = Math.atan2(
-      state.camera.position.x - root.current.position.x,
-      state.camera.position.z - root.current.position.z
-    );
-    if (focused) {
-      state.hit = state.hit || 0;
-      if (state.hit > 0) {
-        state.hit -= deltaTime * 10;
-        // materialRef.current.color = new THREE.Color(10, 1, 1);
-      }
-      if (state.hit < 0) {
-        state.hit = 0;
-        // materialRef.current.color = new THREE.Color(1, 1, 1);
-      }
-    } else {
-      // materialRef.current.color = new THREE.Color(1, 1, 1);
-    }
-  });
-
-  useEffect(() => {
-    const keyPress = (e) => {
-      if (game.focused.current && !focused) {
-        return;
-      }
-
-      // This is a letter!
-      const proposal = _.cloneDeep(typed);
-      if (KEY_TO_CHAR[e.code]) {
-        proposal.push({ letter: KEY_TO_CHAR[e.code] });
-      }
-
-      // W key or , accent mark or U accent mark
-      if (e.code === "KeyW" || e.code === "Digit7") {
-        // Search for U or O.
-        let haveUorO = false;
-        let haveA = false;
-        for (let i = proposal.length - 1; i >= 0; i--) {
-          if (proposal[i].letter == " ") {
-            break;
-          }
-          if (proposal[i].letter === "u" || proposal[i].letter === "o") {
-            haveUorO = true;
-          }
-          if (proposal[i].letter === "a") {
-            haveA = true;
-          }
-        }
-        if (haveUorO) {
-          for (let i = proposal.length - 1; i >= 0; i--) {
-            if (proposal[i].letter == " ") {
-              break;
-            }
-            if (proposal[i].letter == "u" || proposal[i].letter == "o") {
-              proposal[i].variation = ",";
-            }
-          }
-        } else if (haveA && e.code === "KeyW") {
-          for (let i = proposal.length - 1; i >= 0; i--) {
-            if (proposal[i].letter == " ") {
-              break;
-            }
-            if (proposal[i].letter == "a") {
-              proposal[i].variation = "U";
-            }
-          }
-        } else {
-          proposal.push({ letter: "u", variation: "," });
-        }
-      }
-      // Did we already have a "," mark?
-      // Let's follow that.
-      if (e.code === "KeyO") {
-        let haveMark = false;
-        for (let i = proposal.length - 1; i >= 0; i--) {
-          if (proposal[i].letter == " ") {
-            break;
-          }
-          if (proposal[i].letter === "u" && proposal[i].variation === ",") {
-            haveMark = true;
-          }
-        }
-        if (haveMark) {
-          for (let i = proposal.length - 1; i >= 0; i--) {
-            if (proposal[i].letter == " ") {
-              break;
-            }
-            if (proposal[i].letter == "u" || proposal[i].letter == "o") {
-              proposal[i].variation = ",";
-            }
-          }
-        }
-      }
-
-      if (
-        e.code === "KeyR" ||
-        e.code === "KeyS" ||
-        e.code === "KeyF" ||
-        e.code === "KeyX" ||
-        e.code === "KeyJ" ||
-        e.code === "KeyZ" ||
-        e.code === "Digit0" ||
-        e.code === "Digit1" ||
-        e.code === "Digit2" ||
-        e.code === "Digit3" ||
-        e.code === "Digit4" ||
-        e.code === "Digit5"
-      ) {
-        let vowelsFound = [];
-        let vowelIndex;
-        for (vowelIndex = proposal.length - 1; vowelIndex >= 0; vowelIndex--) {
-          if (proposal[vowelIndex].letter == " ") {
-            break;
-          }
-
-          const priority = VOWEL_PRIORITY.indexOf(proposal[vowelIndex].letter);
-          if (priority !== -1) {
-            vowelsFound.push({ vowelIndex, priority });
-          }
-        }
-        vowelsFound.sort((a, b) => a.priority - b.priority);
-        if (vowelsFound.length > 0) {
-          if (e.code === "KeyR" || e.code === "Digit3") {
-            proposal[vowelsFound[0].vowelIndex].accent = "?";
-          } else if (e.code === "KeyS" || e.code === "Digit1") {
-            proposal[vowelsFound[0].vowelIndex].accent = "/";
-          } else if (e.code === "KeyF" || e.code === "Digit2") {
-            proposal[vowelsFound[0].vowelIndex].accent = "|";
-          } else if (e.code === "KeyX" || e.code === "Digit4") {
-            proposal[vowelsFound[0].vowelIndex].accent = "~";
-          } else if (e.code === "KeyJ" || e.code === "Digit5") {
-            proposal[vowelsFound[0].vowelIndex].accent = ".";
-          } else if (e.code === "KeyZ" || e.code === "Digit0") {
-            proposal[vowelsFound[0].vowelIndex].accent = null;
-          }
-
-          if (
-            e.code !== "KeyF" &&
-            e.code !== "KeyJ" &&
-            e.code !== "Digit0" &&
-            e.code !== "Digit1" &&
-            e.code !== "Digit2" &&
-            e.code !== "Digit3" &&
-            e.code !== "Digit4" &&
-            e.code !== "Digit5"
-          ) {
-            proposal.pop();
-          }
-        }
-      }
-
-      // Double Letter Marks (e o a d)
-      let doubleLetterToFind;
-      if (e.code === "KeyE") {
-        doubleLetterToFind = "e";
-      }
-      if (e.code === "KeyO") {
-        doubleLetterToFind = "o";
-      }
-      if (e.code === "KeyA") {
-        doubleLetterToFind = "a";
-      }
-      if (e.code === "KeyD") {
-        doubleLetterToFind = "d";
-      }
-      if (doubleLetterToFind) {
-        for (let i = proposal.length - 2; i >= 0; i--) {
-          if (proposal[i].letter == " ") {
-            break;
-          }
-
-          if (proposal[i].letter === doubleLetterToFind) {
-            if (doubleLetterToFind === "d") {
-              proposal[i].variation = "-";
-            } else {
-              proposal[i].variation = "^";
-            }
-            proposal.pop();
-            break;
-          }
-        }
-      }
-
-      // Add ^ hat for VNI
-      if (e.code === "Digit6") {
-        for (let i = proposal.length - 1; i >= 0; i--) {
-          if (proposal[i].letter == " ") {
-            break;
-          }
-
-          console.log(proposal[i].letter);
-          if (["a", "o", "e"].indexOf(proposal[i].letter) !== -1) {
-            proposal[i].variation = "^";
-            break;
-          }
-        }
-      }
-
-      // Add u hat for a
-      if (e.code === "Digit8") {
-        for (let i = proposal.length - 1; i >= 0; i--) {
-          if (proposal[i].letter == " ") {
-            break;
-          }
-
-          if (proposal[i].letter === "a") {
-            proposal[i].variation = "U";
-            break;
-          }
-        }
-      }
-
-      // Add - for d
-      if (e.code === "Digit9") {
-        for (let i = proposal.length - 1; i >= 0; i--) {
-          if (proposal[i].letter == " ") {
-            break;
-          }
-
-          if (proposal[i].letter === "d") {
-            proposal[i].variation = "-";
-            break;
-          }
-        }
-      }
-      // if (e.code === "Key1")
-
-      // console.log(text);
-      // console.log(proposal);
-      // console.log(telexComparison(text, proposal));
-
-      const comparison = telexComparison(text, proposal);
-
-      if (comparison > 0 && proposal.length > 0) {
-        if (focused) {
-          setTyped(proposal);
-          game.sounds["shot"].play();
-          state.hit = 1;
-        } else {
-          if (!game.focused.current) {
-            game.focused.current = true;
-            setFocused(true);
-            setTyped(proposal);
-            game.sounds["shot"].play();
-            state.hit = 1;
-          }
-        }
-        if (
-          focused &&
-          proposal.length === text.length &&
-          comparison === 2 &&
-          game.focused.current
-        ) {
-          shot(true);
-          // respawn();
-        }
-      }
-    };
-    window.addEventListener("keypress", keyPress);
-    return () => {
-      window.removeEventListener("keypress", keyPress);
-    };
-  }, [typed, focused, game]);
-
-  const map = useTexture(require("./assets/zombie.png"));
-
-  // console.log(fbx.children[0].children[0]);
-
-  // const mesh = fbx.getObjectByName("Human");
-  // const mixamo = fbx.children[0]?.children[0].clone();
-  // console.log(mixamo);
-
-  // const cloned = SkeletonUtils.clone(nodes.Human);
-  console.log(nodes.mixamorigHips);
-  console.log(materials);
-  console.log(nodes);
-
-  return (
-    <group ref={root} position={position} dispose={null}>
-      <group ref={animRef}>
-        <group
-          scale={[0.01, 0.01, 0.01]}
-          rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -1.5, 0]}
-        >
-          <primitive object={nodes.mixamorigHips} />
-          <skinnedMesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Human.geometry}
-            skeleton={nodes.Human.skeleton}
-            material={materials["Material.002"]}
-            // rotation={[-Math.PI / 2, 0, 0]}
-            scale={[100, 100, 100]}
-          ></skinnedMesh>
-        </group>
-      </group>
-      {!dead && (
-        <Html position={[0, -2, 0]}>
-          <div className="type-box-stopper">
-            <div className={["type-box", focused && "focused"].join(" ")}>
-              <div className="expected">{decodedToText(text)}</div>
-              <div className="typed">
-                <UnderlineLastLetter text={decodedToText(typed)} />
-              </div>
-            </div>
-          </div>
-        </Html>
-      )}
-    </group>
-  );
-}
-
-function UnderlineLastLetter({ text }) {
-  return (
-    <>
-      {text.substring(0, text.length - 1)}
-      <span style={{ borderBottom: "3px solid white" }}>
-        {text.substring(text.length - 1)}
-      </span>
-    </>
-  );
-}
+import { generateWordNotInArray, Typebox } from "./Typebox";
+import { WalkingZombie } from "./zombies/WalkingZombie";
+import { ThrowingZombie } from "./zombies/ThrowingZombie";
+
+export const GameContext = createContext();
 
 const KEY_POINTS = [
   {
@@ -782,8 +48,8 @@ const KEY_POINTS = [
   },
   {
     entities: [
-      { type: "zombie", position: [3, 0, 20] },
-      { type: "zombie", position: [-15, 0, 0] },
+      { type: "throwing_zombie", position: [3, -1, 20] },
+      { type: "throwing_zombie", position: [-15, -1, 0] },
     ],
     track: [
       { position: [6, 0, -1], rotation: [0, 0, 0], duration: 1 },
@@ -851,7 +117,8 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
         jumpToBeginning(round) {
           cameraState.cameraAnimId = round || cameraState.cameraAnimId;
           if (cameraState.cameraAnimId !== -1) {
-            cameraState.cameraAnimSubId = 0;
+            cameraState.cameraAnimSubId =
+              KEY_POINTS[cameraState.cameraAnimId]?.track.length - 1;
             cameraState.cameraAnimTime = 0;
             const goal =
               KEY_POINTS[cameraState.cameraAnimId]?.track[
@@ -963,7 +230,7 @@ let GLOBAL_ENTITY_TRACKER = 0;
 let DEBUG_STAGE = null;
 
 export default function TelexGamePage() {
-  const focused = useRef();
+  const [focused, setFocused] = useState();
   const [playing, setPlaying] = useState(false);
   const [score, setScore] = useState(0);
   const [life, setLife] = useState(3);
@@ -974,45 +241,22 @@ export default function TelexGamePage() {
   // Idk how to handle entities in react cleanly.
   const [entities, setEntities] = useState([]);
 
-  const generateWord = () => {
-    const dictionary = [
-      ...DICTIONARY_LEVEL_1,
-      ...(score > 20 ? DICTIONARY_LEVEL_2 : []),
-      ...(score > 30 ? DICTIONARY_LEVEL_3 : []),
-    ];
-    if (wordsUsed.current) {
-      for (let i = 0; i < 10; i++) {
-        const randomWord =
-          dictionary[Math.floor(dictionary.length * Math.random())];
-        if (
-          wordsUsed.current
-            .map(
-              (word) =>
-                ACCENT_DECODE_MAP[word.charAt(0)]?.letter || word.charAt(0)
-            )
-            .indexOf(
-              ACCENT_DECODE_MAP[randomWord.charAt(0)]?.letter ||
-                randomWord.charAt(0)
-            ) === -1
-        ) {
-          wordsUsed.current.push(randomWord);
-          return randomWord;
-        }
-      }
-
-      const randomWord =
-        dictionary[Math.floor(dictionary.length * Math.random())];
-      wordsUsed.current.push(randomWord);
-      return randomWord;
-    }
+  const generateWord = (scoreOverride) => {
+    const newWord = generateWordNotInArray(
+      scoreOverride || score,
+      wordsUsed.current
+    );
+    wordsUsed.current.push(newWord);
+    return newWord;
   };
 
   const removeWord = (word) => {
-    console.log("remove " + word);
-
+    console.log("removed", word);
+    console.log(wordsUsed.current);
     if (wordsUsed.current.indexOf(word) !== -1) {
       wordsUsed.current.splice(wordsUsed.current.indexOf(word), 1);
     }
+    console.log(wordsUsed.current);
   };
 
   useEffect(() => {
@@ -1115,12 +359,23 @@ export default function TelexGamePage() {
     []
   );
 
+  useEffect(() => {
+    return () => {
+      Howler.stop();
+      for (const sound of Object.values(sounds)) {
+        sound.stop();
+        sound.unload();
+      }
+    };
+  }, []);
+
   return (
     <>
       <Banner>Telex of The Dead</Banner>
       {!playing && (
         <Button
           onClick={() => {
+            setFocused();
             setScore(0);
             setLife(3);
             setPlaying(true);
@@ -1129,13 +384,13 @@ export default function TelexGamePage() {
             scene.current.jumpToBeginning(round);
             zombiesToTrack.current = [];
             wordsUsed.current = [];
-            focused.current = false;
           }}
         >
           Play
         </Button>
       )}
       <p>Song: Phút Cuối Cùng by 4our</p>
+      {playing ? "Playing" : "Not Playing"}
       <p>Score: {score}</p>
       <p>Life: {life}</p>
       <div style={{ height: 500, position: "relative" }}>
@@ -1147,7 +402,8 @@ export default function TelexGamePage() {
         ></input>
         <GameContext.Provider
           value={{
-            focused: focused,
+            focused,
+            setFocused,
             score,
             setScore,
             life,
@@ -1171,36 +427,42 @@ export default function TelexGamePage() {
             {
               playing &&
                 entities.map((entity) => {
+                  const onDeath = () => {
+                    const index = zombiesToTrack.current.indexOf(entity.key);
+                    if (index !== -1) {
+                      zombiesToTrack.current.splice(index, 1);
+                      setEntities((entities) => {
+                        const clone = [...entities];
+                        const found = clone.find(
+                          (toFind) => toFind.key === entity.key
+                        );
+                        if (found !== -1) {
+                          clone.splice(clone.indexOf(found), 1);
+                        }
+                        return clone;
+                      });
+                    }
+                    if (zombiesToTrack.current.length === 0) {
+                      startRound((round + 1) % KEY_POINTS.length);
+                    }
+                  };
+
                   if (entity.type === "zombie") {
-                    console.log(entity.key);
                     return (
-                      <Zombie
+                      <WalkingZombie
                         position={entity.position}
                         speed={entity.speed}
                         key={entity.key}
-                        onDeath={() => {
-                          const index = zombiesToTrack.current.indexOf(
-                            entity.key
-                          );
-                          if (index !== -1) {
-                            zombiesToTrack.current.splice(index, 1);
-                            setEntities((entities) => {
-                              const clone = [...entities];
-                              const found = clone.find(
-                                (toFind) => toFind.key === entity.key
-                              );
-                              console.log(found);
-                              console.log(found);
-                              if (found !== -1) {
-                                clone.splice(clone.indexOf(found), 1);
-                              }
-                              return clone;
-                            });
-                          }
-                          if (zombiesToTrack.current.length === 0) {
-                            startRound((round + 1) % KEY_POINTS.length);
-                          }
-                        }}
+                        onDeath={onDeath}
+                      />
+                    );
+                  } else if (entity.type === "throwing_zombie") {
+                    return (
+                      <ThrowingZombie
+                        position={entity.position}
+                        speed={entity.speed}
+                        key={entity.key}
+                        onDeath={onDeath}
                       />
                     );
                   }
@@ -1330,5 +592,3 @@ export default function TelexGamePage() {
     </>
   );
 }
-
-createPage(TelexGamePage, { showPets: false });
