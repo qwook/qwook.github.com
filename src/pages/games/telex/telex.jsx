@@ -31,6 +31,7 @@ import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { generateWordNotInArray, Typebox } from "./Typebox";
 import { WalkingZombie } from "./zombies/WalkingZombie";
 import { ThrowingZombie } from "./zombies/ThrowingZombie";
+import { BossZombie } from "./zombies/BossZombie";
 
 export const GameContext = createContext();
 
@@ -67,6 +68,7 @@ const KEY_POINTS = [
   },
   {
     entities: [
+      // { type: "boss_zombie", position: [-6, 0, 5], speed: 0.5 },
       { type: "zombie", position: [-2, 0, 10] },
       { type: "zombie", position: [-6, 0, 15] },
       { type: "zombie", position: [-15, 0, 9] },
@@ -74,7 +76,7 @@ const KEY_POINTS = [
     ],
     track: [
       { position: [-1, 0, -6], rotation: [0, Math.PI / 2, 0], duration: 1 },
-      { position: [-6, 0, -6], rotation: [0, Math.PI, 0], duration: 1 },
+      { position: [-6, -1, -6], rotation: [0.3, Math.PI, 0], duration: 1 },
     ],
   },
   {
@@ -468,6 +470,15 @@ export default function TelexGamePage() {
                   } else if (entity.type === "throwing_zombie") {
                     return (
                       <ThrowingZombie
+                        position={entity.position}
+                        speed={entity.speed}
+                        key={entity.key}
+                        onDeath={onDeath}
+                      />
+                    );
+                  } else if (entity.type === "boss_zombie") {
+                    return (
+                      <BossZombie
                         position={entity.position}
                         speed={entity.speed}
                         key={entity.key}

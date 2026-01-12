@@ -523,10 +523,6 @@ export function Typebox({
           }
         }
       }
-      // if (e.code === "Key1")
-
-      // console.log(proposal);
-      // console.log(telexComparison(text, proposal));
 
       const comparison = telexComparison(decoded, proposal);
 
