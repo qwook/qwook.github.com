@@ -32,8 +32,11 @@ import { generateWordNotInArray, Typebox } from "./Typebox";
 import { WalkingZombie } from "./zombies/WalkingZombie";
 import { ThrowingZombie } from "./zombies/ThrowingZombie";
 import { BossZombie } from "./zombies/BossZombie";
+import { PathZombie } from "./zombies/PathZombie";
 
 export const GameContext = createContext();
+
+// Add essay boss
 
 const KEY_POINTS = [
   {
@@ -48,8 +51,9 @@ const KEY_POINTS = [
     ],
   },
   {
+    // Only show 1 limb first and then 2 or 3.
     entities: [
-      { type: "throwing_zombie", position: [3, -1, 20] },
+      // { type: "throwing_zombie", position: [3, -1, 20] },
       { type: "throwing_zombie", position: [-15, -1, 0] },
     ],
     track: [
@@ -68,24 +72,29 @@ const KEY_POINTS = [
   },
   {
     entities: [
-      // { type: "boss_zombie", position: [-6, 0, 5], speed: 0.5 },
-      { type: "zombie", position: [-2, 0, 10] },
-      { type: "zombie", position: [-6, 0, 15] },
-      { type: "zombie", position: [-15, 0, 9] },
-      { type: "zombie", position: [-20, 0, 9] },
+      { type: "boss_zombie", position: [-6, 0, 9], speed: 0.25 },
+      // { type: "zombie", position: [-2, 0, 10] },
+      // { type: "zombie", position: [-6, 0, 15] },
+      // { type: "zombie", position: [-15, 0, 9] },
+      // { type: "zombie", position: [-20, 0, 9] },
     ],
     track: [
       { position: [-1, 0, -6], rotation: [0, Math.PI / 2, 0], duration: 1 },
-      { position: [-6, -1, -6], rotation: [0.3, Math.PI, 0], duration: 1 },
+      { position: [-6, -1, -6], rotation: [0.4, Math.PI, 0], duration: 1 },
     ],
   },
   {
     entities: [
-      { type: "zombie", position: [20, 0, 10], speed: 7 },
-      { type: "zombie", position: [30, 0, 7], speed: 7 },
-      { type: "zombie", position: [40, 0, 15], speed: 7 },
-      { type: "zombie", position: [60, 0, 15], speed: 10 },
-      { type: "zombie", position: [70, 0, 15], speed: 10 },
+      {
+        type: "path_zombie",
+        path: [{ pos: [5, -1, 10] }, { pos: [5, -1, 20] }, { pos: [5, -1, 0] }],
+        position: [5, -1, 10],
+        speed: 2,
+      },
+      // { type: "zombie", position: [30, -1, 7], speed: 7 },
+      // { type: "zombie", position: [40, -1, 15], speed: 7 },
+      // { type: "zombie", position: [60, -1, 15], speed: 10 },
+      // { type: "zombie", position: [70, -1, 15], speed: 10 },
     ],
     track: [
       { position: [-6, 0, 1], rotation: [0, Math.PI, 0], duration: 1 },
@@ -111,6 +120,36 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
   scene.background = skybox;
 
   const cameraState = useRef({}).current;
+
+  const gltf = useGLTF(require("./assets/city.glb"));
+  const lightMap = useTexture(require("./assets/lightmap.png"));
+  lightMap.flipY = false;
+  lightMap.colorSpace = THREE.SRGBColorSpace;
+  lightMap.magFilter = THREE.NearestFilter;
+  lightMap.minFilter = THREE.NearestFilter;
+
+  useEffect(() => {
+    console.log(gltf.scene);
+    if (gltf.scene) {
+      gltf.scene.traverse((child) => {
+        if (child.isMesh) {
+          lightMap.channel = 1;
+          if (child.material.map) {
+            child.material.map.magFilter = THREE.NearestFilter;
+            child.material.map.minFilter = THREE.NearestFilter;
+          }
+          child.material.lightMap = lightMap;
+          child.material.lightMapIntensity = 1; // Adjust as needed
+          child.material.needsUpdate = true;
+          child.material.roughness = 100;
+        }
+        if (child.isLight) {
+          child.intensity *= 0.001;
+        }
+        console.log(child.isLight);
+      });
+    }
+  }, [gltf.scene]);
 
   useImperativeHandle(
     ref,
@@ -216,14 +255,15 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
 
   return (
     <>
-      <mesh scale={[40, 1, 40]} position={[0, -3, 0]}>
+      {/* <mesh scale={[40, 1, 40]} position={[0, -3, 0]}>
         <boxGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial attach="material" map={map} />
       </mesh>
       <mesh scale={[5, 5, 5]} position={[0, 0, 0]}>
         <boxGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial attach="material" map={cabin} />
-      </mesh>
+      </mesh> */}
+      <primitive position={[0, -3, 0]} object={gltf.scene} />
     </>
   );
 });
@@ -235,7 +275,7 @@ export default function TelexGamePage() {
   const [focused, setFocused] = useState();
   const [playing, setPlaying] = useState(false);
   const [score, setScore] = useState(0);
-  const [life, setLife] = useState(3);
+  const [life, setLife] = useState(6);
   const wordsUsed = useRef([]);
   const scene = useRef();
 
@@ -428,13 +468,13 @@ export default function TelexGamePage() {
         >
           <Canvas scene={{ background: "black" }}>
             <fog attach="fog" args={["black", 1, 30]} />
-            <ambientLight />
-            <directionalLight
-              position={[1.3, 1.0, 4.4]}
-              castShadow
-              intensity={Math.PI * 0.5}
-            />
-            {/* <pointLight position={[0, 20, 10]} intensity={1.5} /> */}
+            {/* <ambientLight /> */}
+            {/* {/* <directionalLight */}
+            position={[1.3, 1.0, 4.4]}
+            {/* castShadow */}
+            intensity={Math.PI * 0.1}
+            /> */}
+            {/* <pointLight position={[0, 20, 10]} intensity={100} /> */}
             {
               playing &&
                 entities.map((entity) => {
@@ -462,6 +502,16 @@ export default function TelexGamePage() {
                     return (
                       <WalkingZombie
                         position={entity.position}
+                        speed={entity.speed}
+                        key={entity.key}
+                        onDeath={onDeath}
+                      />
+                    );
+                  } else if (entity.type === "path_zombie") {
+                    return (
+                      <PathZombie
+                        position={entity.position}
+                        path={entity.path}
                         speed={entity.speed}
                         key={entity.key}
                         onDeath={onDeath}

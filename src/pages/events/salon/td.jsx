@@ -3,17 +3,18 @@ import { useState } from "react";
 export function TdWithPreview({ children, preview }) {
   const [showPreview, setShowPreview] = useState(false);
   return (
-    <td
-      className="project"
-      onClick={(e) => {
-        setShowPreview((showPreview) => !showPreview);
-        e.preventDefault();
-      }}
-    >
-      <span className="name">{children}</span>
+    <td className="project">
+      <div
+        className="top-name-dude"
+        onClick={(e) => {
+          setShowPreview((showPreview) => !showPreview);
+          e.preventDefault();
+        }}
+      >
+        <span className="name">{children}</span>
+      </div>
       {showPreview && preview && (
         <>
-          <br />
           <div className="description">{preview}</div>
         </>
       )}

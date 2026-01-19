@@ -5,6 +5,7 @@ body {
   color: black;
   margin: 0;
   padding: 50px;
+  padding-bottom: 250px;
   line-height: 1.5em;
   // width: 100%;
 
@@ -96,7 +97,9 @@ body {
 
     // font-family: "Times New Roman";
     letter-spacing: 0.01em;
-    text-shadow: -2px 2px 0px rgb(0, 0, 255), -3px 3px 0px rgb(231, 238, 255);
+    text-shadow:
+      -2px 2px 0px rgb(0, 0, 255),
+      -3px 3px 0px rgb(231, 238, 255);
     background: rgb(194, 194, 255);
     color: white;
     padding: 10px;
@@ -195,6 +198,14 @@ h2 {
   tr .name:before {
     content: "✜ ";
   }
+
+  td {
+    border-bottom: 1px dotted grey;
+  }
+
+  td {
+    vertical-align: top;
+  }
 }
 
 .canvas-container {
@@ -204,7 +215,10 @@ h2 {
 }
 
 td.project {
-  cursor: help;
+  .top-name-dude {
+    cursor: help;
+    padding-bottom: 0.5em;
+  }
   &:hover {
     .name {
       text-decoration: underline;

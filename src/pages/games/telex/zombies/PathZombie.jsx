@@ -6,16 +6,7 @@ import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
 
-function easeOutExpo(x) {
-  return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
-}
-
-export function ThrowingZombieProjectile({
-  position,
-  onDeath,
-  speed = 1,
-  cameraOffset,
-}) {
+export function PathZombie({ position, path, onDeath, speed = 2 }) {
   const game = useContext(GameContext);
   const root = useRef();
 
@@ -23,7 +14,7 @@ export function ThrowingZombieProjectile({
   const [text, setText] = useState("");
 
   useEffect(() => {
-    const newText = game.generateWord(1);
+    const newText = game.generateWord();
     setText(newText);
     return () => {
       game.removeWord(newText);
@@ -41,6 +32,15 @@ export function ThrowingZombieProjectile({
   useEffect(() => {
     actions["idle"].play();
     actions["idle"].setLoop(THREE.LoopRepeat);
+
+    if (actions.walking) {
+      actions["idle"].stop();
+
+      actions["walking"].play();
+      actions["walking"].timeScale = speed;
+      actions["walking"].startAt(Math.random() * -2);
+      actions["walking"].setLoop(THREE.LoopRepeat);
+    }
   }, [speed]);
 
   const damage = () => {
@@ -68,7 +68,10 @@ export function ThrowingZombieProjectile({
   const state = useThree();
   const [attacking, setAttacking] = useState(false);
   const attackingTimer = useRef(0);
-  const existenceTimer = useRef(0);
+  const nextAttack = useRef(0);
+
+  // Path following.
+  const pathIndex = useRef(0);
 
   useFrame((state, deltaTime) => {
     if (!game.playing) {
@@ -77,58 +80,59 @@ export function ThrowingZombieProjectile({
     if (dead) {
       return;
     }
+    if (
+      pathIndex.current >= path.length &&
+      root.current.position.distanceTo(state.camera.position) < 5
+    ) {
+      if (nextAttack.current > 0) {
+        nextAttack.current -= deltaTime;
+      }
+      if (!attacking && nextAttack.current <= 0) {
+        actions["walking"].fadeOut(0.2);
+        actions["attack"].play();
+        attackingTimer.current = 0;
+        setAttacking(true);
+      } else if (attacking) {
+        attackingTimer.current += deltaTime;
+        if (attackingTimer.current > 1.5) {
+          damage();
+          setAttacking(false);
+          nextAttack.current = 1;
+          attackingTimer.current = 0;
+        }
+      }
+    } else {
+      let goal = state.camera.position.clone();
 
-    existenceTimer.current += deltaTime / 3;
+      if (pathIndex.current < path.length) {
+        goal = new THREE.Vector3(...path[pathIndex.current].pos);
+      }
 
-    root.current.position.copy(
-      new THREE.Vector3(...position).lerp(
-        state.camera.position
-          .clone()
-          .add(
-            state.camera
-              .getWorldDirection(new THREE.Vector3())
-              .multiplyScalar(2)
-          )
-          .add(
-            new THREE.Vector3(...cameraOffset).applyQuaternion(
-              state.camera.quaternion
-            )
-          ),
-        easeOutExpo(existenceTimer.current)
-      )
-    );
+      if (root.current.position.distanceTo(goal) < 1) {
+        pathIndex.current++;
+      }
 
-    if (existenceTimer.current > 1) {
-      damage();
-      shot(false);
+      root.current.rotation.y = Math.atan2(
+        goal.x - root.current.position.x,
+        goal.z - root.current.position.z
+      );
+
+      root.current.position.add(
+        goal
+          .sub(root.current.position)
+          .normalize()
+          .multiplyScalar(deltaTime * speed)
+      );
     }
-
-    // const goal = state.camera.position.clone();
-    // console.log(root.current.position);
-    // if (root.current.position.distanceTo(state.camera.position) < 5) {
-    //   damage();
-    //   shot(false);
-    // } else {
-    //   root.current.position.add(
-    //     goal
-    //       .sub(root.current.position)
-    //       .normalize()
-    //       .multiplyScalar(deltaTime * speed)
-    //   );
-    // }
-    root.current.rotation.y = Math.atan2(
-      state.camera.position.x - root.current.position.x,
-      state.camera.position.z - root.current.position.z
-    );
   });
 
   return (
     <group ref={root} position={position} dispose={null}>
       <group ref={animRef}>
         <group
-          scale={[0.004, 0.001, 0.001]}
+          scale={[0.01, 0.01, 0.01]}
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, 0, 0]}
+          position={[0, -1.5, 0]}
         >
           <primitive object={nodes.mixamorigHips} />
           <skinnedMesh
@@ -144,7 +148,7 @@ export function ThrowingZombieProjectile({
       {!dead && (
         <Typebox
           text={text}
-          position={[0, 0, 0]}
+          position={[0, -1.5, 0]}
           onHit={() => {
             game.sounds["shot"].play();
             state.hit = 1;

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { GameContext } from "./telex";
 import { Html } from "@react-three/drei";
 import {
@@ -6,6 +6,7 @@ import {
   DICTIONARY_LEVEL_2,
   DICTIONARY_LEVEL_3,
 } from "./dictionary";
+import { useFrame } from "@react-three/fiber";
 
 /*
 
@@ -197,11 +198,14 @@ export function decodedToText(array) {
 }
 
 export function generateWordNotInArray(score, wordsUsed) {
-  const dictionary = [
-    ...DICTIONARY_LEVEL_1,
-    ...(score > 20 ? DICTIONARY_LEVEL_2 : []),
-    ...(score > 30 ? DICTIONARY_LEVEL_3 : []),
-  ];
+  const dictionary =
+    score instanceof Array
+      ? score
+      : [
+          ...DICTIONARY_LEVEL_1,
+          ...(score > 20 ? DICTIONARY_LEVEL_2 : []),
+          ...(score > 30 ? DICTIONARY_LEVEL_3 : []),
+        ];
   if (wordsUsed && wordsUsed.length > 0) {
     console.log(wordsUsed);
     const charsUsed = new Set(
@@ -572,22 +576,30 @@ export function Typebox({
     );
   }, [game.focused, text, focused]);
 
+  const obj = useRef();
+  useFrame((state, delta) => {
+    obj.current?.lookAt(state.camera.position);
+    // state.camera
+  });
+
   return (
-    <Html {...props}>
-      <div className="type-box-stopper">
-        <div
-          className={[
-            "type-box",
-            focused && "focused",
-            blurred && "blurred",
-          ].join(" ")}
-        >
-          <div className="expected">{decodedToText(decoded)}</div>
-          <div className="typed">
-            <UnderlineLastLetter text={decodedToText(typed)} />
+    <group ref={obj} {...props}>
+      <Html transform>
+        <div className="type-box-stopper">
+          <div
+            className={[
+              "type-box",
+              focused && "focused",
+              blurred && "blurred",
+            ].join(" ")}
+          >
+            <div className="expected">{decodedToText(decoded)}</div>
+            <div className="typed">
+              <UnderlineLastLetter text={decodedToText(typed)} />
+            </div>
           </div>
         </div>
-      </div>
-    </Html>
+      </Html>
+    </group>
   );
 }

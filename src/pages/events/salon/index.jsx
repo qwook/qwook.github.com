@@ -5,6 +5,7 @@ import { headTags } from "../../../utils/headTags";
 import "./salon.scss";
 import p5 from "p5";
 import { TdWithPreview } from "./td";
+import { Setlist1 } from "./setlists/setlist1";
 
 headTags({
   title: "show&telex",
@@ -60,16 +61,16 @@ function P5Canvas() {
             25 *
             Math.pow(
               (matWidth / 2 - Math.abs(x - matWidth / 2)) / (matWidth / 2),
-              2
+              2,
             ) *
             Math.pow(
               (matHeight / 2 - Math.abs(y - matHeight / 2)) / (matHeight / 2),
-              2
+              2,
             );
 
           let distance = Math.sqrt(
             Math.pow(mouse.current.x / 20 - x, 2) +
-              Math.pow(mouse.current.y / 20 - y, 2)
+              Math.pow(mouse.current.y / 20 - y, 2),
           );
 
           console.log(distance);
@@ -144,7 +145,7 @@ function P5Canvas() {
       for (const entry of entries) {
         p5Instance.resizeCanvas(
           entry.contentRect.width,
-          entry.contentRect.height
+          entry.contentRect.height,
         );
       }
     });
@@ -248,32 +249,7 @@ export default function EventPage() {
             </a>
           </sub>
         </h2>
-        <table className="salon-table">
-          <tr>
-            <TdWithPreview
-              preview={
-                "A keyboard with more than 300 buttons, for every possible vowel."
-              }
-            >
-              Bàn Phím
-            </TdWithPreview>
-            <td>Quang-Anh</td>
-          </tr>
-          <tr>
-            <TdWithPreview preview={"A typing game with Vietnamese words."}>
-              Telex of the Dead
-            </TdWithPreview>
-            <td>Henry Quoc Tran</td>
-          </tr>
-          <tr>
-            <TdWithPreview>??? ?? ??? ??</TdWithPreview>
-            <td>??? ?????</td>
-          </tr>
-          <tr>
-            <TdWithPreview>???????? ??? ????</TdWithPreview>
-            <td>????? ???</td>
-          </tr>
-        </table>
+        <Setlist1 language={language} />
       </div>
     </>
   );

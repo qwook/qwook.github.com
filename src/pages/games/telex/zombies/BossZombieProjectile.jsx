@@ -5,14 +5,17 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
+import { time } from "three/tsl";
 
 function easeOutExpo(x) {
   return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
 }
 
-export function ThrowingZombieProjectile({
+export function BossZombieProjectile({
   position,
+  parent,
   onDeath,
+  id = 0,
   speed = 1,
   cameraOffset,
 }) {
@@ -23,6 +26,10 @@ export function ThrowingZombieProjectile({
   const [text, setText] = useState("");
 
   useEffect(() => {
+    const world = parent.localToWorld(new THREE.Vector3(0, 0, 0));
+    root.current.parent.worldToLocal(world);
+    root.current.position.copy(world);
+
     const newText = game.generateWord(1);
     setText(newText);
     return () => {
@@ -69,6 +76,7 @@ export function ThrowingZombieProjectile({
   const [attacking, setAttacking] = useState(false);
   const attackingTimer = useRef(0);
   const existenceTimer = useRef(0);
+  const lastPosition = useRef(new THREE.Vector3());
 
   useFrame((state, deltaTime) => {
     if (!game.playing) {
@@ -78,30 +86,75 @@ export function ThrowingZombieProjectile({
       return;
     }
 
-    existenceTimer.current += deltaTime / 3;
+    existenceTimer.current += deltaTime;
 
-    root.current.position.copy(
-      new THREE.Vector3(...position).lerp(
+    const world = parent
+      .localToWorld(new THREE.Vector3(0, 0, 0))
+      .add(
+        new THREE.Vector3(
+          Math.sin(existenceTimer.current * 5 + id * 2),
+          Math.sin(existenceTimer.current * 5 * 0.9 + 4 + id * 2),
+          Math.sin(existenceTimer.current * 5 * 1.1 + 1 + id * 2)
+        )
+      );
+    const local = world.clone();
+    root.current.parent.worldToLocal(local);
+
+    const delay = 5 + (id % 4) / 4;
+    const throwTime = 1;
+    if (existenceTimer.current > delay) {
+      let timeAfter = (existenceTimer.current - delay) / throwTime;
+      const flyingPos = world.clone();
+      flyingPos.lerp(
         state.camera.position
           .clone()
           .add(
             state.camera
               .getWorldDirection(new THREE.Vector3())
-              .multiplyScalar(2)
+              .multiplyScalar(1)
           )
           .add(
             new THREE.Vector3(...cameraOffset).applyQuaternion(
               state.camera.quaternion
             )
           ),
-        easeOutExpo(existenceTimer.current)
-      )
-    );
+        // 0
+        easeOutExpo(timeAfter * 0.5)
+      );
+      root.current.parent.worldToLocal(flyingPos);
+      root.current.position.copy(flyingPos);
 
-    if (existenceTimer.current > 1) {
-      damage();
-      shot(false);
+      if (timeAfter > 2) {
+        damage();
+        shot(false);
+      }
+    } else {
+      root.current.position.lerp(local, 0.1);
+      lastPosition.current.copy(root.current.position);
     }
+
+    // root.current.position.copy(
+    //   new THREE.Vector3(...position).lerp(
+    //     state.camera.position
+    //       .clone()
+    //       .add(
+    //         state.camera
+    //           .getWorldDirection(new THREE.Vector3())
+    //           .multiplyScalar(2)
+    //       )
+    //       .add(
+    //         new THREE.Vector3(...cameraOffset).applyQuaternion(
+    //           state.camera.quaternion
+    //         )
+    //       ),
+    //     easeOutExpo(existenceTimer.current)
+    //   )
+    // );
+
+    // if (existenceTimer.current > 1) {
+    //   damage();
+    //   shot(false);
+    // }
 
     // const goal = state.camera.position.clone();
     // console.log(root.current.position);

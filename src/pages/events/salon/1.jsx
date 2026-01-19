@@ -4,6 +4,7 @@ import { EventSpecial } from "../../../components/events/event-special";
 import { headTags } from "../../../utils/headTags";
 import "./salon.scss";
 import { TdWithPreview } from "./td";
+import { Setlist1 } from "./setlists/setlist1";
 
 headTags({
   title: "show&telex - 25/1/2026",
@@ -74,34 +75,7 @@ export default function EventPage() {
               </div>
               <div className="q">Có ai?</div>
               <div className="a">
-                <table className="salon-table">
-                  <tr>
-                    <TdWithPreview
-                      preview={
-                        "A keyboard with more than 300 buttons, for every possible vowel."
-                      }
-                    >
-                      Bàn Phím
-                    </TdWithPreview>
-                    <td>Quang-Anh</td>
-                  </tr>
-                  <tr>
-                    <TdWithPreview
-                      preview={"A typing game with Vietnamese words."}
-                    >
-                      Telex of the Dead
-                    </TdWithPreview>
-                    <td>Henry Quoc Tran</td>
-                  </tr>
-                  <tr>
-                    <TdWithPreview>??? ?? ??? ??</TdWithPreview>
-                    <td>??? ?????</td>
-                  </tr>
-                  <tr>
-                    <TdWithPreview>???????? ??? ????</TdWithPreview>
-                    <td>????? ???</td>
-                  </tr>
-                </table>
+                <Setlist1 language="vn" />
               </div>
               <div className="q">Sao mình trình bày được?</div>
               <div className="a">
@@ -134,34 +108,7 @@ export default function EventPage() {
               </div>
               <div className="q">Who's show and telling?</div>
               <div className="a">
-                <table className="salon-table">
-                  <tr>
-                    <TdWithPreview
-                      preview={
-                        "A keyboard with more than 300 buttons, for every possible vowel."
-                      }
-                    >
-                      Bàn Phím
-                    </TdWithPreview>
-                    <td>Quang-Anh</td>
-                  </tr>
-                  <tr>
-                    <TdWithPreview
-                      preview={"A typing game with Vietnamese words."}
-                    >
-                      Telex of the Dead
-                    </TdWithPreview>
-                    <td>Henry Quoc Tran</td>
-                  </tr>
-                  <tr>
-                    <TdWithPreview>??? ?? ??? ??</TdWithPreview>
-                    <td>??? ?????</td>
-                  </tr>
-                  <tr>
-                    <TdWithPreview>???????? ??? ????</TdWithPreview>
-                    <td>????? ???</td>
-                  </tr>
-                </table>
+                <Setlist1 language="en" />
               </div>
               <div className="q">Can I show and tell?</div>
               <div className="a">Reach out to one of us with your project.</div>
