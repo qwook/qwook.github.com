@@ -118,7 +118,7 @@ export function Setlist1({ language = "en" }) {
             )
           }
         >
-          VR/AR project on love.
+          {language === "vn" ? '"Ái" dự án VR/AR' : "VR/AR project on love."}
         </TdWithPreview>
         <td>eve</td>
       </tr>
