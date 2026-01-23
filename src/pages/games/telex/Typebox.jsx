@@ -5,6 +5,7 @@ import {
   DICTIONARY_LEVEL_1,
   DICTIONARY_LEVEL_2,
   DICTIONARY_LEVEL_3,
+  DICTIONARY_LEVEL_4,
 } from "./dictionary";
 import { useFrame } from "@react-three/fiber";
 
@@ -192,7 +193,7 @@ export function decodedToText(array) {
       (decoded) =>
         ACCESS_ENCODE_MAP[
           decoded.letter + (decoded.variation || "") + (decoded.accent || "")
-        ] || decoded.letter
+        ] || decoded.letter,
     )
     .join("");
 }
@@ -202,22 +203,23 @@ export function generateWordNotInArray(score, wordsUsed) {
     score instanceof Array
       ? score
       : [
-          ...DICTIONARY_LEVEL_1,
-          ...(score > 20 ? DICTIONARY_LEVEL_2 : []),
+          ...(score < 30 ? DICTIONARY_LEVEL_1 : []),
+          ...(score > 20 && score < 40 ? DICTIONARY_LEVEL_2 : []),
           ...(score > 30 ? DICTIONARY_LEVEL_3 : []),
+          ...(score > 40 ? DICTIONARY_LEVEL_4 : []),
         ];
   if (wordsUsed && wordsUsed.length > 0) {
     console.log(wordsUsed);
     const charsUsed = new Set(
       wordsUsed.map(
-        (word) => ACCENT_DECODE_MAP[word.charAt(0)]?.letter || word.charAt(0)
-      )
+        (word) => ACCENT_DECODE_MAP[word.charAt(0)]?.letter || word.charAt(0),
+      ),
     );
     const filteredDict = dictionary.filter(
       (word) =>
         !charsUsed.has(
-          ACCENT_DECODE_MAP[word.charAt(0)]?.letter || word.charAt(0)
-        )
+          ACCENT_DECODE_MAP[word.charAt(0)]?.letter || word.charAt(0),
+        ),
     );
     console.log(charsUsed);
     console.log(filteredDict);
@@ -572,7 +574,7 @@ export function Typebox({
   const [blurred, setBlurred] = useState(false);
   useEffect(() => {
     setBlurred(
-      game.focused && game.focused !== decodedToText(decoded) && !focused
+      game.focused && game.focused !== decodedToText(decoded) && !focused,
     );
   }, [game.focused, text, focused]);
 

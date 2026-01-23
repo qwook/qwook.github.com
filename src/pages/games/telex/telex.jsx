@@ -4,6 +4,8 @@ import Banner from "../../../components/Banner";
 import {
   Clone,
   Fbx,
+  GizmoHelper,
+  GizmoViewport,
   Gltf,
   Html,
   Loader,
@@ -33,75 +35,10 @@ import { WalkingZombie } from "./zombies/WalkingZombie";
 import { ThrowingZombie } from "./zombies/ThrowingZombie";
 import { BossZombie } from "./zombies/BossZombie";
 import { PathZombie } from "./zombies/PathZombie";
+import { KEY_POINTS } from "./map";
+import { HealthViz } from "./HealthViz";
 
 export const GameContext = createContext();
-
-// Add essay boss
-
-const KEY_POINTS = [
-  {
-    entities: [
-      { type: "zombie", position: [3, -3, -10] },
-      { type: "zombie", position: [9, -3, -20] },
-      { type: "zombie", position: [15, -3, -8] },
-    ],
-    track: [
-      { position: [1, 0, 6], rotation: [0, -Math.PI / 2, 0], duration: 1 },
-      { position: [6, 0, 6], rotation: [0, 0, 0], duration: 1 },
-    ],
-  },
-  {
-    // Only show 1 limb first and then 2 or 3.
-    entities: [
-      // { type: "throwing_zombie", position: [3, -1, 20] },
-      { type: "throwing_zombie", position: [-15, -1, 0] },
-    ],
-    track: [
-      { position: [6, 0, -1], rotation: [0, 0, 0], duration: 1 },
-      {
-        position: [6, 0, -6],
-        rotation: [0, Math.PI / 2 + 0.2, 0],
-        duration: 0.5,
-      },
-      {
-        position: [5, 0, -6],
-        rotation: [0.2, Math.PI / 2 + 0.8, 0],
-        duration: 1,
-      },
-    ],
-  },
-  {
-    entities: [
-      { type: "boss_zombie", position: [-6, 0, 9], speed: 0.25 },
-      // { type: "zombie", position: [-2, 0, 10] },
-      // { type: "zombie", position: [-6, 0, 15] },
-      // { type: "zombie", position: [-15, 0, 9] },
-      // { type: "zombie", position: [-20, 0, 9] },
-    ],
-    track: [
-      { position: [-1, 0, -6], rotation: [0, Math.PI / 2, 0], duration: 1 },
-      { position: [-6, -1, -6], rotation: [0.4, Math.PI, 0], duration: 1 },
-    ],
-  },
-  {
-    entities: [
-      {
-        type: "path_zombie",
-        path: [{ pos: [5, -1, 10] }, { pos: [5, -1, 20] }, { pos: [5, -1, 0] }],
-        position: [5, -1, 10],
-        speed: 2,
-      },
-      // { type: "zombie", position: [30, -1, 7], speed: 7 },
-      // { type: "zombie", position: [40, -1, 15], speed: 7 },
-      // { type: "zombie", position: [60, -1, 15], speed: 10 },
-      // { type: "zombie", position: [70, -1, 15], speed: 10 },
-    ],
-    track: [
-      { position: [-6, 0, 1], rotation: [0, Math.PI, 0], duration: 1 },
-      { position: [-6, 0, 6], rotation: [0, -Math.PI / 2, 0], duration: 1 },
-    ],
-  },
-];
 
 /*
 
@@ -122,7 +59,7 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
   const cameraState = useRef({}).current;
 
   const gltf = useGLTF(require("./assets/city.glb"));
-  const lightMap = useTexture(require("./assets/lightmap.png"));
+  const lightMap = useTexture(require("./assets/lightmap.gif"));
   lightMap.flipY = false;
   lightMap.colorSpace = THREE.SRGBColorSpace;
   lightMap.magFilter = THREE.NearestFilter;
@@ -151,37 +88,33 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
     }
   }, [gltf.scene]);
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        jumpToBeginning(round) {
-          cameraState.cameraAnimId = round || cameraState.cameraAnimId;
-          if (cameraState.cameraAnimId !== -1) {
-            cameraState.cameraAnimSubId =
-              KEY_POINTS[cameraState.cameraAnimId]?.track.length - 1;
-            cameraState.cameraAnimTime = 0;
-            const goal =
-              KEY_POINTS[cameraState.cameraAnimId]?.track[
-                cameraState.cameraAnimSubId
-              ];
-            if (goal) {
-              cameraState.cameraAnimTime = goal.duration;
-              const goalPos = new THREE.Vector3(...goal.position);
-              const goalAng = new THREE.Quaternion().setFromEuler(
-                new THREE.Euler(...goal.rotation, "ZYX")
-              );
-              camera.position.copy(goalPos);
-              camera.quaternion.copy(goalAng);
-              cameraState.cameraStartPos = camera.position.clone();
-              cameraState.cameraStartAng = camera.quaternion.clone();
-            }
+  useImperativeHandle(ref, () => {
+    return {
+      jumpToBeginning(round) {
+        cameraState.cameraAnimId = round || cameraState.cameraAnimId;
+        if (cameraState.cameraAnimId !== -1) {
+          cameraState.cameraAnimSubId =
+            KEY_POINTS[cameraState.cameraAnimId]?.track.length - 1;
+          cameraState.cameraAnimTime = 0;
+          const goal =
+            KEY_POINTS[cameraState.cameraAnimId]?.track[
+              cameraState.cameraAnimSubId
+            ];
+          if (goal) {
+            cameraState.cameraAnimTime = goal.duration;
+            const goalPos = new THREE.Vector3(...goal.position);
+            const goalAng = new THREE.Quaternion().setFromEuler(
+              new THREE.Euler(...goal.rotation, "ZYX"),
+            );
+            camera.position.copy(goalPos);
+            camera.quaternion.copy(goalAng);
+            cameraState.cameraStartPos = camera.position.clone();
+            cameraState.cameraStartAng = camera.quaternion.clone();
           }
-        },
-      };
-    },
-    []
-  );
+        }
+      },
+    };
+  }, []);
 
   const playCameraAnimation = (id) => {
     cameraState.cameraAnimId = id;
@@ -208,6 +141,9 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
   useFrame((state, delta) => {
     if (state.size.height > state.size.width) {
       state.camera.fov = 120;
+      // state.camera.updateProjectionMatrix();
+    } else {
+      state.camera.fov = 90;
       state.camera.updateProjectionMatrix();
     }
     if (cameraState.cameraAnimId !== -1) {
@@ -218,7 +154,7 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
       if (goal) {
         const goalPos = new THREE.Vector3(...goal.position);
         const goalAng = new THREE.Quaternion().setFromEuler(
-          new THREE.Euler(...goal.rotation, "ZYX")
+          new THREE.Euler(...goal.rotation, "ZYX"),
         );
         cameraState.cameraAnimTime = cameraState.cameraAnimTime + delta;
         if (DEBUG_STAGE !== null) {
@@ -226,17 +162,17 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
         }
         const progress = Math.min(
           cameraState.cameraAnimTime / goal.duration,
-          1
+          1,
         );
         camera.quaternion.slerpQuaternions(
           camera.quaternion,
           goalAng,
-          progress
+          progress,
         );
         camera.position.lerpVectors(
           cameraState.cameraStartPos,
           goalPos,
-          progress
+          progress,
         );
         if (cameraState.cameraAnimTime >= goal.duration) {
           cameraState.cameraStartPos = goalPos;
@@ -278,6 +214,7 @@ export default function TelexGamePage() {
   const [life, setLife] = useState(6);
   const wordsUsed = useRef([]);
   const scene = useRef();
+  const [globalState, setGlobalState] = useState({});
 
   // Idk man...
   // Idk how to handle entities in react cleanly.
@@ -286,7 +223,7 @@ export default function TelexGamePage() {
   const generateWord = (scoreOverride) => {
     const newWord = generateWordNotInArray(
       scoreOverride || score,
-      wordsUsed.current
+      wordsUsed.current,
     );
     wordsUsed.current.push(newWord);
     return newWord;
@@ -364,7 +301,7 @@ export default function TelexGamePage() {
           volume: 1,
           // html5: true,
         },
-        []
+        [],
       ),
       death: new Howl(
         {
@@ -373,7 +310,7 @@ export default function TelexGamePage() {
           volume: 1,
           // html5: true,
         },
-        []
+        [],
       ),
       music: new Howl(
         {
@@ -384,7 +321,7 @@ export default function TelexGamePage() {
           pool: 1,
           html5: true,
         },
-        []
+        [],
       ),
       deathMusic: new Howl(
         {
@@ -395,10 +332,10 @@ export default function TelexGamePage() {
           pool: 1,
           html5: true,
         },
-        []
+        [],
       ),
     }),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -433,10 +370,11 @@ export default function TelexGamePage() {
             onClick={() => {
               setFocused();
               setScore(0);
-              setLife(3);
+              setLife(6);
               setPlaying(true);
               setEntities([]);
               startRound(0);
+              setGlobalState({});
               scene.current.jumpToBeginning(round);
               zombiesToTrack.current = [];
               wordsUsed.current = [];
@@ -464,15 +402,21 @@ export default function TelexGamePage() {
             generateWord,
             removeWord,
             sounds,
+            globalState,
+            setGlobalState,
           }}
         >
-          <Canvas scene={{ background: "black" }}>
+          <Canvas
+            scene={{ background: "black" }}
+            gl={{ antialias: false }}
+            dpr={window.devicePixelRatio / 4}
+          >
             <fog attach="fog" args={["black", 1, 30]} />
-            {/* <ambientLight /> */}
-            {/* {/* <directionalLight */}
-            position={[1.3, 1.0, 4.4]}
-            {/* castShadow */}
-            intensity={Math.PI * 0.1}
+            <ambientLight intensity={0.1} />
+            {/* <directionalLight
+              position={[1.3, 1.0, 4.4]}
+              castShadow
+              intensity={Math.PI * 0.1}
             /> */}
             {/* <pointLight position={[0, 20, 10]} intensity={100} /> */}
             {
@@ -485,7 +429,7 @@ export default function TelexGamePage() {
                       setEntities((entities) => {
                         const clone = [...entities];
                         const found = clone.find(
-                          (toFind) => toFind.key === entity.key
+                          (toFind) => toFind.key === entity.key,
                         );
                         if (found !== -1) {
                           clone.splice(clone.indexOf(found), 1);
@@ -544,8 +488,12 @@ export default function TelexGamePage() {
               // </>
             }
             <Scene ref={scene} stage={round} />
+            <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
+              <GizmoViewport labelColor="white" axisHeadScale={1} />
+            </GizmoHelper>
           </Canvas>
         </GameContext.Provider>
+        <HealthViz lives={life} />
       </div>
       <Button
         onClick={() => {

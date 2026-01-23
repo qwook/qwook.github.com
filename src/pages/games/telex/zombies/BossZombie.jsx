@@ -33,6 +33,15 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
   const [text, setText] = useState("");
 
   useEffect(() => {
+    game.setGlobalState((globalState) => {
+      if (!globalState.bossCount) {
+        globalState = { ...globalState, bossCount: 0 };
+      }
+      return globalState;
+    });
+  }, [game.setGlobalState]);
+
+  useEffect(() => {
     const newText = game.generateWord();
     setText(newText);
     return () => {
@@ -41,7 +50,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb")
+    require("../assets/long_zombie.glb"),
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
@@ -75,10 +84,10 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
     setDead(true);
 
     const side = new THREE.Vector3(0, 1, 0).cross(
-      state.camera.getWorldDirection(new THREE.Vector3())
+      state.camera.getWorldDirection(new THREE.Vector3()),
     );
     const pan = side.dot(
-      root.current.position.clone().sub(state.camera.position).normalize()
+      root.current.position.clone().sub(state.camera.position).normalize(),
     );
     game.sounds["death"].stereo(-pan * 0.7);
     game.sounds["death"].play();
@@ -108,7 +117,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
       nodes.mixamorigLeftLeg.scale.set(0, 0, 0);
     } else {
       const world = nodes.mixamorigLeftLeg.localToWorld(
-        new THREE.Vector3(0, 0, 0)
+        new THREE.Vector3(0, 0, 0),
       );
       animRef.current.worldToLocal(world);
       leftLeg.current.position.copy(world);
@@ -118,7 +127,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
       nodes.mixamorigLeftArm.scale.set(0, 0, 0);
     } else {
       const world = nodes.mixamorigLeftHand.localToWorld(
-        new THREE.Vector3(0, 0, 0)
+        new THREE.Vector3(0, 0, 0),
       );
       animRef.current.worldToLocal(world);
       leftArm.current.position.copy(world);
@@ -128,7 +137,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
       nodes.mixamorigRightArm.scale.set(0, 0, 0);
     } else {
       const world = nodes.mixamorigRightHand.localToWorld(
-        new THREE.Vector3(0, 0, 0)
+        new THREE.Vector3(0, 0, 0),
       );
       animRef.current.worldToLocal(world);
       rightArm.current.position.copy(world);
@@ -138,7 +147,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
       nodes.mixamorigNeck.scale.set(0, 0, 0);
     } else {
       const world = nodes.mixamorigHead.localToWorld(
-        new THREE.Vector3(0, 0, 0)
+        new THREE.Vector3(0, 0, 0),
       );
       animRef.current.worldToLocal(world);
       head.current.position.copy(world);
@@ -151,8 +160,8 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
       return;
     }
     const goal = state.camera.position.clone();
-    goal.y = -1;
-    if (root.current.position.distanceTo(state.camera.position) < 7) {
+    goal.y = position[1];
+    if (root.current.position.distanceTo(state.camera.position) < 4) {
       if (nextAttack.current > 0) {
         nextAttack.current -= deltaTime;
       }
@@ -176,13 +185,13 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
         goal
           .sub(root.current.position)
           .normalize()
-          .multiplyScalar(deltaTime * speed)
+          .multiplyScalar(deltaTime * speed * 0.5),
       );
     }
-    root.current.position.y = -1;
+    root.current.position.y = position[1];
     root.current.rotation.y = Math.atan2(
       state.camera.position.x - root.current.position.x,
-      state.camera.position.z - root.current.position.z
+      state.camera.position.z - root.current.position.z,
     );
   });
 
@@ -206,7 +215,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
       <group ref={root} position={position} dispose={null}>
         <group ref={animRef}>
           <group
-            scale={[0.03, 0.03, 0.03]}
+            scale={[0.015, 0.015, 0.015]}
             rotation={[Math.PI / 2, 0, 0]}
             position={[0, -1.5, 0]}
           >
@@ -310,6 +319,13 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
                   onFinished={() => {
                     setHeadHealth((health) => health - 1);
                     if (headHealth === 1) {
+                      game.setGlobalState((globalState) => {
+                        globalState = {
+                          ...globalState,
+                          bossCount: globalState.bossCount + 1,
+                        };
+                        return globalState;
+                      });
                       onDeath();
                     }
                   }}
@@ -339,7 +355,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
                 setProjectiles((projectiles) => {
                   const clone = [...projectiles];
                   const found = clone.find(
-                    (toFind) => toFind.id === projectile.id
+                    (toFind) => toFind.id === projectile.id,
                   );
                   if (found !== -1) {
                     clone.splice(clone.indexOf(found), 1);

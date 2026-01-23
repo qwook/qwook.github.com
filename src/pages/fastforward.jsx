@@ -9,14 +9,14 @@ function FastForwardPage() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      let time = video.current.currentTime - 0.2;
+      let time = video.current.currentTime - 0.3;
       if (time >= 0) {
         console.log(video.current.currentTime);
         video.current.currentTime = time;
       } else {
         video.current.currentTime = video.current.duration;
       }
-    }, 50);
+    }, 30);
 
     return () => {
       clearInterval(interval);
@@ -29,8 +29,8 @@ function FastForwardPage() {
       const ctx1 = canvas1.current.getContext("2d");
       const ctx2 = canvas2.current.getContext("2d");
 
-      const gridCountW = 9 + Math.floor(Math.random() * 2);
-      const gridCountH = 10 + Math.floor(Math.random() * 2);
+      const gridCountW = 12 + Math.floor(Math.random() * 2);
+      const gridCountH = 14 + Math.floor(Math.random() * 2);
       const gridW = Math.floor(video.current.videoWidth / gridCountW);
       const gridH = Math.floor(video.current.videoHeight / gridCountH);
 
@@ -59,21 +59,21 @@ function FastForwardPage() {
           break;
         }
       }
-    }, 5);
+    }, 10);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       <video
         ref={video}
-        src={require("./images/fastforward/central.mp4")}
+        // src={require("./images/fastforward/quick.mov")}
         mute
         loop
         // autoPlay
         controls
         onLoadedMetadata={() => {
-          video.current.playbackRate = 4;
+          video.current.playbackRate = 0.1;
           canvas1.current.width = video.current.videoWidth;
           canvas1.current.height = video.current.videoHeight;
           canvas2.current.width = video.current.videoWidth;
@@ -82,7 +82,7 @@ function FastForwardPage() {
       />
       <canvas ref={canvas1}></canvas>
       <canvas ref={canvas2}></canvas>
-    </>
+    </div>
   );
 }
 

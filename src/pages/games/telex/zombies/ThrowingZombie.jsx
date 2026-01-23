@@ -28,7 +28,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb")
+    require("../assets/long_zombie.glb"),
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
@@ -51,10 +51,10 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
     setDead(true);
 
     const side = new THREE.Vector3(0, 1, 0).cross(
-      state.camera.getWorldDirection(new THREE.Vector3())
+      state.camera.getWorldDirection(new THREE.Vector3()),
     );
     const pan = side.dot(
-      root.current.position.clone().sub(state.camera.position).normalize()
+      root.current.position.clone().sub(state.camera.position).normalize(),
     );
     game.sounds["death"].stereo(-pan * 0.7);
     game.sounds["death"].play();
@@ -108,8 +108,8 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
         {
           id: ++projectileIdTracker.current,
           cameraOffset: [
+            (Math.random() - 0.5) * 4,
             (Math.random() - 0.5) * 2,
-            (Math.random() - 0.5) * 0.5,
             0,
           ],
         },
@@ -155,7 +155,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
     // root.current.position.y = -1;
     root.current.rotation.y = Math.atan2(
       state.camera.position.x - root.current.position.x,
-      state.camera.position.z - root.current.position.z
+      state.camera.position.z - root.current.position.z,
     );
   });
 
@@ -177,7 +177,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
       <group ref={root} position={position} dispose={null}>
         <group ref={animRef}>
           <group
-            scale={[0.01, 0.01, 0.01]}
+            scale={[0.005, 0.005, 0.005]}
             rotation={[Math.PI / 2, 0, 0]}
             position={[0, -1.5, 0]}
           >
@@ -215,7 +215,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
               setProjectiles((projectiles) => {
                 const clone = [...projectiles];
                 const found = clone.find(
-                  (toFind) => toFind.id === projectile.id
+                  (toFind) => toFind.id === projectile.id,
                 );
                 if (found !== -1) {
                   clone.splice(clone.indexOf(found), 1);

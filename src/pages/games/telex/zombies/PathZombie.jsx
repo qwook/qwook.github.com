@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { GameContext } from "../telex";
 import { useFrame, useGraph, useThree } from "@react-three/fiber";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import { PivotControls, useAnimations, useGLTF } from "@react-three/drei";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
@@ -22,12 +22,18 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb")
+    require("../assets/long_zombie.glb"),
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
 
   const { ref: animRef, actions, names } = useAnimations(animations);
+
+  materials["Material.002"].roughness = 1.0;
+  materials["Material.002"].flatShading = false;
+  materials["Material.002"].map.magFilter = THREE.NearestFilter;
+  materials["Material.002"].map.minFilter = THREE.NearestFilter;
+  console.log(materials["Material.002"]);
 
   useEffect(() => {
     actions["idle"].play();
@@ -56,10 +62,10 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
     setDead(true);
 
     const side = new THREE.Vector3(0, 1, 0).cross(
-      state.camera.getWorldDirection(new THREE.Vector3())
+      state.camera.getWorldDirection(new THREE.Vector3()),
     );
     const pan = side.dot(
-      root.current.position.clone().sub(state.camera.position).normalize()
+      root.current.position.clone().sub(state.camera.position).normalize(),
     );
     game.sounds["death"].stereo(-pan * 0.7);
     game.sounds["death"].play();
@@ -82,7 +88,7 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
     }
     if (
       pathIndex.current >= path.length &&
-      root.current.position.distanceTo(state.camera.position) < 5
+      root.current.position.distanceTo(state.camera.position) < 2
     ) {
       if (nextAttack.current > 0) {
         nextAttack.current -= deltaTime;
@@ -103,9 +109,17 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
       }
     } else {
       let goal = state.camera.position.clone();
+      goal.y = root.current.position.y;
+
+      let speedNow = speed;
 
       if (pathIndex.current < path.length) {
-        goal = new THREE.Vector3(...path[pathIndex.current].pos);
+        if (path[pathIndex.current].speed) {
+          speedNow = path[pathIndex.current].speed;
+        }
+        if (path[pathIndex.current].pos) {
+          goal = new THREE.Vector3(...path[pathIndex.current].pos);
+        }
       }
 
       if (root.current.position.distanceTo(goal) < 1) {
@@ -114,14 +128,14 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
 
       root.current.rotation.y = Math.atan2(
         goal.x - root.current.position.x,
-        goal.z - root.current.position.z
+        goal.z - root.current.position.z,
       );
 
       root.current.position.add(
         goal
           .sub(root.current.position)
           .normalize()
-          .multiplyScalar(deltaTime * speed)
+          .multiplyScalar(deltaTime * speedNow * 0.5),
       );
     }
   });
@@ -130,7 +144,7 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
     <group ref={root} position={position} dispose={null}>
       <group ref={animRef}>
         <group
-          scale={[0.01, 0.01, 0.01]}
+          scale={[0.005, 0.005, 0.005]}
           rotation={[Math.PI / 2, 0, 0]}
           position={[0, -1.5, 0]}
         >
@@ -141,7 +155,6 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
             geometry={nodes.Human.geometry}
             skeleton={nodes.Human.skeleton}
             material={materials["Material.002"]}
-            scale={[100, 100, 100]}
           ></skinnedMesh>
         </group>
       </group>

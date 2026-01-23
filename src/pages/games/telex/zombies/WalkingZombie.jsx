@@ -22,7 +22,7 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb")
+    require("../assets/long_zombie.glb"),
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
@@ -56,10 +56,10 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
     setDead(true);
 
     const side = new THREE.Vector3(0, 1, 0).cross(
-      state.camera.getWorldDirection(new THREE.Vector3())
+      state.camera.getWorldDirection(new THREE.Vector3()),
     );
     const pan = side.dot(
-      root.current.position.clone().sub(state.camera.position).normalize()
+      root.current.position.clone().sub(state.camera.position).normalize(),
     );
     game.sounds["death"].stereo(-pan * 0.7);
     game.sounds["death"].play();
@@ -78,8 +78,8 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
       return;
     }
     const goal = state.camera.position.clone();
-    goal.y = -1;
-    if (root.current.position.distanceTo(state.camera.position) < 5) {
+    goal.y = position[1];
+    if (root.current.position.distanceTo(state.camera.position) < 2) {
       if (nextAttack.current > 0) {
         nextAttack.current -= deltaTime;
       }
@@ -102,13 +102,13 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
         goal
           .sub(root.current.position)
           .normalize()
-          .multiplyScalar(deltaTime * speed)
+          .multiplyScalar(deltaTime * speed * 0.5),
       );
     }
-    root.current.position.y = -1;
+    root.current.position.y = position[1];
     root.current.rotation.y = Math.atan2(
       state.camera.position.x - root.current.position.x,
-      state.camera.position.z - root.current.position.z
+      state.camera.position.z - root.current.position.z,
     );
   });
 
@@ -116,7 +116,7 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
     <group ref={root} position={position} dispose={null}>
       <group ref={animRef}>
         <group
-          scale={[0.01, 0.01, 0.01]}
+          scale={[0.005, 0.005, 0.005]}
           rotation={[Math.PI / 2, 0, 0]}
           position={[0, -1.5, 0]}
         >
@@ -127,7 +127,7 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
             geometry={nodes.Human.geometry}
             skeleton={nodes.Human.skeleton}
             material={materials["Material.002"]}
-            scale={[100, 100, 100]}
+            scale={[1, 1, 1]}
           ></skinnedMesh>
         </group>
       </group>
