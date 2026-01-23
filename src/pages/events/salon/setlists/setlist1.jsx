@@ -42,7 +42,9 @@ export function Setlist1({ language = "en" }) {
               : "An interactive installation that explores the decomposition of Saigon’s old architectural structures through the physical act of pressing. The work reflects on the relationship between everyday human actions and the gradual disappearance of historical urban forms."
           }
         >
-          Interactive installation on Vietnamese architecture
+          {language === "vn"
+            ? "Nghệ thuật sắp đặt về kiến trúc Việt Nam"
+            : "Interactive installation on Vietnamese architecture"}
         </TdWithPreview>
         <td>_dmqqq_, nkann13 dn_baochau</td>
       </tr>
@@ -74,13 +76,17 @@ export function Setlist1({ language = "en" }) {
             "A transformation of memory into early 2000's vietnamese net art."
           }
         >
-          The Index of Memory - creative coding
+          {language === "vn"
+            ? "The Index of Memory - lập trình sáng tạo"
+            : "The Index of Memory - creative coding"}
         </TdWithPreview>
         <td>Nguyen Thu Trang</td>
       </tr>
       <tr>
         <TdWithPreview preview={"Jump and bounce to create sounds."}>
-          Playful sound interactive experience.
+          {language === "vn"
+            ? "Âm thanh và hoạt động tương tác"
+            : "Playful sound interactive experience."}
         </TdWithPreview>
         <td>yomeci.play, Uyên Nguyễn, Tiên Tran</td>
       </tr>
