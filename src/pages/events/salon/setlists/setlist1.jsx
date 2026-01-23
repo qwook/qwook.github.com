@@ -6,16 +6,31 @@ export function Setlist1({ language = "en" }) {
       <tr>
         <TdWithPreview
           preview={
-            "A keyboard with more than 300 buttons, for every possible vowel."
+            language === "vn"
+              ? "Bàn phím mà có 300 nút."
+              : "A keyboard with more than 300 buttons, for every possible vowel."
           }
         >
-          Keyboard with All Vietnamese Characters
+          {language === "vn"
+            ? "Dự án tiếng Việt - phần cứng"
+            : "Our Vietnamese Project - hardware"}
         </TdWithPreview>
         <td>Quang-Anh</td>
       </tr>
       <tr>
-        <TdWithPreview preview={<><a target="_blank" href="https://www.instagram.com/reels/DQSD1CaE6TY/">https://www.instagram.com/reels/DQSD1CaE6TY/</a></>}>
-          Work in progess short film
+        <TdWithPreview
+          preview={
+            <>
+              <a
+                target="_blank"
+                href="https://www.instagram.com/reels/DQSD1CaE6TY/"
+              >
+                https://www.instagram.com/reels/DQSD1CaE6TY/
+              </a>
+            </>
+          }
+        >
+          {language === "vn" ? "Phim Ngắn" : "Work in progess short film"}
         </TdWithPreview>
         <td>Nai</td>
       </tr>
@@ -27,7 +42,7 @@ export function Setlist1({ language = "en" }) {
               : "An interactive installation that explores the decomposition of Saigon’s old architectural structures through the physical act of pressing. The work reflects on the relationship between everyday human actions and the gradual disappearance of historical urban forms."
           }
         >
-          Architecture Interactive Installation
+          Interactive installation on Vietnamese architecture
         </TdWithPreview>
         <td>_dmqqq_, nkann13 dn_baochau</td>
       </tr>
@@ -37,15 +52,37 @@ export function Setlist1({ language = "en" }) {
             "Video game! While diving into fashion, do be aware of hanky thieves trying to steal your style!!!"
           }
         >
-          Thrifting 101
+          {language === "vn" ? "Tiệm Đồ Si 101" : "Thrifting 101 video game."}
         </TdWithPreview>
         <td>ciiverix, pandabeo04</td>
       </tr>
       <tr>
-        <TdWithPreview preview={"A typing game with Vietnamese words."}>
-          Telex of the Dead
+        <TdWithPreview
+          preview={
+            language === "vn"
+              ? "Viết nhanh nếu bạn không muốn chét."
+              : "A typing game with Vietnamese words."
+          }
+        >
+          {language === "vn" ? "Con Ma Telex" : "Telex of the Dead"}
         </TdWithPreview>
         <td>Henry Quoc Tran</td>
+      </tr>
+      <tr>
+        <TdWithPreview
+          preview={
+            "A transformation of memory into early 2000's vietnamese net art."
+          }
+        >
+          The Index of Memory - creative coding
+        </TdWithPreview>
+        <td>Nguyen Thu Trang</td>
+      </tr>
+      <tr>
+        <TdWithPreview preview={"Jump and bounce to create sounds."}>
+          Playful sound interactive experience.
+        </TdWithPreview>
+        <td>yomeci.play, Uyên Nguyễn, Tiên Tran</td>
       </tr>
       <tr>
         <TdWithPreview
