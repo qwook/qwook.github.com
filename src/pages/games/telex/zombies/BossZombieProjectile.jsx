@@ -38,17 +38,12 @@ export function BossZombieProjectile({
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb")
+    require("../assets/bottle.glb")
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
 
   const { ref: animRef, actions, names } = useAnimations(animations);
-
-  useEffect(() => {
-    actions["idle"].play();
-    actions["idle"].setLoop(THREE.LoopRepeat);
-  }, [speed]);
 
   const damage = () => {
     game.setLife((life) => life - 1);
@@ -88,13 +83,16 @@ export function BossZombieProjectile({
 
     existenceTimer.current += deltaTime;
 
+    animRef.current.rotateX(deltaTime * 2);
+    animRef.current.rotateZ(deltaTime * 3);
+
     const world = parent
       .localToWorld(new THREE.Vector3(0, 0, 0))
       .add(
         new THREE.Vector3(
-          Math.sin(existenceTimer.current * 5 + id * 2),
-          Math.sin(existenceTimer.current * 5 * 0.9 + 4 + id * 2),
-          Math.sin(existenceTimer.current * 5 * 1.1 + 1 + id * 2)
+          Math.sin(existenceTimer.current * 2 + id * 2),
+          Math.sin(existenceTimer.current * 2 * 0.9 + 4 + id * 2),
+          Math.sin(existenceTimer.current * 2 * 1.1 + 1 + id * 2)
         )
       );
     const local = world.clone();
@@ -179,19 +177,19 @@ export function BossZombieProjectile({
     <group ref={root} position={position} dispose={null}>
       <group ref={animRef}>
         <group
-          scale={[0.004, 0.001, 0.001]}
+          scale={[0.4, 0.4, 0.4]}
           rotation={[Math.PI / 2, 0, 0]}
           position={[0, 0, 0]}
         >
-          <primitive object={nodes.mixamorigHips} />
-          <skinnedMesh
+          <primitive object={nodes.Scene} />
+          {/* <skinnedMesh
             castShadow
             receiveShadow
             geometry={nodes.Human.geometry}
             skeleton={nodes.Human.skeleton}
             material={materials["Material.002"]}
             scale={[100, 100, 100]}
-          ></skinnedMesh>
+          ></skinnedMesh> */}
         </group>
       </group>
       {!dead && (

@@ -89,7 +89,7 @@ export const KEY_POINTS = [
   },
   {
     entities: [
-      { type: "boss_zombie", position: [-5, -1.5, 6], speed: 0.5 },
+      { type: "boss_zombie", position: [-5, -1.5, 6], speed: 0.7 },
       // { type: "zombie", position: [-2, 0, 10] },
       // { type: "zombie", position: [-6, 0, 15] },
       // { type: "zombie", position: [-15, 0, 9] },
@@ -134,36 +134,6 @@ export const KEY_POINTS = [
       {
         type: "path_zombie",
         path: [
-          { pos: [5, -1.5, 5], speed: 2.5 },
-          { pos: [-3, -1.5, 4.5], speed: 3 },
-        ],
-        position: [5, -1.5, 1],
-        speed: 5,
-      },
-      {
-        type: "path_zombie",
-        path: [
-          { pos: [5, -1.5, 6], speed: 1.8 },
-          { pos: [-3, -1.5, 6], speed: 3 },
-        ],
-        position: [5, -1.5, 1],
-        speed: 5,
-      },
-      {
-        type: "path_zombie",
-        path: [
-          { pos: [5, -1.5, 7.5], speed: 2 },
-          { pos: [-3, -1.5, 7.5], speed: 3 },
-        ],
-        position: [5, -1.5, 1],
-        speed: 5,
-      },
-
-      // Wave 2
-
-      {
-        type: "path_zombie",
-        path: [
           { pos: [5, -1.5, 5], speed: 1.4 },
           { pos: [-3, -1.5, 4.5], speed: 3 },
         ],
@@ -183,6 +153,36 @@ export const KEY_POINTS = [
         type: "path_zombie",
         path: [
           { pos: [5, -1.5, 7.5], speed: 1.1 },
+          { pos: [-3, -1.5, 7.5], speed: 3 },
+        ],
+        position: [5, -1.5, 1],
+        speed: 5,
+      },
+
+      // Wave 2
+
+      {
+        type: "path_zombie",
+        path: [
+          { pos: [5, -1.5, 5], speed: 0.5 },
+          { pos: [-3, -1.5, 4.5], speed: 3 },
+        ],
+        position: [5, -1.5, 1],
+        speed: 5,
+      },
+      {
+        type: "path_zombie",
+        path: [
+          { pos: [5, -1.5, 6], speed: 0.55 },
+          { pos: [-3, -1.5, 6], speed: 3 },
+        ],
+        position: [5, -1.5, 1],
+        speed: 5,
+      },
+      {
+        type: "path_zombie",
+        path: [
+          { pos: [5, -1.5, 7.5], speed: 0.56 },
           { pos: [-3, -1.5, 7.5], speed: 3 },
         ],
         position: [5, -1.5, 1],

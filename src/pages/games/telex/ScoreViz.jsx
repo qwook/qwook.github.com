@@ -1,134 +1,110 @@
 import { Html, Hud, OrthographicCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import _ from "lodash";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-export function HeartSpinning() {
-  const heart = useRef();
-  const fires = useRef([]);
-  const start = useMemo(() => Math.random());
-
+export function ScoreViz({ score = 100 }) {
+  const scoreEle = useRef();
   useEffect(() => {
-    const interval = setInterval(() => {
-      for (let i = 0; i < fires.current.length; i++) {
-        const fire = fires.current[i];
-        const time = Date.now() + start * 10500 + i * 100;
-        fire.style.left = Math.sin(time / 100) * 20 + 25 + "%";
-        fire.style.bottom = Math.sin((time / 100) * 0.5) * 20 + 25 + "%";
-        fire.style.zIndex = Math.floor(Math.cos(time / 100)) + 1;
-      }
-      const time = Date.now() + start * 10500;
-      heart.current.style.transform = `scale(${Math.pow((Math.sin(time / 100) + 1) / 2, 4) * 10 + 100}%)`;
-    }, 50);
+    const ele = scoreEle.current;
+    const observer = new ResizeObserver((entries) => {
+      const box = entries[0].contentBoxSize[0];
+      ele.style.fontSize = box.inlineSize / 10 + "px";
+    });
+    observer.observe(ele);
     return () => {
-      clearInterval(interval);
+      observer.unobserve(ele);
     };
   }, []);
 
-  return (
-    <div style={{ position: "relative", width: "20%", height: "100%" }}>
-      <img
-        ref={heart}
-        src={require("./assets/heart.gif")}
-        style={{ position: "absolute", width: "100%", bottom: 0, zIndex: 1 }}
-      />
-      {_.range(3).map((i) => (
-        <img
-          key={i}
-          ref={(ref) => (fires.current[i] = ref)}
-          src={require("./assets/fire.gif")}
-          style={{
-            position: "absolute",
-            width: "50%",
-            left: 0,
-            bottom: 0,
-            opacity: 0.7,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
+  const oldScore = useRef();
+  useEffect(() => {
+    const oldScoreForreal = oldScore.current;
+    setScoreParticles((scoreParticles) => {
+      return [
+        ...scoreParticles,
+        {
+          score: oldScoreForreal || 0,
+          startTime: Date.now(),
+        },
+      ];
+    });
+    oldScore.current = score;
+  }, [score]);
 
-export function HeartDying() {
-  const heart = useRef();
-  const heartWhite = useRef();
-  const fires = useRef([]);
-  const start = useMemo(() => Date.now(), []);
-  console.log(start);
+  const [scoreParticles, setScoreParticles] = useState([]);
+
+  const scoreParticleRefs = useRef();
+  scoreParticleRefs.current = scoreParticles;
+
+  const particleRefs = useRef([]);
+  // particleRefs.current = [];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const elapsed = Date.now() - start;
-      if (elapsed < 2000) {
-        for (let i = 0; i < fires.current.length; i++) {
-          const fire = fires.current[i];
-          const time = Date.now() + start * 10500 + i * 100;
-          const ang = (i * Math.PI * 2) / 3;
-          fire.style.left = (Math.sin(ang) * elapsed) / 10 + 25 + "%";
-          fire.style.bottom = (Math.cos(ang) * elapsed) / 10 + 25 + "%";
-          fire.style.opacity = (1 - (elapsed - 500)) / 200;
+      for (let i = 0; i < scoreParticleRefs.current.length; i++) {
+        const data = scoreParticleRefs.current[i];
+        const ele = particleRefs.current[i];
+        if (!ele) continue;
+        const elapsed = Date.now() - data.startTime;
+        ele.style.top = elapsed / 10 + 5 + "%";
+        ele.style.opacity = Math.max(0, 1 - elapsed / 300);
+      }
+
+      setScoreParticles((scoreParticles) => {
+        const newParticles = [];
+        let changed = false;
+        for (let particle of scoreParticles) {
+          if (Date.now() < particle.startTime + 2000) {
+            newParticles.push(particle);
+          } else {
+            changed = true;
+          }
         }
-      }
-      const time = Date.now() + start * 10500;
-      heart.current.style.transform = `scale(${Math.pow((Math.sin((time / 100) * 100) + 1) / 2, 4) * 10 + 100}%)`;
-      heartWhite.current.style.display =
-        Math.sin(time / 5) > 0 && elapsed < 250 ? "" : "none";
-      heart.current.style.display = elapsed < 500 ? "" : "none";
-      heart.current.style.opacity = (1 - (elapsed - 500)) / 200;
+
+        if (changed) {
+          return newParticles;
+        } else {
+          return scoreParticles;
+        }
+      });
     }, 50);
     return () => {
       clearInterval(interval);
     };
   }, []);
-
-  return (
-    <div style={{ position: "relative", width: "20%", height: "100%" }}>
-      <img
-        ref={heart}
-        src={require("./assets/heart.gif")}
-        style={{ position: "absolute", width: "100%", bottom: 0, zIndex: 1 }}
-      />
-      <img
-        ref={heartWhite}
-        src={require("./assets/heart-white.gif")}
-        style={{ position: "absolute", width: "100%", bottom: 0, zIndex: 1 }}
-      />
-      {_.range(3).map((i) => (
-        <img
-          key={i}
-          ref={(ref) => (fires.current[i] = ref)}
-          src={require("./assets/fire.gif")}
-          style={{
-            position: "absolute",
-            width: "50%",
-            left: 0,
-            bottom: 0,
-            opacity: 0.7,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-export function ScoreViz({ lives = 6 }) {
-  useEffect(() => {}, []);
 
   return (
     <div
+      className="score"
+      ref={scoreEle}
       style={{
         position: "absolute",
         top: 0,
-        width: "50%",
-        height: "20%",
+        width: "100%",
+        height: "50%",
         left: 0,
         display: "flex",
         overflow: "hidden",
+        padding: "2%",
       }}
     >
-      {_.range(6).map((i) => {
-        return i < lives ? <HeartSpinning key={i} /> : <HeartDying key={i} />;
+      <span className="score-text">Score: {score}</span>
+      {scoreParticles.map((particle, idx) => {
+        return (
+          <div
+            style={{
+              position: "absolute",
+              top: "5%",
+              left: "26%",
+            }}
+            ref={(ref) => (particleRefs.current[idx] = ref)}
+            key={particle.startTime}
+            className="score-particle"
+          >
+            {particle.score}
+          </div>
+        );
       })}
     </div>
   );

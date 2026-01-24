@@ -68,7 +68,7 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
   const state = useThree();
   const [attacking, setAttacking] = useState(false);
   const attackingTimer = useRef(0);
-  const nextAttack = useRef(0);
+  const nextAttack = useRef(2);
 
   useFrame((state, deltaTime) => {
     if (!game.playing) {
@@ -79,7 +79,7 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
     }
     const goal = state.camera.position.clone();
     goal.y = position[1];
-    if (root.current.position.distanceTo(state.camera.position) < 2) {
+    if (root.current.position.distanceTo(state.camera.position) < 2.5) {
       if (nextAttack.current > 0) {
         nextAttack.current -= deltaTime;
       }

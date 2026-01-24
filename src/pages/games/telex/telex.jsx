@@ -37,6 +37,7 @@ import { BossZombie } from "./zombies/BossZombie";
 import { PathZombie } from "./zombies/PathZombie";
 import { KEY_POINTS } from "./map";
 import { HealthViz } from "./HealthViz";
+import { ScoreViz } from "./ScoreViz";
 
 export const GameContext = createContext();
 
@@ -355,8 +356,6 @@ export default function TelexGamePage() {
       <Banner>Telex of The Dead</Banner>
       <p>Song: Phút Cuối Cùng by 4our</p>
       {playing ? "Playing" : "Not Playing"}
-      <p>Score: {score}</p>
-      <p>Life: {life}</p>
       <div ref={gameContainer} style={{ height: 500, position: "relative" }}>
         {!playing && (
           <Button
@@ -409,10 +408,10 @@ export default function TelexGamePage() {
           <Canvas
             scene={{ background: "black" }}
             gl={{ antialias: false }}
-            dpr={window.devicePixelRatio / 4}
+            dpr={window.devicePixelRatio / 2}
           >
             <fog attach="fog" args={["black", 1, 30]} />
-            <ambientLight intensity={0.1} />
+            <ambientLight intensity={0.2} />
             {/* <directionalLight
               position={[1.3, 1.0, 4.4]}
               castShadow
@@ -494,6 +493,7 @@ export default function TelexGamePage() {
           </Canvas>
         </GameContext.Provider>
         <HealthViz lives={life} />
+        <ScoreViz score={score} />
       </div>
       <Button
         onClick={() => {

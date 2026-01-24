@@ -1,13 +1,41 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { GameContext } from "../telex";
 import { useFrame, useGraph, useThree } from "@react-three/fiber";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import { useAnimations, useGLTF, useTexture } from "@react-three/drei";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
 import { ThrowingZombieProjectile } from "./ThrowingZombieProjectile";
 import { BossZombieProjectile } from "./BossZombieProjectile";
-import { DICTIONARY_LEVEL_2, DICTIONARY_LEVEL_3 } from "../dictionary";
+import { DICTIONARY_LEVEL_2, DICTIONARY_LEVEL_3, PHRASES } from "../dictionary";
+import { ZOMBIES } from "./PathZombie";
+
+// Type a whole phrase...
+function PhraseZombie({
+  phrase,
+  onScore = () => {},
+  onFinished = () => {},
+  ...props
+}) {
+  const game = useContext(GameContext);
+
+  const [phraseIndex, setPhraseIndex] = useState(0);
+
+  return [
+    <Typebox
+      key={phraseIndex}
+      text={phrase[phraseIndex]}
+      onFinished={(e) => {
+        onScore();
+        if (phraseIndex + 1 >= phrase.length) {
+          onFinished();
+        }
+        setPhraseIndex(phraseIndex + 1);
+      }}
+      {...props}
+    ></Typebox>,
+  ];
+}
 
 function WordZombie({ scoreOverride, ...props }) {
   const game = useContext(GameContext);
@@ -55,15 +83,24 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
 
+  const random = useMemo(() => Math.floor(Math.random() * ZOMBIES.length), []);
+  const map = useTexture(ZOMBIES[random]);
+  map.flipY = false;
+  map.magFilter = THREE.NearestFilter;
+  map.minFilter = THREE.NearestFilter;
+  const material = useMemo(
+    () => new THREE.MeshStandardMaterial({ map: map, roughness: 1.0 }),
+    [],
+  );
+
   const { ref: animRef, actions, names } = useAnimations(animations);
 
   useEffect(() => {
-    actions["idle"].play();
-    actions["idle"].setLoop(THREE.LoopRepeat);
+    // actions["idle"].play();
+    // actions["idle"].setLoop(THREE.LoopRepeat);
 
     if (actions.walking) {
-      actions["idle"].stop();
-
+      // actions["idle"].stop();
       actions["walking"].play();
       actions["walking"].timeScale = speed;
       actions["walking"].startAt(Math.random() * -2);
@@ -109,8 +146,6 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
   const [rightArmHealth, setRightArmHealth] = useState(3);
   const head = useRef();
   const [headHealth, setHeadHealth] = useState(3);
-
-  console.log(nodes);
 
   useFrame((state, deltaTime) => {
     if (!leftLegHealth > 0) {
@@ -166,17 +201,19 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
         nextAttack.current -= deltaTime;
       }
       if (!attacking && nextAttack.current <= 0) {
-        actions["walking"].fadeOut(0.2);
+        actions["walking"].weight = 0;
+        actions["attack"].reset();
         actions["attack"].play();
+        actions["attack"].setLoop(THREE.LoopOnce);
         actions["attack"].timeScale = 0.5;
         attackingTimer.current = 0;
         setAttacking(true);
       } else if (attacking) {
         attackingTimer.current += deltaTime;
-        if (attackingTimer.current > 3) {
+        if (attackingTimer.current > 2) {
           damage();
           setAttacking(false);
-          nextAttack.current = 5;
+          nextAttack.current = 3;
           attackingTimer.current = 0;
         }
       }
@@ -210,6 +247,24 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
     ]);
   };
 
+  const resetAttack = () => {
+    attackingTimer.current = 0;
+    actions["walking"].weight = 1;
+    if (attacking) {
+      actions["attack"].fadeOut(0.01);
+      actions["attack"].stop();
+      actions["attack"].reset();
+      nextAttack.current = 0.5;
+    } else {
+      nextAttack.current = 3;
+    }
+    setAttacking(false);
+  };
+
+  useEffect(() => {
+    resetAttack();
+  }, [leftArmHealth, rightArmHealth, leftLegHealth, headHealth]);
+
   return (
     <>
       <group ref={root} position={position} dispose={null}>
@@ -225,7 +280,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
               receiveShadow
               geometry={nodes.Human.geometry}
               skeleton={nodes.Human.skeleton}
-              material={materials["Material.002"]}
+              material={material}
               scale={[100, 100, 100]}
             ></skinnedMesh>
           </group>
@@ -241,6 +296,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
                   game.sounds["shot"].play();
                 }}
                 onFinished={() => {
+                  game.setScore((score) => score + 1);
                   setLeftLegHealth((health) => health - 1);
                   if (leftLegHealth === 1) {
                     spawnProjectile(nodes.mixamorigLeftLeg);
@@ -266,6 +322,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
                     game.sounds["shot"].play();
                   }}
                   onFinished={() => {
+                    game.setScore((score) => score + 1);
                     setLeftArmHealth((health) => health - 1);
                     if (leftArmHealth === 1) {
                       spawnProjectile(nodes.mixamorigLeftHand);
@@ -292,6 +349,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
                     game.sounds["shot"].play();
                   }}
                   onFinished={() => {
+                    game.setScore((score) => score + 1);
                     setRightArmHealth((health) => health - 1);
                     if (rightArmHealth === 1) {
                       spawnProjectile(nodes.mixamorigRightHand);
@@ -309,25 +367,26 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
               rightArmHealth <= 0 &&
               leftLegHealth <= 0 &&
               projectiles.length === 0 && [
-                <WordZombie
+                <PhraseZombie
                   key={headHealth}
-                  scoreOverride={DICTIONARY_LEVEL_3}
+                  phrase={PHRASES[game.globalState.bossCount % 5]}
                   position={[0, 0, 0]}
                   onHit={() => {
                     game.sounds["shot"].play();
                   }}
+                  onScore={() => {
+                    resetAttack();
+                    game.setScore((score) => score + 1);
+                  }}
                   onFinished={() => {
-                    setHeadHealth((health) => health - 1);
-                    if (headHealth === 1) {
-                      game.setGlobalState((globalState) => {
-                        globalState = {
-                          ...globalState,
-                          bossCount: globalState.bossCount + 1,
-                        };
-                        return globalState;
-                      });
-                      onDeath();
-                    }
+                    game.setGlobalState((globalState) => {
+                      globalState = {
+                        ...globalState,
+                        bossCount: globalState.bossCount + 1,
+                      };
+                      return globalState;
+                    });
+                    onDeath();
                   }}
                 />,
               ]}

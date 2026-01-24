@@ -206,7 +206,7 @@ export function generateWordNotInArray(score, wordsUsed) {
           ...(score < 30 ? DICTIONARY_LEVEL_1 : []),
           ...(score > 20 && score < 40 ? DICTIONARY_LEVEL_2 : []),
           ...(score > 30 ? DICTIONARY_LEVEL_3 : []),
-          ...(score > 40 ? DICTIONARY_LEVEL_4 : []),
+          ...(score > 60 ? DICTIONARY_LEVEL_4 : []),
         ];
   if (wordsUsed && wordsUsed.length > 0) {
     console.log(wordsUsed);
@@ -329,6 +329,8 @@ export function Typebox({
       if (game.focused && !focused) {
         return;
       }
+
+      e.preventDefault();
 
       // This is a letter!
       const proposal = _.cloneDeep(typed);

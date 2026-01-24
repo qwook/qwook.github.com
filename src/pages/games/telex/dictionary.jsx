@@ -46,14 +46,6 @@ export const DICTIONARY_LEVEL_4 = [
   "chúc mừng năm mới",
 ];
 
-export const PHRASES = [
-  ["bự chà bá lửa", "già khú đế"],
-  ["cà lộc cà lộc", "cà nhông nhông nhông"],
-  ["đen thui", "thùi lùi"],
-  ["thật tao", "mà lị chuyện vẽ", "hết tiền"],
-  ["đà lạt", "là thành phố", "hài hước", "vì nó có", "nhiều dốc"],
-];
-
 export const LAW = [
   [
     "cơ quan nhà nước có",
@@ -73,4 +65,13 @@ export const LAW = [
     "tại thông tư này",
   ],
   "trong thời hạn mười ngày kể từ ngày ban hành quyết định hủy quyết định công nhận kết quả đấu giá quyền sử dụng đất, cơ quan có thẩm quyền quyết định cấm tham gia đấu giá xem xét, ban hành quyết định cấm tham gia đấu giá đối với người trúng đấu giá quyền sử dụng đất theo quy định tại khoản một điều này.",
+];
+
+export const PHRASES = [
+  ["đà lạt là thành phố", "hài hước", "vì nó có nhiều dốc"],
+  ["bự chà bá lửa", "già khú đế"],
+  LAW[0],
+  ["cà lộc cà lộc", "cà nhông nhông nhông"],
+  ["đen thui", "thùi lùi"],
+  ["thật tao", "mà lị chuyện vẽ", "hết tiền"],
 ];

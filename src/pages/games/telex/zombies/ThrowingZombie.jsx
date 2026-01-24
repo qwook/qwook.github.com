@@ -1,11 +1,12 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { GameContext } from "../telex";
 import { useFrame, useGraph, useThree } from "@react-three/fiber";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import { useAnimations, useGLTF, useTexture } from "@react-three/drei";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
 import { ThrowingZombieProjectile } from "./ThrowingZombieProjectile";
+import { ZOMBIES } from "./PathZombie";
 
 export function ThrowingZombie({ position, onDeath, speed = 2 }) {
   const game = useContext(GameContext);
@@ -18,6 +19,16 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
   const [text, setText] = useState("");
 
   const [showTypeBox, setShowTypeBox] = useState(false);
+
+  const random = useMemo(() => Math.floor(Math.random() * ZOMBIES.length), []);
+  const map = useTexture(ZOMBIES[random]);
+  map.flipY = false;
+  map.magFilter = THREE.NearestFilter;
+  map.minFilter = THREE.NearestFilter;
+  const material = useMemo(
+    () => new THREE.MeshStandardMaterial({ map: map, roughness: 1.0 }),
+    [],
+  );
 
   useEffect(() => {
     const newText = game.generateWord();
@@ -108,7 +119,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
         {
           id: ++projectileIdTracker.current,
           cameraOffset: [
-            (Math.random() - 0.5) * 4,
+            (Math.random() - 0.5) * 3,
             (Math.random() - 0.5) * 2,
             0,
           ],
@@ -187,7 +198,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
               receiveShadow
               geometry={nodes.Human.geometry}
               skeleton={nodes.Human.skeleton}
-              material={materials["Material.002"]}
+              material={material}
               scale={[100, 100, 100]}
             ></skinnedMesh>
           </group>

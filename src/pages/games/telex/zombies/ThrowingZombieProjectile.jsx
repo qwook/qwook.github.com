@@ -31,17 +31,12 @@ export function ThrowingZombieProjectile({
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb")
+    require("../assets/bottle.glb"),
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
 
   const { ref: animRef, actions, names } = useAnimations(animations);
-
-  useEffect(() => {
-    actions["idle"].play();
-    actions["idle"].setLoop(THREE.LoopRepeat);
-  }, [speed]);
 
   const damage = () => {
     game.setLife((life) => life - 1);
@@ -56,10 +51,10 @@ export function ThrowingZombieProjectile({
     setDead(true);
 
     const side = new THREE.Vector3(0, 1, 0).cross(
-      state.camera.getWorldDirection(new THREE.Vector3())
+      state.camera.getWorldDirection(new THREE.Vector3()),
     );
     const pan = side.dot(
-      root.current.position.clone().sub(state.camera.position).normalize()
+      root.current.position.clone().sub(state.camera.position).normalize(),
     );
     game.sounds["death"].stereo(-pan * 0.7);
     game.sounds["death"].play();
@@ -78,6 +73,9 @@ export function ThrowingZombieProjectile({
       return;
     }
 
+    animRef.current.rotateX(deltaTime * 2);
+    animRef.current.rotateZ(deltaTime * 3);
+
     existenceTimer.current += deltaTime / 3;
 
     root.current.position.copy(
@@ -87,15 +85,15 @@ export function ThrowingZombieProjectile({
           .add(
             state.camera
               .getWorldDirection(new THREE.Vector3())
-              .multiplyScalar(2)
+              .multiplyScalar(1),
           )
           .add(
             new THREE.Vector3(...cameraOffset).applyQuaternion(
-              state.camera.quaternion
-            )
+              state.camera.quaternion,
+            ),
           ),
-        easeOutExpo(existenceTimer.current)
-      )
+        easeOutExpo(existenceTimer.current),
+      ),
     );
 
     if (existenceTimer.current > 1) {
@@ -118,33 +116,28 @@ export function ThrowingZombieProjectile({
     // }
     root.current.rotation.y = Math.atan2(
       state.camera.position.x - root.current.position.x,
-      state.camera.position.z - root.current.position.z
+      state.camera.position.z - root.current.position.z,
     );
   });
+
+  console.log(nodes);
 
   return (
     <group ref={root} position={position} dispose={null}>
       <group ref={animRef}>
         <group
-          scale={[0.004, 0.001, 0.001]}
+          scale={[0.2, 0.2, 0.2]}
           rotation={[Math.PI / 2, 0, 0]}
           position={[0, 0, 0]}
         >
-          <primitive object={nodes.mixamorigHips} />
-          <skinnedMesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Human.geometry}
-            skeleton={nodes.Human.skeleton}
-            material={materials["Material.002"]}
-            scale={[100, 100, 100]}
-          ></skinnedMesh>
+          <primitive object={nodes.Scene} />
         </group>
       </group>
       {!dead && (
         <Typebox
           text={text}
           position={[0, 0, 0]}
+          scale={[0.5, 0.5, 0.5]}
           onHit={() => {
             game.sounds["shot"].play();
             state.hit = 1;

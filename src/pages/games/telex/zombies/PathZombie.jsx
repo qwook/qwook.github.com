@@ -1,10 +1,23 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { GameContext } from "../telex";
 import { useFrame, useGraph, useThree } from "@react-three/fiber";
-import { PivotControls, useAnimations, useGLTF } from "@react-three/drei";
+import {
+  PivotControls,
+  useAnimations,
+  useGLTF,
+  useTexture,
+} from "@react-three/drei";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
+
+export const ZOMBIES = [
+  require("../assets/evawn_zombie.jpg"),
+  require("../assets/long_zombie.jpg"),
+  require("../assets/hannah_zombie.jpg"),
+  require("../assets/ngoc_zombie.jpg"),
+  require("../assets/thu_zombie.jpg"),
+];
 
 export function PathZombie({ position, path, onDeath, speed = 2 }) {
   const game = useContext(GameContext);
@@ -24,16 +37,21 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
   const { scene, animations, materials } = useGLTF(
     require("../assets/long_zombie.glb"),
   );
+
+  const random = useMemo(() => Math.floor(Math.random() * ZOMBIES.length), []);
+  const map = useTexture(ZOMBIES[random]);
+  map.flipY = false;
+  map.magFilter = THREE.NearestFilter;
+  map.minFilter = THREE.NearestFilter;
+  const material = useMemo(
+    () => new THREE.MeshStandardMaterial({ map: map, roughness: 1.0 }),
+    [],
+  );
+
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
 
   const { ref: animRef, actions, names } = useAnimations(animations);
-
-  materials["Material.002"].roughness = 1.0;
-  materials["Material.002"].flatShading = false;
-  materials["Material.002"].map.magFilter = THREE.NearestFilter;
-  materials["Material.002"].map.minFilter = THREE.NearestFilter;
-  console.log(materials["Material.002"]);
 
   useEffect(() => {
     actions["idle"].play();
@@ -74,7 +92,7 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
   const state = useThree();
   const [attacking, setAttacking] = useState(false);
   const attackingTimer = useRef(0);
-  const nextAttack = useRef(0);
+  const nextAttack = useRef(2);
 
   // Path following.
   const pathIndex = useRef(0);
@@ -88,7 +106,7 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
     }
     if (
       pathIndex.current >= path.length &&
-      root.current.position.distanceTo(state.camera.position) < 2
+      root.current.position.distanceTo(state.camera.position) < 2.5
     ) {
       if (nextAttack.current > 0) {
         nextAttack.current -= deltaTime;
@@ -154,7 +172,8 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
             receiveShadow
             geometry={nodes.Human.geometry}
             skeleton={nodes.Human.skeleton}
-            material={materials["Material.002"]}
+            // material={materials["Material.002"]}
+            material={material}
           ></skinnedMesh>
         </group>
       </group>

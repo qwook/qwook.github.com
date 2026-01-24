@@ -3,22 +3,44 @@ import { useThree } from "@react-three/fiber";
 import _ from "lodash";
 import { useEffect, useMemo, useRef } from "react";
 
+function easeOutBounce(x) {
+  const n1 = 7.5625;
+  const d1 = 2.75;
+
+  if (x < 1 / d1) {
+    return n1 * x * x;
+  } else if (x < 2 / d1) {
+    return n1 * (x -= 1.5 / d1) * x + 0.75;
+  } else if (x < 2.5 / d1) {
+    return n1 * (x -= 2.25 / d1) * x + 0.9375;
+  } else {
+    return n1 * (x -= 2.625 / d1) * x + 0.984375;
+  }
+}
+
 export function HeartSpinning() {
   const heart = useRef();
   const fires = useRef([]);
-  const start = useMemo(() => Math.random());
+  const random = useMemo(() => Math.random());
+  const start = useMemo(() => Date.now(), []);
 
   useEffect(() => {
     const interval = setInterval(() => {
+      const elapsed = Date.now() - start;
       for (let i = 0; i < fires.current.length; i++) {
         const fire = fires.current[i];
-        const time = Date.now() + start * 10500 + i * 100;
+        const time = Date.now() + random * 10500 + i * 100;
         fire.style.left = Math.sin(time / 100) * 20 + 25 + "%";
         fire.style.bottom = Math.sin((time / 100) * 0.5) * 20 + 25 + "%";
         fire.style.zIndex = Math.floor(Math.cos(time / 100)) + 1;
+        fire.style.opacity = Math.min(elapsed / 500, 1);
       }
-      const time = Date.now() + start * 10500;
-      heart.current.style.transform = `scale(${Math.pow((Math.sin(time / 100) + 1) / 2, 4) * 10 + 100}%)`;
+      const time = Date.now() + random * 10500;
+      if (elapsed < 1000) {
+        heart.current.style.transform = `scale(${easeOutBounce(elapsed / 1000) * 100}%)`;
+      } else {
+        heart.current.style.transform = `scale(${Math.pow((Math.sin(time / 100) + 1) / 2, 4) * 10 + 100}%)`;
+      }
     }, 50);
     return () => {
       clearInterval(interval);
@@ -125,6 +147,8 @@ export function HealthViz({ lives = 6 }) {
         left: 0,
         display: "flex",
         overflow: "hidden",
+        padding: "2%",
+        zIndex: 100000,
       }}
     >
       {_.range(6).map((i) => {
