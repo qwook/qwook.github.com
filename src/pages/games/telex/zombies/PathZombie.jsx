@@ -35,7 +35,7 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb"),
+    require("../assets/long_zombie_v3.glb"),
   );
 
   const random = useMemo(() => Math.floor(Math.random() * ZOMBIES.length), []);
@@ -57,13 +57,13 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
     actions["idle"].play();
     actions["idle"].setLoop(THREE.LoopRepeat);
 
-    if (actions.walking) {
+    if (actions.walk) {
       actions["idle"].stop();
 
-      actions["walking"].play();
-      actions["walking"].timeScale = speed;
-      actions["walking"].startAt(Math.random() * -2);
-      actions["walking"].setLoop(THREE.LoopRepeat);
+      actions["walk"].play();
+      actions["walk"].timeScale = speed;
+      actions["walk"].startAt(Math.random() * -2);
+      actions["walk"].setLoop(THREE.LoopRepeat);
     }
   }, [speed]);
 
@@ -112,7 +112,7 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
         nextAttack.current -= deltaTime;
       }
       if (!attacking && nextAttack.current <= 0) {
-        actions["walking"].fadeOut(0.2);
+        actions["walk"].fadeOut(0.2);
         actions["attack"].play();
         attackingTimer.current = 0;
         setAttacking(true);

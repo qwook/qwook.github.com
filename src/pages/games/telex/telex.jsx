@@ -38,6 +38,7 @@ import { PathZombie } from "./zombies/PathZombie";
 import { KEY_POINTS } from "./map";
 import { HealthViz } from "./HealthViz";
 import { ScoreViz } from "./ScoreViz";
+import { BandMates } from "./BandMates";
 
 export const GameContext = createContext();
 
@@ -206,7 +207,7 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
 });
 
 let GLOBAL_ENTITY_TRACKER = 0;
-let DEBUG_STAGE = null;
+let DEBUG_STAGE = 2;
 
 export default function TelexGamePage() {
   const [focused, setFocused] = useState();
@@ -412,6 +413,12 @@ export default function TelexGamePage() {
           >
             <fog attach="fog" args={["black", 1, 30]} />
             <ambientLight intensity={0.2} />
+            <BandMates animation="guitar1" position={[2, 0.5, 1.0]} rotation={[Math.PI/2, 0, -2.0]} />
+            <BandMates animation="guitar3" position={[0, 0.5, -2.0]} rotation={[Math.PI/2, 0, -2.0]} />
+            <BandMates animation="guitar2" position={[-2.5, 0.5, -1.0]} rotation={[Math.PI/2, 0, 2.0]} />
+            <BandMates animation="guitar1" position={[-2.0, 0.5, -2.0]} rotation={[Math.PI/2, 0, 2.4]} />
+            <BandMates animation="drums" position={[2, 0.5, -0.5]} rotation={[Math.PI/2, 0, -1.0]} />
+            <BandMates animation="drums" position={[-2.2, 0.5, 0.5]} rotation={[Math.PI/2, 0, 2.0]} />
             {/* <directionalLight
               position={[1.3, 1.0, 4.4]}
               castShadow

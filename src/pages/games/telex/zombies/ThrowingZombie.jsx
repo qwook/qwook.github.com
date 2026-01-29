@@ -39,7 +39,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb"),
+    require("../assets/long_zombie_v3.glb"),
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
@@ -47,6 +47,9 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
   const { ref: animRef, actions, names } = useAnimations(animations);
 
   useEffect(() => {
+    // actions["idle"].play();
+    // actions["idle"].setLoop(THREE.LoopRepeat);
+
     actions["attack"].reset();
     actions["attack"].play();
     actions["attack"].setLoop(THREE.LoopOnce);

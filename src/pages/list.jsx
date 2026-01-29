@@ -36,19 +36,6 @@ export default function ListPage() {
         <OuterLink href="https://www.youtube.com/watch?v=c91IWh4agzU">
           Will Wright's Design Plunder (With Slides)
         </OuterLink>
-      </ul>
-      <h1>Random</h1>
-      <ul>
-        <li>
-          <a target="_blank" href="https://humanshader.com/">
-            Human-calculated shader / rendering!!
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://www.youtube.com/watch?v=wupToqz1e2g">
-            Carl Sagan - Pale Blue Dot
-          </a>
-        </li>
         <li>
           <a
             target="_blank"
@@ -87,6 +74,24 @@ export default function ListPage() {
           </a>
         </li>
         <li>
+          <a target="_blank" href="https://www.youtube.com/watch?v=PUv66718DII">
+            Bret Victor - Inventing on Principle
+          </a>
+        </li>
+      </ul>
+      <h1>Random</h1>
+      <ul>
+        <li>
+          <a target="_blank" href="https://humanshader.com/">
+            Human-calculated shader / rendering!!
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.youtube.com/watch?v=wupToqz1e2g">
+            Carl Sagan - Pale Blue Dot
+          </a>
+        </li>
+        <li>
           <a target="_blank" href="https://www.youtube.com/watch?v=xg29TuWo0Yo">
             Live Forever As You Are Now With Alan Resnick
           </a>
@@ -94,11 +99,6 @@ export default function ListPage() {
         <li>
           <a target="_blank" href="https://www.youtube.com/watch?v=2gMjJNGg9Z8">
             Unedited Footage of a Bear
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://www.youtube.com/watch?v=PUv66718DII">
-            Bret Victor - Inventing on Principle
           </a>
         </li>
         <li>

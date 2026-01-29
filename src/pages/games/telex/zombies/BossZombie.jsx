@@ -78,7 +78,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb"),
+    require("../assets/long_zombie_v3.glb"),
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);
@@ -99,12 +99,12 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
     // actions["idle"].play();
     // actions["idle"].setLoop(THREE.LoopRepeat);
 
-    if (actions.walking) {
+    if (actions.walk) {
       // actions["idle"].stop();
-      actions["walking"].play();
-      actions["walking"].timeScale = speed;
-      actions["walking"].startAt(Math.random() * -2);
-      actions["walking"].setLoop(THREE.LoopRepeat);
+      actions["walk"].play();
+      actions["walk"].timeScale = speed;
+      actions["walk"].startAt(Math.random() * -2);
+      actions["walk"].setLoop(THREE.LoopRepeat);
     }
   }, [speed]);
 
@@ -201,7 +201,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
         nextAttack.current -= deltaTime;
       }
       if (!attacking && nextAttack.current <= 0) {
-        actions["walking"].weight = 0;
+        actions["walk"].weight = 0;
         actions["attack"].reset();
         actions["attack"].play();
         actions["attack"].setLoop(THREE.LoopOnce);
@@ -249,7 +249,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
 
   const resetAttack = () => {
     attackingTimer.current = 0;
-    actions["walking"].weight = 1;
+    actions["walk"].weight = 1;
     if (attacking) {
       actions["attack"].fadeOut(0.01);
       actions["attack"].stop();
