@@ -30,7 +30,7 @@ headTags({
     return (
       <Event
         title={movieDetails.title}
-        start="February 2, 2025 7:30 PM"
+        start="February 3, 2025 7:30 PM"
         duration={[1, "hour", 45, "minutes"]}
         host={{
           name: "Henry",
