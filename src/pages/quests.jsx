@@ -9,7 +9,7 @@ import HTMLFestCarousel from "../components/HTMLFestCarousel";
 import ReactPlayer from "react-player";
 import { InstagramEmbed } from "react-social-media-embed";
 
-function Quest({ name, completed, children }) {
+function Quest({ name, completed, unplanned, children }) {
   const [showDescription, setShowDescription] = useState(false);
   const [height, setHeight] = useState("0px");
   const contentRef = useRef(null);
@@ -24,7 +24,11 @@ function Quest({ name, completed, children }) {
 
   return (
     <li
-      className={completed ? "quest-item quest-item-completed" : "quest-item"}
+      className={[
+        "quest-item",
+        completed ? "quest-item-completed" : "",
+        unplanned ? "quest-item-unplanned" : "",
+      ].join(" ")}
     >
       <div
         className="quest-name"
@@ -81,6 +85,7 @@ export default function QuestsPage() {
       <p className="legend">
         <div className="legend-not-done">■ - Not Done</div>
         <div className="legend-finished">■ - Completed</div>
+        <div className="legend-unplanned">■ - Unplanned</div>
       </p>
       <div className="quest-scroll-bar">
         <div className="quest-scroll-left"></div>
@@ -88,6 +93,54 @@ export default function QuestsPage() {
         <div className="quest-scroll-right"></div>
       </div>
       <div className="quest">
+        <h2>Level 31 - Beginning Again in Vietnam</h2>
+        <ul className="quests">
+          <p>
+            In this past year, I found that adjusting to Vietnam life took more
+            of my time than I thought. My goals / desires also shifted the
+            longer I lived in Vietnam. I did stuff I didn't expect I was going
+            to do! So now I have a new category called, "Unplanned" that shows
+            goals that I didn't have in the beginning of the year.
+          </p>
+          <p>I've also increased the number of quests!</p>
+          <Quest completed name="Buy an Ao Dai"></Quest>
+          <Quest name="Go to the dentist in Vietnam"></Quest>
+          <Quest name="Get a flu shot in Vietnam"></Quest>
+          <Quest name="Go to ear-nose-throat doctor Vietnam"></Quest>
+          <Quest name="Move apartments"></Quest>
+          <Quest name="Travel to Hue"></Quest>
+          <Quest name="Hike in Dalat"></Quest>
+          <Quest name="Go trekking in Vietnam"></Quest>
+          <Quest name="Go outdoor climbing in Vietnam"></Quest>
+          <Quest name="Run a half-marathon"></Quest>
+          <Quest name="Volunteer to clean trash 5 times (0/5)"></Quest>
+          <Quest name="Climb a '10' route at Vertical District"></Quest>
+          <Quest name="Take a private Lindy Hop lesson"></Quest>
+          <Quest name="Cook 5 dishes in Vietnam (0/5)"></Quest>
+          <Quest name="Have 10 drawing sessions (0/10)"></Quest>
+          <Quest name="Learn 5 Vietnamese songs on Guitar (0/5)"></Quest>
+          <Quest name="90 days of meditation (0/90)"></Quest>
+          <Quest name="Host 3 show and tells (1/3)"></Quest>
+          <Quest name="Perform an ambient show"></Quest>
+          <Quest name="Host an exhibition of my friends' works in Vietnam"></Quest>
+          <Quest name="Teach my cousins a new board game"></Quest>
+          <Quest name="Release 4 little games"></Quest>
+          <Quest name="Release Colors of Emotions game"></Quest>
+          <Quest name="Teach a beginner's programming class"></Quest>
+          <Quest completed name="Unblock my mom"></Quest>
+          <Quest name="Forgive my mom"></Quest>
+          <Quest name="Don't drink alcohol at two family events"></Quest>
+          <Quest name="No smoking for at least 10 months">
+            I quit for a year and then started smoking again for 2 months. I am
+            quitting again...
+          </Quest>
+          <Quest name="Visit China"></Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 1"></Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 2"></Quest>
+          <Quest name="Finish playing Half-Life 1"></Quest>
+          <Quest name="Participate in 2 game jams (0/2)"></Quest>
+          <Quest name="Play 5 indie games (0/5)"></Quest>
+        </ul>
         <h2>Level 30 - Vietnam DLC</h2>
         <ul className="quests">
           <Quest completed name="Move to Vietnam">
@@ -98,7 +151,10 @@ export default function QuestsPage() {
             I want to see how well I can socialize while avoiding the most
             common social device. I managed to quit for a whole year!
           </Quest>
-          <Quest completed name="Host an artist event in Vietnam"></Quest>
+          <Quest completed name="Host an artist event in Vietnam">
+            I hosted an exhibit at Reading Cabin named meGank and had an
+            accompanying talkshow.
+          </Quest>
           <Quest completed name="Host a dinner party in Vietnam">
             I did not host it directly, but I helped with Hannah and Linh's
             dinner party!
@@ -163,6 +219,25 @@ export default function QuestsPage() {
           <Quest completed name="Cook one meal in Vietnam">
             I literally only cooked one single meal this entire year hahaha
           </Quest>
+          <Quest unplanned name="Go on a trip by motorbike">
+            I drove from Saigon to Dong Nai :)
+          </Quest>
+          <Quest unplanned name="Buy food from the market" />
+          <Quest unplanned name="Get water shipped to my apartment">
+            This was unexpectedly hard. I was not confident in my ability to
+            understand Vietnamese + I had anxiety of talking to people on the
+            phone.{" "}
+            <a href="https://www.instagram.com/p/DTYHiWBEXNQ/" target="_blank">
+              I talk about it in this video!
+            </a>
+          </Quest>
+          <Quest unplanned name="Buy food from the market" />
+          <Quest unplanned name="Apartment hunting">
+            I found an apartment on my own and learned about what I wanted in an
+            apartment in Vietnam
+          </Quest>
+          <Quest unplanned name="Hosted HTML Day" />
+          <Quest unplanned name="Start Lindy Hopping" />
         </ul>
         <h2>Level 29 - Game Dev Arc</h2>
         <ul className="quests">

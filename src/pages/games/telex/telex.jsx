@@ -207,7 +207,7 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
 });
 
 let GLOBAL_ENTITY_TRACKER = 0;
-let DEBUG_STAGE = 2;
+let DEBUG_STAGE = null;
 
 export default function TelexGamePage() {
   const [focused, setFocused] = useState();
@@ -494,9 +494,9 @@ export default function TelexGamePage() {
               // </>
             }
             <Scene ref={scene} stage={round} />
-            <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
+            {/* <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
               <GizmoViewport labelColor="white" axisHeadScale={1} />
-            </GizmoHelper>
+            </GizmoHelper> */}
           </Canvas>
         </GameContext.Provider>
         <HealthViz lives={life} />
