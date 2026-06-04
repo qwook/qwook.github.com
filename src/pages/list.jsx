@@ -30,6 +30,9 @@ export default function ListPage() {
         <OuterLink href="https://jvns.ca/blog/brag-documents/">
           Julia Evans on Brag Docs
         </OuterLink>
+        <OuterLink href="https://sampokarjalainen.com/post/4984295184/creating-believable-creatures">
+          Creating Believable Creatures
+        </OuterLink>
       </ul>
       <h1>Game Design</h1>
       <ul>
