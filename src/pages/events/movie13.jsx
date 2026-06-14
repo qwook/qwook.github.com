@@ -3,7 +3,7 @@ import { headTags } from "../../utils/headTags";
 export const movieDetails = {
   title: "Only Yesterday [おもひでぽろぽろ] (1992)",
   description:
-    'From Studio Ghibli. A 27 year old city girl goes to the countryside. Described as a "plotless" movie and more just a slow collection of incidents. A love-letter to everyday life and childhood.',
+    "From Studio Ghibli. A 27 year old city girl goes on holidy in the countryside. A movie about memory, childhood, and growing into adulthood. A love-letter to everyday life.",
   image: require("./images/onlyyesterday.gif"),
 };
 
