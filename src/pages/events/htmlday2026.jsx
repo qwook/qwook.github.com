@@ -590,7 +590,7 @@ export default function EventPage() {
               <div className="q">What should I bring?</div>
               <div className="a">
                 a charged computer, friends, good energy, pen & paper, and maybe
-                a little html (relax, we'll help you out!).
+                a little html knowledge (relax, we'll help you out!).
               </div>
               <div className="q">Where exactly?</div>
               <div className="a">
