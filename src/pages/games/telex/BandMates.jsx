@@ -23,9 +23,9 @@ export function BandMates({ position, rotation, animation }) {
   const game = useContext(GameContext);
   const root = useRef();
 
-  const { scene, animations, materials } = useGLTF(
-    require("./assets/long_zombie_v3.glb"),
-  );
+  const { scene, animations } = useGLTF(require("./assets/long_zombie_v3.glb"));
+
+  const { sceneGuitar } = useGLTF(require("./assets/guitar.glb"));
 
   const map = useTexture(ZOMBIES[0]);
   map.flipY = false;
@@ -36,7 +36,15 @@ export function BandMates({ position, rotation, animation }) {
     [],
   );
 
-  const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
+  const clone = useMemo(() => {
+    if (clone && cloneGuitar) {
+      const clone = SkeletonUtils.clone(scene);
+      const cloneGuitar = SkeletonUtils.clone(sceneGuitar);
+      console.log(clone, sceneGuitar);
+      clone.getObjectByName("mixamorig:LeftHand");
+      return clone;
+    }
+  }, [scene, sceneGuitar]);
   const { nodes } = useGraph(clone);
 
   const { ref: animRef, actions, names } = useAnimations(animations);
@@ -62,6 +70,7 @@ export function BandMates({ position, rotation, animation }) {
             skeleton={nodes.Human.skeleton}
             material={material}
           ></skinnedMesh>
+          <primitive object={nodes.mixamorigHips} />
         </group>
       </group>
     </group>

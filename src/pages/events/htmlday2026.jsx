@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import { createPage } from "../../app";
 import { EventSpecial } from "../../components/events/event-special";
 import cub from "./htmlday2025/cub.txt";
@@ -25,11 +25,18 @@ const POT = `
   \\_________/
 `;
 
-export default function EventPage() {
+const participantsFetch = (async () => {
+  const response = await fetch(
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRckA5hmW5HczSwZV7EqD8YSQ1XTxn0oVB3KSOwiPKGN21l05pZEkm9bWn1CeAISyGfgsKv-K2lNOqZ/pub?gid=1315090448&single=true&output=csv",
+  );
+  const csv = await response.text();
+  return csv;
+})();
+
+function Flowers() {
   const xeMay = useRef();
   const xeMayX = useRef(0);
   const direction = useRef("right");
-  const [language, setLanguage] = useState("vn");
 
   const [anim, setAnim] = useState([]);
 
@@ -54,7 +61,6 @@ export default function EventPage() {
 
   const setValueAtPosition = (x, y, value) => {
     if (x < 0 || y < 0 || y >= matrix.length || x >= matrix[y].length) return;
-    console.log(x, y, value);
     setMatrix((matrix) => {
       const copy = [...matrix];
       copy[y][x] = value;
@@ -314,6 +320,188 @@ export default function EventPage() {
   }, []);
 
   return (
+    <pre ref={xeMay} className="cub" style={{ width: 640, fontSize: 12 }}>
+      {matrix.map((row, idx) => {
+        return (
+          <span key={idx}>
+            {row.map((cell, idx2) => {
+              return <span key={idx2}>{cell || " "}</span>;
+            })}
+            {"\n"}
+          </span>
+        );
+      })}
+    </pre>
+  );
+}
+
+function Character({ name }) {
+  const root = useRef();
+  const avatar = useRef();
+  const action = useRef("move-right");
+  const facing = useRef("left");
+  const position = useRef({ x: Math.random() * 100, y: 0 });
+  const velocity = useRef(0);
+
+  useEffect(() => {
+    let timeOut;
+    const queue = () => {
+      timeOut = setTimeout(timeOutFn, Math.random() * 500);
+    };
+    const timeOutFn = () => {
+      const actions = ["move-right", "move-left", "jump"];
+      action.current = actions[Math.floor(Math.random() * actions.length)];
+      queue();
+    };
+    queue();
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  });
+
+  const lastTime = useRef(Date.now() / 1000);
+  useEffect(() => {
+    let frame;
+    const fn = () => {
+      const now = Date.now() / 1000;
+      const deltaTime = now - lastTime.current;
+      lastTime.current = now;
+
+      if (action.current === "move-right") {
+        position.current.x += deltaTime * 20;
+        facing.current = "right";
+      } else if (action.current === "move-left") {
+        position.current.x -= deltaTime * 20;
+        facing.current = "left";
+      } else if (action.current === "jump") {
+        if (position.current.y === 0) {
+          position.current.y = 1;
+          velocity.current = 50 + 200 * Math.random();
+        }
+      }
+
+      if (position.current.x < 0) {
+        position.current.x = 0;
+      }
+      if (position.current.x > 80) {
+        position.current.x = 80;
+      }
+      if (position.current.y <= 0) {
+        position.current.y = 0;
+        velocity.current = 0;
+      } else {
+        position.current.y += velocity.current * deltaTime;
+        if (position.current.y > 100) {
+          position.current.y = 100;
+        }
+        velocity.current -= deltaTime * 500;
+      }
+
+      if (facing.current === "left") {
+        avatar.current.style.transform = "scaleX(-100%)";
+      } else {
+        avatar.current.style.transform = "scaleX(100%)";
+      }
+
+      root.current.style.left = position.current.x + "%";
+      root.current.style.top = -position.current.y + "px";
+
+      frame = requestAnimationFrame(fn);
+    };
+    frame = requestAnimationFrame(fn);
+
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  });
+
+  return (
+    <div
+      ref={root}
+      style={{
+        position: "relative",
+        top: position.x + "%",
+        left: -position.y + "px",
+      }}
+    >
+      <div
+        ref={avatar}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: 150,
+          width: 150,
+          backgroundOrigin: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundImage: `url(${require("./htmlday2026/char1.png")})`,
+        }}
+      ></div>
+      <div
+        style={{
+          position: "absolute",
+          top: 120,
+          left: 0,
+          height: 100,
+          width: 150,
+          textAlign: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "inline-block",
+            background: "rgba(0,0,0,0.8)",
+            color: "white",
+            fontFamily: "arial",
+            padding: "0px 5px",
+            borderRadius: 4,
+            outline: "1px solid rgb(185, 185, 185)",
+            boxShadow: "0 0 5px 2px black",
+            maxWidth: 100,
+            fontSize: 14,
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {name}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MapleStory() {
+  const participantsCsv = use(participantsFetch);
+  const participants = useMemo(
+    () => participantsCsv.split("\n"),
+    [participantsCsv],
+  );
+
+  return (
+    <div
+      style={{
+        pointerEvents: "none",
+        position: "fixed",
+        bottom: "0",
+        left: "0",
+        right: "0",
+        height: "150px",
+      }}
+    >
+      {participants.map((name, idx) => {
+        return <Character key={idx} name={name} />;
+      })}
+    </div>
+  );
+}
+
+export default function EventPage() {
+  const [language, setLanguage] = useState("vn");
+
+  return (
     <>
       <div className="archive-under">
         <EventSpecial
@@ -325,49 +513,30 @@ export default function EventPage() {
               Sài Gòn
             </>
           }
-          start="August 2, 2026 1:30 PM"
+          start="August 8, 2026 1:00 PM"
           duration={[3, "hour"]}
           hosts={[
             {
-              name: "Henry",
-              url: "https://instagram.com/nohurryhen",
-            },
-            {
-              name: "Spencer",
-              url: "https://instagram.com/iamtheangrysons",
-            },
-            {
-              name: "Jay",
-              url: "https://instagram.com/eggreligion",
+              name: "Tàu Hủ Ky Collective",
+              url: "https://www.instagram.com/tauhuky.hotpot/",
             },
           ]}
           location={{
-            address: "Quận 1 (Chưa Biết / TBD)",
+            address: "Bình Thạnh(Chưa Biết / TBD)",
           }}
           language={language}
           setLanguage={setLanguage}
         >
           <a
             className="RSVP"
-            href="https://forms.gle/31JmpEmPM9DykuJU6"
+            href="https://docs.google.com/forms/d/e/1FAIpQLScdiy1DxcoGCXPqzHL2BF1rMOW6G-gX_uZbBX8icvLcpykTPQ/viewform?usp=header"
             target="_blank"
           >
             {language === "vn" ? "ĐĂNG KÝ" : "REGISTER"}
           </a>
           <br />
           <br />
-          <pre ref={xeMay} className="cub" style={{ width: 640, fontSize: 12 }}>
-            {matrix.map((row, idx) => {
-              return (
-                <span key={idx}>
-                  {row.map((cell, idx2) => {
-                    return <span key={idx2}>{cell || " "}</span>;
-                  })}
-                  {"\n"}
-                </span>
-              );
-            })}
-          </pre>
+          <Flowers />
           {language === "vn" ? (
             <>
               <div className="q">Ngày hội HTML là gì?</div>
@@ -412,8 +581,7 @@ export default function EventPage() {
               <div className="q">Where exactly?</div>
               <div className="a">
                 it'll most likely rain, so a coffee shop in District 1 or an
-                apartment :) specific location announced in instagram group.
-                please RSVP.
+                apartment :) specific location announced in email. please RSVP.
               </div>
               <div className="q">
                 I'm not in Sài Gòn, is there an event in my city?
@@ -429,6 +597,7 @@ export default function EventPage() {
           )}
           <p>🛵🏙️🇻🇳</p>
         </EventSpecial>
+        <MapleStory />
       </div>
     </>
   );
