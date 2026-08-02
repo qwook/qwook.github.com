@@ -363,6 +363,8 @@ function Character({ name }) {
   useEffect(() => {
     let frame;
     const fn = () => {
+      if (!avatar.current) return;
+
       const now = Date.now() / 1000;
       const deltaTime = now - lastTime.current;
       lastTime.current = now;
