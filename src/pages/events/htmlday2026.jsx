@@ -1,4 +1,4 @@
-import { use, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, use, useEffect, useMemo, useRef, useState } from "react";
 import { createPage } from "../../app";
 import { EventSpecial } from "../../components/events/event-special";
 import cub from "./htmlday2025/cub.txt";
@@ -475,28 +475,28 @@ function Character({ name }) {
 
 function MapleStory() {
   const participantsCsv = use(participantsFetch);
-  const participants =
-    ["hen", "qa", "nai"] ||
-    useMemo(
-      () => participantsCsv.split("\n").filter((name) => name && name !== ""),
-      [participantsCsv],
-    );
+  const participants = useMemo(
+    () => participantsCsv.split("\n").filter((name) => name && name !== ""),
+    [participantsCsv],
+  );
 
   return (
-    <div
-      style={{
-        pointerEvents: "none",
-        position: "fixed",
-        bottom: "0",
-        left: "0",
-        right: "0",
-        height: "150px",
-      }}
-    >
-      {participants.map((name, idx) => {
-        return <Character key={idx} name={name} />;
-      })}
-    </div>
+    <Suspense>
+      <div
+        style={{
+          pointerEvents: "none",
+          position: "fixed",
+          bottom: "0",
+          left: "0",
+          right: "0",
+          height: "150px",
+        }}
+      >
+        {participants.map((name, idx) => {
+          return <Character key={idx} name={name} />;
+        })}
+      </div>
+    </Suspense>
   );
 }
 
