@@ -475,10 +475,12 @@ function Character({ name }) {
 
 function MapleStory() {
   const participantsCsv = use(participantsFetch);
-  const participants = useMemo(
-    () => participantsCsv.split("\n"),
-    [participantsCsv],
-  );
+  const participants =
+    ["hen", "qa", "nai"] ||
+    useMemo(
+      () => participantsCsv.split("\n").filter((name) => name && name !== ""),
+      [participantsCsv],
+    );
 
   return (
     <div
