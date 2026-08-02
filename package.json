@@ -45,7 +45,7 @@
     "@babel/node": "^7.28.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
     "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^8.17.10",
+    "@react-three/fiber": "^9.7.0",
     "calendar-link": "^2.10.0",
     "howler": "^2.2.4",
     "i": "^0.3.7",
