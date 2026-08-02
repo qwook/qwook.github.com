@@ -617,7 +617,7 @@ export default function EventPage() {
               <div className="a">
                 no AI is allowed. the point of HTML day is spending the day
                 writing together, not to make something extremely
-                technologically impressive in the matter of seconds. we invite
+                technologically "impressive" in the matter of seconds. we invite
                 you to slow down and enjoy the process of learning and creating
                 together.
               </div>
