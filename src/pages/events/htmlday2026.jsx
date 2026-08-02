@@ -476,9 +476,13 @@ function Character({ name }) {
 function MapleStory() {
   const participantsCsv = use(participantsFetch);
   const participants = useMemo(
-    () => participantsCsv.split("\n").filter((name) => name && name !== "" && name !== " "),
+    () =>
+      participantsCsv
+        .split("\n")
+        .filter((name) => name && name !== "" && name !== " " && name !== "\r"),
     [participantsCsv],
   );
+  console.log(participants);
 
   return (
     <Suspense>
