@@ -548,7 +548,7 @@ export default function EventPage() {
                 Là một sự kiện/meet up hàng năm, tụi mình sẽ hội tụ và sử dụng
                 HTML cùng nhau. cấm công ty. cấm startup, cấm quảng cáo. nên
                 dùng HTML để viết thơ, làm zine, làm nghề thuật, viết thơ cho bà
-                ngoại/nội, và làm album ảnh về hoa.
+                ngoại/nội, và làm album ảnh về hoa.{" "}
                 <a href="https://qwook.io/events/htmlday2025/">
                   Xem sự kiện năm trước!
                 </a>
