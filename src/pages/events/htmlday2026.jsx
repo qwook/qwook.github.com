@@ -5,6 +5,13 @@ import cub from "./htmlday2025/cub.txt";
 import { headTags } from "../../utils/headTags";
 import "./htmlday2026/style.scss";
 
+/*
+
+I KNOW I KNOW ITS REACT AND NOT RAW HTML AND VANILLA JAVASCRIPT I AM SORRY
+PLEASE FORGIVE ME T_T @v10101a HAS ALREADY CRUCIFIED ME FOR THIS
+
+*/
+
 headTags({
   title: "HTML Day 2026 - Sài Gòn",
   description: "a day of HTML freewrite",
