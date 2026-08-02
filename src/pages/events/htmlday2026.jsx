@@ -25,14 +25,6 @@ const POT = `
   \\_________/
 `;
 
-const participantsFetch = (async () => {
-  const response = await fetch(
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRckA5hmW5HczSwZV7EqD8YSQ1XTxn0oVB3KSOwiPKGN21l05pZEkm9bWn1CeAISyGfgsKv-K2lNOqZ/pub?gid=1315090448&single=true&output=csv",
-  );
-  const csv = await response.text();
-  return csv;
-})();
-
 function Flowers() {
   const xeMay = useRef();
   const xeMayX = useRef(0);
@@ -473,6 +465,14 @@ function Character({ name }) {
   );
 }
 
+let participantsFetch = (async () => {
+  const response = await fetch(
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRckA5hmW5HczSwZV7EqD8YSQ1XTxn0oVB3KSOwiPKGN21l05pZEkm9bWn1CeAISyGfgsKv-K2lNOqZ/pub?gid=1315090448&single=true&output=csv",
+  );
+  const csv = await response.text();
+  return csv;
+})();
+
 function MapleStory() {
   const participantsCsv = use(participantsFetch);
   const participants = useMemo(
@@ -485,22 +485,20 @@ function MapleStory() {
   console.log(participants);
 
   return (
-    <Suspense>
-      <div
-        style={{
-          pointerEvents: "none",
-          position: "fixed",
-          bottom: "0",
-          left: "0",
-          right: "0",
-          height: "150px",
-        }}
-      >
-        {participants.map((name, idx) => {
-          return <Character key={idx} name={name} />;
-        })}
-      </div>
-    </Suspense>
+    <div
+      style={{
+        pointerEvents: "none",
+        position: "fixed",
+        bottom: "0",
+        left: "0",
+        right: "0",
+        height: "150px",
+      }}
+    >
+      {participants.map((name, idx) => {
+        return <Character key={idx} name={name} />;
+      })}
+    </div>
   );
 }
 
@@ -548,7 +546,12 @@ export default function EventPage() {
               <div className="q">Ngày hội HTML là gì?</div>
               <div className="a">
                 Là một sự kiện/meet up hàng năm, tụi mình sẽ hội tụ và sử dụng
-                HTML cùng nhau
+                HTML cùng nhau. cấm công ty. cấm startup, cấm quảng cáo. nên
+                dùng HTML để viết thơ, làm zine, làm nghề thuật, viết thơ cho bà
+                ngoại/nội, và làm album ảnh về hoa.
+                <a href="https://qwook.io/events/htmlday2025/">
+                  Xem sự kiện năm trước!
+                </a>
               </div>
               <div className="q">Mình cần chuẩn bị gì?</div>
               <div className="a">
@@ -577,12 +580,17 @@ export default function EventPage() {
             <>
               <div className="q">What is this?</div>
               <div className="a">
-                a yearly event where we write HTML together
+                a yearly event where we write HTML together. no corporations. no
+                startups. no advertisements. yes to poetry, digital zines,
+                interactive art, letter to your grandma, and flower collections.{" "}
+                <a href="https://qwook.io/events/htmlday2025/">
+                  look at last year's event!
+                </a>
               </div>
               <div className="q">What should I bring?</div>
               <div className="a">
-                a charged computer, friends, good energy, and some basic html
-                skills.
+                a charged computer, friends, good energy, pen & paper, and maybe
+                a little html (relax, we'll help you out!).
               </div>
               <div className="q">Where exactly?</div>
               <div className="a">
@@ -603,7 +611,9 @@ export default function EventPage() {
           )}
           <p>🛵🏙️🇻🇳</p>
         </EventSpecial>
-        <MapleStory />
+        <Suspense>
+          <MapleStory />
+        </Suspense>
       </div>
     </>
   );
