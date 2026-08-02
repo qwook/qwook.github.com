@@ -458,7 +458,7 @@ function Character({ name }) {
             borderRadius: 4,
             outline: "1px solid rgb(185, 185, 185)",
             boxShadow: "0 0 5px 2px black",
-            maxWidth: 100,
+            maxWidth: 150,
             fontSize: 14,
             overflow: "hidden",
             whiteSpace: "nowrap",
