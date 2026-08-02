@@ -563,8 +563,14 @@ export default function EventPage() {
               <div className="a">
                 Vì thời tiết gần đây hơi bất ổn nên tụi mình sẽ tụ họp tại một
                 quán cà phê ở Quận 1, hoặc tại một chung cư? Bạn hãy đăng ký qua
-                link Google Forms và tụi mình sẽ add vô một group Instagram rồi
-                cập nhật địa chỉ sau nhé!
+                link Google Forms và tụi mình sẽ email bạn địa chỉ sau nhé!
+              </div>
+              <div className="q">Mình cần liên lạc với người tổ chúc!</div>
+              <div className="a">
+                Email của tuị mình là tauhukycollective@gmail.com vả ig{" "}
+                <a href="https://www.instagram.com/tauhuky.hotpot/">
+                  @tauhuky.hotpot
+                </a>
               </div>
               <div className="q">
                 Mình không ở Sài Gòn, liệu mình có thể tham gia được không?
@@ -595,7 +601,15 @@ export default function EventPage() {
               <div className="q">Where exactly?</div>
               <div className="a">
                 it'll most likely rain, so a coffee shop in District 1 or an
-                apartment :) specific location announced in email. please RSVP.
+                apartment :) specific location announced in email. please
+                register and we'll send you a confirmation with location after!
+              </div>
+              <div className="q">I want to contact the organizers!</div>
+              <div className="a">
+                Email us at tauhukycollective@gmail.com or DM us on instagram{" "}
+                <a href="https://www.instagram.com/tauhuky.hotpot/">
+                  @tauhuky.hotpot
+                </a>
               </div>
               <div className="q">
                 I'm not in Sài Gòn, is there an event in my city?
