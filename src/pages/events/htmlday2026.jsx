@@ -553,9 +553,9 @@ export default function EventPage() {
               <div className="q">Ngày hội HTML là gì?</div>
               <div className="a">
                 Là một sự kiện/meet up hàng năm, tụi mình sẽ hội tụ và sử dụng
-                HTML cùng nhau. cấm công ty. cấm startup, cấm quảng cáo. nên
-                dùng HTML để viết thơ, làm zine, làm nghề thuật, viết thơ cho bà
-                ngoại/nội, và làm album ảnh về hoa.{" "}
+                HTML cùng nhau. cấm công ty. cấm startup, cấm quảng cáo. cấm ai.
+                nên dùng HTML để viết thơ, làm zine, làm nghề thuật, viết thơ
+                cho bà ngoại/nội, và làm album ảnh về hoa.{" "}
                 <a href="https://qwook.io/events/htmlday2025/">
                   Xem sự kiện năm trước!
                 </a>
@@ -565,6 +565,13 @@ export default function EventPage() {
                 Bạn chỉ cần mang laptop (sạc đủ pin), rủ thêm bạn bè, good
                 energy và một ít kiến thức cơ bản về html (cứ thoải mái hỏi han
                 nếu bạn gặp vấn đề nhé!)
+              </div>
+              <div className="q">Mình có dùng AI được ta?</div>
+              <div className="a">
+                Tuyệt đối không sử dụng AI, không "vibe-coding". Ngày hội HTML
+                là một ngày để mình có cơ hội giao lưu và viết HTML cùng nhau.
+                Bọn mình mong mọi người đừng quá tập trung vào kết quả hoàn
+                thiện và hãy tận hưởng quá trình viết code nhé!
               </div>
               <div className="q">Tụi mình sẽ gặp nhau ở đâu?</div>
               <div className="a">
@@ -594,8 +601,9 @@ export default function EventPage() {
               <div className="q">What is this?</div>
               <div className="a">
                 a yearly event where we write HTML together. no corporations. no
-                startups. no advertisements. yes to poetry, digital zines,
-                interactive art, letter to your grandma, and flower collections.{" "}
+                startups. no advertisements. no ai. yes to poetry, digital
+                zines, interactive art, letter to your grandma, and flower
+                collections.{" "}
                 <a href="https://qwook.io/events/htmlday2025/">
                   look at last year's event!
                 </a>
@@ -604,6 +612,14 @@ export default function EventPage() {
               <div className="a">
                 a charged computer, friends, good energy, pen & paper, and maybe
                 a little html knowledge (relax, we'll help you out!).
+              </div>
+              <div className="q">Can I use AI?</div>
+              <div className="a">
+                no AI is allowed. the point of HTML day is spending the day
+                writing together, not to make something extremely
+                technologically impressive in the matter of seconds. we invite
+                you to slow down and enjoy the process of learning and creating
+                together.
               </div>
               <div className="q">Where exactly?</div>
               <div className="a">
