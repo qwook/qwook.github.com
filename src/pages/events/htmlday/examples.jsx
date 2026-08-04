@@ -187,6 +187,8 @@ makeThisFall(document.getElementById("falling5"))
       />
       <CodeWithFrame
         src={`
+<p>This example will only work on web, with a mouse.</p>
+<p>Move your mouse around and see what happens!</p>
 <div id="following1">
   tip
 </div>
@@ -216,16 +218,35 @@ const trail = [
   document.getElementById("following3"),
   document.getElementById("following4"),
   document.getElementById("following5"),
-  ];
-
+];
+let lastPositionX;
+let lastPositionY;
+let currentFollowingElement = 0;
 function onMouseMove(event) {
-    
+    const mousePositionX = event.clientX;
+    const mousePositionY = event.clientY;
+    if (!lastPositionX && !lastPositionY) {
+      lastPositionX = mousePositionX;
+      lastPositionY = mousePositionY;
+      return;
+    }
+    // Calculate the distance between the current mouse position
+    // and the last recorded one.
+    const distance = Math.sqrt(
+      Math.pow(mousePositionX - lastPositionX, 2) +
+      Math.pow(mousePositionY - lastPositionY, 2)
+    );
+    if (distance > 50) {
+      const element = trail[currentFollowingElement];
+      element.style.position = "absolute";
+      element.style.top = lastPositionY + "px";
+      element.style.left = lastPositionX + "px";
+      lastPositionX = mousePositionX;
+      lastPositionY = mousePositionY;
+      currentFollowingElement = (currentFollowingElement + 1) % trail.length;
+    }
 }
-makeThisFall(document.getElementById("following1"))
-makeThisFall(document.getElementById("following2"))
-makeThisFall(document.getElementById("following3"))
-makeThisFall(document.getElementById("following4"))
-makeThisFall(document.getElementById("following5"))
+document.body.addEventListener("mousemove", onMouseMove);
 </script>
 `}
       />
