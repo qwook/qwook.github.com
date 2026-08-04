@@ -187,8 +187,7 @@ makeThisFall(document.getElementById("falling5"))
       />
       <CodeWithFrame
         src={`
-<p>This example will only work on web, with a mouse.</p>
-<p>Move your mouse around and see what happens!</p>
+<p>Move your mouse around or draw with your finger and see what happens!</p>
 <div id="following1">
   tip
 </div>
@@ -222,31 +221,34 @@ const trail = [
 let lastPositionX;
 let lastPositionY;
 let currentFollowingElement = 0;
-function onMouseMove(event) {
-    const mousePositionX = event.clientX;
-    const mousePositionY = event.clientY;
-    if (!lastPositionX && !lastPositionY) {
-      lastPositionX = mousePositionX;
-      lastPositionY = mousePositionY;
-      return;
-    }
-    // Calculate the distance between the current mouse position
-    // and the last recorded one.
-    const distance = Math.sqrt(
-      Math.pow(mousePositionX - lastPositionX, 2) +
-      Math.pow(mousePositionY - lastPositionY, 2)
-    );
-    if (distance > 50) {
-      const element = trail[currentFollowingElement];
-      element.style.position = "absolute";
-      element.style.top = lastPositionY + "px";
-      element.style.left = lastPositionX + "px";
-      lastPositionX = mousePositionX;
-      lastPositionY = mousePositionY;
-      currentFollowingElement = (currentFollowingElement + 1) % trail.length;
-    }
+function onPointerMove(event) {
+  event.preventDefault();
+  const mousePositionX = event.clientX;
+  const mousePositionY = event.clientY;
+  if (!lastPositionX && !lastPositionY) {
+    lastPositionX = mousePositionX;
+    lastPositionY = mousePositionY;
+    return;
+  }
+  // Calculate the distance between the current mouse position
+  // and the last recorded one.
+  const distance = Math.sqrt(
+    Math.pow(mousePositionX - lastPositionX, 2) +
+    Math.pow(mousePositionY - lastPositionY, 2)
+  );
+  if (distance > 50) {
+    const element = trail[currentFollowingElement];
+    element.style.position = "absolute";
+    element.style.top = lastPositionY + "px";
+    element.style.left = lastPositionX + "px";
+    lastPositionX = mousePositionX;
+    lastPositionY = mousePositionY;
+    currentFollowingElement = (currentFollowingElement + 1) % trail.length;
+  }
 }
-document.body.addEventListener("mousemove", onMouseMove);
+document.body.style.touchAction = "none";
+document.body.addEventListener("pointermove", onPointerMove);
+document.body.addEventListener("pointerdown", (e) => e.preventDefault());
 </script>
 `}
       />
