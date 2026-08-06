@@ -113,6 +113,10 @@ module.exports = {
           from: "src/pages/events/htmlday2025/projects",
           to: "events/htmlday2025",
         },
+        {
+          from: "src/pages/events/htmlday2026/projects",
+          to: "events/htmlday2026",
+        },
       ],
     }),
   ],

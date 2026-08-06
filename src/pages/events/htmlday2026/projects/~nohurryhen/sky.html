@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sky Prompts</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Times New Roman", Times, serif;
+      }
+      iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        height: auto;
+        pointer-events: none;
+      }
+      @media (max-aspect-ratio: 16/9) {
+        iframe {
+          width: auto;
+          height: 100%;
+        }
+      }
+      .star {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        height: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        background-image: url("star.png");
+        animation: rotating 100s linear infinite;
+      }
+
+      @keyframes rotating {
+        from {
+          -webkit-transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+          -webkit-transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      .prompt {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        padding: 20%;
+        font-size: 3vw;
+        color: greenyellow;
+        text-shadow:
+          0 0 0.5vw black,
+          0 0 0.5vw black,
+          0 0 2vw greenyellow;
+      }
+      .star-container {
+        display: inline-block;
+        position: relative;
+        width: 5vw;
+        height: 5vw;
+        transform: scale(400%);
+      }
+      .slide {
+        transition: opacity 3s;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube-nocookie.com/embed/WLcljbREoZM?si=-B7pjj2ZdcqiLJuO&amp;mute=1;&amp;rel=0;&amp;autoplay=1;&amp;controls=0;&amp;loop=1"
+      title="YouTube video player"
+      frameborder="0"
+      allow="
+        autoplay;
+        accelerometer;
+        autoplay;
+        clipboard-write;
+        encrypted-media;
+        gyroscope;
+        picture-in-picture;
+        web-share;
+      "
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+    <div class="slide star"></div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>Make a site that makes you feel calm.</p>
+        <p>Make a site an animal would want to read.</p>
+        <p>Embody the spirit of a candy or dish of your choosing.</p>
+      </div>
+    </div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>Make a site that's a letter to a friend.</p>
+        <p>What's your favorite place in Saigon?</p>
+        <p>Write a letter to your past self. What would you tell them?</p>
+      </div>
+    </div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>Make a site that's a letter to a friend.</p>
+        <p>What's your favorite place in Saigon?</p>
+        <p>Write a letter to your past self. What would you tell them?</p>
+      </div>
+    </div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>Imagine your website is a historical monument. What is it a monument to?</p>
+        <p>Find a lesser used HTML tag: what uncovered beauty hides within its brackets?</p>
+        <p>Write a letter to the stranger who will stumble upon your website.</p>
+      </div>
+    </div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>How can a website move like the wind?</p>
+        <p>Design a site that feels like taking a long walk through a park.</p>
+        <p>Think of a fun childhood memory. Make a website that's a shrine to that moment.</p>
+      </div>
+    </div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>Make a website for your grandmother.</p>
+        <p>For your pet.</p>
+        <p>For your friend.</p>
+      </div>
+    </div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>Feel the HTML energy all around you.</p>
+      </div>
+    </div>
+    <div class="slide prompt">
+      <div>
+        <center>
+          <div class="star-container"><div class="star" /></div>
+        </center>
+        <p>Everything can be HTML.</p>
+      </div>
+    </div>
+    <script type="text/javascript">
+      let currentShow = -1;
+      const slides = document.getElementsByClassName("slide");
+      function showSlide() {
+        const previousSlide = slides[currentShow];
+        if (previousSlide) previousSlide.style.opacity = 0;
+        currentShow = Math.floor(Math.random() * slides.length);
+        const currentSlide = slides[currentShow];
+        if (currentSlide) currentSlide.style.opacity = 1;
+        console.log(previousSlide, currentSlide);
+      }
+      showSlide();
+      setInterval(showSlide, 1000 * 5);
+    </script>
+  </body>
+</html>
