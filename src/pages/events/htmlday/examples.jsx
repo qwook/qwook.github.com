@@ -82,46 +82,98 @@ function BlogPage() {
 `}
       />
       <CodeWithFrame
-        src={`
-<h1 id="header">Click on the Button to change the colors.</h1>
-<p id="paragraph">And I will tell you a story.</p>
-<button onClick="onButtonClick()">Click here to Change Colors</button>
+        src={`<button onclick="onChangeColor(event)">Click me to randomly change my color!</button>
+<br />
+<button onclick="onChangeColor(event)">Click me to randomly change my color!</button>
+<br />
+<button onclick="onChangeSentence(event)">Click me for a random sentence!</button>
+<br />
+<button onclick="onChangeSentence(event)">Click me for a random sentence!</button>
+
+
 <script>
-const stories = [
-  {
-    color: "pink",
-    storyHeader: "The Pink Power Ranger",
-    storyParagraph: "When I was young my parents bought a power rangers costume for me, but it was pink instead of red. So I spent the entire day with a red marker coloring it red."
-  },
-  {
-    color: "blue",
-    storyHeader: "The Blue Skies",
-    storyParagraph: "Sometimes at 5PM the sky would get cloudy as if it were going to rain, but it never rained. Instead the whole neighborhood turned blue."
-  },
-  {
-    color: "turquoise",
-    storyHeader: "The Turquoise Rooftops",
-    storyParagraph: "The rooftops of our schools were turqoise. At the time, I thought it was ugly, but now the color reminds me of childhood."
+  // Given an array, pick something random from it.
+  function pickRandomThingInArray(array) {
+    return array[
+      Math.floor(Math.random() * array.length)
+    ]
   }
-]
-// We start off at -1 because when we click the button, we go to the next story.
-// By starting at -1, our "next" story will be 0, or the first story.
-let currentStory = -1;
-function onButtonClick() {
-  currentStory = (currentStory + 1) % stories.length; // Go to the next story.
 
-  // Our HTML elements have an id="name" attribute, which helps us
-  // access it in javascript.
-  const header = document.getElementById("header");
-  const paragraph = document.getElementById("paragraph");
+  // An array of colors.
+  const colors = [
+    "red", "yellow", "green",
+    "blue", "fuschia", "black",
+    "white", "purple", "cyan",
+  ];
 
-  // Changes the text of the HTML to one of the stories.
-  header.innerText = stories[currentStory].storyHeader;
-  paragraph.innerText = stories[currentStory].storyParagraph;
+  // Function for when the color button is clicked.
+  function onChangeColor(event) {
+    event.target.style.background = pickRandomThingInArray(colors);
+    event.target.style.color = pickRandomThingInArray(colors);
+  }
 
-  // Changes the background color of the header.
-  header.style.backgroundColor = stories[currentStory].color;
-}
+  const sentences = [
+    "hello world", "goodbye darling", "hola amigo", "xin chào bạn", "aloha", "tậm biệt"
+  ]
+
+  // Function for when the sentence button is clicked.
+  function onChangeSentence(event) {
+    event.target.innerText = pickRandomThingInArray(sentences);
+  }
+</script>`}
+      />
+      <CodeWithFrame
+        src={`
+<div id="slides">
+  <div class="slide">
+    <h1 style="background: white;">Click on the Button to Change Stories</h1>
+    <p>And I will tell you a story.</p>
+  </div>
+  <div class="slide">
+    <h1 style="background: pink;">The Pink Power Ranger</h1>
+    <p>When I was young my parents bought a power rangers costume for me, but it was pink instead of red. So I spent the entire day with a red marker coloring it red.</p>
+  </div>
+  <div class="slide">
+    <h1 style="background: blue;">The Blue Skies</h1>
+    <p>Sometimes at 5PM the sky would get cloudy as if it were going to rain, but it never rained. Instead the whole neighborhood turned blue.</p>
+  </div>
+  <div class="slide">
+    <h1 style="background: turquoise;">The Turquoise Rooftops</h1>
+    <p>The rooftops of our schools were turqoise. At the time, I thought it was ugly, but now the color reminds me of childhood.</p>
+  </div>
+  <button onClick="previousSlideClick()">Previous Story</button>
+  <button onClick="nextSlideClick()">Next Story</button>
+</div>
+<script>
+  const slideDeck = document.getElementById("slides");
+  const slides = slideDeck.getElementsByClassName("slide");
+  // Hide all the slides.
+  for (const slide of slides) {
+    slide.style.display = "none";
+  }
+
+  // We start off at -1 because when we click the button, we go to the next slide.
+  // By starting at -1, our "next" slide will be 0, or the first slide.
+  let currentSlide = -1;
+  function nextSlideClick() {
+    if (slides[currentSlide]) {
+      slides[currentSlide].style.display = "none";
+    }
+    currentSlide = (currentSlide + 1) % slides.length; // Go to the next story.
+    slides[currentSlide].style.display = "block";
+  }
+
+  function previousSlideClick() {
+    if (slides[currentSlide]) {
+      slides[currentSlide].style.display = "none";
+    }
+    if (currentSlide == -1) {
+      currentSlide = 0;
+    }
+    currentSlide = (slides.length + currentSlide - 1) % slides.length; // Go to the previous story.
+    slides[currentSlide].style.display = "block";
+  }
+  nextSlideClick();
 </script>
 `}
       />
