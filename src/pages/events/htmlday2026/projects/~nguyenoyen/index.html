@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>untitled</title>
+</head>
+<h1 id="header">cnfssn.</h1>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+<p id="paragraph">will it ever be enough?</p>
+<button onClick="onButtonClick()">Setlist</button>
+<script>
+
+const stories = [  {color: "#ef3340", textColor: "black",
+storyHeader: "the one",
+storyParagraph: "the thrilling emotions in you to see that one person that makes you feel alive, again.",
+},
+{    color: "#67823a", textColor: "black",    storyHeader: "34",    storyParagraph: "suddenly you keep falling, from his jersey with a number 34 on the back to the way he was never yours in the first place."  },
+{    color: "purple", textColor: "black",    storyHeader: "villain",    storyParagraph: "it's alright to be a villain in someone's eyes 'cause they only view your outlines"  },
+{    color: "#ecbdc4", textColor: "black",    storyHeader: "sick of the movie",    storyParagraph: "the strongest weapon you have at the moment is your voice, will you choose to speak up?"  },
+{    color: "#e6ccb2", textColor: "black",    storyHeader: "run out of time",    storyParagraph: "reflection of what was left behind after all those memories."  },
+]
+
+let currentStory = -1;
+
+function onButtonClick() {
+
+  currentStory = (currentStory + 1) % stories.length; // Go to the next story.
+
+  // Our HTML elements have an id="name" attribute, which helps us
+  // access it in javascript.
+  const header = document.getElementById("header");
+  const paragraph = document.getElementById("paragraph");
+
+  // Changes the text of the HTML to one of the stories.
+  header.innerText = stories[currentStory].storyHeader;
+  paragraph.innerText = stories[currentStory].storyParagraph;
+
+  // Changes the background color of the header.
+  header.style.backgroundColor = stories[currentStory].color;
+  header.style.color= stories[currentStory].textColor;
+
+}
+
+</script>
+<div id="following1">
+
+  i
+
+</div>
+
+<div id="following2">
+
+  don't
+
+</div>
+
+<div id="following3">
+
+  want
+
+</div>
+
+<div id="following4">
+
+  to
+
+</div>
+
+<div id="following5">
+
+  be
+
+</div>
+
+<div id="following6">
+
+  buried
+
+</div>
+
+<div id="following7">
+
+  six
+
+</div>
+
+<div id="following8">
+
+  feet
+
+</div>
+
+<div id="following9">
+
+  under
+
+</div>
+
+<div id="following10">
+
+  the
+
+</div>
+
+<div id="following11">
+
+  ground
+
+</div>
+
+<div id="following12">
+
+  if
+
+</div>
+
+<div id="following13">
+
+  you
+
+</div>
+
+<div id="following14">
+
+  are
+
+</div>
+
+<div id="following15">
+
+  not
+
+</div>
+
+<div id="following16">
+
+  around
+
+</div>
+
+<div id="following17">
+
+  don't
+
+</div>
+
+<div id="following18">
+
+  want
+
+</div>
+
+<div id="following19">
+
+  to
+
+</div>
+
+<div id="following20">
+
+  be
+
+</div>
+
+<div id="following21">
+
+  alone
+
+</div>
+
+<div id="following22">
+
+  i
+
+</div>
+
+<div id="following23">
+
+  don't
+
+</div>
+
+<div id="following24">
+
+  want
+
+</div>
+
+<div id="following25">
+
+  to
+
+</div>
+
+<div id="following26">
+
+  leave
+
+</div>
+
+<div id="following27">
+
+  this
+
+</div>
+
+<div id="following28">
+
+  world
+
+</div>
+
+<div id="following29">
+
+  if
+
+</div>
+
+<div id="following30">
+
+  you're
+
+</div>
+
+<div id="following31">
+
+  not
+
+</div>
+
+<div id="following32">
+
+  by
+
+</div>
+
+<div id="following33">
+
+  my
+
+</div>
+
+<div id="following34">
+
+  side
+
+</div>
+
+<div id="following35">
+
+  no
+
+</div>
+
+<div id="following36">
+
+  i
+
+</div>
+
+<div id="following37">
+
+  don't
+
+</div>
+
+<div id="following38">
+
+  wanna
+
+</div>
+
+<div id="following39">
+
+  die
+
+</div>
+
+<div id="following40">
+
+  without
+
+</div>
+
+<div id="following41">
+
+  you
+
+</div>
+<style>
+
+  html, body {
+
+    overflow: hidden;
+
+    width: 100%;
+
+    height: 100%;
+
+  }
+
+</style>
+
+<script>
+
+const trail = [
+
+  document.getElementById("following1"),
+  document.getElementById("following2"),
+  document.getElementById("following3"),
+  document.getElementById("following4"),
+  document.getElementById("following5"),
+  document.getElementById("following6"),
+  document.getElementById("following7"),
+  document.getElementById("following7"),
+  document.getElementById("following8"),
+  document.getElementById("following9"),
+  document.getElementById("following10"),
+  document.getElementById("following11"),
+  document.getElementById("following12"),
+  document.getElementById("following13"),
+  document.getElementById("following14"),
+  document.getElementById("following15"),
+  document.getElementById("following16"),
+  document.getElementById("following17"),
+  document.getElementById("following18"),
+  document.getElementById("following19"),
+  document.getElementById("following20"),
+  document.getElementById("following21"),
+  document.getElementById("following22"),
+  document.getElementById("following23"),
+  document.getElementById("following24"),
+  document.getElementById("following25"),
+  document.getElementById("following26"),
+  document.getElementById("following27"),
+  document.getElementById("following28"),
+  document.getElementById("following29"),
+  document.getElementById("following30"),
+  document.getElementById("following31"),
+  document.getElementById("following32"),
+  document.getElementById("following33"),
+  document.getElementById("following34"),
+  document.getElementById("following35"),
+  document.getElementById("following36"),
+  document.getElementById("following37"),
+  document.getElementById("following38"),
+  document.getElementById("following39"),
+  document.getElementById("following40"),
+  document.getElementById("following41")
+];
+let lastPositionX;
+let lastPositionY;
+let currentFollowingElement = 0;
+function onPointerMove(event) {
+  event.preventDefault();
+  const mousePositionX = event.clientX;
+  const mousePositionY = event.clientY;
+  if (!lastPositionX && !lastPositionY) {
+    lastPositionX = mousePositionX;
+    lastPositionY = mousePositionY;
+    return;
+  }
+  // Calculate the distance between the current mouse position
+  // and the last recorded one.
+  const distance = Math.sqrt(
+    Math.pow(mousePositionX - lastPositionX, 2) +
+    Math.pow(mousePositionY - lastPositionY, 2)
+  );
+  if (distance > 50) {
+    const element = trail[currentFollowingElement];
+    element.style.position = "absolute";
+    element.style.top = lastPositionY + "px";
+    element.style.left = lastPositionX + "px";
+    lastPositionX = mousePositionX;
+    lastPositionY = mousePositionY;
+    currentFollowingElement = (currentFollowingElement + 1) % trail.length;
+  }
+}
+document.body.style.touchAction = "none";
+document.body.addEventListener("pointermove", onPointerMove);
+document.body.addEventListener("pointerdown", (e) => e.preventDefault());
+
+//cursor
+</script>
+
+<style>
+body {
+background-image: url(https://i.pinimg.com/1200x/f2/aa/49/f2aa49078410bba16cfa53c7abe38e12.jpg);
+background-attachment: fixed;
+background-repeat: repeat;
+font-size: 2.7em;
+color: black;
+}
+
+  body {font-family: Italianno}
+  h1 {color: purple}
+.shizuru-regular {
+  font-family: "Shizuru", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.italianno-regular {
+
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+}
+/* Frangipani Flower - https://www.cursors-4u.com/cursor/flower-56 */
+* {cursor: url('https://cdn.cursors-4u.net/previews/south-park-kyle-broflovski-pen-fc9964ad-32.webp') 32 32, auto !important;}
+
+    @-webkit-keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@-webkit-keyframes snowflakes-shake{0%,100%{-webkit-transform:translateX(0);transform:translateX(0)}50%{-webkit-transform:translateX(80px);transform:translateX(80px)}}@keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@keyframes snowflakes-shake{0%,100%{transform:translateX(0)}50%{transform:translateX(80px)}}.snowflake{position:fixed;top:-10%;z-index:9999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-animation-name:snowflakes-fall,snowflakes-shake;-webkit-animation-duration:10s,3s;-webkit-animation-timing-function:linear,ease-in-out;-webkit-animation-iteration-count:infinite,infinite;-webkit-animation-play-state:running,running;animation-name:snowflakes-fall,snowflakes-shake;animation-duration:10s,3s;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;animation-play-state:running,running}.snowflake:nth-of-type(0){left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s}.snowflake:nth-of-type(1){left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s}.snowflake:nth-of-type(2){left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s}.snowflake:nth-of-type(3){left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s}.snowflake:nth-of-type(4){left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s}.snowflake:nth-of-type(5){left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s}.snowflake:nth-of-type(6){left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s}.snowflake:nth-of-type(7){left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s}.snowflake:nth-of-type(8){left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s}.snowflake:nth-of-type(9){left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s}.snowflake:nth-of-type(10){left:25%;-webkit-animation-delay:2s,0s;animation-delay:2s,0s}.snowflake:nth-of-type(11){left:65%;-webkit-animation-delay:4s,2.5s;animation-delay:4s,2.5s}
+</style>
+
+<body>
+<!-- SNOW FLAKES -->
+<div class="snowflakes">
+<div class="snowflake"><img src="https://i.ibb.co/QFjgwXtp/RDX4-OS4-FGIVA5-ZVQDR4-ZA22-TV5-JJ7-VRY.gif"/></div>
+<div class="snowflake"><img src="https://blob.gifcities.org/gifcities/MFHANYCTL2WC6FJUP4ASMQAH7OUJA2FB.gif"/></div>
+<div class="snowflake"><img src="https://blob.gifcities.org/gifcities/VYNJZKY6LZ2VGXG5NFGRGJGT3LICJU6J.gif"/></div>
+<div class="snowflake"><img src="https://i.ibb.co/QFjgwXtp/RDX4-OS4-FGIVA5-ZVQDR4-ZA22-TV5-JJ7-VRY.gif"/></div>
+<div class="snowflake"><img src="https://blob.gifcities.org/gifcities/CHQ7T6CZWRR4INGUE6K3ACA2LIPCIN74.gif"/></div>
+<div class="snowflake"><img src="https://blob.gifcities.org/gifcities/VYNJZKY6LZ2VGXG5NFGRGJGT3LICJU6J.gif"/></div>
+<div class="snowflake"><img src="https://blob.gifcities.org/gifcities/MFHANYCTL2WC6FJUP4ASMQAH7OUJA2FB.gif"/></div>
+<div class="snowflake"><img src="https://blob.gifcities.org/gifcities/VDJQWTQ5MHS75ELGVIWMXGBNWIY3533K.gif"/></div>
+</div>
+</body>
+
+

@@ -516,6 +516,21 @@ export default function EventPage() {
 
   return (
     <>
+      <div className="archive">
+        <div className="archive-body">
+          <h1>Xong rồi! :))</h1>
+          <ul>
+            <li><a href="./~aloalokhue/" target="_blank">~aloalokhue</a></li>
+            <li><a href="https://gunpointwedding.neocities.org/" target="_blank">~gunpointwedding</a></li>
+            <li><a href="https://maplemagicwand.neocities.org/" target="_blank">~maplemagicwand</a></li>
+            <li><a href="./~nguyenoyen/" target="_blank">~nguyenoyen</a></li>
+            <li><a href="https://ki3r4n.neocities.org/" target="_blank">~ki3r4n</a></li>
+            <li><a href="./~nohurryhen/" target="_blank">~nohurryhen</a></li>
+            <li><a href="https://rileyugo005.github.io/rilly--gallerry/" target="_blank">~riley</a></li>
+            <li><a href="./~tam/" target="_blank">~tam</a></li>
+          </ul>
+        </div>
+      </div>
       <div className="archive-under">
         <EventSpecial
           title={TITLE}

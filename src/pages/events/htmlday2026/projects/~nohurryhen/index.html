@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>untitled</title>
+    <style>
+      body {
+        font-size: 2em;
+      }
+      .hint {
+        cursor: help;
+        border: 3px dotted pink;
+        &:hover {
+          /* background: rgba(0, 225, 217, 0.6); */
+          background: turquoise;
+        }
+        &:hover:has(.hint:hover) {
+          background: transparent;
+        }
+      }
+      .preview-text-button {
+        display: inline-block;
+        margin: 10px 0;
+        color: white;
+        background: turquoise;
+        padding: 5px;
+        border: 2px solid rgb(61, 211, 196);
+        border-radius: 6px;
+        box-shadow:
+          inset 0px -2px 5px 2px rgba(0, 0, 0, 0.1),
+          inset 0px 4px 3px rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        user-select: none;
+
+        &:active {
+          box-shadow: inset 0px 4px 5px 2px rgba(0, 0, 0, 0.1);
+        }
+      }
+      #inside {
+        display: inline-block;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hát Tơ Mơ Lơ Là Gì Ta?</h1>
+    <span id="leftArrow" class="hint">&lt;</span
+    ><span id="tagNameP" class="hint">p</span
+    ><span id="rightArrow" class="hint">&gt;</span>
+    <br />
+    <span id="inside" class="hint">
+      &nbsp;&nbsp;&nbsp;<span id="startTag" class="hint">&lt;b&gt;</span>
+      <span id="middle" class="hint">Cái này in đậm!</span>
+      <span id="endTag" class="hint">&lt;/b&gt;</span> <br />
+      &nbsp;&nbsp;&nbsp;<span id="leftArrow" class="hint">&lt;</span
+      ><span id="tagNameBr" class="hint">br</span>&nbsp;<span
+        id="slash2"
+        class="hint"
+        >/</span
+      ><span id="rightArrow" class="hint">&gt;</span>
+      <br />
+      &nbsp;&nbsp;&nbsp;<span id="startTagSpan" class="hint"
+        >&lt;span <span id="attribute" class="hint">style</span
+        ><span id="attributeEqual" class="hint">&equals;</span
+        ><span id="quoteStart" class="hint">&quot;</span
+        ><span id="style" class="hint">color</span
+        ><span id="colon" class="hint">:</span>&nbsp;<span
+          id="green"
+          class="hint"
+          >green</span
+        ><span id="semiColon" class="hint">;</span
+        ><span id="quoteEnd" class="hint">&quot;</span>&gt;</span
+      >
+      <span id="middle2" class="hint">Cái này sẽ màu mè!</span>
+      <span id="endTagSpan" class="hint">&lt;/span&gt;</span>
+    </span>
+    <br />
+    <span id="leftArrow" class="hint">&lt;</span
+    ><span id="slash" class="hint">/</span
+    ><span id="tagNameP" class="hint">p</span
+    ><span id="rightArrow" class="hint">&gt;</span><br />
+    <div id="hint-text">Dùng chụt ở trên để thấy cái gì là gì.</div>
+    <div class="preview">
+      <div class="preview-text-button">bấm nút này để thấy kết quả</div>
+      <div class="preview-result">
+        <p>
+          <b> Cái này in đậm! </b>
+          <br />
+          <span style="color: green"> Cái này sẽ màu mè! </span>
+        </p>
+      </div>
+    </div>
+    <hr />
+    <a href="./sky.html">&gt; trời</a>
+    <a href="./earth.html">&gt; đất</a>
+    <script type="text/javascript">
+      const hintText = document.getElementById("hint-text");
+      const HIGHLIGHT = {
+        startTag: "Đây là một tag 'b' bắt đầu.",
+        endTag: "Đây là một tag 'b' xong.",
+        startTagSpan:
+          "Đây là một tag 'span' bắt đầu. Thường 'span' không làm gì hết, mà mình cho nó một thược tinh đặc biệt.",
+        endTagSpan: "Đây là một tag 'span' xong.",
+        middle:
+          "Ở giữa là đồ thứ mà sẽ bị ảnh hưởng. Với tag 'b' thì nó sẽ làm chữ in đậm.",
+        middle2:
+          "Ở giữa là đồ thứ mà sẽ bị ảnh hưởng. Với tag 'span' này nó có một thược tinh đặc biệt.",
+        leftArrow: "Đây là mũi tên trái, nó bắt đầu cái tag",
+        rightArrow: "Đây là mũi tên phải, nó làm xong cải tag.",
+        tagNameP: "Đây là tên của tag. Cái nầy là 'p'. 'p' nghĩa 'paragraph', trong tiếng Việt là 'đoạn văn'.",
+        tagNameBr:
+          "Đây là tên của tag. Cái nầy là 'br', nghĩa 'break'. Nó sẽ tạo ra một dòng mới.",
+        slash:
+          "Đây là sẹc, tag mà có cái sẹc là tag xong. Chú ý nó bên tây trái của tên tag.",
+        slash2:
+          "Đây là sẹc, mà nó ở bên tay phải của tên tag, nên tag này một mình :((( Cô đơn :(((( Không cần tag bắt đầu.",
+        inside: "Mình bỏ tag ở trong tag được. Hay hong?",
+        attribute: "Đây là tên thược tinh của span mình muốn mô tả.",
+        attributeEqual: "Mình cần cái dấu bằng để bất đầu mô tả.",
+        quoteStart:
+          "Đây là dấu ngoặc kép bất đầu. Ở giữa thì mình sẽ mô tả cái thược tinh.",
+        quoteEnd: "Đây là dấu ngoặc kép đuôi. Cần hai cái.",
+        style:
+          "Ủa? Sao ta? Đây là CSS! (Xi Ét Ét)! Vời CSS mình đặt được luật phong cách của chữ (vd. màu chữ.) Với 'color' thì mình đặt được luật để thây đỗi màu chữ.",
+        colon:
+          "Nầy gióng như dấu bằng ở trong HTML, mà mình đang viết CSS thì ngôn ngũ nầy cần mình viết dấu hai chấm ':'.",
+        green:
+          "Đơn giản! Đay là màu. Có nhở tiếng Anh không? Màu nầy là gì nhỉ? Nếu không thích tiếng Anh 🫡🫡🇻🇳🇻🇳🇻🇳 thì dùng được hexcode! (vd #FF0000 là mấu đỏ, #FFFF00 là da vàng)",
+        semiColon:
+          "Rồi, ở trong CSS mình phải viết dấu chấm phẩy để làm xòng cái luật của mình. Sâu đây mình viết được luật mới vd 'background' hay 'border'!",
+      };
+      const hints = document.getElementsByClassName("hint");
+      for (const hint of hints) {
+        hint.addEventListener("pointermove", (event) => {
+          const highlightText = HIGHLIGHT[hint.id];
+          hintText.innerText = highlightText;
+          event.stopPropagation();
+        });
+        hint.addEventListener("pointerenter", (event) => {
+          const highlightText = HIGHLIGHT[hint.id];
+          hintText.innerText = highlightText;
+          event.stopPropagation();
+        });
+      }
+      const previews = document.getElementsByClassName("preview");
+      for (const preview of previews) {
+        let display = false;
+        const button = preview.getElementsByClassName("preview-text-button")[0];
+        const result = preview.getElementsByClassName("preview-result")[0];
+        result.style.display = "none";
+        button.addEventListener("click", (event) => {
+          display = !display;
+          if (display) {
+            result.style.display = "block";
+          } else {
+            result.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
