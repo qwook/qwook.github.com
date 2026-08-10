@@ -18,6 +18,28 @@ headTags({
   image: require("./htmlday2026/metadata.png"),
 });
 
+// This was an API from google but now I hardcoded it :)
+const PARTICIPANTS = `
+quang anh
+nohurryhen
+gunpointwedding
+Nai
+yaya/yaya123312123
+nguyenoyen
+bat
+maple
+goodcellsdie
+tâm :3
+_urkac.riley
+Gia Hyyyy
+@itshans.fyi
+Khuê
+Alex
+jo
+Châu Thảo Vy/Zy/_vera_chau_
+kee
+`
+
 const TITLE = "HTML Day 2026 - Sài Gòn";
 
 `❀
@@ -475,10 +497,12 @@ function Character({ name }) {
 }
 
 let participantsFetch = (async () => {
-  const response = await fetch(
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRckA5hmW5HczSwZV7EqD8YSQ1XTxn0oVB3KSOwiPKGN21l05pZEkm9bWn1CeAISyGfgsKv-K2lNOqZ/pub?gid=1315090448&single=true&output=csv",
-  );
-  const csv = await response.text();
+  // Bye bye we archive now.
+  // const response = await fetch(
+  //   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRckA5hmW5HczSwZV7EqD8YSQ1XTxn0oVB3KSOwiPKGN21l05pZEkm9bWn1CeAISyGfgsKv-K2lNOqZ/pub?gid=1315090448&single=true&output=csv",
+  // );
+  // const csv = await response.text();
+  return PARTICIPANTS;
   return csv;
 })();
 
@@ -528,6 +552,7 @@ export default function EventPage() {
             <li><a href="./~nohurryhen/" target="_blank">~nohurryhen</a></li>
             <li><a href="https://rileyugo005.github.io/rilly--gallerry/" target="_blank">~riley</a></li>
             <li><a href="./~tam/" target="_blank">~tam</a></li>
+            <li><a href="https://aidavoid.github.io/ascii-the-gathering/" target="_blank">~aidavoid</a></li>
           </ul>
         </div>
       </div>
