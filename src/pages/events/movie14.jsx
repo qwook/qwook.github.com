@@ -46,10 +46,10 @@ export default function EventPage() {
         A single mother demands answers from a school teacher when her son
         begins acting strangely. A fight at school causes even more trouble.
       </p>
-      <p>bring snacks and beer if you want</p>
+      <p>bring snacks and drinks if you want</p>
       <p>
         <strong>
-          The above address is a restaurant near my house, please message me for
+          The above address is near my house, please message me for
           my real address!
         </strong>
       </p>
