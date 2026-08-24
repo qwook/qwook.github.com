@@ -15,7 +15,7 @@ export default function EventPage() {
   return (
     <Event
       title={TITLE}
-      start="August 24, 2025 7:00 PM"
+      start="August 24, 2026 7:00 PM"
       duration={[2, "hour", 7, "minutes"]}
       host={{
         name: "Henry",
