@@ -52,6 +52,12 @@ export default function EventPage() {
         }
         `}
       </style>
+      <h2>Presents</h2>
+      <p>
+        Do not bring me any presents unless they are snacks, consumables (like
+        candles.) or written letters. Actually a tiny drawing of anything would
+        be cute, I'll put it in my digital scrapbook. If too lazy, your presence is a present~~!!
+      </p>
       <h2>What To Bring</h2>
       <ul>
         <li>🧢 Hat for Sun.</li>
