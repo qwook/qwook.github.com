@@ -68,9 +68,6 @@ importers:
       qs:
         specifier: ^6.15.3
         version: 6.15.3
-      qwook.github.com:
-        specifier: 'link:'
-        version: 'link:'
       react:
         specifier: ^19.2.8
         version: 19.2.8
