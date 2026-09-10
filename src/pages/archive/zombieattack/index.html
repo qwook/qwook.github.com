@@ -7,6 +7,16 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
+    <script>
+      function popup() {
+        window.open(
+          "./dottk/index.html",
+          "bannerpopup",
+          "height=100,width=486",
+        );
+      }
+    </script>
+
     <style type="text/css">
       BODY {
         font-family: Verdana, Arial;
@@ -133,8 +143,16 @@
       <source src="./assets/so_far_away.wav" type="audio/wav" />
     </audio>
     <span
-      style="background: #ccc; padding: 5px; border: 1px outset #ddd; cursor: pointer;"
-      onclick="audio.play()"
+      style="
+        background: #ccc;
+        padding: 5px;
+        border: 1px outset #ddd;
+        cursor: pointer;
+      "
+      onclick="
+        audio.play();
+        popup();
+      "
       >Play Music</span
     >
     <br /><br />
