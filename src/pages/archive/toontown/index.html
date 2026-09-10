@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0049)http://multiplayer-games.webs.com/NewToontown.htm -->
+<html xmlns:ie="">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <title>Patch</title>
+    <script language="Javascript">
+      <!--
+
+      var logs = new Array();
+      var logsi = 0;
+
+      function logit() {
+        var a = "";
+
+        for (var i = 0; i < arguments.length; i++) {
+          if (i % 2 == 0) {
+            // Name
+            a += escape(arguments[i]);
+            a += "=";
+          } else {
+            // Value
+            a += escape(arguments[i]);
+            a += i + 1 != arguments.length ? "&" : "";
+          }
+        }
+
+        var s =
+          "http://play.toontown.com/shared/www/collect.php?rand=" +
+          Math.random() +
+          "&" +
+          a;
+        var lognum = logsi++;
+        logs[lognum % 9] = new Image();
+        logs[lognum % 9].src = s;
+      }
+
+      //-->
+    </script>
+
+    <script language="Javascript">
+      <!--
+
+      function popWin(name) {
+        if (name == "WHATISGAMECARD") {
+          window.open(
+            "http://play.toontown.com/popups/gameCardWhatIsMain.php",
+            "whatisgamecard",
+            "width=700,height=450,resizable=0",
+          );
+        } else if (name == "GAMECARDHELP") {
+          window.open(
+            "http://play.toontown.com/popups/gameCardHelpFrameset.html",
+            "gamecardhelp",
+            "width=518,height=420,resizable=1",
+          );
+        } else if (name == "WHATISCOGBUCKS") {
+          window.open(
+            "http://play.toontown.com/popups/cogBucksWhatIsMain.php",
+            "whatiscogbucks",
+            "width=700,height=450,resizable=0",
+          );
+        }
+      }
+
+      function popNews(url) {
+        _news_popup = window.open(
+          "/frontPageArticle.php?articleID=" + url,
+          "news",
+          "width=470,height=400,resizable=0,scrollbars=1",
+        );
+        _news_popup.focus();
+      }
+
+      //-->
+    </script>
+
+    <meta
+      name="keywords"
+      http-equiv="keywords"
+      content="disney, fun, games, kids, entertainment, children, multiplayer, multiplayer game, multi player, cooperative game, massive, mmorpg, morpg, action game, strategy game, online, battle, mini games, mini-games, adventure, cooperative, toon, toontown, gag, cog, action, fun games, online games, kids games, games for kids "
+    />
+    <meta
+      name="description"
+      http-equiv="description"
+      content=" Toontown is the massively multiplayer Internet game that lets you live the life of a Toon!  Adventure on hundreds of tasks to earn Gags and Laff points, participate in special events and contests with your friends, and personalize your Toon with cool clothes and decorate your Toon�s own house."
+    />
+    <meta name="robots" http-equiv="robots" content="index,nofollow" />
+    <meta name="author" http-equiv="author" content="Toontown" />
+    <script language="JavaScript">
+      // headerPromoRight_Reg = new Image();
+      // headerPromoRight_Reg.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrPromoRight_reg.gif";
+
+      // headerPromoRight_Over = new Image();
+      // headerPromoRight_Over.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrPromoRight_over.gif";
+
+      // headerSubscribeRight_Reg = new Image();
+      // headerSubscribeRight_Reg.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrSubscribeRight_reg.gif";
+
+      // headerSubscribeRight_Over = new Image();
+      // headerSubscribeRight_Over.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrSubscribeRight_over.gif";
+
+      // headerTrialRight_Reg = new Image();
+      // headerTrialRight_Reg.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrTrialRight_reg.gif";
+
+      // headerTrialRight_Over = new Image();
+      // headerTrialRight_Over.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrTrialRight_over.gif";
+
+      // headerDownloadRight_Reg = new Image();
+      // headerDownloadRight_Reg.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrDownloadRight_reg.gif";
+
+      // headerDownloadRight_Over = new Image();
+      // headerDownloadRight_Over.src =
+      //   "http://play.toontown.com/shared/images/topnav/hdrDownloadRight_over.gif";
+
+      // function img_over(imgName) {
+      //   imgOn = eval(imgName + "_Over.src");
+      //   document[imgName].src = imgOn;
+      // }
+
+      // function img_reg(imgName) {
+      //   imgOn = eval(imgName + "_Reg.src");
+      //   document[imgName].src = imgOn;
+      // }
+    </script>
+    <style>
+      .free-trial-button:hover {
+        opacity: 0.8;
+      }
+      body {
+        margin-bottom: 48px;
+      }
+      .status-bar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: #ddd;
+        border: 2px outset #eee;
+        flex-direction: row;
+        gap: 2px;
+        padding: 2px;
+      }
+      .status {
+        display: flex;
+        flex: 1;
+        border: 1px inset #eee;
+        font-family: Arial, Helvetica, sans-serif;
+        align-items: center;
+        vertical-align: middle;
+        padding: 10px;
+      }
+      .status-1 {
+        flex: 9
+      }
+    </style>
+  </head>
+  <body onload="" onunload="" bgcolor="#4477FF" topmargin="0" marginheight="0">
+    <!-- Fake status bar :) -->
+    <div class="status-bar">
+      <div class="status status-1" id="status">Loading...</div>
+      <div class="status status-2"></div>
+      <div class="status status-3"></div>
+    </div>
+    <script>
+      const statusEle = document.getElementById("status");
+      Object.defineProperty(globalThis, "status", {
+        set(text) {
+          statusEle.innerText = text;
+        },
+        configurable: true, // Allows modifying this property descriptor later
+      });
+      document.body.onload = () => {
+        statusEle.innerText = "";
+      }
+    </script>
+    <table align="center" cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr>
+          <td>
+            <!-- <script
+              language="JavaScript"
+              src="./assets/blueMicroChromeWide.js"
+            ></script> -->
+            <table
+              width="770"
+              cellspacing="0"
+              cellpadding="0"
+              border="0"
+              bgcolor="#003399"
+            >
+              <tbody>
+                <tr>
+                  <td width="120">
+                    <a
+                      href="http://transfer.go.com/cgi/transfer.dll?srvc=dis&amp;goto=http://disney.go.com/&amp;name=mchrome_home"
+                      target="_top"
+                      ><img
+                        src="./assets/disney_blue.gif"
+                        border="0"
+                        height="25"
+                        width="120"
+                    /></a>
+                  </td>
+                  <td valign="middle" width="428">
+                    <font color="#ffffff" face="arial,helvetica" size="-2"
+                      >&nbsp;&nbsp;&gt;&nbsp;&nbsp;</font
+                    ><a
+                      href="http://disney.go.com/preview/toontown/special_offer/"
+                      ><font color="#ffffff" face="arial,helvetica" size="-2"
+                        >Disney's Toontown Online</font
+                      ></a
+                    >
+                  </td>
+                  <td width="125" align="left" valign="middle">
+                    <a
+                      href="http://transfer.go.com/cgi/transfer.dll?srvc=dis&amp;goto=http://search.disney.go.com&amp;name=mchrome_search"
+                      target="_top"
+                      ><img
+                        src="./assets/magnifying_glass.gif"
+                        width="19"
+                        height="19"
+                        alt=""
+                        border="0"
+                        valign="middle"
+                        hspace="0"
+                        vspace="0"
+                        align="middle"
+                      /><font color="#003399">&nbsp;</font
+                      ><b
+                        ><font color="white" face="arial,helvetica" size="-2"
+                          >Search Disney</font
+                        ></b
+                      ></a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      bgcolor="#FFFFFF"
+      align="center"
+    >
+      <tbody>
+        <tr>
+          <td colspan="5">
+            <!-- START HEADER -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center">
+              <tbody>
+                <tr>
+                  <td>
+                    <img
+                      src="./assets/weather_fog.gif"
+                      width="133"
+                      height="109"
+                      border="0"
+                    /><br />
+                  </td>
+                  <td>
+                    <a href="http://play.toontown.com/webHome.php">
+                      <img
+                        src="./assets/hdrCenterLogo.gif"
+                        width="516"
+                        height="109"
+                        alt=""
+                        border="0"
+                    /></a>
+                  </td>
+
+                  <td>
+                    <a
+                      href="https://account.toontown.com/webWelcome.php"
+                      class="free-trial-button"
+                    >
+                      <img
+                        name="headerTrialRight"
+                        src="./assets/hdrTrialRight_reg.gif"
+                        width="121"
+                        height="109"
+                        alt=""
+                        border="0"
+                    /></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <img
+                      src="./assets/hdrSepStrip.gif"
+                      width="770"
+                      height="23"
+                      alt=""
+                      border="0"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- END HEADER -->
+          </td>
+        </tr>
+        <tr>
+          <td width="154" valign="top" align="center">
+            <img src="./assets/leftSwf.png" width="154" height="1050" />
+            <!-- codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,79,0" -->
+            <!-- <object
+              classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+              width="154"
+              height="1050"
+              id="tt_nav"
+            >
+              <param
+                name="movie"
+                value="http://play.toontown.com/shared/images/flash/tt_nav_prospect.swf?playUrl=javascript:window.location=&#39;https://account.toontown.com/webLoginDirect.php&#39;;&amp;frontPageUrl=http://play.toontown.com/webHome.php&amp;whatIsTTUrl=http://play.toontown.com/about.php&amp;screenshotsUrl=http://play.toontown.com/screenshots.php&amp;newsArchiveUrl=http://play.toontown.com/newsArchive.php&amp;releaseNotesUrl=http://play.toontown.com/news.php&amp;memberServicesUrl=https://account.toontown.com/webChangeEmail.php&amp;emailPrefUrl=https://account.toontown.com/webChangeEmail.php&amp;changePwdUrl=https://account.toontown.com/webChangePassword.php&amp;billingInfoUrl=https://account.toontown.com/webChangeBilling.php&amp;chatPrefUrl=https://account.toontown.com/webChangeChat.php&amp;faqUrl=http://play.toontown.com/faq.php&amp;reportProblemUrl=http://play.toontown.com/problem.php&amp;exitSignUpUrl=http://play.toontown.com/webHome.php&amp;seetoontownUrl=http://play.toontown.com/screenshots.php&amp;sendCardUrl=http://disney.go.com/dcards/toontown/index.html&amp;recruitUrl=https://account.toontown.com/recruitSplash.php&amp;playersGuideUrl=javascript:function popPG(){playersguide=window.open(&#39;http://play.toontown.com/playersguide/toc.html&#39;, &#39;playersguide&#39;,&#39;width=451,height=540,resizable=0,scrollbars=1&#39;);playersguide.focus();}popPG();&amp;printableUrl=javascript:function popPP(){printable=window.open(&#39;/shared/www/parents_printable.php&#39;, &#39;parentsprintable&#39;,&#39;width=640,height=480,resizable=0,scrollbars=0&#39;);printable.focus();}popPP();&amp;"
+              />
+              <param name="quality" value="high" />
+              <param name="bgcolor" value="#FFFFFF" />
+              <param name="base" value="shared/images" />
+              <param name="menu" value="false" />
+              <embed
+                src="http://play.toontown.com/shared/images/tt_nav_prospect.swf?playUrl=javascript:window.location=&#39;https://account.toontown.com/webLoginDirect.php&#39;;&amp;frontPageUrl=http://play.toontown.com/webHome.php&amp;whatIsTTUrl=http://play.toontown.com/about.php&amp;screenshotsUrl=http://play.toontown.com/screenshots.php&amp;newsArchiveUrl=http://play.toontown.com/newsArchive.php&amp;releaseNotesUrl=http://play.toontown.com/news.php&amp;memberServicesUrl=https://account.toontown.com/webChangeEmail.php&amp;emailPrefUrl=https://account.toontown.com/webChangeEmail.php&amp;changePwdUrl=https://account.toontown.com/webChangePassword.php&amp;billingInfoUrl=https://account.toontown.com/webChangeBilling.php&amp;chatPrefUrl=https://account.toontown.com/webChangeChat.php&amp;faqUrl=http://play.toontown.com/faq.php&amp;reportProblemUrl=http://play.toontown.com/problem.php&amp;exitSignUpUrl=http://play.toontown.com/webHome.php&amp;seetoontownUrl=http://play.toontown.com/screenshots.php&amp;sendCardUrl=http://disney.go.com/dcards/toontown/index.html&amp;recruitUrl=https://account.toontown.com/recruitSplash.php&amp;playersGuideUrl=javascript:function popPG(){playersguide=window.open(&#39;http://play.toontown.com/playersguide/toc.html&#39;, &#39;playersguide&#39;,&#39;width=451,height=540,resizable=0,scrollbars=1&#39;);playersguide.focus();}popPG();&amp;printableUrl=javascript:function popPP(){printable=window.open(&#39;/shared/www/parents_printable.php&#39;, &#39;parentsprintable&#39;,&#39;width=640,height=480,resizable=0,scrollbars=0&#39;);printable.focus();}popPP();&amp;"
+                quality="high"
+                bgcolor="#FFFFFF"
+                width="154"
+                height="468"
+                name="tt_nav"
+                align=""
+                type="application/x-shockwave-flash"
+                pluginspage="https://www.macromedia.com/go/getflashplayer"
+              />
+            </object> -->
+
+            <!-- awards no longer needed here; in flash app instead -->
+            <!-- center>
+          <img src="http://play.toontown.com/shared/images/logos/cgw-goy-logo.jpg" width="100" height="175" alt="" border="0">
+          <font face="verdana, arial, helvetica, sans-serif" size="1">Computer Gaming World's 2003 MMORPG of the Year</font> <br><br>
+          <img src="http://play.toontown.com/shared/images/logos/webbyAward.gif" width="119" height="79" alt="" border="0">
+          <font size="-10"><br><br></font>
+          <img src="http://play.toontown.com/shared/images/logos/csrAward.gif" width="110" height="110" alt="" border="0">
+          <img src="http://play.toontown.com/shared/images/logos/award_silver.jpg" width="113" height="113" alt="" border="0">
+        </center -->
+          </td>
+
+          <!-- <td width="14" background="./assets/lineLeft.gif" rowspan="2"> -->
+          <td width="13" style="border-left: 1px solid black" rowspan="2">
+            &nbsp;
+          </td>
+          <td width="434" rowspan="1" valign="top">
+            <!-- START MIDDLE CONTENT -->
+
+            <table cellspacing="0" cellpadding="0" border="0" width="434">
+              <tbody>
+                <tr>
+                  <td><br /></td>
+                </tr>
+                <tr>
+                  <td>
+                    <font face="arial,helvetica" size="2">
+                      
+<center><img border="0" src="./assets/patch.GIF" width="109" height="42"></center>
+    <p>&nbsp;We need you to upload your Toontown Online game with our new patch! 
+    it will give unlimited jellybeans for you, so you can start out with lots of 
+    jellybeans.<b> </b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    Please download below</b></p><p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <a href="./newtoontown.html">Please Click Here To Download</a></b></p></font></td>
+            </tr>
+          </tbody></table>
+
+            <!-- END MIDDLE CONTENT -->
+          </td>
+          <!-- <td width="14" background="./assets/lineRight.gif" rowspan="2"> -->
+          <td width="13" style="border-right: 1px solid black" rowspan="2">
+            &nbsp;
+          </td>
+            &nbsp;
+          </td>
+          <td width="154" rowspan="1" valign="top">
+            <img
+              src="./assets/tt_tab_toonsworldunite.gif"
+              width="154"
+              height="15"
+            />
+            <img src="./assets/topToonsSwf.png" width="155" height="330" />
+            <!-- <object
+              classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+              width="155"
+              height="330"
+            >
+              <param
+                name="movie"
+                value="http://play.toontown.com/shared/images/flash/topToons.swf?theDate=04162004&amp;topToonURL=http://play.toontown.com/shared/images/dynamic/topToonImages/2004_04_16_small/&amp;imageBaseURL=http://play.toontown.com/shared/images&amp;moreTopToonsURL=http://play.toontown.com/topToons.php&amp;imageFileURL=/dynamic/topToonImages/2004_04_16_small/"
+              />
+              <param name="quality" value="high" />
+              <param name="menu" value="false" />
+              <embed
+                src="http://play.toontown.com/shared/images/flash/toptoons.swf"
+                quality="high"
+                pluginspage="http://www.macromedia.com/go/getflashplayer"
+                type="application/x-shockwave-flash"
+                width="1000"
+                height="800"
+              />
+            </object> -->
+            <img src="./assets/castyourvote.gif" width="154" height="65" />
+            <img src="./assets/poll_smallSwf.png" width="155" height="208" />
+            <!-- <object
+              classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+              codebase="https://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+              width="155"
+              height="208"
+              id="poll_small"
+              align=""
+            >
+              <param
+                name="movie"
+                value="http://play.toontown.com/shared/images/flash/poll_small.swf?basePollPath=/shared/www/&amp;pollId=111&amp;alreadyAnswered=true&amp;pollType=displayed"
+              />
+              <param name="menu" value="false" />
+              <param name="quality" value="high" />
+              <param name="bgcolor" value="#FFFFFF" />
+              <param
+                name="base"
+                value="http://play.toontown.com/shared/images"
+              />
+              <embed
+                src="http://play.toontown.com/shared/images/flash/poll_small.swf?basePollPath=/shared/www/&amp;pollId=111&amp;alreadyAnswered=true&amp;pollType=displayed"
+                quality="high"
+                bgcolor="#FFFFFF"
+                width="155"
+                height="208"
+                name="poll_small"
+                align=""
+                type="application/x-shockwave-flash"
+                pluginspage="http://www.macromedia.com/go/getflashplayer"
+                menu="false"
+              />
+            </object> -->
+
+            <img
+              src="./assets/tt_toonsworldunite_icon.gif"
+              width="154"
+              height="128"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div
+              style="
+                background-color: black;
+                width: 771px;
+                height: 2px;
+                margin-top: 10px;
+              "
+            ></div>
+            <!-- <img
+              src="./assets/lines.jpg"
+              width="770"
+              height="12"
+              alt=""
+              border="0"
+            /> -->
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="5" align="center">
+            <center>
+              <font
+                face="verdana, arial, helvetica, sans-serif"
+                size="2"
+                color="#FFFFFF"
+              >
+              </font>
+              <p>
+                <font
+                  face="verdana, arial, helvetica, sans-serif"
+                  size="2"
+                  color="#FFFFFF"
+                >
+                  <a
+                    href="http://apps.disneyblast.go.com/cgi-bin/mail/generic_mail.cgi?template=toontown/toonhelp.tpl"
+                    target="_blank"
+                    >Contact Us</a
+                  >&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="http://disney.go.com/corporate/legal/wdig_privacy.html"
+                    target="_top"
+                    ><b>UPDATED Privacy Policy</b></a
+                  >&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="http://disney.go.com/legal/internet_safety.html"
+                    >Internet Safety</a
+                  ></font
+                ><br />
+                <font
+                  face="verdana, arial, helvetica, sans-serif"
+                  size="1"
+                  color="#000000"
+                  >Use of this site signifies your agreement to the
+                  <a href="http://disney.go.com/legal/conditions_of_use.html"
+                    >terms of use</a
+                  >.<br />
+                  <a href="http://play.toontown.com/memberAgreement.php"
+                    >Member Agreements</a
+                  >&nbsp;|&nbsp;<a
+                    href="http://disney.go.com/guestservices/netiquette.html"
+                    >House Rules</a
+                  >
+                  <br />
+                  &copy; JJ. Never Will Be Bored.</font
+                >
+              </p>
+              <font
+                face="verdana, arial, helvetica, sans-serif"
+                size="1"
+                color="#000000"
+              >
+              </font>
+            </center>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

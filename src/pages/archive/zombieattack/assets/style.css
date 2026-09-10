@@ -1,0 +1,8 @@
+body {
+  max-width: 800px;
+}
+
+body::selection {
+  background: navy;
+  color: white;
+}

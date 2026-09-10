@@ -1,0 +1,387 @@
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(./nunito.woff) format('woff');
+}
+@-webkit-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-ms-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+body {
+  color: #464646;
+  background: white;
+  padding: 0px;
+  margin: 0px;
+}
+canvas {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#logo {
+  position: relative;
+  display: block;
+  background: url(./qlogo.png);
+  background-size: cover;
+  width: 128px;
+  height: 142px;
+  text-indent: 130px;
+  font-size: 0px;
+  color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+#logo small {
+  position: absolute;
+  display: block;
+  color: black;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0px;
+  top: auto;
+  bottom: 0px;
+}
+.spin {
+  display: inline-block;
+  overflow: visible;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  width: 0px;
+}
+.spin img {
+  margin-left: 5px;
+  height: 12px;
+  width: auto;
+  animation: spinner 0.5s infinite linear;
+  -ms-animation: spinner 0.5s infinite linear;
+  -moz-animation: spinner 0.5s infinite linear;
+  -webkit-animation: spinner 0.5s infinite linear;
+  -o-animation: spinner 0.5s infinite linear;
+}
+#side {
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 240px;
+  height: 100%;
+  padding: 0px;
+}
+#side #nav {
+  padding: 0px;
+  margin: 0px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 50px;
+  list-style-type: none;
+}
+#side #nav li {
+  display: block;
+}
+#side #nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-family: 'Nunito', sans-serif;
+  color: #464646;
+}
+#side #nav a:hover {
+  text-decoration: underline;
+  color: #fa0000;
+}
+#content {
+  transition: opacity, 0.25s;
+  -ms-transition: opacity, 0.25s;
+  -moz-transition: opacity, 0.25s;
+  -webkit-transition: opacity, 0.25s;
+  -o-transition: opacity, 0.25s;
+  font-family: 'Lucida', 'Lucida Sans Unicode', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0px;
+  padding: 10px;
+  margin-left: 240px;
+  margin-right: 20px;
+  min-width: 340px;
+  max-width: 500px;
+}
+#content .spin {
+  display: none;
+}
+#content b {
+  color: #2d2d2d;
+  font-family: 'Nunito', sans-serif;
+}
+#content h1 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 28px;
+  line-height: 30px;
+  color: #2d2d2d;
+}
+#content h1 b {
+  font-family: 'Nunito', sans-serif;
+  color: #fa0000;
+}
+#content h2 {
+  font-size: 20px;
+  line-height: 20px;
+  border-bottom: 2px solid #646464;
+}
+#content a {
+  text-decoration: underline;
+  color: red;
+}
+#content .article {
+  display: block;
+  margin-bottom: 50px;
+  border-bottom: solid #e6e6e6 1px;
+}
+#content .article:last-child {
+  border-bottom: 0;
+}
+#content .banner {
+  display: inline;
+  text-decoration: none;
+  width: 100%;
+  position: relative;
+  margin-bottom: 15px;
+}
+#content .banner img,
+#content .banner .blank {
+  border: black 1px solid;
+  opacity: 0.8;
+  display: inline-block;
+  transition: opacity, 0.15s;
+  -ms-transition: opacity, 0.15s;
+  -moz-transition: opacity, 0.15s;
+  -webkit-transition: opacity, 0.15s;
+  -o-transition: opacity, 0.15s;
+  width: 100%;
+  height: auto;
+  margin: -1px -1px 0px 0px;
+}
+#content .banner .blank {
+  background: #c8c8c8;
+  background-image: linear-gradient(left top, #82d98c 28%, #76e316 55%, #2c8515 69%);
+  background-image: -o-linear-gradient(left top, #82d98c 28%, #76e316 55%, #2c8515 69%);
+  background-image: -moz-linear-gradient(left top, #82d98c 28%, #76e316 55%, #2c8515 69%);
+  background-image: -webkit-linear-gradient(left top, #82d98c 28%, #76e316 55%, #2c8515 69%);
+  background-image: -ms-linear-gradient(left top, #82d98c 28%, #76e316 55%, #2c8515 69%);
+  background-image: -webkit-gradient(linear, left top, 100 300, color-stop(0.28, #82d98c), color-stop(0.55, #76e316), color-stop(0.69, #2c8515));
+  height: 100px;
+}
+#content .banner h1 {
+  color: black;
+  display: block;
+  transition: opacity, 0.15s;
+  -ms-transition: opacity, 0.15s;
+  -moz-transition: opacity, 0.15s;
+  -webkit-transition: opacity, 0.15s;
+  -o-transition: opacity, 0.15s;
+  opacity: 0.7;
+  background: #f0f0f0;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 0;
+  padding: 5px;
+  top: auto;
+  bottom: 0px;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #dcdcdc;
+}
+#content .banner small {
+  display: inline;
+  font-weight: normal;
+  font-size: 13px;
+  margin-left: 10px;
+}
+#content .banner:hover img,
+#content .banner:hover .blank {
+  opacity: 1;
+}
+#content .banner:hover h1 {
+  background: white;
+  opacity: 1;
+  color: red;
+}
+#content .photo {
+  background: #f0f0f0;
+  border: 1px solid #e6e6e6;
+  padding: 10px;
+  max-width: 100%;
+  text-align: center;
+}
+#content .photo img {
+  width: 100%;
+  height: 100%;
+}
+.cpp {
+  overflow-x: scroll;
+  padding: 20px;
+  background: #1e231e;
+}
+@media (max-width: 480px) {
+  .spin img {
+    height: auto;
+    width: auto;
+    margin-top: -16px;
+  }
+  #side {
+    text-align: center;
+    overflow-y: hidden;
+    position: relative;
+    top: 0;
+    height: auto;
+    width: auto;
+    padding: 20px;
+    padding-bottom: 10px;
+  }
+  #side #nav {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 20px;
+  }
+  #side #nav li {
+    line-height: 30px;
+  }
+  #side #nav a {
+    font-size: 20px;
+  }
+  #logo {
+    margin: auto;
+  }
+  #content {
+    min-width: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+  }
+  #content .banner {
+    display: block;
+  }
+  #content .banner h1 {
+    background: white;
+    position: relative;
+    bottom: auto;
+    display: block;
+    opacity: 0.8;
+    color: black;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #dcdcdc;
+  }
+  #content .banner small {
+    display: block;
+    margin-top: 5px;
+    margin-left: 0px;
+    line-height: 13px;
+  }
+  .cpp {
+    font-size: 10px;
+  }
+}
+@media (min-width: 1024px) {
+  #side {
+    width: 280px;
+  }
+  #side #nav a {
+    font-size: 24px;
+  }
+  #content {
+    font-size: 20px;
+    line-height: 28px;
+    margin-left: 280px;
+    max-width: 680px;
+  }
+  #content h1 {
+    font-size: 34px;
+  }
+}

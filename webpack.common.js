@@ -101,7 +101,7 @@ module.exports = {
           template: path.resolve(__dirname, "src/index.html"),
           sourceUrl: `https://github.com/qwook/qwook.github.com/tree/main/src/pages/${name}.jsx`,
           chunks: [name],
-        })
+        }),
     ),
     new MiniCssExtractPlugin({
       filename: "[name].css",
@@ -116,6 +116,10 @@ module.exports = {
         {
           from: "src/pages/events/htmlday2026/projects",
           to: "events/htmlday2026",
+        },
+        {
+          from: "src/pages/archive",
+          to: "archive",
         },
       ],
     }),

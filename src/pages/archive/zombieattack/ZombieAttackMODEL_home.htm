@@ -1,0 +1,64 @@
+
+<html><head><meta http-equiv=Content-Type content="text/html; charset=windows-1252"><meta name=GENERATOR content="Microsoft FrontPage 4.0"><meta name=ProgId content=FrontPage.Editor.Document><title>Morfit 3D World</title><SCRIPT language=JScript code SRC="Consts.txt"></SCRIPT><SCRIPT language="jscript"code src="cur16_AddYourCodeHere.txt"></SCRIPT><SCRIPT ID=clientEventHandlersJS LANGUAGE=javascript><!--
+top.status="Downloading Morfit ActiveX...";notShowProgress=0;g_card_status=false;function Check_Link(LinkedPolygon,TargetFrame){if(LinkedPolygon=="")
+return;switch(TargetFrame)
+{case"_blank":{window.open(LinkedPolygon);break;}
+case"_parent":{window.parent.location=LinkedPolygon;break;}
+case"_self":case"":{window.parent.frames(0).location=LinkedPolygon;break;}
+case"_top":{window.top.location=LinkedPolygon;break;}
+default:{if(TargetFrame=="Destination")
+parent.frames(1).location=LinkedPolygon;else if(TargetFrame=="Description")
+parent.frames(2).location=LinkedPolygon;else
+window.open(LinkedPolygon);}}}function ChangePictureQuality(){if(morfit3dWorld1.m3D_card_is_used!=g_card_status)
+{g_card_status=!g_card_status;}
+if(!g_card_status)
+{var camera_speed=morfit3dWorld1.TravelSpeed;var camera_tilt=morfit3dWorld1.TravelAngularVelocity;if(!camera_speed&& !camera_tilt)
+morfit3dWorld1.Engine_picture_quality=1000000;else if(Math.abs(camera_speed)<40||camera_tilt)
+morfit3dWorld1.Engine_picture_quality=500*400;else
+morfit3dWorld1.Engine_picture_quality=300*300;
+}}function showProgress(){if(notShowProgress)
+return;notShowProgress=1;
+document.all("progress").style.display="inline";}function checkStatus(){
+if(document.links.length>0)
+{notShowProgress=1;document.all("progress").style.display="none";}else
+{window.setTimeout("checkStatus();",333);}}window.setTimeout("showProgress();",5000);window.setTimeout("checkStatus();",333);function CompleteInit(){top.status="Loading world...";notShowProgress=1;document.all("progress").style.display="none";morfit3dWorld1.TravelSpeedMax=100.000000
+morfit3dWorld1.TravelSpeedIncrease=1.050000
+morfit3dWorld1.TravelSpeedDecrease=0.900000
+morfit3dWorld1.TravelAngularVelocity=10.000000}function morfit3dWorld1_ClickOnLinkedPolygon(){
+Check_Link(morfit3dWorld1.LinkedPolygonOne,morfit3dWorld1.TargetFrameOne);Check_Link(morfit3dWorld1.LinkedPolygonTwo,morfit3dWorld1.TargetFrameTwo);Check_Link(morfit3dWorld1.LinkedPolygonThree,morfit3dWorld1.TargetFrameThree);
+my_ClickOnLinkedPolygon();}function morfit3dWorld1_ChangedPointedPolygon(){
+
+window.parent.status=morfit3dWorld1.LinkedPolygonOne;}function morfit3dWorld1_AfterLoadWorld(){
+top.status="Streaming Bitmaps...";gl_camera=morfit3dWorld1.Camera_default_camera;morfit3dWorld1.Engine_picture_quality=1000000;my_AfterLoadWorld();}function morfit3dWorld1_BeforeRender(){
+
+
+my_BeforeRender();}function morfit3dWorld1_AfterInitialize(){
+my_AfterInitialize();
+CompleteInit();}function morfit3dWorld1_AllDataAvailable(){var param=location.href;if(param.lastIndexOf("quality=")>0)
+{if(param.lastIndexOf("quality=high")>0)
+morfit3dWorld1.m3D_card_use=YES;
+}my_AllDataAvailable();top.status="Done";}function morfit3dWorld1_OnLButtonDown(){my_OnLButtonDown(morfit3dWorld1.x,morfit3dWorld1.y);}function morfit3dWorld1_OnLButtonUp(){my_OnLButtonUp(morfit3dWorld1.x,morfit3dWorld1.y);}function morfit3dWorld1_OnMouseMove(){my_OnMouseMove(morfit3dWorld1.x,morfit3dWorld1.y);}function morfit3dWorld1_OnRButtonDown(){my_OnRButtonDown(morfit3dWorld1.x,morfit3dWorld1.y);}function morfit3dWorld1_OnRButtonUp(){my_OnRButtonUp(morfit3dWorld1.x,morfit3dWorld1.y);}function morfit3dWorld1_FileAvailable(){my_FileAvailable(morfit3dWorld1.LastDownloadedFile);}//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=AfterLoadWorld><!--
+morfit3dWorld1_AfterLoadWorld()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=ClickOnLinkedPolygon><!--
+morfit3dWorld1_ClickOnLinkedPolygon()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=ChangedPointedPolygon><!--
+morfit3dWorld1_ChangedPointedPolygon()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=BeforeRender><!--
+morfit3dWorld1_BeforeRender()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=AfterInitialize><!--
+morfit3dWorld1_AfterInitialize()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=AllDataAvailable><!--
+morfit3dWorld1_AllDataAvailable()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=OnLButtonDown><!--
+morfit3dWorld1_OnLButtonDown()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=OnLButtonUp><!--
+morfit3dWorld1_OnLButtonUp()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=OnMouseMove><!--
+morfit3dWorld1_OnMouseMove()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=OnRButtonDown><!--
+morfit3dWorld1_OnRButtonDown()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=OnRButtonUp><!--
+morfit3dWorld1_OnRButtonUp()
+//--></SCRIPT><SCRIPT LANGUAGE=javascript FOR=morfit3dWorld1 EVENT=FileAvailable><!--
+morfit3dWorld1_FileAvailable()
+//--></SCRIPT></head><body topmargin=0 leftmargin=0 bgcolor=#000000 LANGUAGE=javascript text=#00FFFF link=#00FF00 vlink=#00FF00 alink=#00FF00><div align=center> <center><IFRAME name=progress SRC=progress.htm align=center width=100% height=99% marginwidth=0 marginheight=0 frameborder=0 scrolling='no' style="DISPLAY: none"></IFRAME></center></div><SCRIPT language=JScript code SRC=http://www.3dstate.com/download/plugin/public.txt></SCRIPT> <PARAM NAME=_cx VALUE=64566021> <PARAM NAME=_cy VALUE=64566019> <PARAM NAME=BackColor VALUE=0><PARAM NAME=WorldMode VALUE=1024> <PARAM NAME=AutoRender VALUE=1> <PARAM NAME=AutoLoad VALUE=1> <PARAM NAME=AutoSize VALUE=1><PARAM NAME=AutoMode VALUE=0><PARAM NAME=FileName VALUE=..\cur16.wldi><b><font size=3> We will now upgrade your browser to support 3D in three simple steps:<br><br> 1. <a href=./playnowPlaceholder.html>Click here</a><br> 2. Choose "Run from current location" in the dialog box which will appear, and wait for the installation to complete. <br> 3. You are now ready to view 3D web sites. Refreshing this page will open this 3D web site.</font><p> <b><font size=3>&nbsp;&nbsp;&nbsp; Enjoy!</font></b></p><p> </font></b></p><p><font size=3>&nbsp;&nbsp;&nbsp;</font> </p></OBJECT></body></html>
