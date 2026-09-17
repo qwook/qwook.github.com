@@ -1,0 +1,1 @@
+// [DnD action] fn_name=action_create_object_motion lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=true params=["17", "0", "0", "speed/3", "direction"] param_types=[10, 0, 0, 0, 0]

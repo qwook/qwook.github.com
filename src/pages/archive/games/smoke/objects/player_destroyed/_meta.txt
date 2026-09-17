@@ -1,0 +1,7 @@
+sprite_index: 0
+solid: false
+visible: true
+depth: 1
+persistent: true
+parent_index: -100
+mask_index: -1

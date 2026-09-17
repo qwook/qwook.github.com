@@ -1,0 +1,35 @@
+caption: 
+size: 640x480
+speed: 30
+persistent: false
+creation_code:
+if lives <= 1 lives = 0
+
+
+-- bg layers (8) --
+visible=true foreground=false source_bg=0 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+visible=false foreground=false source_bg=-1 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+visible=false foreground=false source_bg=-1 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+visible=false foreground=false source_bg=-1 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+visible=false foreground=false source_bg=-1 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+visible=false foreground=false source_bg=-1 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+visible=false foreground=false source_bg=-1 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+visible=false foreground=false source_bg=-1 x=0 y=0 tilex=true tiley=true hspeed=0 vspeed=0 stretch=false
+
+views_enabled: true
+-- views (8) --
+visible=true source=(0,0,384x256) port=(0,0,384x256)
+visible=false source=(0,0,640x480) port=(0,0,640x480)
+visible=false source=(0,0,640x480) port=(0,0,640x480)
+visible=false source=(0,0,640x480) port=(0,0,640x480)
+visible=false source=(0,0,640x480) port=(0,0,640x480)
+visible=false source=(0,0,640x480) port=(0,0,640x480)
+visible=false source=(0,0,640x480) port=(0,0,640x480)
+visible=false source=(0,0,640x480) port=(0,0,640x480)
+
+-- instances (3) --
+id=100053 object=5 x=32 y=96 xscale=1 yscale=1 angle=0
+id=100058 object=7 x=0 y=224 xscale=1 yscale=1 angle=0
+id=100070 object=8 x=384 y=224 xscale=1 yscale=1 angle=0
+
+-- tiles (0) --

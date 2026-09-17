@@ -1,0 +1,8 @@
+// [DnD action] fn_name=action_if_sound lib_id=1 action_kind=0 exec_type=1 is_condition=true applies_to=-1 invert=false relative=false params=["7"] param_types=[6]
+// [DnD action] fn_name= lib_id=1 action_kind=1 exec_type=0 is_condition=false applies_to=-1 invert=false relative=false params=[] param_types=[]
+// [DnD action] fn_name=action_end_sound lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=false params=["7"] param_types=[6]
+// [DnD action] fn_name= lib_id=1 action_kind=2 exec_type=0 is_condition=false applies_to=-1 invert=false relative=false params=[] param_types=[]
+// [DnD action] fn_name= lib_id=1 action_kind=3 exec_type=0 is_condition=false applies_to=-1 invert=false relative=false params=[] param_types=[]
+// [DnD action] fn_name= lib_id=1 action_kind=1 exec_type=0 is_condition=false applies_to=-1 invert=false relative=false params=[] param_types=[]
+// [DnD action] fn_name=action_sound lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=false params=["7", "1"] param_types=[6, 3]
+// [DnD action] fn_name= lib_id=1 action_kind=2 exec_type=0 is_condition=false applies_to=-1 invert=false relative=false params=[] param_types=[]

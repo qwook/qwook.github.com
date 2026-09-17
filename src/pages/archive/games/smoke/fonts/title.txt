@@ -1,0 +1,7 @@
+font_name: Small Fonts
+size: 20
+bold: true
+italic: false
+range_start: 65
+range_end: 122
+atlas: 256x170

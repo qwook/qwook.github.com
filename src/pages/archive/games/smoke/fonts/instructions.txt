@@ -1,0 +1,7 @@
+font_name: Terminal
+size: 7
+bold: false
+italic: false
+range_start: 32
+range_end: 127
+atlas: 128x54

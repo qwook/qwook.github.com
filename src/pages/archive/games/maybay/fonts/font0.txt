@@ -1,0 +1,7 @@
+font_name: Small Fonts
+size: 7
+bold: false
+italic: false
+range_start: 48
+range_end: 57
+atlas: 128x12

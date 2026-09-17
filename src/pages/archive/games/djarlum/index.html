@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Djarlum</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    touch-action: none;
+  }
+  #canvas-wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  canvas {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+  #error {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #300;
+    color: #f88;
+    font: 12px monospace;
+    padding: 8px;
+    white-space: pre-wrap;
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div id="canvas-wrap"><canvas id="screen"></canvas></div>
+<pre id="error"></pre>
+
+<!--
+  Djarlum, unmodified, run as real Lua through Fengari (a Lua VM compiled
+  to JS) — see love-shim.js for the small love.* API subset this game
+  needs. boot.lua/conf.lua/main.lua/enemies.lua/gameover.lua/font.lua/
+  easing.lua are copies of the LOVE2D source (kept in sync by hand) —
+  the source running here IS the LOVE2D source, not a rewrite.
+-->
+<script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.js"></script>
+<script src="love-shim.js"></script>
+<script>
+  const screen = document.getElementById('screen');
+
+  function layoutCanvas() {
+    if (!screen.width || !screen.height) return;
+    const scale = Math.min(window.innerWidth / screen.width, window.innerHeight / screen.height);
+    screen.style.width = (screen.width * scale) + 'px';
+    screen.style.height = (screen.height * scale) + 'px';
+  }
+  window.addEventListener('resize', layoutCanvas);
+
+  window.bootDjarlum('./', screen)
+    .then(layoutCanvas)
+    .catch((err) => {
+      console.error(err);
+      const el = document.getElementById('error');
+      el.style.display = 'block';
+      el.textContent = String(err && err.stack || err);
+    });
+
+  // Re-run layout once the conf-driven canvas size is set (poll briefly,
+  // since boot() sets screen.width/height asynchronously mid-promise).
+  const iv = setInterval(() => {
+    if (screen.width) { layoutCanvas(); clearInterval(iv); }
+  }, 16);
+</script>
+</body>
+</html>

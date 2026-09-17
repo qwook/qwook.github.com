@@ -1,0 +1,12 @@
+// [DnD action] fn_name=action_if_variable lib_id=1 action_kind=0 exec_type=1 is_condition=true applies_to=-1 invert=true relative=false params=["speede", "0", "0"] param_types=[0, 0, 4]
+// [DnD action] fn_name= lib_id=1 action_kind=1 exec_type=0 is_condition=false applies_to=-1 invert=false relative=false params=[] param_types=[]
+speede
+// [DnD action] fn_name=action_create_object_motion lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=true params=["13", "16", "16", "8+abs(vspeed)", "ceil(random(45))*(-(vspeed+1)/(abs(vspeed)+1))"] param_types=[10, 0, 0, 0, 0]
+// [DnD action] fn_name=action_create_object_motion lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=true params=["18", "16", "16", "8+abs(vspeed)", "ceil(random(45))*(-(vspeed+1)/(abs(vspeed)+1))"] param_types=[10, 0, 0, 0, 0]
+// [DnD action] fn_name=action_create_object_motion lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=true params=["19", "16", "16", "8+abs(vspeed)", "ceil(random(45))*(-(vspeed+1)/(abs(vspeed)+1))"] param_types=[10, 0, 0, 0, 0]
+// [DnD action] fn_name=action_create_object_motion lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=true params=["20", "16", "16", "8+abs(vspeed)", "ceil(random(45))*(-(vspeed+1)/(abs(vspeed)+1))"] param_types=[10, 0, 0, 0, 0]
+// [DnD action] fn_name=action_create_object_motion lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=true params=["21", "16", "16", "8+abs(vspeed)", "ceil(random(45))*(-(vspeed+1)/(abs(vspeed)+1))"] param_types=[10, 0, 0, 0, 0]
+// [DnD action] fn_name=action_end_sound lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=false params=["1"] param_types=[6]
+// [DnD action] fn_name=action_sound lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=false params=["2", "0"] param_types=[6, 3]
+// [DnD action] fn_name=action_set_alarm lib_id=1 action_kind=0 exec_type=1 is_condition=false applies_to=-1 invert=false relative=false params=["20", "0"] param_types=[0, 4]
+// [DnD action] fn_name= lib_id=1 action_kind=2 exec_type=0 is_condition=false applies_to=-1 invert=false relative=false params=[] param_types=[]
