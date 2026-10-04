@@ -46,7 +46,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.7.0",
-    "brace-expansion": "^5.0.9",
+    "brace-expansion": "^5.0.12",
     "calendar-link": "^2.10.0",
     "diff": "^9.0.0",
     "express": "^5.2.1",
