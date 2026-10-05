@@ -1,0 +1,767 @@
+import Banner from "@/common/components/Banner";
+import Carousel from "@/common/components/Carousel";
+
+import { useEffect, useRef, useState } from "react";
+
+import "./quests.css";
+import HTMLFestCarousel from "@/common/components/HTMLFestCarousel";
+import ReactPlayer from "@/common/components/ReactPlayer";
+import { InstagramEmbed } from "react-social-media-embed";
+import Layout from "@/common/layout/Layout";
+import angelingRagnarok from "./quests/images/angeling-ragnarok.gif";
+import img1 from "./quests/images/viet_dishes/1.jpg";
+import img2 from "./quests/images/viet_dishes/2.jpg";
+import img3 from "./quests/images/viet_dishes/3.jpg";
+import img4 from "./quests/images/viet_dishes/4.jpg";
+import img5 from "./quests/images/viet_dishes/5.jpg";
+import img12 from "./quests/images/launch_product/1.jpg";
+import img22 from "./quests/images/launch_product/2.jpg";
+import img32 from "./quests/images/launch_product/3.jpg";
+import img42 from "./quests/images/launch_product/4.jpg";
+import img52 from "./quests/images/launch_product/5.jpg";
+import img6 from "./quests/images/launch_product/6.jpg";
+import img3763 from "./quests/images/launch_product/IMG_3763.jpg";
+import img3872 from "./quests/images/launch_product/IMG_3872.jpg";
+import img3802 from "./quests/images/launch_product/IMG_3802.jpg";
+import img3818 from "./quests/images/launch_product/IMG_3818.jpg";
+import img3767 from "./quests/images/launch_product/IMG_3767.jpg";
+import bernalSept6 from "./quests/images/bernal_sept_6.jpg";
+import halfmarathon from "./quests/images/halfmarathon/halfmarathon.mp4";
+import img9725 from "./quests/images/halfmarathon/IMG_9725.jpg";
+import gallery from "./quests/images/gallery/gallery.jpg";
+import img9782 from "./quests/images/gallery/IMG_9782.mp4";
+import img9785 from "./quests/images/gallery/IMG_9785.mp4";
+import breakdance from "./quests/images/canadians/breakdance.mp4";
+import img0272 from "./quests/images/canadians/IMG_0272.jpg";
+import liveCodingAug10 from "./quests/images/live_coding_aug_10.jpg";
+import img0276 from "./quests/images/dinner/IMG_0276.jpg";
+import img0277 from "./quests/images/dinner/IMG_0277.jpg";
+import img0278 from "./quests/images/dinner/IMG_0278.jpg";
+import img0279 from "./quests/images/dinner/IMG_0279.jpg";
+import img0275 from "./quests/images/dinner/IMG_0275.jpg";
+import img6430 from "./quests/images/vietnam/IMG_6430.mp4";
+import img13 from "./quests/images/vietnam/1.jpg";
+import img23 from "./quests/images/vietnam/2.jpg";
+import img33 from "./quests/images/vietnam/3.jpg";
+import img43 from "./quests/images/vietnam/4.jpg";
+import img53 from "./quests/images/vietnam/5.jpg";
+import img62 from "./quests/images/vietnam/6.jpg";
+import img7 from "./quests/images/vietnam/7.jpg";
+import img8 from "./quests/images/vietnam/8.jpg";
+import img9 from "./quests/images/vietnam/9.jpg";
+import vietdj from "./quests/images/vietdj.mp4";
+import img6728 from "./quests/images/IMG_6728.jpg";
+import flame2 from "./quests/images/Flame2.gif";
+import skullSmoke from "./quests/images/skull-smoke.gif";
+
+// This page nests <div>s inside <p>s, which the browser's HTML parser
+// rearranges, so its server-rendered markup can't be hydrated. It's still
+// served pre-rendered, then rendered fresh in the browser.
+export const hydrate = false;
+
+function Quest({ name, completed, unplanned, children }) {
+  const [showDescription, setShowDescription] = useState(false);
+  const [height, setHeight] = useState("0px");
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (showDescription) {
+      setHeight(`${contentRef.current.scrollHeight}px`);
+    } else {
+      setHeight("0px");
+    }
+  }, [showDescription]);
+
+  return (
+    <li
+      className={[
+        "quest-item",
+        completed ? "quest-item-completed" : "",
+        unplanned ? "quest-item-unplanned" : "",
+      ].join(" ")}
+    >
+      <div
+        className="quest-name"
+        onClick={(e) => setShowDescription(!showDescription)}
+      >
+        <span className="chevron">
+          {children ? showDescription ? <>&#9660;</> : <>&#9658;</> : <>-</>}
+        </span>
+        {name}
+      </div>
+      <div
+        style={{ height: height }}
+        ref={contentRef}
+        className={
+          showDescription ? "quest-description expanded" : "quest-description"
+        }
+      >
+        {children}
+      </div>
+    </li>
+  );
+}
+
+function QuestsPage() {
+  return (
+    <div className="blog">
+      <Banner>Henry's Quests</Banner>
+      <p>
+        These are the list of goals I've made every year around my birthday.
+        Looking back, a lot of the items are so cringe. Like... my first ever
+        list is soooo cringe =_= ... but that just means I'm continuing to grow.
+        It's very interesting to see what desires changed and what desired
+        stayed the same!
+      </p>
+      <div style={{ textAlign: "center" }}>
+        <img
+          src={angelingRagnarok}
+          className="pixel"
+        />
+        <img
+          src={angelingRagnarok}
+          className="pixel"
+        />
+        <img
+          src={angelingRagnarok}
+          className="pixel"
+        />
+      </div>
+      <p>
+        I mix some main and side-quests in here so I feel consistent
+        progression. I don't put too much pressure on myself to finish
+        everything, it's all for fun!! Even the serious-sounding stuff :)
+      </p>
+      <p className="legend">
+        <div className="legend-not-done">■ - Not Done</div>
+        <div className="legend-finished">■ - Completed</div>
+        <div className="legend-unplanned">■ - Unplanned</div>
+      </p>
+      <div className="quest-scroll-bar">
+        <div className="quest-scroll-left"></div>
+        <div className="quest-scroll-bg"></div>
+        <div className="quest-scroll-right"></div>
+      </div>
+      <div className="quest">
+        <h2>Level 31 - Beginning Again in Vietnam</h2>
+        <ul className="quests">
+          <p>
+            In this past year, I found that adjusting to Vietnam life took more
+            of my time than I thought. My goals / desires also shifted the
+            longer I lived in Vietnam. I did stuff I didn't expect I was going
+            to do! So now I have a new category called, "Unplanned" that shows
+            goals that I didn't have in the beginning of the year.
+          </p>
+          <p>I've also increased the number of quests!</p>
+          <Quest completed name="Buy an Ao Dai"></Quest>
+          <Quest name="Go to the dentist in Vietnam"></Quest>
+          <Quest name="Get a flu shot in Vietnam"></Quest>
+          <Quest name="Go to ear-nose-throat doctor Vietnam"></Quest>
+          <Quest name="Move apartments"></Quest>
+          <Quest name="Travel to Hue"></Quest>
+          <Quest name="Hike in Dalat"></Quest>
+          <Quest name="Go trekking in Vietnam"></Quest>
+          <Quest name="Go outdoor climbing in Vietnam"></Quest>
+          <Quest name="Run a half-marathon"></Quest>
+          <Quest name="Volunteer to clean trash 5 times (0/5)"></Quest>
+          <Quest name="Climb a '10' route at Vertical District"></Quest>
+          <Quest name="Take a private Lindy Hop lesson"></Quest>
+          <Quest name="Cook 5 dishes in Vietnam (0/5)"></Quest>
+          <Quest name="Have 10 drawing sessions (0/10)"></Quest>
+          <Quest name="Learn 5 Vietnamese songs on Guitar (0/5)"></Quest>
+          <Quest name="90 days of meditation (0/90)"></Quest>
+          <Quest name="Host 3 show and tells (1/3)"></Quest>
+          <Quest name="Perform an ambient show"></Quest>
+          <Quest name="Host an exhibition of my friends' works in Vietnam"></Quest>
+          <Quest name="Teach my cousins a new board game"></Quest>
+          <Quest name="Release 4 little games"></Quest>
+          <Quest name="Release Colors of Emotions game"></Quest>
+          <Quest name="Teach a beginner's programming class"></Quest>
+          <Quest completed name="Unblock my mom"></Quest>
+          <Quest name="Forgive my mom"></Quest>
+          <Quest name="Don't drink alcohol at two family events"></Quest>
+          <Quest name="No smoking for at least 10 months">
+            I quit for a year and then started smoking again for 2 months. I am
+            quitting again...
+          </Quest>
+          <Quest name="Visit China"></Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 1"></Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 2"></Quest>
+          <Quest name="Finish playing Half-Life 1"></Quest>
+          <Quest name="Participate in 2 game jams (0/2)"></Quest>
+          <Quest name="Play 5 indie games (0/5)"></Quest>
+        </ul>
+        <h2>Level 30 - Vietnam DLC</h2>
+        <ul className="quests">
+          <Quest completed name="Move to Vietnam">
+            <s>I am planning to be in Vietnam either mid or end of November!</s>
+            <p>I have moved to Vietnam!!</p>
+          </Quest>
+          <Quest completed name="Quit smoking">
+            I want to see how well I can socialize while avoiding the most
+            common social device. I managed to quit for a whole year!
+          </Quest>
+          <Quest completed name="Host an artist event in Vietnam">
+            I hosted an exhibit at Reading Cabin named meGank and had an
+            accompanying talkshow.
+          </Quest>
+          <Quest completed name="Host a dinner party in Vietnam">
+            I did not host it directly, but I helped with Hannah and Linh's
+            dinner party!
+          </Quest>
+          <Quest name="Spend 7 non-consecutive days speaking only Vietnamese">
+            I think... This one is hard to measure.
+          </Quest>
+          <Quest name="Get a tattoo in Vietnam"></Quest>
+          <Quest completed name="Drive a moped or motorcycle Vietnam"></Quest>
+          <Quest completed name="Do volunteer work in Vietnam"></Quest>
+          <Quest completed name="Eat/meditate at a buddhist monstery"></Quest>
+          <Quest name="Convince 3 different friends to film TikTok dance videos (0/3)"></Quest>
+          <Quest name="Release two video games (1/2)"></Quest>
+          <Quest name="Release a short film"></Quest>
+          <Quest name="Playtest Last Seen Online 2"></Quest>
+          <Quest completed name="Do a live performance">
+            Kenny got me on stage to sing The Climb by Miley Cyrus!
+          </Quest>
+          <Quest completed name="Finish playing Half-Life 2">
+            This game is so scary.
+          </Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 1"></Quest>
+          <Quest name="Finish playing Half-Life 2: Episode 2"></Quest>
+          <Quest
+            completed
+            name="Pay off one month of rent using money earned from video games"
+          >
+            I managed to use the money from my DJ Dave collaboration to pay off
+            a month of rent.
+          </Quest>
+          <Quest name="Learn 5 Vietnamese songs on guitar, and post them (0/5)"></Quest>
+          <Quest name="Log 60 days of food that I ate (14/60)">
+            I want to figure out what foods make my stomach hurt!
+          </Quest>
+          <Quest name="Log 40 days of yoga (4/40)"></Quest>
+          <Quest name="Log 90 days of meditation (84/90)"></Quest>
+          <Quest name="Log 5 days of trash cleanup (5/5)" completed>
+            I volunteered for Saigon Xanh!
+          </Quest>
+          <Quest name="Log 10 days of calling my long distance friends (1/10)">
+            Hey Will, Juan, Dustin, Kevin, and Chloe! I wanna call you {">:)"}
+          </Quest>
+          <Quest name="Do a standing forward fold"></Quest>
+          <Quest name="Bench 135 lbs"></Quest>
+          <Quest name="Climb a V7"></Quest>
+          <Quest name="Climb a V5 (Red Route)" completed></Quest>
+          <Quest name="Say no to 5 events (1/5)"></Quest>
+          <Quest name="Play a friend's game" completed>
+            I played all of{" "}
+            <a href="https://jackieisonline.itch.io/" target="_blank">
+              Jackie Liu
+            </a>
+            's games. I also played a lot of student games in Vietnam.
+          </Quest>
+          <Quest name="Host a movie night in Vietnam" completed></Quest>
+          <Quest completed name="Collaborate with a Vietnamese Creative">
+            For my installation at Reading Cabin named mẹGank, I collaborated
+            with Vietnamese students to showcase their games. I also
+            collaborated with Oniks Le to produce a track for an exhibit I had
+            in San Francsico.
+          </Quest>
+          <Quest completed name="Cook one meal in Vietnam">
+            I literally only cooked one single meal this entire year hahaha
+          </Quest>
+          <Quest unplanned name="Go on a trip by motorbike">
+            I drove from Saigon to Dong Nai :)
+          </Quest>
+          <Quest unplanned name="Buy food from the market" />
+          <Quest unplanned name="Get water shipped to my apartment">
+            This was unexpectedly hard. I was not confident in my ability to
+            understand Vietnamese + I had anxiety of talking to people on the
+            phone.{" "}
+            <a href="https://www.instagram.com/p/DTYHiWBEXNQ/" target="_blank">
+              I talk about it in this video!
+            </a>
+          </Quest>
+          <Quest unplanned name="Buy food from the market" />
+          <Quest unplanned name="Apartment hunting">
+            I found an apartment on my own and learned about what I wanted in an
+            apartment in Vietnam
+          </Quest>
+          <Quest unplanned name="Hosted HTML Day" />
+          <Quest unplanned name="Start Lindy Hopping" />
+        </ul>
+        <h2>Level 29 - Game Dev Arc</h2>
+        <ul className="quests">
+          <Quest completed name="Learn to cook 5 Vietnamese dishes">
+            <Carousel>
+              <div>
+                <img
+                  style={{ height: "500px" }}
+                  src={img1}
+                />
+                <div>1. Cha Ca (Tumeric Fish)</div>
+              </div>
+
+              <div>
+                <img
+                  style={{ height: "500px" }}
+                  src={img2}
+                />
+                <div>2. Goi Cuon (Spring Rolls)</div>
+              </div>
+
+              <div>
+                <img
+                  style={{ height: "500px" }}
+                  src={img3}
+                />
+                <div>3. Pho Bo (Beef Pho)</div>
+              </div>
+
+              <div>
+                <img
+                  style={{ height: "500px" }}
+                  src={img4}
+                />
+                <div>4. Banh Xeo</div>
+              </div>
+
+              <div>
+                <img
+                  style={{ height: "500px" }}
+                  src={img5}
+                />
+                <div>5. Ga Xao (Lemongrass Chicken)</div>
+              </div>
+            </Carousel>
+          </Quest>
+          <Quest completed name="Launch a product with 20 users">
+            I made a game called{" "}
+            <a
+              href="https://store.steampowered.com/app/2824230/last_seen_online/"
+              target="_blank"
+            >
+              Last Seen Online.
+            </a>
+            <p>Here were my first 6 players!</p>
+            <Carousel>
+              <img
+                style={{ height: "400px" }}
+                src={img12}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img22}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img32}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img42}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img52}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img6}
+              />
+            </Carousel>
+            <p>Then I hit 66 players right after my launch...</p>
+            <div style={{ textAlign: "center" }}>
+              <img
+                style={{ height: "600px" }}
+                src={img3763}
+              />
+            </div>
+            <p>And suddenly...</p>
+            <Carousel>
+              <img
+                style={{ height: "400px" }}
+                src={img3872}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img3802}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img3818}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img3767}
+              />
+            </Carousel>
+          </Quest>
+          <Quest name="Benchpress 200 lbs">
+            Perhaps this goal was a bit too ambitious. HOWEVER... I can bench 90
+            lbs now which is incredible because I started my weightlifting
+            journey in 2022, only able to bench the bar.
+          </Quest>
+          <Quest name="Climb a V7"></Quest>
+          <Quest completed name="Run to the top of Bernal Heights">
+            Completed: September 6, 2024.
+            <div style={{ textAlign: "center" }}>
+              <img
+                style={{ width: "75%" }}
+                src={bernalSept6}
+              />
+            </div>
+          </Quest>
+          <Quest completed name="Do a half-marathon">
+            <ReactPlayer
+              controls
+              width={"100%"}
+              url={halfmarathon}
+            />
+            <div style={{ textAlign: "center" }}>
+              <img
+                style={{ width: "75%" }}
+                src={img9725}
+              />
+            </div>
+          </Quest>
+          <Quest
+            completed
+            name="Have a full conversation in Vietnamese with a waiter"
+          >
+            Weirdly enough, this was done in Montreal where the waiter only
+            spoke Vietnamese and French!
+          </Quest>
+          <Quest completed name="Exhibit my art in a museum or gallery">
+            <p>
+              I created the game, "And You'll Miss It" for Fruitsbase at
+              Wazmokai Gallery!
+            </p>
+            <div style={{ textAlign: "center" }}>
+              <img
+                style={{ width: "75%" }}
+                src={gallery}
+              />
+            </div>
+            <ReactPlayer
+              controls
+              width={"100%"}
+              url={img9782}
+            />
+            <ReactPlayer
+              controls
+              width={"100%"}
+              url={img9785}
+            />
+          </Quest>
+          <Quest
+            completed
+            name="Post 5 videos of me playing guitar / singing (5/5)"
+          >
+            <InstagramEmbed url="https://www.instagram.com/p/CxhcMMzL0TW/" />
+            <InstagramEmbed url="https://www.instagram.com/p/Cyw7VUTLx8E/" />
+            <InstagramEmbed url="https://www.instagram.com/p/C8BcmMwuQtj/" />
+            <InstagramEmbed url="https://www.instagram.com/p/C-W4ereuHNq/" />
+            <InstagramEmbed url="https://www.instagram.com/p/C_QuYXJP16J/" />
+          </Quest>
+          <Quest name="Take 1 improv class">
+            It pains me that I almost could have done this but was late by 2
+            hours.
+          </Quest>
+          <Quest completed name="Take 1 dance class"></Quest>
+          <Quest completed name="Visit my friends in Canada">
+            <ReactPlayer
+              controls
+              width={"100%"}
+              url={breakdance}
+            />
+            <div style={{ textAlign: "center" }}>
+              <img
+                style={{ width: "75%" }}
+                src={img0272}
+              />
+            </div>
+          </Quest>
+          <Quest completed name="Do live coding at a show">
+            Completed: August 10, 2023.
+            <div style={{ textAlign: "center" }}>
+              <img
+                style={{ width: "75%" }}
+                src={liveCodingAug10}
+              />
+            </div>
+          </Quest>
+          <Quest completed name="Host an intimate concert">
+            Originally written as: Set up an intimate concert for SF indie rock
+            musicians / moonlighters to meet each other.{" "}
+            <p>
+              I ended up hosting <a href="https://htmlfest.com/">HTMLFest</a>,
+              which did have SF indie rock musicians but instead we had
+              performers of the Weird Wide Web!
+            </p>
+            <HTMLFestCarousel />
+          </Quest>
+          <Quest
+            completed
+            name="Host a dinner party for my friends (with candles)"
+          >
+            <Carousel>
+              <img
+                style={{ height: "500px" }}
+                src={img0276}
+              />
+              <img
+                style={{ height: "500px" }}
+                src={img0277}
+              />
+              <img
+                style={{ height: "500px" }}
+                src={img0278}
+              />
+              <img
+                style={{ height: "500px" }}
+                src={img0279}
+              />
+              <img
+                style={{ height: "500px" }}
+                src={img0275}
+              />
+            </Carousel>
+            <p>I want to host more!!!</p>
+          </Quest>
+          <Quest
+            completed
+            name="Live in Vietnam for 1 month and do a motorcycle tour"
+          >
+            <ReactPlayer
+              controls
+              width={"100%"}
+              url={img6430}
+            />
+            <Carousel>
+              <img
+                style={{ height: "400px" }}
+                src={img13}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img23}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img33}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img43}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img53}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img62}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img7}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img8}
+              />
+              <img
+                style={{ height: "400px" }}
+                src={img9}
+              />
+            </Carousel>
+          </Quest>
+          <Quest
+            completed
+            name="DJ at a show and play my old SoundCloud music live"
+          >
+            I actually DJ'ed three times, and played my{" "}
+            <a
+              href="https://soundcloud.com/kid64/you-made-it-complicated"
+              target="_blank"
+            >
+              Avril Lavigne remix
+            </a>
+            !<p>Here's me playing Viet music:</p>
+            <ReactPlayer
+              controls
+              width={"100%"}
+              url={vietdj}
+            />
+          </Quest>
+          <Quest completed name="Start a company">
+            Originally written as: Start a company with 4-day work weeks and an
+            emphasis on moving slowly and responsibly. I want to rebel furiously
+            against the SF hivemind.
+            <p>
+              I started <a href="https://sochinstudio.com/">Sochin Studio.</a>{" "}
+              It's an official LLC, and I really don't work that much.
+            </p>
+            <p>
+              Pretty sure I wrote the rest because I am tired of San Francisco
+              tech culture.
+            </p>
+          </Quest>
+        </ul>
+        <h2>Level 28 - Unmeasurable Optimism</h2>
+        <ul className="quests">
+          <Quest name="No longer be a person that seeks approval of others">
+            This is probably never going away, instead I've become more
+            accepting of the fact that I love making art and sharing things with
+            people because it reaffirms my own identity.
+          </Quest>
+          <Quest completed name="Cut off contact from my parents">
+            I did not talk to my parents for a year. It gave me a lot of
+            confidence to do things on my own.
+            <p>
+              I backtracked this at 29 and decided to set better boundaries with
+              them instead of cutting them off completely.
+            </p>
+          </Quest>
+          <Quest completed name="Set up a turbotax account">
+            I did my own taxes for the first time this year!
+          </Quest>
+          <Quest name="Figure out what a Backdoor Roth IRA means">
+            :shrug:
+          </Quest>
+          <Quest name="Have healthy spending habits">
+            This was kind of unmeasurable.
+          </Quest>
+          <Quest completed name="Be able to cook 3 dishes well">
+            Once upon a time I was eating only the food at Google cafe's, and I
+            really wanted to get good at cooking! I learned:
+            <ul>
+              <li>Chicken, broccoli, and rice.</li>
+              <li>Teriyaki baked salmon, broccolini, and rice.</li>
+              <li>Chicken porrige. - This inspired me to cook Pho :)</li>
+            </ul>
+          </Quest>
+          <Quest name="Clean the bathroom every week">
+            Lol sorry to my roommate Mark. Very unmeasurable. I was a very
+            unclean person before but I did slowly develop habits to improve.
+          </Quest>
+          <Quest completed name="Make my bed everyday">
+            I don't have any metrics to prove this but please just give me this.
+            This habit is what I've kept up the most. Most of these goals are so
+            unmeasurable, it inspired me to replace them with "Log 50 instances
+            of ..."
+          </Quest>
+          <Quest name="Get out of bed immediately instead of scrolling endlessly on my phone"></Quest>
+          <Quest name="Live in 3 different cities, all more than 8 hours apart"></Quest>
+          <Quest name="Organize 10 events (?/10)"></Quest>
+          <Quest name="Plan a New Years party"></Quest>
+          <Quest name="Give a thoughtful gift to my cousins for one Christmas">
+            I celebrated Christmas alone when I cut off contact with my parents
+            :(
+          </Quest>
+          <Quest name="Climb a V7"></Quest>
+          <Quest name="Snowboard a diamond"></Quest>
+          <Quest name="Ollie on a skateboard"></Quest>
+          <Quest completed name="Wear contact lenses">
+            I got laser eye surgery! No glasses nor contacts :)
+          </Quest>
+          <Quest completed name="Develop a closer relationship with my sister">
+            I attempted to have a deeper talk with my sister. It did not go
+            completely well but it did bring us closer together.
+          </Quest>
+          <Quest name="Release my dream album">
+            I lost all the original project files for my music...
+          </Quest>
+          <Quest name="Create an NFT">fucking cringe</Quest>
+          <Quest name="Release at least 3 large bodies of work">
+            I managed to do this over the 3 years instead of 1! Two video games
+            and a short story :)
+          </Quest>
+          <Quest completed name="Stop wearing all black"></Quest>
+          <Quest completed name="Use the right pronouns for people">
+            Unmeasurable, but hopefully is completed ?
+          </Quest>
+          <Quest name="Become a clean person"></Quest>
+          <Quest name="Be able to meditate easily"></Quest>
+          <Quest completed name="Be a better listener">
+            This year was when I journeyed into better communication and
+            listening! I remember watching Snapchat stories where I can overhear
+            myself in conversations with other people, and it was painful to
+            listen to. I kept ignoring the other person and never replying
+            completely to what they said.
+            <p>
+              I read a book called "You're Not Listening" which I felt improved
+              my listening skills by a lot. I'm putting completed since I am
+              probably a better listener even if it's just by 1%.
+            </p>
+          </Quest>
+          <Quest name="Speak directly and not in code">
+            This is still very much ongoing and will never be complete, probably
+            :)
+          </Quest>
+          <Quest name="Be able to respond instead of react"></Quest>
+          <Quest name="Accept all my imperfections"></Quest>
+          <Quest name="Accept help from others"></Quest>
+          <Quest name="Become a content creator"></Quest>
+          <Quest completed name="Ask a girl out">
+            This was hard! I threw my phone across the room when I sent her the
+            text.
+          </Quest>
+          <Quest completed name="Go to Coachella"></Quest>
+          <Quest completed name="Get a flu-shot"></Quest>
+          <Quest completed name="Get a COVID booster"></Quest>
+          <Quest completed name="Get my blood tested"></Quest>
+          <Quest completed name="Get my first STD test">
+            Is this TMI?
+          </Quest>
+          <Quest completed name="Get my first tattoo">
+            All the previous quests were in preparation for this. Needles! Yay.
+          </Quest>
+        </ul>
+        <h2>Level 27 - New Beginnings</h2>
+        <ul className="quests">
+          <Quest completed name="Move to San Francisco">
+            <div style={{ textAlign: "center" }}>
+              <img
+                style={{ width: "75%" }}
+                src={img6728}
+              />
+            </div>
+          </Quest>
+        </ul>
+      </div>
+
+      <div className="quest-scroll-bar">
+        <div className="quest-scroll-left"></div>
+        <div className="quest-scroll-bg"></div>
+        <div className="quest-scroll-right"></div>
+      </div>
+      <br />
+      <div style={{ textAlign: "center" }}>
+        <img src={flame2} className="pixel" />
+        <img src={flame2} className="pixel" />
+        <img src={flame2} className="pixel" />
+      </div>
+      <br />
+      <div style={{ textAlign: "center" }}>
+        <img
+          src={skullSmoke}
+          width="20%"
+          className="pixel"
+        />
+      </div>
+      <p>
+        If you haven't noticed already, the list is so much more beautifully
+        green when the goals are realistic and measurabel!!!
+      </p>
+    </div>
+  );
+}
+
+export default function Root() {
+  return (
+    <Layout>
+      <QuestsPage />
+    </Layout>
+  );
+}

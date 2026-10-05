@@ -5,7 +5,7 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
-import { time } from "three/tsl";
+import bottle from "../assets/bottle.glb";
 
 function easeOutExpo(x) {
   return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
@@ -38,7 +38,7 @@ export function BossZombieProjectile({
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/bottle.glb")
+    bottle
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);

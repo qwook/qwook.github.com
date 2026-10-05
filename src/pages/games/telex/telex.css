@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Jacquard+12&Xanh+Mono:ital@0;1&family=Yeseva+One&display=swap");
+
+.type-box {
+  font-family: "Xanh Mono";
+  display: inline-block;
+  background: black;
+  color: silver;
+  padding: 5px;
+  border-radius: 2px;
+  /* border: 2px solid yellow; */
+  box-shadow: 0px 0px 10px 2px white;
+  transition:
+    border 0.5s,
+    opacity 0.25s;
+  text-align: left;
+  font-size: 1em;
+}
+
+.type-box-stopper {
+  /* width: 300px; */
+  /* transform: translate(-50%, -50%); */
+  text-align: center;
+  height: 2em;
+}
+
+.expected {
+  color: white;
+}
+
+.focused {
+  border: 5px solid rgb(146, 146, 255);
+}
+
+.blurred {
+  opacity: 0.4;
+}
+
+.floating-input {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* z-index: 100000; */
+  font-size: 24pt;
+  opacity: 0.02;
+}
+
+.score {
+  font-family: "Jacquard 12";
+  color: white;
+  text-shadow: -5px 5px 0px black;
+  .score-text {
+    font-size: 1em;
+  }
+}

@@ -9,6 +9,7 @@ import { ThrowingZombieProjectile } from "./ThrowingZombieProjectile";
 import { BossZombieProjectile } from "./BossZombieProjectile";
 import { DICTIONARY_LEVEL_2, DICTIONARY_LEVEL_3, PHRASES } from "../dictionary";
 import { ZOMBIES } from "./PathZombie";
+import longZombieV3 from "../assets/long_zombie_v3.glb";
 
 // Type a whole phrase...
 function PhraseZombie({
@@ -78,7 +79,7 @@ export function BossZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie_v3.glb"),
+    longZombieV3,
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);

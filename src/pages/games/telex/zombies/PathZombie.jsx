@@ -10,13 +10,19 @@ import {
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
+import evawnZombie from "../assets/evawn_zombie.jpg";
+import longZombie from "../assets/long_zombie.jpg";
+import hannahZombie from "../assets/hannah_zombie.jpg";
+import ngocZombie from "../assets/ngoc_zombie.jpg";
+import thuZombie from "../assets/thu_zombie.jpg";
+import longZombieV3 from "../assets/long_zombie_v3.glb";
 
 export const ZOMBIES = [
-  require("../assets/evawn_zombie.jpg"),
-  require("../assets/long_zombie.jpg"),
-  require("../assets/hannah_zombie.jpg"),
-  require("../assets/ngoc_zombie.jpg"),
-  require("../assets/thu_zombie.jpg"),
+  evawnZombie,
+  longZombie,
+  hannahZombie,
+  ngocZombie,
+  thuZombie,
 ];
 
 export function PathZombie({ position, path, onDeath, speed = 2 }) {
@@ -35,7 +41,7 @@ export function PathZombie({ position, path, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie_v3.glb"),
+    longZombieV3,
   );
 
   const random = useMemo(() => Math.floor(Math.random() * ZOMBIES.length), []);

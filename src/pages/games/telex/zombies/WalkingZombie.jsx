@@ -5,6 +5,7 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { Typebox } from "../Typebox";
 import * as THREE from "three";
+import longZombie from "../assets/long_zombie.glb";
 
 export function WalkingZombie({ position, onDeath, speed = 2 }) {
   const game = useContext(GameContext);
@@ -22,7 +23,7 @@ export function WalkingZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie.glb"),
+    longZombie,
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);

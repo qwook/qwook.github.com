@@ -7,6 +7,7 @@ import { Typebox } from "../Typebox";
 import * as THREE from "three";
 import { ThrowingZombieProjectile } from "./ThrowingZombieProjectile";
 import { ZOMBIES } from "./PathZombie";
+import longZombieV3 from "../assets/long_zombie_v3.glb";
 
 export function ThrowingZombie({ position, onDeath, speed = 2 }) {
   const game = useContext(GameContext);
@@ -39,7 +40,7 @@ export function ThrowingZombie({ position, onDeath, speed = 2 }) {
   }, []);
 
   const { scene, animations, materials } = useGLTF(
-    require("../assets/long_zombie_v3.glb"),
+    longZombieV3,
   );
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes } = useGraph(clone);

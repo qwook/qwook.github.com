@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useGraph, useThree } from "@react-three/fiber";
-import { createPage } from "../../../app";
-import Banner from "../../../components/Banner";
+
+import Banner from "@/common/components/Banner";
 import {
   Clone,
   Fbx,
@@ -26,8 +26,8 @@ import {
   useState,
 } from "react";
 import * as THREE from "three";
-import "./telex.scss";
-import Button from "../../../components/ui/Button";
+import "./telex.css";
+import Button from "@/common/components/ui/Button";
 import { Howl, Howler } from "howler";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import { generateWordNotInArray, Typebox } from "./Typebox";
@@ -39,6 +39,15 @@ import { KEY_POINTS } from "./map";
 import { HealthViz } from "./HealthViz";
 import { ScoreViz } from "./ScoreViz";
 import { BandMates } from "./BandMates";
+import concrete from "./assets/concrete.jpg";
+import sky from "./assets/sky.gif";
+import cabinJpg from "./assets/cabin.jpg";
+import city from "./assets/city.glb";
+import lightmap from "./assets/lightmap.gif";
+import shot from "./assets/shot.mp3";
+import death1Mp3 from "./assets/death1.mp3";
+import img4our from "./assets/4our.mp3";
+import deathMusic from "./assets/death_music.mp3";
 
 export const GameContext = createContext();
 
@@ -49,9 +58,9 @@ playCameraAnimation();
 */
 
 const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
-  const map = useTexture(require("./assets/concrete.jpg"));
-  const skybox = useTexture(require("./assets/sky.gif"));
-  const cabin = useTexture(require("./assets/cabin.jpg"));
+  const map = useTexture(concrete);
+  const skybox = useTexture(sky);
+  const cabin = useTexture(cabinJpg);
 
   const state = useThree();
   const { camera, scene } = state;
@@ -60,8 +69,8 @@ const Scene = forwardRef(({ stage, onCameraEnded }, ref) => {
 
   const cameraState = useRef({}).current;
 
-  const gltf = useGLTF(require("./assets/city.glb"));
-  const lightMap = useTexture(require("./assets/lightmap.gif"));
+  const gltf = useGLTF(city);
+  const lightMap = useTexture(lightmap);
   lightMap.flipY = false;
   lightMap.colorSpace = THREE.SRGBColorSpace;
   lightMap.magFilter = THREE.NearestFilter;
@@ -298,7 +307,7 @@ export default function TelexGamePage() {
     () => ({
       shot: new Howl(
         {
-          src: require("./assets/shot.mp3"),
+          src: shot,
           autoplay: false,
           volume: 1,
           // html5: true,
@@ -307,7 +316,7 @@ export default function TelexGamePage() {
       ),
       death: new Howl(
         {
-          src: require("./assets/death1.mp3"),
+          src: death1Mp3,
           autoplay: false,
           volume: 1,
           // html5: true,
@@ -316,7 +325,7 @@ export default function TelexGamePage() {
       ),
       music: new Howl(
         {
-          src: require("./assets/4our.mp3"),
+          src: img4our,
           autoplay: false,
           volume: 1,
           loop: true,
@@ -327,7 +336,7 @@ export default function TelexGamePage() {
       ),
       deathMusic: new Howl(
         {
-          src: require("./assets/death_music.mp3"),
+          src: deathMusic,
           autoplay: false,
           volume: 1,
           loop: true,

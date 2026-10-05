@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { GameContext } from "./telex";
 import { Html } from "@react-three/drei";
@@ -28,7 +29,6 @@ Level 4:
 Giant zombie.
 Eveyr 3 words, throws barrels.
 
-
 // Step 1
 Have three zombies on screen, slowly walking back
 "Kill" them if they walk too close (respawn)
@@ -37,8 +37,6 @@ Have three zombies on screen, slowly walking back
 Create a simple cube level.
 Kill 1 zombie, kill 2 zombies, kill 3 zombies, go in a circle.
 Select better words without the same starting letter.
-
-
 
 // Telex stuff
 If you type "ư" and then you type "o" it will
@@ -54,7 +52,6 @@ Accents usually magnetize to the strongest vowels first.
 "u"
 "a"
 "i"
-
 
 */
 

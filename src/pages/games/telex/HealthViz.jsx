@@ -2,6 +2,9 @@ import { Html, Hud, OrthographicCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import _ from "lodash";
 import { useEffect, useMemo, useRef } from "react";
+import heartGif from "./assets/heart.gif";
+import fireGif from "./assets/fire.gif";
+import heartWhiteGif from "./assets/heart-white.gif";
 
 function easeOutBounce(x) {
   const n1 = 7.5625;
@@ -51,14 +54,14 @@ export function HeartSpinning() {
     <div style={{ position: "relative", width: "20%", height: "100%" }}>
       <img
         ref={heart}
-        src={require("./assets/heart.gif")}
+        src={heartGif}
         style={{ position: "absolute", width: "100%", bottom: 0, zIndex: 1 }}
       />
       {_.range(3).map((i) => (
         <img
           key={i}
           ref={(ref) => (fires.current[i] = ref)}
-          src={require("./assets/fire.gif")}
+          src={fireGif}
           style={{
             position: "absolute",
             width: "50%",
@@ -108,19 +111,19 @@ export function HeartDying() {
     <div style={{ position: "relative", width: "20%", height: "100%" }}>
       <img
         ref={heart}
-        src={require("./assets/heart.gif")}
+        src={heartGif}
         style={{ position: "absolute", width: "100%", bottom: 0, zIndex: 1 }}
       />
       <img
         ref={heartWhite}
-        src={require("./assets/heart-white.gif")}
+        src={heartWhiteGif}
         style={{ position: "absolute", width: "100%", bottom: 0, zIndex: 1 }}
       />
       {_.range(3).map((i) => (
         <img
           key={i}
           ref={(ref) => (fires.current[i] = ref)}
-          src={require("./assets/fire.gif")}
+          src={fireGif}
           style={{
             position: "absolute",
             width: "50%",
